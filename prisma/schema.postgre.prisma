@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POST_GRE_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL_PG")
+}
+
+model User {
+  user_id             String     @id @default(uuid())
+  email               String     @unique
+  password_hash       String
+  resetPasswordToken  String
+  resetPasswordExpire String
+  first_name          String
+  last_name           String
+  phone_number        String
+  role                Role
+  wedding_date        DateTime?
+  wedding_location    String?
+  created_at          DateTime   @default(now())
+
+  bookings            Booking[]
+  reviews             Review[]
+}
+
+model Booking {
+  booking_id   String   @id @default(uuid())
+  user_id      String
+  vendor_id    String   // Refers to a Vendor in MongoDB
+  service_id   String   // Refers to a Service in MongoDB
+  booking_date DateTime
+  status       String
+  created_at   DateTime @default(now())
+
+  user         User     @relation(fields: [user_id], references: [user_id])
+  payments     Payment[]
+}
+
+model Payment {
+  payment_id      String   @id @default(uuid())
+  booking_id      String
+  amount          Decimal
+  payment_status  String   // e.g., "pending", "completed", "failed"
+  payment_method  String   // e.g., "credit card", "PayPal"
+  transaction_id  String
+  payment_date    DateTime
+
+  // Relations
+  booking         Booking  @relation(fields: [booking_id], references: [booking_id])
+}
+
+model Review {
+  review_id      String   @id @default(uuid())
+  vendor_id      String   // Refers to a Vendor in MongoDB
+  user_id        String
+  rating         Int      // Rating 1 to 5
+  review_text    String
+  created_at     DateTime @default(now())
+
+  // Relations
+  user           User     @relation(fields: [user_id], references: [user_id])
+}
+
+model EventSchedule {
+  event_id         String   @id @default(uuid())
+  vendor_id        String   // Refers to a Vendor in MongoDB
+  media_id         String   // Refers to a Media in MongoDB
+  event_name       String
+  event_start_date DateTime
+  event_end_date   DateTime
+  event_location   String
+  description      String
+  created_at       DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
