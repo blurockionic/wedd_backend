@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma-mongo/prisma/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_DB_DATABASE_URL")
+}
+
+model Vendor {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  business_name     String
+  business_category String
+  service_type      String[]
+  location          String
+  email             String            @unique
+  phone_number      String
+  map_location      Json
+  social_networks   Json?
+  services         Service           @relation(fields: [serviceId], references: [id])
+  serviceId        String            @db.ObjectId
+  promotions        Promotion[]
+  team_members      TeamMember[]
+  faq_answers       VendorFAQAnswer[]
+  created_at        DateTime          @default(now())
+}
+
+model Service {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  service_name   String
+  description    String
+  service_type   String
+  created_at     DateTime       @default(now())
+  availabilities Availability[]
+  media          Media[]
+  Vendor         Vendor[]
+}
+
+model Availability {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId      String   @db.ObjectId
+  service        Service  @relation(fields: [serviceId], references: [id])
+  available_date DateTime
+  wedding_date   DateTime
+  is_available   Boolean
+  created_at     DateTime @default(now())
+}
+
+model Media {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId   String   @db.ObjectId
+  service     Service  @relation(fields: [serviceId], references: [id])
+  image_urls  String[]
+  video_urls  String[]
+  uploaded_at DateTime @default(now())
+}
+
+model VendorFAQAnswer {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId    String   @db.ObjectId
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  faq_id      String
+  answer_text String
+  created_at  DateTime @default(now())
+}
+
+model TeamMember {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId   String   @db.ObjectId
+  vendor     Vendor   @relation(fields: [vendorId], references: [id])
+  name       String
+  position   String
+  bio        String
+  email      String
+  photo_url  String
+  created_at DateTime @default(now())
+}
+
+model Promotion {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId            String   @db.ObjectId
+  vendor              Vendor   @relation(fields: [vendorId], references: [id])
+  promotion_title     String
+  description         String
+  discount_percentage Float
+  end_date            DateTime
+  created_at          DateTime @default(now())
+}
+
+model faq{
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId    String   @db.ObjectId
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  question    String
+}
