@@ -25,7 +25,7 @@ model User {
   isVerified          Boolean    @default(false)
   bookings            Booking[]
   reviews             Review[]
-  uploaded_at         DateTime?
+  updated_at         DateTime?
 }
 
 model Booking {

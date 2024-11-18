@@ -1,46 +1,49 @@
 import jwt from "jsonwebtoken";
 import CustomError from "../utils/CustomError.js";
-const jwtAuthentication =(req,_,next)=>{
+const jwtAuthentication = (req, res, next) => {
+  try {
+    // Extract the token from the cookies or Authorization header
+    const token =
+      req.cookies.accessToken ||
+      (req.headers["authorization"] &&
+        req.headers["authorization"].startsWith("Bearer ") &&
+        req.headers["authorization"].split(" ")[1]);
 
-    // extract the token from the cookie or authorization header for mobile
-    
-        const token = req.cookies.accessToken 
-        ||req.headers['authorization'] 
-        && req.headers['authorization'].startsWith('Bearer ') 
-        && req.headers['authorization'].split(' ')[1];
-
-    
-    // validate the token if it is found in the cookie
-
-        if (!token) {
-            return next(new CustomError('Not authenticated', 401));
-        }
-
-    // validate the token from jwt verification and passing the user  through req object by collecting from model
-
-    try {
-
-        //  decode the token 
-
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
-        // const user = await User.findById(decodedToken.id);
-
-        // TODO: find user from model and set to req
-         
-
-        req.user = user;
-
-        next();
-        
-    } catch (error) {
-
-        next(new CustomError('Token is invalid or expired', 403));
-        
+    // If no token is found, deny access
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Access token is missing or invalid." });
     }
 
-        
+    // Verify and decode the token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-}
+    // Attach the decoded user data to the request object
+    req.user = decoded;
+
+    // Optional: Log the user data during development
+    if (process.env.NODE_ENV === "development") {
+      console.log("Authenticated user:", req.user);
+    }
+
+    next();
+  } catch (error) {
+    // Handle token verification errors
+    if (error.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ message: "Token has expired. Please log in again." });
+    }
+    if (error.name === "JsonWebTokenError") {
+      return res
+        .status(403)
+        .json({ message: "Invalid token. Please log in again." });
+    }
+
+    // Generic error handler
+    next(new CustomError("Authentication error. Please try again later.", 500));
+  }
+};
 
 export default jwtAuthentication;
