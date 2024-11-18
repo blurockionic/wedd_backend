@@ -5,10 +5,11 @@ import CustomError from "../utils/CustomError.js";
 
 const sendVerificationEmail = async (email,userId) => {
 
-console.log(email,userId,process.env.BASE_URL +" verified");
+    // Generate a verification token and send it to the user's email using nodemailer.
 try {
     const verificationToken = jwt.sign({ email, userId }, process.env.JWT_SECRET, { expiresIn: process.env.EMAIL_EXP });
 
+    // smtp server creation for this 
     
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -17,6 +18,8 @@ try {
             pass: process.env.EMAIL_PASSWORD
         }
     })
+
+    // Construct the email content with the verification link
     
     const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
@@ -31,8 +34,9 @@ try {
         `,
       };
     
-    
+    // send the mail to user
       await transporter.sendMail(mailOptions);
+
       return{verificationToken}
 
 } catch (error) {
