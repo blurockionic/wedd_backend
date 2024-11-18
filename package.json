@@ -6,13 +6,16 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": " nodemon server.js",
     "prisma-generate": "prisma generate --schema=prisma/schema.postgre.prisma",
     "prisma:dbpush": "prisma db push --schema=prisma/schema.postgre.prisma",
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.postgre.prisma",
     "prisma:generate-mongo": "prisma generate --schema=prisma/schema.mongo.prisma",
     "prisma:dbpush-mongo": "prisma db push --schema=prisma/schema.mongo.prisma",
-    "prisma:migrate-mongo": "prisma migrate dev --schema=prisma/schema.mongo.prisma"},
+    "prisma:migrate-mongo": "prisma migrate dev --schema=prisma/schema.mongo.prisma",
+    "prisma:generate-all": "npm run prisma-generate && npm run prisma:generate-mongo",
+    "prisma:migrate-all": "npm run prisma:migrate && npm run prisma:migrate-mongo"
+  },
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
@@ -21,7 +24,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.16",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.7",
@@ -30,5 +35,4 @@
   "keywords": [],
   "author": "",
   "license": "ISC"
- 
 }
