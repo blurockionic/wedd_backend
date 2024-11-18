@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import  {PrismaClient}  from '../prisma/generated/postgres/index.js';
 
 class PrismaService {
   constructor() {

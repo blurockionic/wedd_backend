@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma-mongo/prisma/client"
+  output   = "./generated/mongo"
+   datasources = [db]
 }
 
 datasource db {
@@ -19,24 +20,23 @@ model Vendor {
   phone_number      String
   map_location      Json
   social_networks   Json?
-  services         Service           @relation(fields: [serviceId], references: [id])
-  serviceId        String            @db.ObjectId
-  promotions        Promotion[]
-  team_members      TeamMember[]
-  faq_answers       VendorFAQAnswer[]
+  services          Service[]         @relation("VendorServices")  // One-to-many relation
+  promotions        Promotion[]       // One-to-many relation
+  team_members      TeamMember[]      // One-to-many relation
+  faqs              FAQ[]             // One-to-many relation
   created_at        DateTime          @default(now())
 }
 
 model Service {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
   service_name   String
   description    String
   service_type   String
-  created_at     DateTime       @default(now())
-  availabilities Availability[]
-  media          Media[]
-  Vendor         Vendor[]
+  created_at     DateTime         @default(now())
+  availabilities Availability[]   // One-to-many relation with Availability
+  media          Media[]          // One-to-many relation with Media
+  vendorId       String           @db.ObjectId       // Foreign key for Vendor
+  vendor         Vendor           @relation("VendorServices", fields: [vendorId], references: [id])  // One-to-one relation to Vendor
 }
 
 model Availability {
@@ -56,15 +56,6 @@ model Media {
   image_urls  String[]
   video_urls  String[]
   uploaded_at DateTime @default(now())
-}
-
-model VendorFAQAnswer {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId    String   @db.ObjectId
-  vendor      Vendor   @relation(fields: [vendorId], references: [id])
-  faq_id      String
-  answer_text String
-  created_at  DateTime @default(now())
 }
 
 model TeamMember {
@@ -90,9 +81,11 @@ model Promotion {
   created_at          DateTime @default(now())
 }
 
-model faq{
+model FAQ {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   vendorId    String   @db.ObjectId
   vendor      Vendor   @relation(fields: [vendorId], references: [id])
   question    String
+  answer      String?
+  created_at  DateTime @default(now())
 }

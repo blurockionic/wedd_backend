@@ -7,6 +7,7 @@ import prismaServiceMongo from './config/prisma.mongo.service.js';
 import prismaService from './config/prisma.postgre.service.js';
 import cluster from 'cluster';
 import os from 'os';
+import routes from './routes/routes.js';
 
 dotenv.config();
 
@@ -52,9 +53,7 @@ if (cluster.isPrimary) {
     })();
 
     // Define routes
-    app.get('/', (req, res) => {
-        res.send('Hello World!');
-    });
+    app.use('/api/v1',routes);
 
     // Error handling middleware
     app.use(errorMiddleware);
@@ -77,4 +76,5 @@ if (cluster.isPrimary) {
         process.exit(0);
     });
 }
+
   
