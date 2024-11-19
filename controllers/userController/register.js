@@ -17,6 +17,21 @@ const userRegistration = async (req, res, next) => {
       where: { email: validatedData.email },
     });
 
+    const content = (token) => {
+      return {
+        subject: "weed-clone Email Verification ",
+        text: `Click on the link below to verify your email: ${process.env.BASE_URL}/api/v1/users/verify-email?token=${token}`,
+        html: `
+          <p>Hello,</p>
+          <p>Thank you for registering. Please verify your email using the link below:</p>
+          <a href="${process.env.BASE_URL}/api/v1/users/verify-email?token=${token}">Verify Email</a>
+          <p>This link will expire in 10 minutes.</p>
+          <p>Regards,<br>Your App Team</p>
+        `,
+      };
+    };
+    
+
     if (existingUser) {
       if (existingUser.isVerified) {
         // Email exists and is already verified
@@ -25,7 +40,7 @@ const userRegistration = async (req, res, next) => {
           .json({ message: "Email already exists and is verified." });
       } else {
         // Email exists but is not verified, resend the verification email
-        await sendVerificationEmail(existingUser.email, existingUser.user_id);
+        await sendVerificationEmail(existingUser.email, existingUser.user_id,content);
         return res.status(200).json({
           message:
             "Email already exists but not verified. Verification email resent.",
@@ -55,7 +70,7 @@ const userRegistration = async (req, res, next) => {
     });
 
     // Send verification email for the newly registered user
-    await sendVerificationEmail(newUser.email, newUser.user_id);
+    await sendVerificationEmail(newUser.email, newUser.user_id,content);
 
     // Exclude sensitive fields before sending the response
     const { password_hash, resetPasswordToken,resetPasswordExpire,updated_at,created_at, ...userResponse } = newUser;
