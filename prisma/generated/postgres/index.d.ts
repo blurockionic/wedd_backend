@@ -1287,9 +1287,10 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     user_id: string | null
     email: string | null
+    refresh_Token: string | null
     password_hash: string | null
-    resetPasswordToken: string | null
-    resetPasswordExpire: string | null
+    resetPassword_Token: string | null
+    resetPassword_Expire: string | null
     first_name: string | null
     last_name: string | null
     phone_number: string | null
@@ -1304,9 +1305,10 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     user_id: string | null
     email: string | null
+    refresh_Token: string | null
     password_hash: string | null
-    resetPasswordToken: string | null
-    resetPasswordExpire: string | null
+    resetPassword_Token: string | null
+    resetPassword_Expire: string | null
     first_name: string | null
     last_name: string | null
     phone_number: string | null
@@ -1321,9 +1323,10 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     user_id: number
     email: number
+    refresh_Token: number
     password_hash: number
-    resetPasswordToken: number
-    resetPasswordExpire: number
+    resetPassword_Token: number
+    resetPassword_Expire: number
     first_name: number
     last_name: number
     phone_number: number
@@ -1340,9 +1343,10 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     user_id?: true
     email?: true
+    refresh_Token?: true
     password_hash?: true
-    resetPasswordToken?: true
-    resetPasswordExpire?: true
+    resetPassword_Token?: true
+    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1357,9 +1361,10 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     user_id?: true
     email?: true
+    refresh_Token?: true
     password_hash?: true
-    resetPasswordToken?: true
-    resetPasswordExpire?: true
+    resetPassword_Token?: true
+    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1374,9 +1379,10 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     user_id?: true
     email?: true
+    refresh_Token?: true
     password_hash?: true
-    resetPasswordToken?: true
-    resetPasswordExpire?: true
+    resetPassword_Token?: true
+    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1464,9 +1470,10 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     user_id: string
     email: string
+    refresh_Token: string | null
     password_hash: string
-    resetPasswordToken: string | null
-    resetPasswordExpire: string | null
+    resetPassword_Token: string | null
+    resetPassword_Expire: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -1498,9 +1505,10 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     email?: boolean
+    refresh_Token?: boolean
     password_hash?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordExpire?: boolean
+    resetPassword_Token?: boolean
+    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1518,9 +1526,10 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     email?: boolean
+    refresh_Token?: boolean
     password_hash?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordExpire?: boolean
+    resetPassword_Token?: boolean
+    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1535,9 +1544,10 @@ export namespace Prisma {
   export type UserSelectScalar = {
     user_id?: boolean
     email?: boolean
+    refresh_Token?: boolean
     password_hash?: boolean
-    resetPasswordToken?: boolean
-    resetPasswordExpire?: boolean
+    resetPassword_Token?: boolean
+    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1565,9 +1575,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
       email: string
+      refresh_Token: string | null
       password_hash: string
-      resetPasswordToken: string | null
-      resetPasswordExpire: string | null
+      resetPassword_Token: string | null
+      resetPassword_Expire: string | null
       first_name: string
       last_name: string
       phone_number: string
@@ -1974,9 +1985,10 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly user_id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly refresh_Token: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
-    readonly resetPasswordToken: FieldRef<"User", 'String'>
-    readonly resetPasswordExpire: FieldRef<"User", 'String'>
+    readonly resetPassword_Token: FieldRef<"User", 'String'>
+    readonly resetPassword_Expire: FieldRef<"User", 'String'>
     readonly first_name: FieldRef<"User", 'String'>
     readonly last_name: FieldRef<"User", 'String'>
     readonly phone_number: FieldRef<"User", 'String'>
@@ -6250,9 +6262,10 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     user_id: 'user_id',
     email: 'email',
+    refresh_Token: 'refresh_Token',
     password_hash: 'password_hash',
-    resetPasswordToken: 'resetPasswordToken',
-    resetPasswordExpire: 'resetPasswordExpire',
+    resetPassword_Token: 'resetPassword_Token',
+    resetPassword_Expire: 'resetPassword_Expire',
     first_name: 'first_name',
     last_name: 'last_name',
     phone_number: 'phone_number',
@@ -6449,9 +6462,10 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     user_id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
-    resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordExpire?: StringNullableFilter<"User"> | string | null
+    resetPassword_Token?: StringNullableFilter<"User"> | string | null
+    resetPassword_Expire?: StringNullableFilter<"User"> | string | null
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
@@ -6468,9 +6482,10 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     user_id?: SortOrder
     email?: SortOrder
+    refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
-    resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordExpire?: SortOrderInput | SortOrder
+    resetPassword_Token?: SortOrderInput | SortOrder
+    resetPassword_Expire?: SortOrderInput | SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -6490,9 +6505,10 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
-    resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordExpire?: StringNullableFilter<"User"> | string | null
+    resetPassword_Token?: StringNullableFilter<"User"> | string | null
+    resetPassword_Expire?: StringNullableFilter<"User"> | string | null
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
@@ -6509,9 +6525,10 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     user_id?: SortOrder
     email?: SortOrder
+    refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
-    resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordExpire?: SortOrderInput | SortOrder
+    resetPassword_Token?: SortOrderInput | SortOrder
+    resetPassword_Expire?: SortOrderInput | SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -6532,9 +6549,10 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     user_id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    refresh_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
-    resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    resetPasswordExpire?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPassword_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPassword_Expire?: StringNullableWithAggregatesFilter<"User"> | string | null
     first_name?: StringWithAggregatesFilter<"User"> | string
     last_name?: StringWithAggregatesFilter<"User"> | string
     phone_number?: StringWithAggregatesFilter<"User"> | string
@@ -6818,9 +6836,10 @@ export namespace Prisma {
   export type UserCreateInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6837,9 +6856,10 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6856,9 +6876,10 @@ export namespace Prisma {
   export type UserUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6875,9 +6896,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6894,9 +6916,10 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6911,9 +6934,10 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6928,9 +6952,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -7322,9 +7347,10 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     user_id?: SortOrder
     email?: SortOrder
+    refresh_Token?: SortOrder
     password_hash?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordExpire?: SortOrder
+    resetPassword_Token?: SortOrder
+    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -7339,9 +7365,10 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     user_id?: SortOrder
     email?: SortOrder
+    refresh_Token?: SortOrder
     password_hash?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordExpire?: SortOrder
+    resetPassword_Token?: SortOrder
+    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -7356,9 +7383,10 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     user_id?: SortOrder
     email?: SortOrder
+    refresh_Token?: SortOrder
     password_hash?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordExpire?: SortOrder
+    resetPassword_Token?: SortOrder
+    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -8207,9 +8235,10 @@ export namespace Prisma {
   export type UserCreateWithoutBookingsInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8225,9 +8254,10 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutBookingsInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8287,9 +8317,10 @@ export namespace Prisma {
   export type UserUpdateWithoutBookingsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8305,9 +8336,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutBookingsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8408,9 +8440,10 @@ export namespace Prisma {
   export type UserCreateWithoutReviewsInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8426,9 +8459,10 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutReviewsInput = {
     user_id?: string
     email: string
+    refresh_Token?: string | null
     password_hash: string
-    resetPasswordToken?: string | null
-    resetPasswordExpire?: string | null
+    resetPassword_Token?: string | null
+    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8460,9 +8494,10 @@ export namespace Prisma {
   export type UserUpdateWithoutReviewsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8478,9 +8513,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutReviewsInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpire?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import CustomError from "../utils/CustomError.js";
 
 
-const sendVerificationEmail = async (email,userId,content) => {
+const sendVerificationEmail = async (email,userId,createEmailContent) => {
 
     // Generate a verification token and send it to the user's email using nodemailer.
 try {
@@ -23,7 +23,7 @@ try {
 
     // Construct the email content with the verification link
     
-    const emailContent = content(verificationToken);
+    const emailContent = createEmailContent(verificationToken);
 
     const mailOptions = {
       from: process.env.EMAIL_ADDRESS,
@@ -39,6 +39,8 @@ try {
       return{verificationToken}
 
 } catch (error) {
+  console.error("Error sending email:", error.message);
+  console.error("Stack trace:", error.stack);
 
     throw new CustomError('Failed to send verification email', 500); 
 }

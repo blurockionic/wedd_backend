@@ -1,10 +1,12 @@
 
 import {  loginSchema } from "../../validation schema/user.schema.js";
-import { PrismaClient } from "../../prisma/generated/postgres/index.js";
+import GenerateAccessandRefreshToken from "../../helper/generateAccessandRefreshToken.js";
+
 import z from "zod";
 import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js"
 import jwt from "jsonwebtoken"
+import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 
 const prisma = new PrismaClient();
 
@@ -25,10 +27,19 @@ const userLogin = async (req, res, next) => {
     }
 
     // Generate access token
-    const accessToken = generateAccessToken(user);
+    
+    const accessToken = await GenerateAccessandRefreshToken.generateAccessToken(user);
+    const refreshToken = await GenerateAccessandRefreshToken.generateRefreshToken(user); 
+
+    // Save refresh token to the database
+
+    await prisma.User.update({
+      where: { user_id: user.user_id },
+      data: { refresh_Token: refreshToken },
+    });
 
     // Sanitize user object
-    const { password_hash, resetPasswordToken, resetPasswordExpire, updated_at, created_at, ...sanitizedUser } = user;
+    const { password_hash,  resetPasswordToken, resetPasswordExpire, updated_at, created_at, ...sanitizedUser } = user;
 
     // Cookie options for security
     const cookieOption = {
@@ -37,9 +48,11 @@ const userLogin = async (req, res, next) => {
       sameSite: "strict",
     };
 
+
     return res
       .status(200)
       .cookie("accessToken", accessToken, cookieOption)
+      .cookie("refreshToken", refreshToken, cookieOption)
       .json({
         message: "Login successful",
         accessToken,
@@ -55,28 +68,7 @@ const userLogin = async (req, res, next) => {
 };
 
   // Function to generate the access token
-  const generateAccessToken = (user) => {
-    try {
-      const { user_id, email, first_name, last_name, role } = user;
   
-      return jwt.sign(
-        {
-          user_id,
-          email,
-          first_name,
-          last_name,
-          role,
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: process.env.ACCESS_TOKEN_EXP,
-        }
-      );
-    } catch (error) {
-      console.error("Error generating access token:", error);
-      throw new CustomError("Failed to generate access token.", 500);
-    }
-  };
 
 const isPasswordCorrcet = (password, hashedPassword) => {
   return bcrypt.compareSync(password, hashedPassword);
