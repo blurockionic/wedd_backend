@@ -15,11 +15,12 @@ const verifyEmail = async (req, res, next) => {
     }
 
     // Verify the token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);  
+    const decoded = jwt.verify(token, process.env.EMAIL_TOKEN_SECRET);  
+    
 
    // Find the user by the ID from the token
     const user = await prisma.User.findUnique({
-      where: { user_id: decoded.userId },
+      where: { user_id: decoded.user_id},
     });
 
     if (!user) {
@@ -33,7 +34,7 @@ const verifyEmail = async (req, res, next) => {
 
     // Update the user's verification status
     await prisma.User.update({
-      where: { user_id: decoded.userId },
+      where: { user_id: decoded.user_id },
       data: { isVerified: true },
     });
 

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
-import GenerateAccessandRefreshToken from "../../helper/generateAccessandRefreshToken.js";
+import GenerateToken from "../../helper/generateToken.js";
 import CustomError from "../../utils/CustomError.js"; // Ensure this is correctly imported
 
 const prisma = new PrismaClient();
@@ -31,10 +31,6 @@ export const refreshAccessToken = async (req, res, next) => {
       where: { user_id : decodedToken.user_id }, 
     });
 
-   
-
-
-
     if (!user) {
       throw new CustomError("Invalid refresh token", 401);
     }
@@ -47,8 +43,8 @@ export const refreshAccessToken = async (req, res, next) => {
     }
 
     // Generate new tokens
-    const accessToken = await GenerateAccessandRefreshToken.generateAccessToken(user);
-    const newRefreshToken = await GenerateAccessandRefreshToken.generateRefreshToken(user); 
+    const accessToken = await GenerateToken.generateAccessToken(user);
+    const newRefreshToken = await GenerateToken.generateRefreshToken(user); 
 
 
     // update new refresh token in database
@@ -67,7 +63,7 @@ export const refreshAccessToken = async (req, res, next) => {
 
     
     // Send the new tokens to both web (cookies) and mobile (response body)
-    
+
     return res
       .status(201)
       .cookie("accessToken", accessToken, cookieOption)

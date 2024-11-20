@@ -1,6 +1,6 @@
 
 import {  loginSchema } from "../../validation schema/user.schema.js";
-import GenerateAccessandRefreshToken from "../../helper/generateAccessandRefreshToken.js";
+import GenerateToken from "../../helper/generateToken.js";
 
 import z from "zod";
 import bcrypt from "bcryptjs";
@@ -28,8 +28,8 @@ const userLogin = async (req, res, next) => {
 
     // Generate access token
     
-    const accessToken = await GenerateAccessandRefreshToken.generateAccessToken(user);
-    const refreshToken = await GenerateAccessandRefreshToken.generateRefreshToken(user); 
+    const accessToken = await GenerateToken.generateAccessToken(user);
+    const refreshToken = await GenerateToken.generateRefreshToken(user); 
 
     // Save refresh token to the database
 
@@ -39,7 +39,7 @@ const userLogin = async (req, res, next) => {
     });
 
     // Sanitize user object
-    const { password_hash,  resetPasswordToken, resetPasswordExpire, updated_at, created_at, ...sanitizedUser } = user;
+    const { password_hash,  resetPassword_Token, resetPassword_Expire, updated_at, created_at, ...sanitizedUser } = user;
 
     // Cookie options for security
     const cookieOption = {
