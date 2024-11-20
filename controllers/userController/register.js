@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { userSchema } from "../../validation schema/user.schema.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 const prisma = new PrismaClient();
+import GenerateToken from "../../helper/generateToken.js";
 
 // Helper function to create email content
 const createEmailContent = (token) => ({
@@ -37,8 +38,11 @@ const userRegistration = async (req, res, next) => {
           .json({ message: "Email already exists and is verified." });
       } else {
         // Email exists but is not verified, resend the verification email
-       
-        await sendVerificationEmail(existingUser.email, existingUser.user_id, createEmailContent);
+        const emailVerificationToken = GenerateToken.generateEmailVerificationToken(existingUser);
+        const emailContent = createEmailContent(emailVerificationToken);
+
+        await sendVerificationEmail(existingUser.email, emailContent);
+
         return res.status(200).json({
           message:
             "Email already exists but not verified. Verification email resent.",
@@ -47,8 +51,7 @@ const userRegistration = async (req, res, next) => {
     }
 
     // Hash the password before storing it in the database
-    const saltRounds = 10; // Adjust based on your security/performance balance
-    const hashedPassword = await bcrypt.hash(validatedData.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(validatedData.password, 10); // 10 salt rounds for security/performance
 
     // Create a new user in the database
     const newUser = await prisma.User.create({
@@ -64,12 +67,16 @@ const userRegistration = async (req, res, next) => {
       },
     });
 
-    // Send verification email for the newly registered user
-   
-    await sendVerificationEmail(newUser.email, newUser.user_id, createEmailContent);
+    // Generate email verification token and send the email
+    const emailVerificationToken = GenerateToken.generateEmailVerificationToken(newUser);
+    const emailContent = createEmailContent(emailVerificationToken);
+
+    await sendVerificationEmail(newUser.email, emailContent);
 
     // Exclude sensitive fields before sending the response
-    const { password_hash, resetPasswordToken, resetPasswordExpire, updated_at, created_at, ...userResponse } = newUser;
+    const { password_hash,refresh_Token,
+      resetPassword_Token,
+      resetPassword_Expire,created_at,updated_at, ...userResponse } = newUser;
 
     res.status(201).json({
       message: "User registered successfully. Verification email sent.",

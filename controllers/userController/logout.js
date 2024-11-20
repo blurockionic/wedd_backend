@@ -13,7 +13,7 @@ const userLogout = async (req, res, next) => {
     }
 
     // Clear the refresh token from the database
-    
+
     await prisma.User.update({
       where: { user_id: userId },
       data: { refresh_Token: "" },
