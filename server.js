@@ -8,6 +8,7 @@ import prismaService from './config/prisma.postgre.service.js';
 import cluster from 'cluster';
 import os from 'os';
 import routes from './routes/routes.js';
+import morganLogger from './middleware/log.middleware.js';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
+app.use(morganLogger)
 
 // Health Check Endpoint
 app.get('/health', (req, res) => {
