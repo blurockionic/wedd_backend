@@ -6,19 +6,7 @@ import { userSchema } from "../../validation schema/user.schema.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 const prisma = new PrismaClient();
 import GenerateToken from "../../helper/generateToken.js";
-
-// Helper function to create email content
-const createEmailContent = (token) => ({
-  subject: "Weed-Clone Email Verification",
-  text: `Click on the link below to verify your email: ${process.env.BASE_URL}/api/v1/users/verify-email?token=${token}`,
-  html: `
-    <p>Hello,</p>
-    <p>Thank you for registering. Please verify your email using the link below:</p>
-    <a href="${process.env.BASE_URL}/api/v1/users/verify-email?token=${token}">Verify Email</a>
-    <p>This link will expire in 10 minutes.</p>
-    <p>Regards,<br>Your App Team</p>
-  `,
-});
+import { registerEmailContent } from "../../constant/static.js"
 
 const userRegistration = async (req, res, next) => {
   try {
@@ -39,7 +27,7 @@ const userRegistration = async (req, res, next) => {
       } else {
         // Email exists but is not verified, resend the verification email
         const emailVerificationToken = GenerateToken.generateEmailVerificationToken(existingUser);
-        const emailContent = createEmailContent(emailVerificationToken);
+        const emailContent = registerEmailContent(emailVerificationToken);
 
         await sendVerificationEmail(existingUser.email, emailContent);
 
@@ -69,7 +57,7 @@ const userRegistration = async (req, res, next) => {
 
     // Generate email verification token and send the email
     const emailVerificationToken = GenerateToken.generateEmailVerificationToken(newUser);
-    const emailContent = createEmailContent(emailVerificationToken);
+    const emailContent = registerEmailContent(emailVerificationToken);
 
     await sendVerificationEmail(newUser.email, emailContent);
 

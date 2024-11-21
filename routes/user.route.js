@@ -7,6 +7,7 @@ import jwtAuthentication from "../middleware/auth.middleware.js"
 import { refreshAccessToken } from '../controllers/userController/refreshAccessToken.js';
 import requestPasswordReset from '../controllers/userController/requestPasswordReset.js';
 import { resetPassword } from '../controllers/userController/resetPassword.js';
+import deleteUserAccount from '../controllers/userController/deleteAccount.js';
 
 const UserRouter = express.Router();
 
@@ -18,6 +19,7 @@ UserRouter.route("/logout").post(jwtAuthentication,userlogout);
 UserRouter.route("/refresh-access-token").post(refreshAccessToken);
 UserRouter.route("/request-password-reset").post(requestPasswordReset)
 UserRouter.route("/reset-password").post(resetPassword)
+UserRouter.route("/delete-user").post(jwtAuthentication,deleteUserAccount)
 
 
 export default UserRouter;

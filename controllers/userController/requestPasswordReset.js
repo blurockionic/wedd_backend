@@ -7,22 +7,11 @@ import sendVerificationEmail from "../../service/emailService.js";
 import ms from 'ms';
 import z from "zod";
 import jwt from "jsonwebtoken";
-
+import { resetPassEmailContent } from "../../constant/static.js";
 
 const prisma = new PrismaClient();
 
-const createEmailContent = (token) => ({
-  subject: "Password Reset Request",
-  text: `Click on the link below to reset your password: ${process.env.BASE_URL}/api/v1/users/reset-password?token=${token}`,
-  html: `
-    <p>Hello,</p>
-    <p>We received a request to reset your password. Please click the link below to reset it:</p>
-    <a href="${process.env.BASE_URL}/api/v1/users/reset-password?token=${token}">Reset Password</a>
-    <p>This link will expire in 10 minutes.</p>
-    <p>If you did not request a password reset, please ignore this email.</p>
-    <p>Regards,<br>Your App Team</p>
-  `,
-});
+
 
 
 // Request Password Reset
@@ -63,7 +52,7 @@ const requestPasswordReset = async (req, res, next) => {
     // Send reset token via email
 
     
-    await sendVerificationEmail(updatedUser.email, createEmailContent(resetToken));
+    await sendVerificationEmail(updatedUser.email, resetPassEmailContent(resetToken));
 
 
     

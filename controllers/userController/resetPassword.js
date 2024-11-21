@@ -12,9 +12,8 @@ const prisma = new PrismaClient();
 export const resetPassword = async (req, res, next) => {
   try {
 
-   
-
     // Extract and validate token (from query or params) and new password
+
     const { token } = resetTokenSchema.parse(req.query); // Assuming token comes from query string
     const { password } = resetPasswordSchema.parse(req.body); // Renamed for clarity
 
@@ -33,6 +32,7 @@ export const resetPassword = async (req, res, next) => {
     }
 
     // Fetch the user using the decoded token's user_id
+
     const user = await prisma.User.findUnique({
       where: { user_id: decodedToken.user_id },
     });
