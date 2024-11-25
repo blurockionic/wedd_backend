@@ -16,6 +16,6 @@ const morganLogger = morgan(morganFormat, {
       logger.info(JSON.stringify(logObject));
     },
   },
-});
+})
 
 export default morganLogger;

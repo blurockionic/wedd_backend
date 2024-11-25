@@ -1,7 +1,6 @@
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/mongo"
-   datasources = [db]
 }
 
 datasource db {
@@ -14,29 +13,40 @@ model Vendor {
   name              String
   business_name     String
   business_category String
-  service_type      String[]
-  location          String
+  license_number    String?  
+  service_type      String[]          @default([]) // Ensure default value for arrays
+  description       String            // Detailed description of the business
+  logo_url          String?
+  location          String?
   email             String            @unique
-  phone_number      String
+  password_hash     String
+  phone_number      String 
   map_location      Json
   social_networks   Json?
   services          Service[]         @relation("VendorServices")  // One-to-many relation
   promotions        Promotion[]       // One-to-many relation
   team_members      TeamMember[]      // One-to-many relation
   faqs              FAQ[]             // One-to-many relation
+  reviews           Review[]  
   created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+  is_verified       Boolean             @default(false)
+  refresh_Token        String?  
+  resetPassword_Token  String?
 }
 
 model Service {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId       String           @db.ObjectId
+  vendor         Vendor           @relation("VendorServices", fields: [vendorId], references: [id])
   service_name   String
   description    String
+  price          Float
   service_type   String
-  created_at     DateTime         @default(now())
-  availabilities Availability[]   // One-to-many relation with Availability
-  media          Media[]          // One-to-many relation with Media
-  vendorId       String           @db.ObjectId       // Foreign key for Vendor
-  vendor         Vendor           @relation("VendorServices", fields: [vendorId], references: [id])  // One-to-one relation to Vendor
+  availabilities Availability[]
+  media          Media[]
+  created_at     DateTime          @default(now())
+  updated_at     DateTime          @updatedAt
 }
 
 model Availability {
@@ -59,15 +69,16 @@ model Media {
 }
 
 model TeamMember {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId   String   @db.ObjectId
-  vendor     Vendor   @relation(fields: [vendorId], references: [id])
-  name       String
-  position   String
-  bio        String
-  email      String
-  photo_url  String
-  created_at DateTime @default(now())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId    String   @db.ObjectId
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  name        String
+  position    String
+  bio         String
+  email       String
+  photo_url   String?
+  social_links Json?
+  created_at  DateTime @default(now())
 }
 
 model Promotion {
@@ -76,7 +87,8 @@ model Promotion {
   vendor              Vendor   @relation(fields: [vendorId], references: [id])
   promotion_title     String
   description         String
-  discount_percentage Float
+  discount_percentage Float  @default(0)
+  start_date          DateTime
   end_date            DateTime
   created_at          DateTime @default(now())
 }
@@ -87,5 +99,15 @@ model FAQ {
   vendor      Vendor   @relation(fields: [vendorId], references: [id])
   question    String
   answer      String?
+  created_at  DateTime @default(now())
+}
+
+model Review {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId    String   @db.ObjectId
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  userId      String   // ID of the user who submitted the review
+  rating      Int      @default(0) // Rating out of 5
+  comment     String?  // Optional user comment
   created_at  DateTime @default(now())
 }

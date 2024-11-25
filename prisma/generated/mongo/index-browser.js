@@ -120,22 +120,32 @@ exports.Prisma.VendorScalarFieldEnum = {
   name: 'name',
   business_name: 'business_name',
   business_category: 'business_category',
+  license_number: 'license_number',
   service_type: 'service_type',
+  description: 'description',
+  logo_url: 'logo_url',
   location: 'location',
   email: 'email',
+  password_hash: 'password_hash',
   phone_number: 'phone_number',
   map_location: 'map_location',
   social_networks: 'social_networks',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_verified: 'is_verified',
+  refresh_Token: 'refresh_Token',
+  resetPassword_Token: 'resetPassword_Token'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
   id: 'id',
+  vendorId: 'vendorId',
   service_name: 'service_name',
   description: 'description',
+  price: 'price',
   service_type: 'service_type',
   created_at: 'created_at',
-  vendorId: 'vendorId'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AvailabilityScalarFieldEnum = {
@@ -163,6 +173,7 @@ exports.Prisma.TeamMemberScalarFieldEnum = {
   bio: 'bio',
   email: 'email',
   photo_url: 'photo_url',
+  social_links: 'social_links',
   created_at: 'created_at'
 };
 
@@ -172,6 +183,7 @@ exports.Prisma.PromotionScalarFieldEnum = {
   promotion_title: 'promotion_title',
   description: 'description',
   discount_percentage: 'discount_percentage',
+  start_date: 'start_date',
   end_date: 'end_date',
   created_at: 'created_at'
 };
@@ -181,6 +193,15 @@ exports.Prisma.FAQScalarFieldEnum = {
   vendorId: 'vendorId',
   question: 'question',
   answer: 'answer',
+  created_at: 'created_at'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
   created_at: 'created_at'
 };
 
@@ -202,7 +223,8 @@ exports.Prisma.ModelName = {
   Media: 'Media',
   TeamMember: 'TeamMember',
   Promotion: 'Promotion',
-  FAQ: 'FAQ'
+  FAQ: 'FAQ',
+  Review: 'Review'
 };
 
 /**
