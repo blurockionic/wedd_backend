@@ -1297,7 +1297,7 @@ export namespace Prisma {
     wedding_date: Date | null
     wedding_location: string | null
     created_at: Date | null
-    isVerified: boolean | null
+    is_verified: boolean | null
     updated_at: Date | null
   }
 
@@ -1314,7 +1314,7 @@ export namespace Prisma {
     wedding_date: Date | null
     wedding_location: string | null
     created_at: Date | null
-    isVerified: boolean | null
+    is_verified: boolean | null
     updated_at: Date | null
   }
 
@@ -1331,7 +1331,7 @@ export namespace Prisma {
     wedding_date: number
     wedding_location: number
     created_at: number
-    isVerified: number
+    is_verified: number
     updated_at: number
     _all: number
   }
@@ -1350,7 +1350,7 @@ export namespace Prisma {
     wedding_date?: true
     wedding_location?: true
     created_at?: true
-    isVerified?: true
+    is_verified?: true
     updated_at?: true
   }
 
@@ -1367,7 +1367,7 @@ export namespace Prisma {
     wedding_date?: true
     wedding_location?: true
     created_at?: true
-    isVerified?: true
+    is_verified?: true
     updated_at?: true
   }
 
@@ -1384,7 +1384,7 @@ export namespace Prisma {
     wedding_date?: true
     wedding_location?: true
     created_at?: true
-    isVerified?: true
+    is_verified?: true
     updated_at?: true
     _all?: true
   }
@@ -1474,7 +1474,7 @@ export namespace Prisma {
     wedding_date: Date | null
     wedding_location: string | null
     created_at: Date
-    isVerified: boolean
+    is_verified: boolean
     updated_at: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -1508,7 +1508,7 @@ export namespace Prisma {
     wedding_date?: boolean
     wedding_location?: boolean
     created_at?: boolean
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: boolean
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -1528,7 +1528,7 @@ export namespace Prisma {
     wedding_date?: boolean
     wedding_location?: boolean
     created_at?: boolean
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1545,7 +1545,7 @@ export namespace Prisma {
     wedding_date?: boolean
     wedding_location?: boolean
     created_at?: boolean
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: boolean
   }
 
@@ -1575,7 +1575,7 @@ export namespace Prisma {
       wedding_date: Date | null
       wedding_location: string | null
       created_at: Date
-      isVerified: boolean
+      is_verified: boolean
       updated_at: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1984,7 +1984,7 @@ export namespace Prisma {
     readonly wedding_date: FieldRef<"User", 'DateTime'>
     readonly wedding_location: FieldRef<"User", 'String'>
     readonly created_at: FieldRef<"User", 'DateTime'>
-    readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly is_verified: FieldRef<"User", 'Boolean'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
   }
     
@@ -6260,7 +6260,7 @@ export namespace Prisma {
     wedding_date: 'wedding_date',
     wedding_location: 'wedding_location',
     created_at: 'created_at',
-    isVerified: 'isVerified',
+    is_verified: 'is_verified',
     updated_at: 'updated_at'
   };
 
@@ -6459,7 +6459,7 @@ export namespace Prisma {
     wedding_date?: DateTimeNullableFilter<"User"> | Date | string | null
     wedding_location?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
-    isVerified?: BoolFilter<"User"> | boolean
+    is_verified?: BoolFilter<"User"> | boolean
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     bookings?: BookingListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -6478,7 +6478,7 @@ export namespace Prisma {
     wedding_date?: SortOrderInput | SortOrder
     wedding_location?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    isVerified?: SortOrder
+    is_verified?: SortOrder
     updated_at?: SortOrderInput | SortOrder
     bookings?: BookingOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
@@ -6500,7 +6500,7 @@ export namespace Prisma {
     wedding_date?: DateTimeNullableFilter<"User"> | Date | string | null
     wedding_location?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
-    isVerified?: BoolFilter<"User"> | boolean
+    is_verified?: BoolFilter<"User"> | boolean
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     bookings?: BookingListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -6519,7 +6519,7 @@ export namespace Prisma {
     wedding_date?: SortOrderInput | SortOrder
     wedding_location?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    isVerified?: SortOrder
+    is_verified?: SortOrder
     updated_at?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -6542,7 +6542,7 @@ export namespace Prisma {
     wedding_date?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     wedding_location?: StringNullableWithAggregatesFilter<"User"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    is_verified?: BoolWithAggregatesFilter<"User"> | boolean
     updated_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
@@ -6828,7 +6828,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     bookings?: BookingCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
@@ -6847,7 +6847,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -6866,7 +6866,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bookings?: BookingUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
@@ -6885,7 +6885,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -6904,7 +6904,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
   }
 
@@ -6921,7 +6921,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -6938,7 +6938,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -7332,7 +7332,7 @@ export namespace Prisma {
     wedding_date?: SortOrder
     wedding_location?: SortOrder
     created_at?: SortOrder
-    isVerified?: SortOrder
+    is_verified?: SortOrder
     updated_at?: SortOrder
   }
 
@@ -7349,7 +7349,7 @@ export namespace Prisma {
     wedding_date?: SortOrder
     wedding_location?: SortOrder
     created_at?: SortOrder
-    isVerified?: SortOrder
+    is_verified?: SortOrder
     updated_at?: SortOrder
   }
 
@@ -7366,7 +7366,7 @@ export namespace Prisma {
     wedding_date?: SortOrder
     wedding_location?: SortOrder
     created_at?: SortOrder
-    isVerified?: SortOrder
+    is_verified?: SortOrder
     updated_at?: SortOrder
   }
 
@@ -8217,7 +8217,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     reviews?: ReviewCreateNestedManyWithoutUserInput
   }
@@ -8235,7 +8235,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8297,7 +8297,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviews?: ReviewUpdateManyWithoutUserNestedInput
   }
@@ -8315,7 +8315,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8418,7 +8418,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     bookings?: BookingCreateNestedManyWithoutUserInput
   }
@@ -8436,7 +8436,7 @@ export namespace Prisma {
     wedding_date?: Date | string | null
     wedding_location?: string | null
     created_at?: Date | string
-    isVerified?: boolean
+    is_verified?: boolean
     updated_at?: Date | string | null
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8470,7 +8470,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bookings?: BookingUpdateManyWithoutUserNestedInput
   }
@@ -8488,7 +8488,7 @@ export namespace Prisma {
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }

@@ -32,7 +32,7 @@ if (cluster.isPrimary) {
     console.log(`Primary process PID: ${process.pid}`);
 
     // Fork workers based on the number of CPUs
-    for (let i = 0; i < numCPUs; i++) {
+    for (let i = 0; i < 2; i++) {
         cluster.fork();
     }
 

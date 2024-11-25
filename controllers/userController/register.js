@@ -19,7 +19,7 @@ const userRegistration = async (req, res, next) => {
     });
 
     if (existingUser) {
-      if (existingUser.isVerified) {
+      if (existingUser.is_verified) {
         // Email exists and is already verified
         return res
           .status(400)
@@ -27,7 +27,7 @@ const userRegistration = async (req, res, next) => {
       } else {
         // Email exists but is not verified, resend the verification email
         const emailVerificationToken = GenerateToken.generateEmailVerificationToken(existingUser);
-        const emailContent = registerEmailContent(emailVerificationToken);
+        const emailContent = registerEmailContent(emailVerificationToken,existingUser.role);
 
         await sendVerificationEmail(existingUser.email, emailContent);
 
@@ -57,7 +57,7 @@ const userRegistration = async (req, res, next) => {
 
     // Generate email verification token and send the email
     const emailVerificationToken = GenerateToken.generateEmailVerificationToken(newUser);
-    const emailContent = registerEmailContent(emailVerificationToken);
+    const emailContent = registerEmailContent(emailVerificationToken,validatedData.role);
 
     await sendVerificationEmail(newUser.email, emailContent);
 

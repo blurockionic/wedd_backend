@@ -8,7 +8,7 @@ import vendorRouter from './vendor.route.js';
 
 
 routes.use("/users", UserRouter);
-routes.use("/vendor", vendorRouter);
+routes.use("/vendors", vendorRouter);
 
 
 export default routes
