@@ -1290,7 +1290,6 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string | null
     resetPassword_Token: string | null
-    resetPassword_Expire: string | null
     first_name: string | null
     last_name: string | null
     phone_number: string | null
@@ -1308,7 +1307,6 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string | null
     resetPassword_Token: string | null
-    resetPassword_Expire: string | null
     first_name: string | null
     last_name: string | null
     phone_number: string | null
@@ -1326,7 +1324,6 @@ export namespace Prisma {
     refresh_Token: number
     password_hash: number
     resetPassword_Token: number
-    resetPassword_Expire: number
     first_name: number
     last_name: number
     phone_number: number
@@ -1346,7 +1343,6 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1364,7 +1360,6 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1382,7 +1377,6 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    resetPassword_Expire?: true
     first_name?: true
     last_name?: true
     phone_number?: true
@@ -1473,7 +1467,6 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string
     resetPassword_Token: string | null
-    resetPassword_Expire: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -1508,7 +1501,6 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1529,7 +1521,6 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1547,7 +1538,6 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    resetPassword_Expire?: boolean
     first_name?: boolean
     last_name?: boolean
     phone_number?: boolean
@@ -1578,7 +1568,6 @@ export namespace Prisma {
       refresh_Token: string | null
       password_hash: string
       resetPassword_Token: string | null
-      resetPassword_Expire: string | null
       first_name: string
       last_name: string
       phone_number: string
@@ -1988,7 +1977,6 @@ export namespace Prisma {
     readonly refresh_Token: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
     readonly resetPassword_Token: FieldRef<"User", 'String'>
-    readonly resetPassword_Expire: FieldRef<"User", 'String'>
     readonly first_name: FieldRef<"User", 'String'>
     readonly last_name: FieldRef<"User", 'String'>
     readonly phone_number: FieldRef<"User", 'String'>
@@ -6265,7 +6253,6 @@ export namespace Prisma {
     refresh_Token: 'refresh_Token',
     password_hash: 'password_hash',
     resetPassword_Token: 'resetPassword_Token',
-    resetPassword_Expire: 'resetPassword_Expire',
     first_name: 'first_name',
     last_name: 'last_name',
     phone_number: 'phone_number',
@@ -6465,7 +6452,6 @@ export namespace Prisma {
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     resetPassword_Token?: StringNullableFilter<"User"> | string | null
-    resetPassword_Expire?: StringNullableFilter<"User"> | string | null
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
@@ -6485,7 +6471,6 @@ export namespace Prisma {
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
-    resetPassword_Expire?: SortOrderInput | SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -6508,7 +6493,6 @@ export namespace Prisma {
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     resetPassword_Token?: StringNullableFilter<"User"> | string | null
-    resetPassword_Expire?: StringNullableFilter<"User"> | string | null
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
@@ -6528,7 +6512,6 @@ export namespace Prisma {
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
-    resetPassword_Expire?: SortOrderInput | SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -6552,7 +6535,6 @@ export namespace Prisma {
     refresh_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
     resetPassword_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
-    resetPassword_Expire?: StringNullableWithAggregatesFilter<"User"> | string | null
     first_name?: StringWithAggregatesFilter<"User"> | string
     last_name?: StringWithAggregatesFilter<"User"> | string
     phone_number?: StringWithAggregatesFilter<"User"> | string
@@ -6839,7 +6821,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6859,7 +6840,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6879,7 +6859,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6899,7 +6878,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6919,7 +6897,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -6937,7 +6914,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -6955,7 +6931,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -7350,7 +7325,6 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -7368,7 +7342,6 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -7386,7 +7359,6 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    resetPassword_Expire?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
     phone_number?: SortOrder
@@ -8238,7 +8210,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8257,7 +8228,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8320,7 +8290,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8339,7 +8308,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8443,7 +8411,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8462,7 +8429,6 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    resetPassword_Expire?: string | null
     first_name: string
     last_name: string
     phone_number: string
@@ -8497,7 +8463,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
@@ -8516,7 +8481,6 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Expire?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string

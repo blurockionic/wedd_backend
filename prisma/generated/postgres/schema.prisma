@@ -11,23 +11,22 @@ datasource db_postgres {
 }
 
 model User {
-  user_id              String    @id @default(uuid())
-  email                String    @unique
-  refresh_Token        String?
-  password_hash        String
-  resetPassword_Token  String?
-  resetPassword_Expire String?
-  first_name           String
-  last_name            String
-  phone_number         String
-  role                 Role
-  wedding_date         DateTime?
-  wedding_location     String?
-  created_at           DateTime  @default(now())
-  isVerified           Boolean   @default(false)
-  bookings             Booking[]
-  reviews              Review[]
-  updated_at           DateTime?
+  user_id             String    @id @default(uuid())
+  email               String    @unique
+  refresh_Token       String?
+  password_hash       String
+  resetPassword_Token String?
+  first_name          String
+  last_name           String
+  phone_number        String
+  role                Role
+  wedding_date        DateTime?
+  wedding_location    String?
+  created_at          DateTime  @default(now())
+  isVerified          Boolean   @default(false)
+  bookings            Booking[]
+  reviews             Review[]
+  updated_at          DateTime?
 }
 
 model Booking {

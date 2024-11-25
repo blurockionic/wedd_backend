@@ -7,6 +7,8 @@ import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js"
 import jwt from "jsonwebtoken"
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
+import { registerEmailContent } from "../../constant/static.js";
+import sendVerificationEmail from "../../service/emailService.js";
 
 const prisma = new PrismaClient();
 
@@ -16,10 +18,24 @@ const userLogin = async (req, res, next) => {
 
     const user = await prisma.User.findUnique({
       where: { email: validatedData.email },
+      
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found with this email" });
+
+    }
+
+    if (!user.isVerified) {
+      
+      const emailVerificationToken = GenerateToken.generateEmailVerificationToken(user);
+      const emailContent = registerEmailContent(emailVerificationToken);
+
+      // Send the verification email
+      await sendVerificationEmail(user.email, emailContent);
+
+      // Throw error with a clear message about verification
+      throw new CustomError("Your email is not verified. Please check your mail for verification.", 400);
     }
 
     if (!isPasswordCorrcet(validatedData.password, user.password_hash)) {
