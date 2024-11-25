@@ -60,6 +60,22 @@ class GenerateToken {
       throw new CustomError('Failed to generate reset token.', 500);
     }
   }
+  static generateVendorPasswordResetToken(user) {
+    try {
+      const { id } = user;
+
+      return jwt.sign(
+        {id },
+        process.env.RESET_TOKEN_SECRET,
+        {
+          expiresIn: process.env.RESET_TOKEN_EXP,
+        }
+      );
+    } catch (error) {
+      console.error('Error generating reset token:', error);
+      throw new CustomError('Failed to generate reset token.', 500);
+    }
+  }
 
 // fuction for generate email verification token
   static generateEmailVerificationToken(user) {
