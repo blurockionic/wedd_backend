@@ -62,7 +62,7 @@ const vendorRegistration = async (req, res, next) => {
   
       // Generate email verification token and send the email
       const emailVerificationToken = GenerateToken.generateEmailVerificationToken(newVendor);
-      const emailContent = vendorRegisterEmailContent(emailVerificationToken);
+      const emailContent = vendorRegisterEmailContent(emailVerificationToken,"vendor");
   
       await sendVerificationEmail(newVendor.email, emailContent);
   
