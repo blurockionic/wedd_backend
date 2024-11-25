@@ -22,7 +22,7 @@ model User {
   wedding_date        DateTime?
   wedding_location    String?
   created_at          DateTime   @default(now())
-  isVerified          Boolean    @default(false)
+  is_verified          Boolean    @default(false)
   bookings            Booking[]
   reviews             Review[]
   updated_at         DateTime?

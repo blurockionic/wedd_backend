@@ -7,7 +7,6 @@ import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 const prisma = new PrismaClient();
 import GenerateToken from "../../helper/generateToken.js";
 import { vendorRegisterEmailContent } from "../../constant/static.js"
-import { Logger, loggers } from "winston";
 
 const vendorRegistration = async (req, res, next) => {
 
@@ -21,13 +20,13 @@ const vendorRegistration = async (req, res, next) => {
       });
  
       if (existingVendor) {
-        if (existingVendor.isVerified) {
+        if (existingVendor.is_verified) {
           // Email exists and is already verified
           return res.status(400).json({ message: "Email already exists and is verified." });
         } else {
           // Email exists but is not verified, resend the verification email
           const emailVerificationToken = GenerateToken.generateEmailVerificationToken(existingVendor);
-          const emailContent = vendorRegisterEmailContent(emailVerificationToken);
+          const emailContent = vendorRegisterEmailContent(emailVerificationToken,"vendor");
   
           await sendVerificationEmail(existingVendor.email, emailContent);
   

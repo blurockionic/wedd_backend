@@ -32,7 +32,7 @@ const vendorLogin = async (req, res, next) => {
     // Check if the vendor's email is verified
     if (!vendor.isVerified) {
         const emailVerificationToken = GenerateToken.generateEmailVerificationToken(vendor);
-      const emailContent = vendorRegisterEmailContent(emailVerificationToken);
+      const emailContent = vendorRegisterEmailContent(emailVerificationToken,"vendor")
   
       await sendVerificationEmail(vendor.email, emailContent);
         

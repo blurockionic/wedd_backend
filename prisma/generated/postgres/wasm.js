@@ -135,7 +135,7 @@ exports.Prisma.UserScalarFieldEnum = {
   wedding_date: 'wedding_date',
   wedding_location: 'wedding_location',
   created_at: 'created_at',
-  isVerified: 'isVerified',
+  is_verified: 'is_verified',
   updated_at: 'updated_at'
 };
 
