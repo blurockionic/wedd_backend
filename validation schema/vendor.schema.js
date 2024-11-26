@@ -43,3 +43,18 @@ export const vendorSchema = z.object({
   faqs: z.array(z.string()).optional(),
   reviews: z.array(z.string()).optional(),
 });
+
+export const vendorUpdateSchema = z.object({
+  email: z.string().email().optional(),
+  name: z.string().min(1).optional(),
+  business_name: z.string().min(1).optional(),
+  business_category: z.string().optional(),
+  service_type: z.string().optional(),
+  description: z.string().optional(),
+  phone_number: z.string().optional(),
+  location: z.string().optional(),
+  map_location: z.object({}).optional(),
+  social_networks: z.array(z.string()).optional(),
+  license_number: z.string().optional(),
+  logo_url: z.string().url().optional(),
+});

@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 const userLogout = async (req, res, next) => {
   try {
     // Get user ID from the authenticated request
-    const userId = req.user?.user_id;
+    
+    const userId = req.user?.user_id||req.user.email ;
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is missing" });
