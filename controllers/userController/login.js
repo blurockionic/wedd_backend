@@ -26,7 +26,7 @@ const userLogin = async (req, res, next) => {
 
     }
 
-    if (!user.isVerified) {
+    if (!user.is_verified) {
       
       const emailVerificationToken = GenerateToken.generateEmailVerificationToken(user);
       const emailContent = registerEmailContent(emailVerificationToken,user.role);

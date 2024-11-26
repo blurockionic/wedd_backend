@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 const deleteUserAccount = async (req, res, next) => {
   try {
     // Extract user ID from request object (assumes authentication middleware sets it)
-    const user_id = req.user.user_id;
+    const user_id = req.user.user_id || req.user.email;
     
 
     // Find the user in the database

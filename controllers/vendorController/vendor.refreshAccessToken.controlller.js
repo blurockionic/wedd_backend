@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "../../prisma/generated/postgres/index.js";
+import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 import GenerateToken from "../../helper/generateToken.js";
 import CustomError from "../../utils/CustomError.js"; // Ensure this is correctly imported
 
 const prisma = new PrismaClient();
 
-export const refreshAccessToken = async (req, res, next) => {
+const vendorRefreshAccessToken = async (req, res, next) => {
   try {
     const incomingRefreshToken =
       req.cookies.refreshToken ||
@@ -27,8 +27,8 @@ export const refreshAccessToken = async (req, res, next) => {
     // Find the user based on the decoded token id
 
 
-    const user = await prisma.User.findUnique({
-      where: { user_id : decodedToken.user_id }, 
+    const user = await prisma.Vendor.findUnique({
+      where: { id : decodedToken.id }, 
     });
 
     if (!user) {
@@ -44,13 +44,13 @@ export const refreshAccessToken = async (req, res, next) => {
 
     // Generate new tokens
     const accessToken = await GenerateToken.generateAccessToken(user);
-    const newRefreshToken = await GenerateToken.generateRefreshToken(user); 
+    const newRefreshToken = await GenerateToken.vendorGenerateRefreshToken(user); 
 
 
     // update new refresh token in database
 
-    await prisma.User.update({
-        where: { user_id: user.user_id },
+    await prisma.Vendor.update({
+        where: { id: user.id },
         data: { refresh_Token: newRefreshToken },
       });
 
@@ -84,3 +84,5 @@ export const refreshAccessToken = async (req, res, next) => {
     );
   }
 };
+
+export default vendorRefreshAccessToken;

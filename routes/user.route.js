@@ -8,6 +8,7 @@ import { refreshAccessToken } from '../controllers/userController/refreshAccessT
 import requestPasswordReset from '../controllers/userController/requestPasswordReset.js';
 import { resetPassword } from '../controllers/userController/resetPassword.js';
 import deleteUserAccount from '../controllers/userController/deleteAccount.js';
+import updateUser from '../controllers/userController/update.js';
 
 const UserRouter = express.Router();
 
@@ -20,6 +21,7 @@ UserRouter.route("/refresh-access-token").post(refreshAccessToken);
 UserRouter.route("/request-password-reset").post(requestPasswordReset)
 UserRouter.route("/reset-password").post(resetPassword)
 UserRouter.route("/delete-user").post(jwtAuthentication,deleteUserAccount)
+UserRouter.route("/update-user").patch(jwtAuthentication,updateUser)
 
 
 export default UserRouter;

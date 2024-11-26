@@ -44,6 +44,23 @@ class GenerateToken {
       throw new CustomError('Failed to generate refresh token.', 500);
     }
   }
+  static vendorGenerateRefreshToken(user) {
+    try {
+      const { id } = user;
+      
+
+      return jwt.sign(
+        { id },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+          expiresIn: process.env.REFRESH_TOKEN_EXP,
+        }
+      );
+    } catch (error) {
+      console.error('Error generating refresh token:', error);
+      throw new CustomError('Failed to generate refresh token.', 500);
+    }
+  }
   static generatePasswordResetToken(user) {
     try {
       const { user_id } = user;
