@@ -33,15 +33,16 @@ model Vendor {
   is_verified         Boolean      @default(false)
   refresh_Token       String?
   resetPassword_Token String?
+  role                String       @default("vendor") @db.String
 }
 
 model Service {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
   vendorId       String         @db.ObjectId
-  vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id])
+  vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
   service_name   String
   description    String
-  price          Float
+  price          Json
   service_type   String
   availabilities Availability[]
   media          Media[]

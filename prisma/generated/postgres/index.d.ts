@@ -1285,7 +1285,7 @@ export namespace Prisma {
   }
 
   export type UserMinAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     refresh_Token: string | null
     password_hash: string | null
@@ -1302,7 +1302,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    user_id: string | null
+    id: string | null
     email: string | null
     refresh_Token: string | null
     password_hash: string | null
@@ -1319,7 +1319,7 @@ export namespace Prisma {
   }
 
   export type UserCountAggregateOutputType = {
-    user_id: number
+    id: number
     email: number
     refresh_Token: number
     password_hash: number
@@ -1338,7 +1338,7 @@ export namespace Prisma {
 
 
   export type UserMinAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     refresh_Token?: true
     password_hash?: true
@@ -1355,7 +1355,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     refresh_Token?: true
     password_hash?: true
@@ -1372,7 +1372,7 @@ export namespace Prisma {
   }
 
   export type UserCountAggregateInputType = {
-    user_id?: true
+    id?: true
     email?: true
     refresh_Token?: true
     password_hash?: true
@@ -1462,7 +1462,7 @@ export namespace Prisma {
   }
 
   export type UserGroupByOutputType = {
-    user_id: string
+    id: string
     email: string
     refresh_Token: string | null
     password_hash: string
@@ -1496,7 +1496,7 @@ export namespace Prisma {
 
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
@@ -1516,7 +1516,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
@@ -1533,7 +1533,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
-    user_id?: boolean
+    id?: boolean
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
@@ -1563,7 +1563,7 @@ export namespace Prisma {
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      user_id: string
+      id: string
       email: string
       refresh_Token: string | null
       password_hash: string
@@ -1660,8 +1660,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
      * 
-     * // Only select the `user_id`
-     * const userWithUser_idOnly = await prisma.user.findMany({ select: { user_id: true } })
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany">>
@@ -1705,9 +1705,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Users and only return the `user_id`
-     * const userWithUser_idOnly = await prisma.user.createManyAndReturn({ 
-     *   select: { user_id: true },
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({ 
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -1972,7 +1972,7 @@ export namespace Prisma {
    * Fields of the User model
    */ 
   interface UserFieldRefs {
-    readonly user_id: FieldRef<"User", 'String'>
+    readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly refresh_Token: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
@@ -2366,7 +2366,7 @@ export namespace Prisma {
 
   export type BookingMinAggregateOutputType = {
     booking_id: string | null
-    user_id: string | null
+    id: string | null
     vendor_id: string | null
     service_id: string | null
     booking_date: Date | null
@@ -2376,7 +2376,7 @@ export namespace Prisma {
 
   export type BookingMaxAggregateOutputType = {
     booking_id: string | null
-    user_id: string | null
+    id: string | null
     vendor_id: string | null
     service_id: string | null
     booking_date: Date | null
@@ -2386,7 +2386,7 @@ export namespace Prisma {
 
   export type BookingCountAggregateOutputType = {
     booking_id: number
-    user_id: number
+    id: number
     vendor_id: number
     service_id: number
     booking_date: number
@@ -2398,7 +2398,7 @@ export namespace Prisma {
 
   export type BookingMinAggregateInputType = {
     booking_id?: true
-    user_id?: true
+    id?: true
     vendor_id?: true
     service_id?: true
     booking_date?: true
@@ -2408,7 +2408,7 @@ export namespace Prisma {
 
   export type BookingMaxAggregateInputType = {
     booking_id?: true
-    user_id?: true
+    id?: true
     vendor_id?: true
     service_id?: true
     booking_date?: true
@@ -2418,7 +2418,7 @@ export namespace Prisma {
 
   export type BookingCountAggregateInputType = {
     booking_id?: true
-    user_id?: true
+    id?: true
     vendor_id?: true
     service_id?: true
     booking_date?: true
@@ -2501,7 +2501,7 @@ export namespace Prisma {
 
   export type BookingGroupByOutputType = {
     booking_id: string
-    user_id: string
+    id: string
     vendor_id: string
     service_id: string
     booking_date: Date
@@ -2528,7 +2528,7 @@ export namespace Prisma {
 
   export type BookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     booking_id?: boolean
-    user_id?: boolean
+    id?: boolean
     vendor_id?: boolean
     service_id?: boolean
     booking_date?: boolean
@@ -2541,7 +2541,7 @@ export namespace Prisma {
 
   export type BookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     booking_id?: boolean
-    user_id?: boolean
+    id?: boolean
     vendor_id?: boolean
     service_id?: boolean
     booking_date?: boolean
@@ -2552,7 +2552,7 @@ export namespace Prisma {
 
   export type BookingSelectScalar = {
     booking_id?: boolean
-    user_id?: boolean
+    id?: boolean
     vendor_id?: boolean
     service_id?: boolean
     booking_date?: boolean
@@ -2577,7 +2577,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       booking_id: string
-      user_id: string
+      id: string
       vendor_id: string
       service_id: string
       booking_date: Date
@@ -2979,7 +2979,7 @@ export namespace Prisma {
    */ 
   interface BookingFieldRefs {
     readonly booking_id: FieldRef<"Booking", 'String'>
-    readonly user_id: FieldRef<"Booking", 'String'>
+    readonly id: FieldRef<"Booking", 'String'>
     readonly vendor_id: FieldRef<"Booking", 'String'>
     readonly service_id: FieldRef<"Booking", 'String'>
     readonly booking_date: FieldRef<"Booking", 'DateTime'>
@@ -4351,7 +4351,7 @@ export namespace Prisma {
   export type ReviewMinAggregateOutputType = {
     review_id: string | null
     vendor_id: string | null
-    user_id: string | null
+    id: string | null
     rating: number | null
     review_text: string | null
     created_at: Date | null
@@ -4360,7 +4360,7 @@ export namespace Prisma {
   export type ReviewMaxAggregateOutputType = {
     review_id: string | null
     vendor_id: string | null
-    user_id: string | null
+    id: string | null
     rating: number | null
     review_text: string | null
     created_at: Date | null
@@ -4369,7 +4369,7 @@ export namespace Prisma {
   export type ReviewCountAggregateOutputType = {
     review_id: number
     vendor_id: number
-    user_id: number
+    id: number
     rating: number
     review_text: number
     created_at: number
@@ -4388,7 +4388,7 @@ export namespace Prisma {
   export type ReviewMinAggregateInputType = {
     review_id?: true
     vendor_id?: true
-    user_id?: true
+    id?: true
     rating?: true
     review_text?: true
     created_at?: true
@@ -4397,7 +4397,7 @@ export namespace Prisma {
   export type ReviewMaxAggregateInputType = {
     review_id?: true
     vendor_id?: true
-    user_id?: true
+    id?: true
     rating?: true
     review_text?: true
     created_at?: true
@@ -4406,7 +4406,7 @@ export namespace Prisma {
   export type ReviewCountAggregateInputType = {
     review_id?: true
     vendor_id?: true
-    user_id?: true
+    id?: true
     rating?: true
     review_text?: true
     created_at?: true
@@ -4502,7 +4502,7 @@ export namespace Prisma {
   export type ReviewGroupByOutputType = {
     review_id: string
     vendor_id: string
-    user_id: string
+    id: string
     rating: number
     review_text: string
     created_at: Date
@@ -4530,7 +4530,7 @@ export namespace Prisma {
   export type ReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     review_id?: boolean
     vendor_id?: boolean
-    user_id?: boolean
+    id?: boolean
     rating?: boolean
     review_text?: boolean
     created_at?: boolean
@@ -4540,7 +4540,7 @@ export namespace Prisma {
   export type ReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     review_id?: boolean
     vendor_id?: boolean
-    user_id?: boolean
+    id?: boolean
     rating?: boolean
     review_text?: boolean
     created_at?: boolean
@@ -4550,7 +4550,7 @@ export namespace Prisma {
   export type ReviewSelectScalar = {
     review_id?: boolean
     vendor_id?: boolean
-    user_id?: boolean
+    id?: boolean
     rating?: boolean
     review_text?: boolean
     created_at?: boolean
@@ -4571,7 +4571,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       review_id: string
       vendor_id: string
-      user_id: string
+      id: string
       rating: number
       review_text: string
       created_at: Date
@@ -4971,7 +4971,7 @@ export namespace Prisma {
   interface ReviewFieldRefs {
     readonly review_id: FieldRef<"Review", 'String'>
     readonly vendor_id: FieldRef<"Review", 'String'>
-    readonly user_id: FieldRef<"Review", 'String'>
+    readonly id: FieldRef<"Review", 'String'>
     readonly rating: FieldRef<"Review", 'Int'>
     readonly review_text: FieldRef<"Review", 'String'>
     readonly created_at: FieldRef<"Review", 'DateTime'>
@@ -6248,7 +6248,7 @@ export namespace Prisma {
 
 
   export const UserScalarFieldEnum: {
-    user_id: 'user_id',
+    id: 'id',
     email: 'email',
     refresh_Token: 'refresh_Token',
     password_hash: 'password_hash',
@@ -6269,7 +6269,7 @@ export namespace Prisma {
 
   export const BookingScalarFieldEnum: {
     booking_id: 'booking_id',
-    user_id: 'user_id',
+    id: 'id',
     vendor_id: 'vendor_id',
     service_id: 'service_id',
     booking_date: 'booking_date',
@@ -6296,7 +6296,7 @@ export namespace Prisma {
   export const ReviewScalarFieldEnum: {
     review_id: 'review_id',
     vendor_id: 'vendor_id',
-    user_id: 'user_id',
+    id: 'id',
     rating: 'rating',
     review_text: 'review_text',
     created_at: 'created_at'
@@ -6447,7 +6447,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    user_id?: StringFilter<"User"> | string
+    id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
@@ -6466,7 +6466,7 @@ export namespace Prisma {
   }
 
   export type UserOrderByWithRelationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
@@ -6485,7 +6485,7 @@ export namespace Prisma {
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    user_id?: string
+    id?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -6504,10 +6504,10 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
     bookings?: BookingListRelationFilter
     reviews?: ReviewListRelationFilter
-  }, "user_id" | "email">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
@@ -6530,7 +6530,7 @@ export namespace Prisma {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    user_id?: StringWithAggregatesFilter<"User"> | string
+    id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     refresh_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
@@ -6551,7 +6551,7 @@ export namespace Prisma {
     OR?: BookingWhereInput[]
     NOT?: BookingWhereInput | BookingWhereInput[]
     booking_id?: StringFilter<"Booking"> | string
-    user_id?: StringFilter<"Booking"> | string
+    id?: StringFilter<"Booking"> | string
     vendor_id?: StringFilter<"Booking"> | string
     service_id?: StringFilter<"Booking"> | string
     booking_date?: DateTimeFilter<"Booking"> | Date | string
@@ -6563,7 +6563,7 @@ export namespace Prisma {
 
   export type BookingOrderByWithRelationInput = {
     booking_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     vendor_id?: SortOrder
     service_id?: SortOrder
     booking_date?: SortOrder
@@ -6578,7 +6578,7 @@ export namespace Prisma {
     AND?: BookingWhereInput | BookingWhereInput[]
     OR?: BookingWhereInput[]
     NOT?: BookingWhereInput | BookingWhereInput[]
-    user_id?: StringFilter<"Booking"> | string
+    id?: StringFilter<"Booking"> | string
     vendor_id?: StringFilter<"Booking"> | string
     service_id?: StringFilter<"Booking"> | string
     booking_date?: DateTimeFilter<"Booking"> | Date | string
@@ -6590,7 +6590,7 @@ export namespace Prisma {
 
   export type BookingOrderByWithAggregationInput = {
     booking_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     vendor_id?: SortOrder
     service_id?: SortOrder
     booking_date?: SortOrder
@@ -6606,7 +6606,7 @@ export namespace Prisma {
     OR?: BookingScalarWhereWithAggregatesInput[]
     NOT?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
     booking_id?: StringWithAggregatesFilter<"Booking"> | string
-    user_id?: StringWithAggregatesFilter<"Booking"> | string
+    id?: StringWithAggregatesFilter<"Booking"> | string
     vendor_id?: StringWithAggregatesFilter<"Booking"> | string
     service_id?: StringWithAggregatesFilter<"Booking"> | string
     booking_date?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
@@ -6687,7 +6687,7 @@ export namespace Prisma {
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     review_id?: StringFilter<"Review"> | string
     vendor_id?: StringFilter<"Review"> | string
-    user_id?: StringFilter<"Review"> | string
+    id?: StringFilter<"Review"> | string
     rating?: IntFilter<"Review"> | number
     review_text?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
@@ -6697,7 +6697,7 @@ export namespace Prisma {
   export type ReviewOrderByWithRelationInput = {
     review_id?: SortOrder
     vendor_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     rating?: SortOrder
     review_text?: SortOrder
     created_at?: SortOrder
@@ -6710,7 +6710,7 @@ export namespace Prisma {
     OR?: ReviewWhereInput[]
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     vendor_id?: StringFilter<"Review"> | string
-    user_id?: StringFilter<"Review"> | string
+    id?: StringFilter<"Review"> | string
     rating?: IntFilter<"Review"> | number
     review_text?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
@@ -6720,7 +6720,7 @@ export namespace Prisma {
   export type ReviewOrderByWithAggregationInput = {
     review_id?: SortOrder
     vendor_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     rating?: SortOrder
     review_text?: SortOrder
     created_at?: SortOrder
@@ -6737,7 +6737,7 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
     review_id?: StringWithAggregatesFilter<"Review"> | string
     vendor_id?: StringWithAggregatesFilter<"Review"> | string
-    user_id?: StringWithAggregatesFilter<"Review"> | string
+    id?: StringWithAggregatesFilter<"Review"> | string
     rating?: IntWithAggregatesFilter<"Review"> | number
     review_text?: StringWithAggregatesFilter<"Review"> | string
     created_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
@@ -6816,7 +6816,7 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -6835,7 +6835,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -6854,7 +6854,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -6873,7 +6873,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -6892,7 +6892,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -6909,7 +6909,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -6926,7 +6926,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -6955,7 +6955,7 @@ export namespace Prisma {
 
   export type BookingUncheckedCreateInput = {
     booking_id?: string
-    user_id: string
+    id: string
     vendor_id: string
     service_id: string
     booking_date: Date | string
@@ -6977,7 +6977,7 @@ export namespace Prisma {
 
   export type BookingUncheckedUpdateInput = {
     booking_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     vendor_id?: StringFieldUpdateOperationsInput | string
     service_id?: StringFieldUpdateOperationsInput | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6988,7 +6988,7 @@ export namespace Prisma {
 
   export type BookingCreateManyInput = {
     booking_id?: string
-    user_id: string
+    id: string
     vendor_id: string
     service_id: string
     booking_date: Date | string
@@ -7007,7 +7007,7 @@ export namespace Prisma {
 
   export type BookingUncheckedUpdateManyInput = {
     booking_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     vendor_id?: StringFieldUpdateOperationsInput | string
     service_id?: StringFieldUpdateOperationsInput | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7096,7 +7096,7 @@ export namespace Prisma {
   export type ReviewUncheckedCreateInput = {
     review_id?: string
     vendor_id: string
-    user_id: string
+    id: string
     rating: number
     review_text: string
     created_at?: Date | string
@@ -7114,7 +7114,7 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateInput = {
     review_id?: StringFieldUpdateOperationsInput | string
     vendor_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     review_text?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7123,7 +7123,7 @@ export namespace Prisma {
   export type ReviewCreateManyInput = {
     review_id?: string
     vendor_id: string
-    user_id: string
+    id: string
     rating: number
     review_text: string
     created_at?: Date | string
@@ -7140,7 +7140,7 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyInput = {
     review_id?: StringFieldUpdateOperationsInput | string
     vendor_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     review_text?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7320,7 +7320,7 @@ export namespace Prisma {
   }
 
   export type UserCountOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
@@ -7337,7 +7337,7 @@ export namespace Prisma {
   }
 
   export type UserMaxOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
@@ -7354,7 +7354,7 @@ export namespace Prisma {
   }
 
   export type UserMinOrderByAggregateInput = {
-    user_id?: SortOrder
+    id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
@@ -7469,7 +7469,7 @@ export namespace Prisma {
 
   export type BookingCountOrderByAggregateInput = {
     booking_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     vendor_id?: SortOrder
     service_id?: SortOrder
     booking_date?: SortOrder
@@ -7479,7 +7479,7 @@ export namespace Prisma {
 
   export type BookingMaxOrderByAggregateInput = {
     booking_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     vendor_id?: SortOrder
     service_id?: SortOrder
     booking_date?: SortOrder
@@ -7489,7 +7489,7 @@ export namespace Prisma {
 
   export type BookingMinOrderByAggregateInput = {
     booking_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     vendor_id?: SortOrder
     service_id?: SortOrder
     booking_date?: SortOrder
@@ -7581,7 +7581,7 @@ export namespace Prisma {
   export type ReviewCountOrderByAggregateInput = {
     review_id?: SortOrder
     vendor_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     rating?: SortOrder
     review_text?: SortOrder
     created_at?: SortOrder
@@ -7594,7 +7594,7 @@ export namespace Prisma {
   export type ReviewMaxOrderByAggregateInput = {
     review_id?: SortOrder
     vendor_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     rating?: SortOrder
     review_text?: SortOrder
     created_at?: SortOrder
@@ -7603,7 +7603,7 @@ export namespace Prisma {
   export type ReviewMinOrderByAggregateInput = {
     review_id?: SortOrder
     vendor_id?: SortOrder
-    user_id?: SortOrder
+    id?: SortOrder
     rating?: SortOrder
     review_text?: SortOrder
     created_at?: SortOrder
@@ -8168,7 +8168,7 @@ export namespace Prisma {
     OR?: BookingScalarWhereInput[]
     NOT?: BookingScalarWhereInput | BookingScalarWhereInput[]
     booking_id?: StringFilter<"Booking"> | string
-    user_id?: StringFilter<"Booking"> | string
+    id?: StringFilter<"Booking"> | string
     vendor_id?: StringFilter<"Booking"> | string
     service_id?: StringFilter<"Booking"> | string
     booking_date?: DateTimeFilter<"Booking"> | Date | string
@@ -8198,14 +8198,14 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
     review_id?: StringFilter<"Review"> | string
     vendor_id?: StringFilter<"Review"> | string
-    user_id?: StringFilter<"Review"> | string
+    id?: StringFilter<"Review"> | string
     rating?: IntFilter<"Review"> | number
     review_text?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
   }
 
   export type UserCreateWithoutBookingsInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -8223,7 +8223,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -8285,7 +8285,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutBookingsInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -8303,7 +8303,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -8361,7 +8361,7 @@ export namespace Prisma {
 
   export type BookingUncheckedCreateWithoutPaymentsInput = {
     booking_id?: string
-    user_id: string
+    id: string
     vendor_id: string
     service_id: string
     booking_date: Date | string
@@ -8397,7 +8397,7 @@ export namespace Prisma {
 
   export type BookingUncheckedUpdateWithoutPaymentsInput = {
     booking_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     vendor_id?: StringFieldUpdateOperationsInput | string
     service_id?: StringFieldUpdateOperationsInput | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8406,7 +8406,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutReviewsInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -8424,7 +8424,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
-    user_id?: string
+    id?: string
     email: string
     refresh_Token?: string | null
     password_hash: string
@@ -8458,7 +8458,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutReviewsInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
@@ -8476,7 +8476,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
-    user_id?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string

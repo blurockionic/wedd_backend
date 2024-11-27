@@ -31,10 +31,10 @@ export const resetPassword = async (req, res, next) => {
       throw new CustomError("Invalid token. Please request a new reset link.", 400);
     }
 
-    // Fetch the user using the decoded token's user_id
+    // Fetch the user using the decoded token's id
 
     const user = await prisma.User.findUnique({
-      where: { user_id: decodedToken.user_id },
+      where: { id: decodedToken.id },
     });
 
     if (!user || user.resetPassword_Token !== token) {
@@ -46,7 +46,7 @@ export const resetPassword = async (req, res, next) => {
 
     // Update the password and clear reset token fields
     await prisma.User.update({
-      where: { user_id: user.user_id },
+      where: { id: user.id },
       data: {
         password_hash: hashedPassword,
         resetPassword_Token: "", // Clear token

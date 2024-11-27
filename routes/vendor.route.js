@@ -21,7 +21,7 @@ vendorRouter.route("/logout").post(jwtAuthentication,vendorLogout);
 vendorRouter.route("/request-password-reset").post(requestVendorPasswordReset)
 vendorRouter.route("/reset-password").post(resetVendorPassword)
 vendorRouter.route("/refresh-access-token").get(vendorRefreshAccessToken);
-vendorRouter.route("/delete-vendor").delete(jwtAuthentication,deleteVendorAccount)
-vendorRouter.route("/update-vendor").patch(jwtAuthentication,updateVendor)
+vendorRouter.route("/delete").delete(jwtAuthentication,deleteVendorAccount)
+vendorRouter.route("/update").patch(jwtAuthentication,updateVendor)
 
 export default vendorRouter

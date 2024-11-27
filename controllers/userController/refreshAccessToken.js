@@ -28,7 +28,7 @@ export const refreshAccessToken = async (req, res, next) => {
 
 
     const user = await prisma.User.findUnique({
-      where: { user_id : decodedToken.user_id }, 
+      where: { id : decodedToken.id }, 
     });
 
     if (!user) {
@@ -50,7 +50,7 @@ export const refreshAccessToken = async (req, res, next) => {
     // update new refresh token in database
 
     await prisma.User.update({
-        where: { user_id: user.user_id },
+        where: { id: user.id },
         data: { refresh_Token: newRefreshToken },
       });
 

@@ -134,7 +134,8 @@ exports.Prisma.VendorScalarFieldEnum = {
   updated_at: 'updated_at',
   is_verified: 'is_verified',
   refresh_Token: 'refresh_Token',
-  resetPassword_Token: 'resetPassword_Token'
+  resetPassword_Token: 'resetPassword_Token',
+  role: 'role'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {

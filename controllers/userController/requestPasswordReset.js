@@ -42,7 +42,7 @@ const requestPasswordReset = async (req, res, next) => {
     // Save the reset token and expiration in the database
 
    const updatedUser =   await prisma.User.update({
-      where: { user_id: user.user_id },
+      where: { id: user.id },
       data: {
         resetPassword_Token: resetToken,
         resetPassword_Expire: (new Date(Date.now()+ ms(process.env.RESET_TOKEN_EXP )).toString()),

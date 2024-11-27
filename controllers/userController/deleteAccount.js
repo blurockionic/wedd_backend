@@ -6,12 +6,12 @@ const prisma = new PrismaClient();
 const deleteUserAccount = async (req, res, next) => {
   try {
     // Extract user ID from request object (assumes authentication middleware sets it)
-    const user_id = req.user.user_id || req.user.email;
+    const id = req.user.id;
     
 
     // Find the user in the database
     const user = await prisma.User.findUnique({
-      where: { user_id: user_id },
+      where: { id: id },
     });
 
     if (!user) {
@@ -21,7 +21,7 @@ const deleteUserAccount = async (req, res, next) => {
 
 //   Delete the user from the database
     await prisma.User.delete({
-      where: { user_id: user_id },
+      where: { id: id },
     });
 
     // Step 4: Return a success response

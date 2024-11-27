@@ -12,7 +12,7 @@
     "prisma:generate-all": "npm run prisma-generate && npm run prisma:generate-mongo",
 
    "prisma:dbpush-postgres": "npx prisma db push --schema=./prisma/schema.postgre.prisma",
-   "prisma:dbpush-mongo": "prisma db push --schema=prisma/schema.mongo.prisma",
+   "prisma:dbpush-mongo": "npx prisma db push --schema=prisma/schema.mongo.prisma",
    "prisma:dbpush-all": "npm run prisma:dbpush-postgres && npm run prisma:dbpush-mongo",
 
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.postgre.prisma",
