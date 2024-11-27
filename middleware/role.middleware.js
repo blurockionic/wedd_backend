@@ -1,17 +1,16 @@
 import CustomError from "../utils/CustomError.js";
 
-const roleMiddleware = (role) => (req, _, next) => {
+const roleMiddleware = (roles) => (req, _, next) => {
 
-    // Extract the role from the request object
+    const roleFromUserObject = req.user.role.toLowerCase();
+  
 
-    const roleFromUserObject = req.user.role;
+    const lowerCaseRoles = roles.map(role => role.toLowerCase());
+    
 
-    // Check if the user's role includes the required role
-
-    if (!roleFromUserObject.includes(role)) {
-
-        // Create a custom error and pass it to the next middleware
-
+    // Check if the user's role matches the required role
+    if (!lowerCaseRoles.includes(roleFromUserObject)) {
+     
         return next(new CustomError(`Oh no! As a ${roleFromUserObject}, you are not allowed to access this`, 403));
     }
     

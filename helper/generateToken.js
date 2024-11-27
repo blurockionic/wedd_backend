@@ -6,11 +6,11 @@ class GenerateToken {
   // Method to generate the access token
   static generateAccessToken(user) {
     try {
-      const { user_id, email, first_name, last_name, role } = user;
+      const { id, email, first_name, last_name, role } = user;
 
       return jwt.sign(
         {
-          user_id,
+          id,
           email,
           first_name,
           last_name,
@@ -30,24 +30,7 @@ class GenerateToken {
   // Method to generate the refresh token
   static generateRefreshToken(user) {
     try {
-      const { user_id } = user;
-
-      return jwt.sign(
-        { user_id },
-        process.env.REFRESH_TOKEN_SECRET,
-        {
-          expiresIn: process.env.REFRESH_TOKEN_EXP,
-        }
-      );
-    } catch (error) {
-      console.error('Error generating refresh token:', error);
-      throw new CustomError('Failed to generate refresh token.', 500);
-    }
-  }
-  static vendorGenerateRefreshToken(user) {
-    try {
       const { id } = user;
-      
 
       return jwt.sign(
         { id },
@@ -61,28 +44,13 @@ class GenerateToken {
       throw new CustomError('Failed to generate refresh token.', 500);
     }
   }
+  
   static generatePasswordResetToken(user) {
-    try {
-      const { user_id } = user;
-
-      return jwt.sign(
-        { user_id },
-        process.env.RESET_TOKEN_SECRET,
-        {
-          expiresIn: process.env.RESET_TOKEN_EXP,
-        }
-      );
-    } catch (error) {
-      console.error('Error generating reset token:', error);
-      throw new CustomError('Failed to generate reset token.', 500);
-    }
-  }
-  static generateVendorPasswordResetToken(user) {
     try {
       const { id } = user;
 
       return jwt.sign(
-        {id },
+        { id },
         process.env.RESET_TOKEN_SECRET,
         {
           expiresIn: process.env.RESET_TOKEN_EXP,
@@ -93,13 +61,14 @@ class GenerateToken {
       throw new CustomError('Failed to generate reset token.', 500);
     }
   }
+  
 
 // fuction for generate email verification token
   static generateEmailVerificationToken(user) {
     try {
-      const { user_id ,email} = user;
+      const { id ,email} = user;
       return jwt.sign(
-        { user_id ,email},
+        { id ,email},
         process.env.EMAIL_TOKEN_SECRET,
         {
           expiresIn: process.env.EMAIL_TOKEN_EXP,

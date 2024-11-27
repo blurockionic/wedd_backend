@@ -123,7 +123,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.UserScalarFieldEnum = {
-  user_id: 'user_id',
+  id: 'id',
   email: 'email',
   refresh_Token: 'refresh_Token',
   password_hash: 'password_hash',
@@ -141,7 +141,7 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.BookingScalarFieldEnum = {
   booking_id: 'booking_id',
-  user_id: 'user_id',
+  id: 'id',
   vendor_id: 'vendor_id',
   service_id: 'service_id',
   booking_date: 'booking_date',
@@ -162,7 +162,7 @@ exports.Prisma.PaymentScalarFieldEnum = {
 exports.Prisma.ReviewScalarFieldEnum = {
   review_id: 'review_id',
   vendor_id: 'vendor_id',
-  user_id: 'user_id',
+  id: 'id',
   rating: 'rating',
   review_text: 'review_text',
   created_at: 'created_at'

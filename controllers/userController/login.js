@@ -50,7 +50,7 @@ const userLogin = async (req, res, next) => {
     // Save refresh token to the database
 
     await prisma.User.update({
-      where: { user_id: user.user_id },
+      where: { id: user.id },
       data: { refresh_Token: refreshToken },
     });
 

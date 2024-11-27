@@ -7,7 +7,7 @@ const userLogout = async (req, res, next) => {
   try {
     // Get user ID from the authenticated request
     
-    const userId = req.user?.user_id||req.user.email ;
+    const userId = req.user?.id ;
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is missing" });
@@ -16,7 +16,7 @@ const userLogout = async (req, res, next) => {
     // Clear the refresh token from the database
 
     await prisma.User.update({
-      where: { user_id: userId },
+      where: { id: userId },
       data: { refresh_Token: "" },
     });
 

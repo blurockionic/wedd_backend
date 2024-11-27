@@ -42,7 +42,7 @@ const vendorLogin = async (req, res, next) => {
 
     // Generate access and refresh tokens
     const accessToken = await GenerateToken.generateAccessToken(vendor);
-    const refreshToken = await GenerateToken.vendorGenerateRefreshToken(vendor);
+    const refreshToken = await GenerateToken.generateRefreshToken(vendor);
 
     // Save refresh token to the database
     await prisma.Vendor.update({
