@@ -42,10 +42,13 @@ model Service {
   vendor         Vendor           @relation("VendorServices", fields: [vendorId], references: [id],onDelete: Cascade) 
   service_name   String
   description    String
-  price          Json
+  min_price      Float?
+  max_price      Float?
   service_type   String
-  availabilities Availability[]
-  media          Media[]
+  rating         Float          @default(0.0)
+  availabilities Availability[]   
+  reviews        Review[]         
+  media          Media[]           
   created_at     DateTime          @default(now())
   updated_at     DateTime          @updatedAt
 }
@@ -105,10 +108,22 @@ model FAQ {
 
 model Review {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
   vendorId    String   @db.ObjectId
-  vendor      Vendor   @relation(fields: [vendorId], references: [id])
-  userId      String   // ID of the user who submitted the review
-  rating      Int      @default(0) // Rating out of 5
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  serviceId   String?  @db.ObjectId  // Service ID for reviews associated with a service
+  service     Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  reviewerId  String   // ID of the user who submitted the review
   comment     String?  // Optional user comment
+  type        ReviewType
+
   created_at  DateTime @default(now())
+}
+
+
+enum ReviewType {
+  VENDOR
+  SERVICE
 }
