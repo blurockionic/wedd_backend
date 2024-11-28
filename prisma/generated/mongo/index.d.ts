@@ -55,6 +55,23 @@ export type FAQ = $Result.DefaultSelection<Prisma.$FAQPayload>
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const ReviewType: {
+  VENDOR: 'VENDOR',
+  SERVICE: 'SERVICE'
+};
+
+export type ReviewType = (typeof ReviewType)[keyof typeof ReviewType]
+
+}
+
+export type ReviewType = $Enums.ReviewType
+
+export const ReviewType: typeof $Enums.ReviewType
+
+/**
  * ##  Prisma Client ʲˢ
  * 
  * Type-safe database client for TypeScript & Node.js
@@ -1499,11 +1516,13 @@ export namespace Prisma {
 
   export type ServiceCountOutputType = {
     availabilities: number
+    reviews: number
     media: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     availabilities?: boolean | ServiceCountOutputTypeCountAvailabilitiesArgs
+    reviews?: boolean | ServiceCountOutputTypeCountReviewsArgs
     media?: boolean | ServiceCountOutputTypeCountMediaArgs
   }
 
@@ -1523,6 +1542,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AvailabilityWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
   }
 
   /**
@@ -2743,8 +2769,22 @@ export namespace Prisma {
 
   export type AggregateService = {
     _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
     _min: ServiceMinAggregateOutputType | null
     _max: ServiceMaxAggregateOutputType | null
+  }
+
+  export type ServiceAvgAggregateOutputType = {
+    min_price: number | null
+    max_price: number | null
+    rating: number | null
+  }
+
+  export type ServiceSumAggregateOutputType = {
+    min_price: number | null
+    max_price: number | null
+    rating: number | null
   }
 
   export type ServiceMinAggregateOutputType = {
@@ -2752,7 +2792,10 @@ export namespace Prisma {
     vendorId: string | null
     service_name: string | null
     description: string | null
+    min_price: number | null
+    max_price: number | null
     service_type: string | null
+    rating: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2762,7 +2805,10 @@ export namespace Prisma {
     vendorId: string | null
     service_name: string | null
     description: string | null
+    min_price: number | null
+    max_price: number | null
     service_type: string | null
+    rating: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2772,20 +2818,37 @@ export namespace Prisma {
     vendorId: number
     service_name: number
     description: number
-    price: number
+    min_price: number
+    max_price: number
     service_type: number
+    rating: number
     created_at: number
     updated_at: number
     _all: number
   }
 
 
+  export type ServiceAvgAggregateInputType = {
+    min_price?: true
+    max_price?: true
+    rating?: true
+  }
+
+  export type ServiceSumAggregateInputType = {
+    min_price?: true
+    max_price?: true
+    rating?: true
+  }
+
   export type ServiceMinAggregateInputType = {
     id?: true
     vendorId?: true
     service_name?: true
     description?: true
+    min_price?: true
+    max_price?: true
     service_type?: true
+    rating?: true
     created_at?: true
     updated_at?: true
   }
@@ -2795,7 +2858,10 @@ export namespace Prisma {
     vendorId?: true
     service_name?: true
     description?: true
+    min_price?: true
+    max_price?: true
     service_type?: true
+    rating?: true
     created_at?: true
     updated_at?: true
   }
@@ -2805,8 +2871,10 @@ export namespace Prisma {
     vendorId?: true
     service_name?: true
     description?: true
-    price?: true
+    min_price?: true
+    max_price?: true
     service_type?: true
+    rating?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -2850,6 +2918,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ServiceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServiceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ServiceMinAggregateInputType
@@ -2880,6 +2960,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ServiceCountAggregateInputType | true
+    _avg?: ServiceAvgAggregateInputType
+    _sum?: ServiceSumAggregateInputType
     _min?: ServiceMinAggregateInputType
     _max?: ServiceMaxAggregateInputType
   }
@@ -2889,11 +2971,15 @@ export namespace Prisma {
     vendorId: string
     service_name: string
     description: string
-    price: JsonValue
+    min_price: number | null
+    max_price: number | null
     service_type: string
+    rating: number
     created_at: Date
     updated_at: Date
     _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
     _min: ServiceMinAggregateOutputType | null
     _max: ServiceMaxAggregateOutputType | null
   }
@@ -2917,12 +3003,15 @@ export namespace Prisma {
     vendorId?: boolean
     service_name?: boolean
     description?: boolean
-    price?: boolean
+    min_price?: boolean
+    max_price?: boolean
     service_type?: boolean
+    rating?: boolean
     created_at?: boolean
     updated_at?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
+    reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
@@ -2933,8 +3022,10 @@ export namespace Prisma {
     vendorId?: boolean
     service_name?: boolean
     description?: boolean
-    price?: boolean
+    min_price?: boolean
+    max_price?: boolean
     service_type?: boolean
+    rating?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
@@ -2942,6 +3033,7 @@ export namespace Prisma {
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
+    reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2951,6 +3043,7 @@ export namespace Prisma {
     objects: {
       vendor: Prisma.$VendorPayload<ExtArgs>
       availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
+      reviews: Prisma.$ReviewPayload<ExtArgs>[]
       media: Prisma.$MediaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2958,8 +3051,10 @@ export namespace Prisma {
       vendorId: string
       service_name: string
       description: string
-      price: Prisma.JsonValue
+      min_price: number | null
+      max_price: number | null
       service_type: string
+      rating: number
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["service"]>
@@ -3327,6 +3422,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     availabilities<T extends Service$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Service$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany"> | Null>
+    reviews<T extends Service$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Service$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany"> | Null>
     media<T extends Service$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Service$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3361,8 +3457,10 @@ export namespace Prisma {
     readonly vendorId: FieldRef<"Service", 'String'>
     readonly service_name: FieldRef<"Service", 'String'>
     readonly description: FieldRef<"Service", 'String'>
-    readonly price: FieldRef<"Service", 'Json'>
+    readonly min_price: FieldRef<"Service", 'Float'>
+    readonly max_price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
+    readonly rating: FieldRef<"Service", 'Float'>
     readonly created_at: FieldRef<"Service", 'DateTime'>
     readonly updated_at: FieldRef<"Service", 'DateTime'>
   }
@@ -3708,6 +3806,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Service.reviews
+   */
+  export type Service$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
   }
 
   /**
@@ -8506,81 +8624,69 @@ export namespace Prisma {
 
   export type AggregateReview = {
     _count: ReviewCountAggregateOutputType | null
-    _avg: ReviewAvgAggregateOutputType | null
-    _sum: ReviewSumAggregateOutputType | null
     _min: ReviewMinAggregateOutputType | null
     _max: ReviewMaxAggregateOutputType | null
-  }
-
-  export type ReviewAvgAggregateOutputType = {
-    rating: number | null
-  }
-
-  export type ReviewSumAggregateOutputType = {
-    rating: number | null
   }
 
   export type ReviewMinAggregateOutputType = {
     id: string | null
     vendorId: string | null
-    userId: string | null
-    rating: number | null
+    serviceId: string | null
+    reviewerId: string | null
     comment: string | null
+    type: $Enums.ReviewType | null
     created_at: Date | null
   }
 
   export type ReviewMaxAggregateOutputType = {
     id: string | null
     vendorId: string | null
-    userId: string | null
-    rating: number | null
+    serviceId: string | null
+    reviewerId: string | null
     comment: string | null
+    type: $Enums.ReviewType | null
     created_at: Date | null
   }
 
   export type ReviewCountAggregateOutputType = {
     id: number
     vendorId: number
-    userId: number
-    rating: number
+    serviceId: number
+    reviewerId: number
     comment: number
+    type: number
     created_at: number
     _all: number
   }
 
 
-  export type ReviewAvgAggregateInputType = {
-    rating?: true
-  }
-
-  export type ReviewSumAggregateInputType = {
-    rating?: true
-  }
-
   export type ReviewMinAggregateInputType = {
     id?: true
     vendorId?: true
-    userId?: true
-    rating?: true
+    serviceId?: true
+    reviewerId?: true
     comment?: true
+    type?: true
     created_at?: true
   }
 
   export type ReviewMaxAggregateInputType = {
     id?: true
     vendorId?: true
-    userId?: true
-    rating?: true
+    serviceId?: true
+    reviewerId?: true
     comment?: true
+    type?: true
     created_at?: true
   }
 
   export type ReviewCountAggregateInputType = {
     id?: true
     vendorId?: true
-    userId?: true
-    rating?: true
+    serviceId?: true
+    reviewerId?: true
     comment?: true
+    type?: true
     created_at?: true
     _all?: true
   }
@@ -8623,18 +8729,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ReviewAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ReviewSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ReviewMinAggregateInputType
@@ -8665,8 +8759,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ReviewCountAggregateInputType | true
-    _avg?: ReviewAvgAggregateInputType
-    _sum?: ReviewSumAggregateInputType
     _min?: ReviewMinAggregateInputType
     _max?: ReviewMaxAggregateInputType
   }
@@ -8674,13 +8766,12 @@ export namespace Prisma {
   export type ReviewGroupByOutputType = {
     id: string
     vendorId: string
-    userId: string
-    rating: number
+    serviceId: string | null
+    reviewerId: string
     comment: string | null
+    type: $Enums.ReviewType
     created_at: Date
     _count: ReviewCountAggregateOutputType | null
-    _avg: ReviewAvgAggregateOutputType | null
-    _sum: ReviewSumAggregateOutputType | null
     _min: ReviewMinAggregateOutputType | null
     _max: ReviewMaxAggregateOutputType | null
   }
@@ -8702,38 +8793,44 @@ export namespace Prisma {
   export type ReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     vendorId?: boolean
-    userId?: boolean
-    rating?: boolean
+    serviceId?: boolean
+    reviewerId?: boolean
     comment?: boolean
+    type?: boolean
     created_at?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    service?: boolean | Review$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
 
 
   export type ReviewSelectScalar = {
     id?: boolean
     vendorId?: boolean
-    userId?: boolean
-    rating?: boolean
+    serviceId?: boolean
+    reviewerId?: boolean
     comment?: boolean
+    type?: boolean
     created_at?: boolean
   }
 
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
+    service?: boolean | Review$serviceArgs<ExtArgs>
   }
 
   export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Review"
     objects: {
       vendor: Prisma.$VendorPayload<ExtArgs>
+      service: Prisma.$ServicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       vendorId: string
-      userId: string
-      rating: number
+      serviceId: string | null
+      reviewerId: string
       comment: string | null
+      type: $Enums.ReviewType
       created_at: Date
     }, ExtArgs["result"]["review"]>
     composites: {}
@@ -9099,6 +9196,7 @@ export namespace Prisma {
   export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    service<T extends Review$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Review$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9130,9 +9228,10 @@ export namespace Prisma {
   interface ReviewFieldRefs {
     readonly id: FieldRef<"Review", 'String'>
     readonly vendorId: FieldRef<"Review", 'String'>
-    readonly userId: FieldRef<"Review", 'String'>
-    readonly rating: FieldRef<"Review", 'Int'>
+    readonly serviceId: FieldRef<"Review", 'String'>
+    readonly reviewerId: FieldRef<"Review", 'String'>
     readonly comment: FieldRef<"Review", 'String'>
+    readonly type: FieldRef<"Review", 'ReviewType'>
     readonly created_at: FieldRef<"Review", 'DateTime'>
   }
     
@@ -9460,6 +9559,21 @@ export namespace Prisma {
   }
 
   /**
+   * Review.service
+   */
+  export type Review$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+  }
+
+  /**
    * Review without action
    */
   export type ReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9509,8 +9623,10 @@ export namespace Prisma {
     vendorId: 'vendorId',
     service_name: 'service_name',
     description: 'description',
-    price: 'price',
+    min_price: 'min_price',
+    max_price: 'max_price',
     service_type: 'service_type',
+    rating: 'rating',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -9584,9 +9700,10 @@ export namespace Prisma {
   export const ReviewScalarFieldEnum: {
     id: 'id',
     vendorId: 'vendorId',
-    userId: 'userId',
-    rating: 'rating',
+    serviceId: 'serviceId',
+    reviewerId: 'reviewerId',
     comment: 'comment',
+    type: 'type',
     created_at: 'created_at'
   };
 
@@ -9667,6 +9784,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType'
+   */
+  export type EnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType[]'
+   */
+  export type ListEnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType[]'>
     
 
 
@@ -9837,12 +9968,15 @@ export namespace Prisma {
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: JsonFilter<"Service">
+    min_price?: FloatNullableFilter<"Service"> | number | null
+    max_price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
     vendor?: XOR<VendorRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
+    reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
   }
 
@@ -9851,12 +9985,15 @@ export namespace Prisma {
     vendorId?: SortOrder
     service_name?: SortOrder
     description?: SortOrder
-    price?: SortOrder
+    min_price?: SortOrder
+    max_price?: SortOrder
     service_type?: SortOrder
+    rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     vendor?: VendorOrderByWithRelationInput
     availabilities?: AvailabilityOrderByRelationAggregateInput
+    reviews?: ReviewOrderByRelationAggregateInput
     media?: MediaOrderByRelationAggregateInput
   }
 
@@ -9868,12 +10005,15 @@ export namespace Prisma {
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: JsonFilter<"Service">
+    min_price?: FloatNullableFilter<"Service"> | number | null
+    max_price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
     vendor?: XOR<VendorRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
+    reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
   }, "id">
 
@@ -9882,13 +10022,17 @@ export namespace Prisma {
     vendorId?: SortOrder
     service_name?: SortOrder
     description?: SortOrder
-    price?: SortOrder
+    min_price?: SortOrder
+    max_price?: SortOrder
     service_type?: SortOrder
+    rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
+    _avg?: ServiceAvgOrderByAggregateInput
     _max?: ServiceMaxOrderByAggregateInput
     _min?: ServiceMinOrderByAggregateInput
+    _sum?: ServiceSumOrderByAggregateInput
   }
 
   export type ServiceScalarWhereWithAggregatesInput = {
@@ -9899,8 +10043,10 @@ export namespace Prisma {
     vendorId?: StringWithAggregatesFilter<"Service"> | string
     service_name?: StringWithAggregatesFilter<"Service"> | string
     description?: StringWithAggregatesFilter<"Service"> | string
-    price?: JsonWithAggregatesFilter<"Service">
+    min_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
+    max_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
+    rating?: FloatWithAggregatesFilter<"Service"> | number
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
   }
@@ -10228,21 +10374,25 @@ export namespace Prisma {
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     id?: StringFilter<"Review"> | string
     vendorId?: StringFilter<"Review"> | string
-    userId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
+    serviceId?: StringNullableFilter<"Review"> | string | null
+    reviewerId?: StringFilter<"Review"> | string
     comment?: StringNullableFilter<"Review"> | string | null
+    type?: EnumReviewTypeFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeFilter<"Review"> | Date | string
     vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    service?: XOR<ServiceNullableRelationFilter, ServiceWhereInput> | null
   }
 
   export type ReviewOrderByWithRelationInput = {
     id?: SortOrder
     vendorId?: SortOrder
-    userId?: SortOrder
-    rating?: SortOrder
+    serviceId?: SortOrder
+    reviewerId?: SortOrder
     comment?: SortOrder
+    type?: SortOrder
     created_at?: SortOrder
     vendor?: VendorOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
   }
 
   export type ReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -10251,25 +10401,26 @@ export namespace Prisma {
     OR?: ReviewWhereInput[]
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     vendorId?: StringFilter<"Review"> | string
-    userId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
+    serviceId?: StringNullableFilter<"Review"> | string | null
+    reviewerId?: StringFilter<"Review"> | string
     comment?: StringNullableFilter<"Review"> | string | null
+    type?: EnumReviewTypeFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeFilter<"Review"> | Date | string
     vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    service?: XOR<ServiceNullableRelationFilter, ServiceWhereInput> | null
   }, "id">
 
   export type ReviewOrderByWithAggregationInput = {
     id?: SortOrder
     vendorId?: SortOrder
-    userId?: SortOrder
-    rating?: SortOrder
+    serviceId?: SortOrder
+    reviewerId?: SortOrder
     comment?: SortOrder
+    type?: SortOrder
     created_at?: SortOrder
     _count?: ReviewCountOrderByAggregateInput
-    _avg?: ReviewAvgOrderByAggregateInput
     _max?: ReviewMaxOrderByAggregateInput
     _min?: ReviewMinOrderByAggregateInput
-    _sum?: ReviewSumOrderByAggregateInput
   }
 
   export type ReviewScalarWhereWithAggregatesInput = {
@@ -10278,9 +10429,10 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Review"> | string
     vendorId?: StringWithAggregatesFilter<"Review"> | string
-    userId?: StringWithAggregatesFilter<"Review"> | string
-    rating?: IntWithAggregatesFilter<"Review"> | number
+    serviceId?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    reviewerId?: StringWithAggregatesFilter<"Review"> | string
     comment?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    type?: EnumReviewTypeWithAggregatesFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
 
@@ -10465,12 +10617,15 @@ export namespace Prisma {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
   }
 
@@ -10479,23 +10634,29 @@ export namespace Prisma {
     vendorId: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
   }
 
@@ -10503,11 +10664,14 @@ export namespace Prisma {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -10516,8 +10680,10 @@ export namespace Prisma {
     vendorId: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -10525,8 +10691,10 @@ export namespace Prisma {
   export type ServiceUpdateManyMutationInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10535,8 +10703,10 @@ export namespace Prisma {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10854,59 +11024,65 @@ export namespace Prisma {
 
   export type ReviewCreateInput = {
     id?: string
-    userId: string
-    rating?: number
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
     vendor: VendorCreateNestedOneWithoutReviewsInput
+    service?: ServiceCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewUncheckedCreateInput = {
     id?: string
     vendorId: string
-    userId: string
-    rating?: number
+    serviceId?: string | null
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
   }
 
   export type ReviewUpdateInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutReviewsNestedInput
+    service?: ServiceUpdateOneWithoutReviewsNestedInput
   }
 
   export type ReviewUncheckedUpdateInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewCreateManyInput = {
     id?: string
     vendorId: string
-    userId: string
-    rating?: number
+    serviceId?: string | null
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
   }
 
   export type ReviewUpdateManyMutationInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewUncheckedUpdateManyInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11189,6 +11365,29 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type VendorRelationFilter = {
     is?: VendorWhereInput
     isNot?: VendorWhereInput
@@ -11219,10 +11418,18 @@ export namespace Prisma {
     vendorId?: SortOrder
     service_name?: SortOrder
     description?: SortOrder
-    price?: SortOrder
+    min_price?: SortOrder
+    max_price?: SortOrder
     service_type?: SortOrder
+    rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ServiceAvgOrderByAggregateInput = {
+    min_price?: SortOrder
+    max_price?: SortOrder
+    rating?: SortOrder
   }
 
   export type ServiceMaxOrderByAggregateInput = {
@@ -11230,7 +11437,10 @@ export namespace Prisma {
     vendorId?: SortOrder
     service_name?: SortOrder
     description?: SortOrder
+    min_price?: SortOrder
+    max_price?: SortOrder
     service_type?: SortOrder
+    rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -11240,9 +11450,51 @@ export namespace Prisma {
     vendorId?: SortOrder
     service_name?: SortOrder
     description?: SortOrder
+    min_price?: SortOrder
+    max_price?: SortOrder
     service_type?: SortOrder
+    rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ServiceSumOrderByAggregateInput = {
+    min_price?: SortOrder
+    max_price?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type ServiceRelationFilter = {
@@ -11331,17 +11583,6 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type PromotionCountOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
@@ -11383,22 +11624,6 @@ export namespace Prisma {
     discount_percentage?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type FAQCountOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
@@ -11423,66 +11648,56 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type EnumReviewTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReviewType | EnumReviewTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumReviewTypeFilter<$PrismaModel> | $Enums.ReviewType
+  }
+
+  export type ServiceNullableRelationFilter = {
+    is?: ServiceWhereInput | null
+    isNot?: ServiceWhereInput | null
   }
 
   export type ReviewCountOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
-    userId?: SortOrder
-    rating?: SortOrder
+    serviceId?: SortOrder
+    reviewerId?: SortOrder
     comment?: SortOrder
+    type?: SortOrder
     created_at?: SortOrder
-  }
-
-  export type ReviewAvgOrderByAggregateInput = {
-    rating?: SortOrder
   }
 
   export type ReviewMaxOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
-    userId?: SortOrder
-    rating?: SortOrder
+    serviceId?: SortOrder
+    reviewerId?: SortOrder
     comment?: SortOrder
+    type?: SortOrder
     created_at?: SortOrder
   }
 
   export type ReviewMinOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
-    userId?: SortOrder
-    rating?: SortOrder
+    serviceId?: SortOrder
+    reviewerId?: SortOrder
     comment?: SortOrder
+    type?: SortOrder
     created_at?: SortOrder
   }
 
-  export type ReviewSumOrderByAggregateInput = {
-    rating?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type EnumReviewTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReviewType | EnumReviewTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumReviewTypeWithAggregatesFilter<$PrismaModel> | $Enums.ReviewType
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReviewTypeFilter<$PrismaModel>
+    _max?: NestedEnumReviewTypeFilter<$PrismaModel>
   }
 
   export type VendorCreateservice_typeInput = {
@@ -11734,6 +11949,13 @@ export namespace Prisma {
     connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
   }
 
+  export type ReviewCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput> | ReviewCreateWithoutServiceInput[] | ReviewUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutServiceInput | ReviewCreateOrConnectWithoutServiceInput[]
+    createMany?: ReviewCreateManyServiceInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
   export type MediaCreateNestedManyWithoutServiceInput = {
     create?: XOR<MediaCreateWithoutServiceInput, MediaUncheckedCreateWithoutServiceInput> | MediaCreateWithoutServiceInput[] | MediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: MediaCreateOrConnectWithoutServiceInput | MediaCreateOrConnectWithoutServiceInput[]
@@ -11748,11 +11970,35 @@ export namespace Prisma {
     connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
   }
 
+  export type ReviewUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput> | ReviewCreateWithoutServiceInput[] | ReviewUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutServiceInput | ReviewCreateOrConnectWithoutServiceInput[]
+    createMany?: ReviewCreateManyServiceInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
   export type MediaUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<MediaCreateWithoutServiceInput, MediaUncheckedCreateWithoutServiceInput> | MediaCreateWithoutServiceInput[] | MediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: MediaCreateOrConnectWithoutServiceInput | MediaCreateOrConnectWithoutServiceInput[]
     createMany?: MediaCreateManyServiceInputEnvelope
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type VendorUpdateOneRequiredWithoutServicesNestedInput = {
@@ -11775,6 +12021,20 @@ export namespace Prisma {
     update?: AvailabilityUpdateWithWhereUniqueWithoutServiceInput | AvailabilityUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: AvailabilityUpdateManyWithWhereWithoutServiceInput | AvailabilityUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
+  }
+
+  export type ReviewUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput> | ReviewCreateWithoutServiceInput[] | ReviewUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutServiceInput | ReviewCreateOrConnectWithoutServiceInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutServiceInput | ReviewUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ReviewCreateManyServiceInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutServiceInput | ReviewUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutServiceInput | ReviewUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
   export type MediaUpdateManyWithoutServiceNestedInput = {
@@ -11803,6 +12063,20 @@ export namespace Prisma {
     update?: AvailabilityUpdateWithWhereUniqueWithoutServiceInput | AvailabilityUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: AvailabilityUpdateManyWithWhereWithoutServiceInput | AvailabilityUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput> | ReviewCreateWithoutServiceInput[] | ReviewUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutServiceInput | ReviewCreateOrConnectWithoutServiceInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutServiceInput | ReviewUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ReviewCreateManyServiceInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutServiceInput | ReviewUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutServiceInput | ReviewUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
   export type MediaUncheckedUpdateManyWithoutServiceNestedInput = {
@@ -11885,14 +12159,6 @@ export namespace Prisma {
     connect?: VendorWhereUniqueInput
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type VendorUpdateOneRequiredWithoutPromotionsNestedInput = {
     create?: XOR<VendorCreateWithoutPromotionsInput, VendorUncheckedCreateWithoutPromotionsInput>
     connectOrCreate?: VendorCreateOrConnectWithoutPromotionsInput
@@ -11921,12 +12187,14 @@ export namespace Prisma {
     connect?: VendorWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type ServiceCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutReviewsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type EnumReviewTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ReviewType
   }
 
   export type VendorUpdateOneRequiredWithoutReviewsNestedInput = {
@@ -11935,6 +12203,16 @@ export namespace Prisma {
     upsert?: VendorUpsertWithoutReviewsInput
     connect?: VendorWhereUniqueInput
     update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutReviewsInput, VendorUpdateWithoutReviewsInput>, VendorUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ServiceUpdateOneWithoutReviewsNestedInput = {
+    create?: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutReviewsInput
+    upsert?: ServiceUpsertWithoutReviewsInput
+    disconnect?: boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutReviewsInput, ServiceUpdateWithoutReviewsInput>, ServiceUncheckedUpdateWithoutReviewsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12085,6 +12363,18 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -12094,6 +12384,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -12112,31 +12419,35 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type NestedEnumReviewTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReviewType | EnumReviewTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumReviewTypeFilter<$PrismaModel> | $Enums.ReviewType
+  }
+
+  export type NestedEnumReviewTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReviewType | EnumReviewTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumReviewTypeWithAggregatesFilter<$PrismaModel> | $Enums.ReviewType
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumReviewTypeFilter<$PrismaModel>
+    _max?: NestedEnumReviewTypeFilter<$PrismaModel>
   }
 
   export type ServiceCreateWithoutVendorInput = {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
   }
 
@@ -12144,11 +12455,14 @@ export namespace Prisma {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -12246,17 +12560,19 @@ export namespace Prisma {
 
   export type ReviewCreateWithoutVendorInput = {
     id?: string
-    userId: string
-    rating?: number
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
+    service?: ServiceCreateNestedOneWithoutReviewsInput
   }
 
   export type ReviewUncheckedCreateWithoutVendorInput = {
     id?: string
-    userId: string
-    rating?: number
+    serviceId?: string | null
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
   }
 
@@ -12293,8 +12609,10 @@ export namespace Prisma {
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
-    price?: JsonFilter<"Service">
+    min_price?: FloatNullableFilter<"Service"> | number | null
+    max_price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
   }
@@ -12409,9 +12727,10 @@ export namespace Prisma {
     NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
     id?: StringFilter<"Review"> | string
     vendorId?: StringFilter<"Review"> | string
-    userId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
+    serviceId?: StringNullableFilter<"Review"> | string | null
+    reviewerId?: StringFilter<"Review"> | string
     comment?: StringNullableFilter<"Review"> | string | null
+    type?: EnumReviewTypeFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeFilter<"Review"> | Date | string
   }
 
@@ -12497,6 +12816,33 @@ export namespace Prisma {
 
   export type AvailabilityCreateManyServiceInputEnvelope = {
     data: AvailabilityCreateManyServiceInput | AvailabilityCreateManyServiceInput[]
+  }
+
+  export type ReviewCreateWithoutServiceInput = {
+    id?: string
+    reviewerId: string
+    comment?: string | null
+    type: $Enums.ReviewType
+    created_at?: Date | string
+    vendor: VendorCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ReviewUncheckedCreateWithoutServiceInput = {
+    id?: string
+    vendorId: string
+    reviewerId: string
+    comment?: string | null
+    type: $Enums.ReviewType
+    created_at?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutServiceInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ReviewCreateManyServiceInputEnvelope = {
+    data: ReviewCreateManyServiceInput | ReviewCreateManyServiceInput[]
   }
 
   export type MediaCreateWithoutServiceInput = {
@@ -12613,6 +12959,22 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Availability"> | Date | string
   }
 
+  export type ReviewUpsertWithWhereUniqueWithoutServiceInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutServiceInput, ReviewUncheckedUpdateWithoutServiceInput>
+    create: XOR<ReviewCreateWithoutServiceInput, ReviewUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutServiceInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutServiceInput, ReviewUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutServiceInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutServiceInput>
+  }
+
   export type MediaUpsertWithWhereUniqueWithoutServiceInput = {
     where: MediaWhereUniqueInput
     update: XOR<MediaUpdateWithoutServiceInput, MediaUncheckedUpdateWithoutServiceInput>
@@ -12644,11 +13006,14 @@ export namespace Prisma {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
   }
 
@@ -12657,10 +13022,13 @@ export namespace Prisma {
     vendorId: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -12683,11 +13051,14 @@ export namespace Prisma {
   export type ServiceUpdateWithoutAvailabilitiesInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
   }
 
@@ -12695,10 +13066,13 @@ export namespace Prisma {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -12706,12 +13080,15 @@ export namespace Prisma {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutMediaInput = {
@@ -12719,11 +13096,14 @@ export namespace Prisma {
     vendorId: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutMediaInput = {
@@ -12745,23 +13125,29 @@ export namespace Prisma {
   export type ServiceUpdateWithoutMediaInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutMediaInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type VendorCreateWithoutTeam_membersInput = {
@@ -13189,6 +13575,41 @@ export namespace Prisma {
     create: XOR<VendorCreateWithoutReviewsInput, VendorUncheckedCreateWithoutReviewsInput>
   }
 
+  export type ServiceCreateWithoutReviewsInput = {
+    id?: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    service_type: string
+    rating?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    vendor: VendorCreateNestedOneWithoutServicesInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    media?: MediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    vendorId: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    service_type: string
+    rating?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutReviewsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
+  }
+
   export type VendorUpsertWithoutReviewsInput = {
     update: XOR<VendorUpdateWithoutReviewsInput, VendorUncheckedUpdateWithoutReviewsInput>
     create: XOR<VendorCreateWithoutReviewsInput, VendorUncheckedCreateWithoutReviewsInput>
@@ -13252,12 +13673,53 @@ export namespace Prisma {
     faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
   }
 
+  export type ServiceUpsertWithoutReviewsInput = {
+    update: XOR<ServiceUpdateWithoutReviewsInput, ServiceUncheckedUpdateWithoutReviewsInput>
+    create: XOR<ServiceCreateWithoutReviewsInput, ServiceUncheckedCreateWithoutReviewsInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutReviewsInput, ServiceUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ServiceUpdateWithoutReviewsInput = {
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    media?: MediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutReviewsInput = {
+    vendorId?: StringFieldUpdateOperationsInput | string
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
   export type ServiceCreateManyVendorInput = {
     id?: string
     service_name: string
     description: string
-    price: InputJsonValue
+    min_price?: number | null
+    max_price?: number | null
     service_type: string
+    rating?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13292,39 +13754,48 @@ export namespace Prisma {
 
   export type ReviewCreateManyVendorInput = {
     id?: string
-    userId: string
-    rating?: number
+    serviceId?: string | null
+    reviewerId: string
     comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
   }
 
   export type ServiceUpdateWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    price?: InputJsonValue | InputJsonValue
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13405,23 +13876,26 @@ export namespace Prisma {
   }
 
   export type ReviewUpdateWithoutVendorInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneWithoutReviewsNestedInput
   }
 
   export type ReviewUncheckedUpdateWithoutVendorInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReviewUncheckedUpdateManyWithoutVendorInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
+    serviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13430,6 +13904,15 @@ export namespace Prisma {
     available_date: Date | string
     wedding_date: Date | string
     is_available: boolean
+    created_at?: Date | string
+  }
+
+  export type ReviewCreateManyServiceInput = {
+    id?: string
+    vendorId: string
+    reviewerId: string
+    comment?: string | null
+    type: $Enums.ReviewType
     created_at?: Date | string
   }
 
@@ -13458,6 +13941,30 @@ export namespace Prisma {
     available_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wedding_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_available?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUpdateWithoutServiceInput = {
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutServiceInput = {
+    vendorId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutServiceInput = {
+    vendorId?: StringFieldUpdateOperationsInput | string
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumReviewTypeFieldUpdateOperationsInput | $Enums.ReviewType
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

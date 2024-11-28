@@ -143,8 +143,10 @@ exports.Prisma.ServiceScalarFieldEnum = {
   vendorId: 'vendorId',
   service_name: 'service_name',
   description: 'description',
-  price: 'price',
+  min_price: 'min_price',
+  max_price: 'max_price',
   service_type: 'service_type',
+  rating: 'rating',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -200,9 +202,10 @@ exports.Prisma.FAQScalarFieldEnum = {
 exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   vendorId: 'vendorId',
-  userId: 'userId',
-  rating: 'rating',
+  serviceId: 'serviceId',
+  reviewerId: 'reviewerId',
   comment: 'comment',
+  type: 'type',
   created_at: 'created_at'
 };
 
@@ -215,7 +218,10 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.ReviewType = exports.$Enums.ReviewType = {
+  VENDOR: 'VENDOR',
+  SERVICE: 'SERVICE'
+};
 
 exports.Prisma.ModelName = {
   Vendor: 'Vendor',
