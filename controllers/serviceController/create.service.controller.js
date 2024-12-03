@@ -25,10 +25,12 @@ const createService = async (req, res, next) => {
       return next(new CustomError("Vendor not found.", 404));
     }
 
+    const {rating,...inputData} = validatedData;
+
     // Create the new service
     const newService = await prisma.Service.create({
       data: {
-        ...validatedData,
+        ...inputData,
         vendorId: vendor.id,
       },
       include: {

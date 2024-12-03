@@ -1,57 +1,59 @@
-import { PrismaClient } from "../../prisma/generated/mongo/index.js"; 
+import { z } from 'zod';
 import CustomError from "../../utils/CustomError.js";
+import { PrismaClient } from "../../prisma/generated/mongo/index.js";
+import { querySchema } from '../../validation schema/service.schema.js';  // Assuming schema is defined here
 
 const prisma = new PrismaClient();
 
+// Controller to get all services
 const getAllServices = async (req, res) => {
-  console.log(req.query, "returning"); // Corrected logging
-
   try {
-    const { page = 1, limit = 10, service_type, minPrice, maxPrice, rating } = req.query;
+    // Validate query parameters
+    const validatedQuery = querySchema.parse(req.query);
 
-    // Initialize the where filter object
-    const where = {};
+    const { page, limit, service_type, minPrice, maxPrice, vendor_name } = validatedQuery;
+    const where = {}; // Initialize where clause for filtering
+    
+    console.log(vendor_name +"myNmae");
+    // If vendor_name is provided, find the vendor by name
+    if (vendor_name) {
+      const vendor = await prisma.Vendor.findFirst({
+        where: { name: vendor_name }, // Use 'where' instead of 'filter'
+      });
 
-    // Add service_type filter if provided
+      console.log(vendor,{extends:true}+" is available vendor Id");
+
+      if (!vendor) {
+        throw new CustomError("Vendor not found", 404);
+      }
+      where.vendorId = vendor.id; 
+    }
+    // Add other filters if present
     if (service_type) where.service_type = service_type;
+    if (minPrice && minPrice !== null) where.min_price = { gte: minPrice };
+    if (maxPrice && maxPrice !== null) where.max_price = { lte: maxPrice };
 
-    // Add minPrice and maxPrice filters if provided
-    if (minPrice || maxPrice) {
-      if (minPrice) {
-        where.min_price = {
-          gte: parseFloat(minPrice), // Greater than or equal to minPrice
-        };
-      }
-      if (maxPrice) {
-        where.max_price = {
-          lte: parseFloat(maxPrice), // Less than or equal to maxPrice
-        };
-      }
-    }
+    console.log("Where clause built:", where); // Log the where clause for debugging
 
-    // Add rating filter if provided
-    if (rating) {
-      where.rating = {
-        gte: parseFloat(rating), // Greater than or equal to rating
-      };
-    }
+    // Get the total count of services matching the filters
+    const totalServices = await prisma.Service.count({ where });
 
-    // Fetch the filtered services and total count in a single query using aggregation
-    const [services, totalServices] = await prisma.$transaction([
-      prisma.Service.findMany({
-        where,
-        skip: (page - 1) * limit, // Calculate the skip based on page number
-        take: parseInt(limit),    // Limit number of results per page
-        orderBy: {
-          created_at: "desc", // Sort by created_at in descending order
+    // Get the actual services based on the filters
+    const services = await prisma.Service.findMany({
+      where,
+      skip: (page - 1) * limit,
+      take: limit, 
+      include: {
+        vendor: {
+          select: {
+            name: true,
+            description: true,
+          },
         },
-      }),
-      prisma.Service.count({
-        where,
-      }),
-    ]);
+      },
+    });
 
-    // Respond with services and pagination info
+    // Send the response with services data and pagination info
     res.status(200).json({
       services,
       total: totalServices,
@@ -60,8 +62,12 @@ const getAllServices = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    // Throw a custom error with appropriate message
-    throw new CustomError("Error fetching services", 500);
+    // Handle validation errors or general errors
+    if (error instanceof z.ZodError) {
+      res.status(400).json({ error: 'Invalid query parameters', details: error.errors });
+    } else {
+      throw new CustomError("Error fetching services", 500);
+    }
   }
 };
 

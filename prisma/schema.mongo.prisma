@@ -10,7 +10,7 @@ datasource db {
 
 model Vendor {
   id                String            @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
+  name              String            
   business_name     String
   business_category String
   license_number    String?  
