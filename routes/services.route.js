@@ -19,9 +19,9 @@ serviceRouter.route("/:id").get(getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
-serviceRouter.route('/create').post(createService);
-serviceRouter.route("/update/:id").patch( updateService);
-serviceRouter.route("/delete/:id").delete(deleteService);
+serviceRouter.route('/').post(createService);
+serviceRouter.route("/:id").patch( updateService);
+serviceRouter.route("/:id").delete(deleteService);
 serviceRouter.route("/bulk").post(bulkInsertServices)
 
 

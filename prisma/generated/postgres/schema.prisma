@@ -26,21 +26,34 @@ model User {
   is_verified         Boolean   @default(false)
   bookings            Booking[]
   reviews             Review[]
+  cart                Cart[]
   updated_at          DateTime?
 }
 
 model Booking {
-  id           String
-  userId       User      @relation(fields: [id], references: [id])
-  booking_id   String    @id @default(uuid())
-  service_id   String // Refers to a Service in MongoDB
-  vendor_id    String // Refers to a Vendor in MongoDB
-  booking_date DateTime
-  status       String    @default("pending")
-  totalAmount  Float // Total cost of the booking
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
-  payments     Payment[]
+  id               String
+  userId           User      @relation(fields: [id], references: [id])
+  booking_id       String    @id @default(uuid())
+  service_id       String // Refers to a Service in MongoDB
+  vendor_id        String // Refers to a Vendor in MongoDB
+  booking_date     DateTime
+  status           String    @default("pending")
+  negotiated_price Float? // Agreed price after negotiation
+  is_negotiable    Boolean   @default(false) // Flag for negotiation
+  totalAmount      Float // Total cost of the booking
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  payments         Payment[]
+}
+
+model Cart {
+  id        String   @id @default(uuid()) // Unique identifier for the cart
+  userId    String // References the user who owns the cart
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String // Refers to a Service in MongoDB
+  createdAt DateTime @default(now()) // Timestamp when the service was added
+
+  @@unique([id, userId])
 }
 
 model Payment {
