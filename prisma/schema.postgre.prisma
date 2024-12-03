@@ -29,15 +29,16 @@ model User {
 }
 
 model Booking {
-  booking_id   String   @id @default(uuid())
   id      String
-  vendor_id    String   // Refers to a Vendor in MongoDB
+  userId     User     @relation(fields: [id], references: [id])
+  booking_id   String   @id @default(uuid())
   service_id   String   // Refers to a Service in MongoDB
+  vendor_id    String   // Refers to a Vendor in MongoDB
   booking_date DateTime
-  status       String
-  created_at   DateTime @default(now())
-
-  user         User     @relation(fields: [id], references: [id])
+  status       String    @default("pending")
+  totalAmount   Float    // Total cost of the booking
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
   payments     Payment[]
 }
 

@@ -140,13 +140,15 @@ exports.Prisma.UserScalarFieldEnum = {
 };
 
 exports.Prisma.BookingScalarFieldEnum = {
-  booking_id: 'booking_id',
   id: 'id',
-  vendor_id: 'vendor_id',
+  booking_id: 'booking_id',
   service_id: 'service_id',
+  vendor_id: 'vendor_id',
   booking_date: 'booking_date',
   status: 'status',
-  created_at: 'created_at'
+  totalAmount: 'totalAmount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
