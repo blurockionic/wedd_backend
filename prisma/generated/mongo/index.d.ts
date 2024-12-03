@@ -2778,12 +2778,14 @@ export namespace Prisma {
   export type ServiceAvgAggregateOutputType = {
     min_price: number | null
     max_price: number | null
+    price: number | null
     rating: number | null
   }
 
   export type ServiceSumAggregateOutputType = {
     min_price: number | null
     max_price: number | null
+    price: number | null
     rating: number | null
   }
 
@@ -2794,6 +2796,7 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    price: number | null
     service_type: string | null
     rating: number | null
     created_at: Date | null
@@ -2807,6 +2810,7 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    price: number | null
     service_type: string | null
     rating: number | null
     created_at: Date | null
@@ -2820,6 +2824,7 @@ export namespace Prisma {
     description: number
     min_price: number
     max_price: number
+    price: number
     service_type: number
     rating: number
     created_at: number
@@ -2831,12 +2836,14 @@ export namespace Prisma {
   export type ServiceAvgAggregateInputType = {
     min_price?: true
     max_price?: true
+    price?: true
     rating?: true
   }
 
   export type ServiceSumAggregateInputType = {
     min_price?: true
     max_price?: true
+    price?: true
     rating?: true
   }
 
@@ -2847,6 +2854,7 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    price?: true
     service_type?: true
     rating?: true
     created_at?: true
@@ -2860,6 +2868,7 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    price?: true
     service_type?: true
     rating?: true
     created_at?: true
@@ -2873,6 +2882,7 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    price?: true
     service_type?: true
     rating?: true
     created_at?: true
@@ -2973,6 +2983,7 @@ export namespace Prisma {
     description: string
     min_price: number | null
     max_price: number | null
+    price: number | null
     service_type: string
     rating: number
     created_at: Date
@@ -3005,6 +3016,7 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    price?: boolean
     service_type?: boolean
     rating?: boolean
     created_at?: boolean
@@ -3024,6 +3036,7 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    price?: boolean
     service_type?: boolean
     rating?: boolean
     created_at?: boolean
@@ -3053,6 +3066,7 @@ export namespace Prisma {
       description: string
       min_price: number | null
       max_price: number | null
+      price: number | null
       service_type: string
       rating: number
       created_at: Date
@@ -3459,6 +3473,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Service", 'String'>
     readonly min_price: FieldRef<"Service", 'Float'>
     readonly max_price: FieldRef<"Service", 'Float'>
+    readonly price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
     readonly rating: FieldRef<"Service", 'Float'>
     readonly created_at: FieldRef<"Service", 'DateTime'>
@@ -9625,6 +9640,7 @@ export namespace Prisma {
     description: 'description',
     min_price: 'min_price',
     max_price: 'max_price',
+    price: 'price',
     service_type: 'service_type',
     rating: 'rating',
     created_at: 'created_at',
@@ -9970,6 +9986,7 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -9987,6 +10004,7 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
@@ -10007,6 +10025,7 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -10024,6 +10043,7 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
@@ -10045,6 +10065,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Service"> | string
     min_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     max_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
+    price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
     rating?: FloatWithAggregatesFilter<"Service"> | number
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -10619,6 +10640,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -10636,6 +10658,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -10650,6 +10673,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10666,6 +10690,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10682,6 +10707,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -10693,6 +10719,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10705,6 +10732,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11420,6 +11448,7 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
@@ -11429,6 +11458,7 @@ export namespace Prisma {
   export type ServiceAvgOrderByAggregateInput = {
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     rating?: SortOrder
   }
 
@@ -11439,6 +11469,7 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
@@ -11452,6 +11483,7 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
@@ -11461,6 +11493,7 @@ export namespace Prisma {
   export type ServiceSumOrderByAggregateInput = {
     min_price?: SortOrder
     max_price?: SortOrder
+    price?: SortOrder
     rating?: SortOrder
   }
 
@@ -12442,6 +12475,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -12457,6 +12491,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -12611,6 +12646,7 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -13008,6 +13044,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13024,6 +13061,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13053,6 +13091,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13068,6 +13107,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13082,6 +13122,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13098,6 +13139,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13127,6 +13169,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13142,6 +13185,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13581,6 +13625,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13597,6 +13642,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13689,6 +13735,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13704,6 +13751,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13718,6 +13766,7 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    price?: number | null
     service_type: string
     rating?: number
     created_at?: Date | string
@@ -13766,6 +13815,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13780,6 +13830,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13794,6 +13845,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

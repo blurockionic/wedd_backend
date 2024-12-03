@@ -145,6 +145,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   description: 'description',
   min_price: 'min_price',
   max_price: 'max_price',
+  price: 'price',
   service_type: 'service_type',
   rating: 'rating',
   created_at: 'created_at',

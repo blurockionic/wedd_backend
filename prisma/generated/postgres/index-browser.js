@@ -146,9 +146,18 @@ exports.Prisma.BookingScalarFieldEnum = {
   vendor_id: 'vendor_id',
   booking_date: 'booking_date',
   status: 'status',
+  negotiated_price: 'negotiated_price',
+  is_negotiable: 'is_negotiable',
   totalAmount: 'totalAmount',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -204,6 +213,7 @@ exports.Role = exports.$Enums.Role = {
 exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
+  Cart: 'Cart',
   Payment: 'Payment',
   Review: 'Review',
   EventSchedule: 'EventSchedule'
