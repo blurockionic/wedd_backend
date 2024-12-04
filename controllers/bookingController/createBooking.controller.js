@@ -20,6 +20,9 @@ export const createBooking = async (req, res) => {
       totalAmount,
     } = createBookingSchema.parse(req.body);
 
+    
+
+    
     // Start Prisma $transaction for MongoDB and PostgreSQL
     const booking = await postgresPrisma.$transaction(async (transactionClient) => {
       // Validate service and vendor from MongoDB
@@ -75,3 +78,4 @@ export const createBooking = async (req, res) => {
       .json({ error: error.message || "An unexpected error occurred" });
   }
 };
+git 
