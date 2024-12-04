@@ -9,6 +9,7 @@ import cluster from 'cluster';
 import os from 'os';
 import routes from './routes/routes.js';
 import morganLogger from './middleware/log.middleware.js';
+import uploadRouter from './routes/upload.router.js';
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ if (cluster.isPrimary) {
 
     // Define routes
     app.use('/api/v1',routes);
+    app.use("/api", uploadRouter);
 
     // Error handling middleware
     app.use(errorMiddleware);
