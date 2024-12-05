@@ -6,62 +6,79 @@ import CustomError from "../utils/CustomError.js";
 const prisma = new PrismaClient();
 const uploadRouter = express.Router();
 
-// Helper: Multer upload as a Promise
-const singleFileUpload = (req, res) => {
-  return new Promise((resolve, reject) => {
-    upload.single("file")(req, res, (err) => {
-      if (err) reject(err);
-      else resolve(req.file);
-    });
-  });
-};
+// POST route for file upload, using serviceId from URL path
+uploadRouter.post(
+  "/upload/:serviceId",
+  upload.array("files"),
+  async (req, res, next) => {
+    const { serviceId } = req.params; // Get serviceId from URL parameter
 
-// POST route for file upload
-uploadRouter.post("/upload", async (req, res, next) => {
-  const { serviceId } = req.body;
-
-  try {
-    // Validate serviceId
+    // Validate serviceId before uploading files
     if (!serviceId) {
-      throw new CustomError("serviceId is required", 400);
+      return next(new CustomError("serviceId is required", 400));
     }
 
-    // Check if the referenced service exists
-    const serviceExists = await prisma.service.findUnique({ where: { id: serviceId } });
-    if (!serviceExists) {
-      throw new CustomError("Service not found", 404);
+    try {
+      // Check if the referenced service exists
+      const serviceExists = await prisma.Service.findUnique({
+        where: { id: serviceId },
+      });
+      if (!serviceExists) {
+        throw new CustomError("Service not found", 404);
+      }
+
+      // Ensure files were uploaded
+      const files = req.files;
+      if (!files || files.length === 0) {
+        return next(new CustomError("No files uploaded", 400));
+      }
+
+      let imageUrls = [];
+      let videoUrls = [];
+
+      const mediaData = [];
+
+      // Loop through each file to handle its type (image or video)
+      for (const file of files) {
+        const isImage = file.mimetype.startsWith("image");
+        const isVideo = file.mimetype.startsWith("video");
+
+        // Prepare the file URL based on type (image or video)
+        const fileUrl = file.path; // In production, replace with Cloudinary URL
+
+        if (isImage) {
+          imageUrls.push(fileUrl);
+        } else if (isVideo) {
+          videoUrls.push(fileUrl);
+        }
+      }
+
+      // Check for existing media and update/create accordingly
+
+      const media = await prisma.Media.upsert({
+        where: { serviceId: serviceId },
+        update: {
+          image_urls: { set: [...imageUrls] },
+          video_urls: { set: [...videoUrls] },
+        },
+        create: {
+          serviceId: serviceId,
+          image_urls: imageUrls,
+          video_urls: videoUrls,
+        },
+      });
+
+      mediaData.push(media);
+
+      // Respond with success
+      res.status(201).json({
+        message: "Files uploaded and media references saved successfully",
+        media: mediaData,
+      });
+    } catch (error) {
+      next(error); // Pass errors to error-handling middleware
     }
-
-    // Handle file upload
-    const file = await singleFileUpload(req, res);
-    if (!file) {
-      throw new CustomError("File upload failed", 400);
-    }
-
-    // Determine file type (image or video)
-    const isImage = file.mimetype.startsWith("image");
-    const isVideo = file.mimetype.startsWith("video");
-
-    // Prepare media object to save in the database
-    const mediaData = {
-      serviceId,
-      image_urls: isImage ? [file.path] : [],
-      video_urls: isVideo ? [file.path] : [],
-    };
-
-    // Save to the database
-    const media = await prisma.media.create({
-      data: mediaData,
-    });
-
-    // Respond with success
-    res.status(201).json({
-      message: "File uploaded and media reference saved successfully",
-      media,
-    });
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 export default uploadRouter;

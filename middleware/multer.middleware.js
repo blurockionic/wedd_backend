@@ -14,21 +14,23 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => ({
-    folder: "wedding-wire-clone/images",
-    transformation: file.mimetype.startsWith("image")
-      ? [{ width: 1080, height: 720, crop: "limit", quality: "auto" }]
-      : undefined,
+    
+    folder: "wedding-wire-clone/assets",
     resource_type: file.mimetype.startsWith("video") ? "video" : "image",
     public_id: `${file.fieldname}-${Date.now()}-${Math.round(
       Math.random() * 1e9
-    )}`,
+    )}`
+     // transformation: file.mimetype.startsWith("image")
+    //   ? [{ width: 1080, height: 720, crop: "limit", quality: "auto" }]
+    //   : undefined
   }),
 });
 
 // Multer Upload
 const upload = multer({
   storage: storage,
-  fileFilter: (req, file, cb) => {
+  fileFilter: (req, file, cb) => { 
+
     const allowedTypes = ["image/png", "image/gif", "image/jpeg", "video/mp4"];
     if (!allowedTypes.includes(file.mimetype)) {
         return cb( new CustomError("Unsupported file type", 400));

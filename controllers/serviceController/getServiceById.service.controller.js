@@ -21,6 +21,12 @@ const getServiceById = async (req, res, next) => {
             email: true,
           },
         },
+        media: {
+          select: {
+            image_urls: true,
+            video_urls: true,
+          },
+        },
       },
     });
 
