@@ -68,9 +68,10 @@ model Media {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   serviceId   String   @unique
   service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia")
-  image_urls  String[]
-  video_urls  String[]
-  uploaded_at DateTime @default(now())
+  image_urls  Json
+  video_urls  Json
+  uploaded_at   DateTime @default(now())
+ 
 }
 
 model TeamMember {

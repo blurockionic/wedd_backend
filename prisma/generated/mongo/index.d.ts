@@ -4946,8 +4946,8 @@ export namespace Prisma {
   export type MediaGroupByOutputType = {
     id: string
     serviceId: string
-    image_urls: string[]
-    video_urls: string[]
+    image_urls: JsonValue
+    video_urls: JsonValue
     uploaded_at: Date
     _count: MediaCountAggregateOutputType | null
     _min: MediaMinAggregateOutputType | null
@@ -4998,8 +4998,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       serviceId: string
-      image_urls: string[]
-      video_urls: string[]
+      image_urls: Prisma.JsonValue
+      video_urls: Prisma.JsonValue
       uploaded_at: Date
     }, ExtArgs["result"]["media"]>
     composites: {}
@@ -5396,8 +5396,8 @@ export namespace Prisma {
   interface MediaFieldRefs {
     readonly id: FieldRef<"Media", 'String'>
     readonly serviceId: FieldRef<"Media", 'String'>
-    readonly image_urls: FieldRef<"Media", 'String[]'>
-    readonly video_urls: FieldRef<"Media", 'String[]'>
+    readonly image_urls: FieldRef<"Media", 'Json'>
+    readonly video_urls: FieldRef<"Media", 'Json'>
     readonly uploaded_at: FieldRef<"Media", 'DateTime'>
   }
     
@@ -10138,8 +10138,8 @@ export namespace Prisma {
     NOT?: MediaWhereInput | MediaWhereInput[]
     id?: StringFilter<"Media"> | string
     serviceId?: StringFilter<"Media"> | string
-    image_urls?: StringNullableListFilter<"Media">
-    video_urls?: StringNullableListFilter<"Media">
+    image_urls?: JsonFilter<"Media">
+    video_urls?: JsonFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
   }
@@ -10159,8 +10159,8 @@ export namespace Prisma {
     AND?: MediaWhereInput | MediaWhereInput[]
     OR?: MediaWhereInput[]
     NOT?: MediaWhereInput | MediaWhereInput[]
-    image_urls?: StringNullableListFilter<"Media">
-    video_urls?: StringNullableListFilter<"Media">
+    image_urls?: JsonFilter<"Media">
+    video_urls?: JsonFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
   }, "id" | "serviceId">
@@ -10182,8 +10182,8 @@ export namespace Prisma {
     NOT?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Media"> | string
     serviceId?: StringWithAggregatesFilter<"Media"> | string
-    image_urls?: StringNullableListFilter<"Media">
-    video_urls?: StringNullableListFilter<"Media">
+    image_urls?: JsonWithAggregatesFilter<"Media">
+    video_urls?: JsonWithAggregatesFilter<"Media">
     uploaded_at?: DateTimeWithAggregatesFilter<"Media"> | Date | string
   }
 
@@ -10799,8 +10799,8 @@ export namespace Prisma {
 
   export type MediaCreateInput = {
     id?: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
     service: ServiceCreateNestedOneWithoutMediaInput
   }
@@ -10808,43 +10808,43 @@ export namespace Prisma {
   export type MediaUncheckedCreateInput = {
     id?: string
     serviceId: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
   }
 
   export type MediaUpdateInput = {
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateInput = {
     serviceId?: StringFieldUpdateOperationsInput | string
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MediaCreateManyInput = {
     id?: string
     serviceId: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
   }
 
   export type MediaUpdateManyMutationInput = {
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MediaUncheckedUpdateManyInput = {
     serviceId?: StringFieldUpdateOperationsInput | string
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12140,28 +12140,10 @@ export namespace Prisma {
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutAvailabilitiesInput, ServiceUpdateWithoutAvailabilitiesInput>, ServiceUncheckedUpdateWithoutAvailabilitiesInput>
   }
 
-  export type MediaCreateimage_urlsInput = {
-    set: string[]
-  }
-
-  export type MediaCreatevideo_urlsInput = {
-    set: string[]
-  }
-
   export type ServiceCreateNestedOneWithoutMediaInput = {
     create?: XOR<ServiceCreateWithoutMediaInput, ServiceUncheckedCreateWithoutMediaInput>
     connectOrCreate?: ServiceCreateOrConnectWithoutMediaInput
     connect?: ServiceWhereUniqueInput
-  }
-
-  export type MediaUpdateimage_urlsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type MediaUpdatevideo_urlsInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type ServiceUpdateOneRequiredWithoutMediaNestedInput = {
@@ -12883,15 +12865,15 @@ export namespace Prisma {
 
   export type MediaCreateWithoutServiceInput = {
     id?: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
   }
 
   export type MediaUncheckedCreateWithoutServiceInput = {
     id?: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
   }
 
@@ -13033,8 +13015,8 @@ export namespace Prisma {
     NOT?: MediaScalarWhereInput | MediaScalarWhereInput[]
     id?: StringFilter<"Media"> | string
     serviceId?: StringFilter<"Media"> | string
-    image_urls?: StringNullableListFilter<"Media">
-    video_urls?: StringNullableListFilter<"Media">
+    image_urls?: JsonFilter<"Media">
+    video_urls?: JsonFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
   }
 
@@ -13970,8 +13952,8 @@ export namespace Prisma {
 
   export type MediaCreateManyServiceInput = {
     id?: string
-    image_urls?: MediaCreateimage_urlsInput | string[]
-    video_urls?: MediaCreatevideo_urlsInput | string[]
+    image_urls: InputJsonValue
+    video_urls: InputJsonValue
     uploaded_at?: Date | string
   }
 
@@ -14021,20 +14003,20 @@ export namespace Prisma {
   }
 
   export type MediaUpdateWithoutServiceInput = {
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MediaUncheckedUpdateWithoutServiceInput = {
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MediaUncheckedUpdateManyWithoutServiceInput = {
-    image_urls?: MediaUpdateimage_urlsInput | string[]
-    video_urls?: MediaUpdatevideo_urlsInput | string[]
+    image_urls?: InputJsonValue | InputJsonValue
+    video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

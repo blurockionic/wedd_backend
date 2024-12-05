@@ -44,12 +44,16 @@ uploadRouter.post(
         const isVideo = file.mimetype.startsWith("video");
 
         // Prepare the file URL based on type (image or video)
-        const fileUrl = file.path; // In production, replace with Cloudinary URL
+        let fileObject = {
+          path: file.path,
+          public_id: file.filename,
+          original_name: file.originalname,
+        };
 
         if (isImage) {
-          imageUrls.push(fileUrl);
+          imageUrls.push(fileObject);
         } else if (isVideo) {
-          videoUrls.push(fileUrl);
+          videoUrls.push(fileObject);
         }
       }
 
@@ -58,8 +62,8 @@ uploadRouter.post(
       const media = await prisma.Media.upsert({
         where: { serviceId: serviceId },
         update: {
-          image_urls: { set: [...imageUrls] },
-          video_urls: { set: [...videoUrls] },
+          image_urls:  [...imageUrls] ,
+          video_urls:  [...videoUrls] ,
         },
         create: {
           serviceId: serviceId,
