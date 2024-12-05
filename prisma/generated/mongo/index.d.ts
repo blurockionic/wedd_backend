@@ -10097,16 +10097,16 @@ export namespace Prisma {
 
   export type AvailabilityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    serviceId?: string
     AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
     OR?: AvailabilityWhereInput[]
     NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    serviceId?: StringFilter<"Availability"> | string
     available_date?: DateTimeFilter<"Availability"> | Date | string
     wedding_date?: DateTimeFilter<"Availability"> | Date | string
     is_available?: BoolFilter<"Availability"> | boolean
     created_at?: DateTimeFilter<"Availability"> | Date | string
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
-  }, "id">
+  }, "id" | "serviceId">
 
   export type AvailabilityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10155,15 +10155,15 @@ export namespace Prisma {
 
   export type MediaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    serviceId?: string
     AND?: MediaWhereInput | MediaWhereInput[]
     OR?: MediaWhereInput[]
     NOT?: MediaWhereInput | MediaWhereInput[]
-    serviceId?: StringFilter<"Media"> | string
     image_urls?: StringNullableListFilter<"Media">
     video_urls?: StringNullableListFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
-  }, "id">
+  }, "id" | "serviceId">
 
   export type MediaOrderByWithAggregationInput = {
     id?: SortOrder

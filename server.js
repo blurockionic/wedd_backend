@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 app.use(morganLogger)
+app.use("/api", uploadRouter);
 
 // Health Check Endpoint
 app.get('/health', (req, res) => {
@@ -57,7 +58,7 @@ if (cluster.isPrimary) {
 
     // Define routes
     app.use('/api/v1',routes);
-    app.use("/api", uploadRouter);
+   
 
     // Error handling middleware
     app.use(errorMiddleware);

@@ -23,7 +23,7 @@ const logger = createLogger({
     }),
     new transports.File({
       filename: "logger.log",
-      level: "info", // Only log errors to file
+      level: "error", // Only log errors to file
     }),
   ],
 });
@@ -38,13 +38,6 @@ logger.add(
   })
 );
 
-// Enable detailed logs in development
-if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new transports.Console({
-      format: combine(colorize(), consoleLogFormat),
-    })
-  );
-}
+
 
 export default logger;
