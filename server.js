@@ -20,8 +20,14 @@ const numCPUs = os.cpus().length;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use(cookieParser());
+const corsOption = {
+    origin: "http://localhost:5173",
+    credentials: true,
+}
+
+app.use(cors(corsOption));
+
 app.use(morganLogger)
 app.use("/api", uploadRouter);
 
@@ -35,7 +41,7 @@ if (cluster.isPrimary) {
 
     // Fork workers based on the number of CPUs
     for (let i = 0; i < 2; i++) {
-        cluster.fork();
+        cluster.fork(); 
     }
 
     // Restart a worker if it crashes

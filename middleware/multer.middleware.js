@@ -30,7 +30,6 @@ const storage = new CloudinaryStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => { 
-
     const allowedTypes = ["image/png", "image/gif", "image/jpeg", "video/mp4"];
     if (!allowedTypes.includes(file.mimetype)) {
         return cb( new CustomError("Unsupported file type", 400));

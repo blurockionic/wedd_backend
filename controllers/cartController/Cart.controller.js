@@ -43,12 +43,10 @@ export const getCart = async (req, res, next) => {
       })
     );
 
-    res
-      .status(200)
-      .json({
-        message: "Cart fetched successfully",
-        cartItems: cartWithServices,
-      });
+    res.status(200).json({
+      message: "Cart fetched successfully",
+      cartItems: cartWithServices,
+    });
   } catch (error) {
     next(error); // Pass to error middleware
   }
@@ -100,7 +98,6 @@ export const addProductToCart = async (req, res, next) => {
   }
 };
 
-// Remove Product/Service from Cart
 export const removeProductFromCart = async (req, res, next) => {
   try {
     const { id } = req.params; // Extract cart item ID from URL params
@@ -110,27 +107,34 @@ export const removeProductFromCart = async (req, res, next) => {
       throw new CustomError("userId is required but not found", 404);
     }
 
-    // Attempt to delete the cart item from PostgreSQL
-    const deletedCartItem = await postgresPrisma.Cart.deleteMany({
+    // Check if the cart item exists for the user
+    const cartItem = await postgresPrisma.Cart.findFirst({
       where: {
-        id: id,
-        userId: userId, // Ensure the user owns the cart item
+        id,        // Cart item's ID
+        userId,    // User's ID
       },
     });
 
-    // If no rows were affected, that means the cart item was not found
-    if (deletedCartItem.count === 0) {
-      throw new CustomError(
-        "Cart item not found or you do not have permission",
-        404
-      );
+    if (!cartItem) {
+      throw new CustomError("Cart item not found or you do not have permission", 404);
     }
+
+    // Proceed with deleting the cart item
+    const deletedCartItem = await postgresPrisma.Cart.deleteMany({
+      where: {
+        id_userId: {
+          id,        // Cart item's ID
+          userId,    // User's ID
+        },
+      },
+    });
 
     res.status(200).json({ message: "Service removed from cart successfully" });
   } catch (error) {
     next(error); // Pass to error middleware
   }
 };
+
 
 export const clearCart = async (req, res) => {
   try {

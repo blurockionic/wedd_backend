@@ -1,6 +1,6 @@
 import CustomError from "../../utils/CustomError.js";
 import z from "zod";
-import { vendorUpdateSchema } from "../../validation schema/vendor.schema.js";
+import { vendorSchemaUpdate } from "../../validation schema/vendor.schema.js";
 import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 
 const prisma = new PrismaClient();
@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const updateVendor = async (req, res, next) => {
   try {
    
-    const validatedData = vendorUpdateSchema.parse(req.body);
+    const validatedData = vendorSchemaUpdate.parse(req.body);
 
     const vendorEmail = req.user.email; 
 

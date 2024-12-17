@@ -54,6 +54,7 @@ model Cart {
    @@unique([id, userId]) 
 }
 
+
 model Payment {
   payment_id      String   @id @default(uuid())
   booking_id      String

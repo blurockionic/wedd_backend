@@ -1,47 +1,49 @@
+import { z } from "zod";
 import CustomError from "../utils/CustomError.js";
+z
 
 const errorMiddleware = (err, req, res, next) => {
   console.error(`Error: ${err.name}, Message: ${err.message}, Stack: ${err.stack}`);
 
+  let statusCode = 500;
+  let message = "An unexpected error occurred.";
+  let errors = null;
+
   // Handle Custom Errors
   if (err instanceof CustomError) {
-    return res.status(err.statusCode).json({
-      error: {
-        message: err.message,
-      },
-    });
-  }
-
-  // Handle Multer-Specific Errors
-  if (err.name === "MulterError") {
-    let errorMessage;
-
+    statusCode = err.statusCode || 400;
+    message = err.message;
+  } else if (err.name === "MulterError") {
+    // Handle Multer-Specific Errors
     switch (err.code) {
       case "LIMIT_FILE_SIZE":
-        errorMessage = "File size exceeds the allowed limit.";
+        message = "File size exceeds the allowed limit.";
         break;
       case "LIMIT_FILE_COUNT":
-        errorMessage = "Too many files uploaded at once.";
+        message = "Too many files uploaded at once.";
         break;
       case "LIMIT_UNEXPECTED_FILE":
-        errorMessage = "Unexpected file field.";
+        message = "Unexpected file field.";
         break;
       default:
-        errorMessage = "An error occurred during file upload.";
+        message = "An error occurred during file upload.";
     }
-
-    return res.status(400).json({
-      error: {
-        message: errorMessage,
-      },
-    });
+    statusCode = 400;
+  } else if (err instanceof z.ZodError) {
+    // Handle Zod Validation Errors
+    errors = err.errors.map((e) => ({
+      field: e.path.join("."),
+      message: e.message,
+    }));
+    statusCode = 400;
+    message = "Validation errors occurred.";
   }
 
-  // Handle Unexpected Errors
-  return res.status(500).json({
-    error: {
-      message: "An unexpected error occurred.",
-    },
+  // Respond with structured error
+  res.status(statusCode).json({
+    success: false,
+    message,
+    errors,
   });
 };
 

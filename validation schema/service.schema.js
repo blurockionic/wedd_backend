@@ -34,6 +34,7 @@ export const querySchema = z.object({
   rating: z.coerce.number().optional(), // Coerce string to number for rating
   sort_by: z.enum(['created_at', 'min_price', 'rating']).optional().default('created_at'), // Ensure valid enum values
   sort_order: z.enum(['asc', 'desc']).optional().default('desc'),
+  location: z.string().optional(),
   vendor_name: z.string()
     .min(1, { message: 'Name must not be empty' })
     .optional()
