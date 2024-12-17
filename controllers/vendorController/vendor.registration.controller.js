@@ -46,15 +46,14 @@ const vendorRegistration = async (req, res, next) => {
         data: {
           email: validatedData.email,
           password_hash: hashedPassword, // Store the hashed password
-          logo_url: validatedData.logo_url || null, // logo_url is optional
+          logo_url: validatedData.logo_url || {}, // logo_url is optional
           name: validatedData.name,
           business_name: validatedData.business_name,
           business_category: validatedData.business_category,
           service_type: validatedData.service_type,
           description: validatedData.description,
           phone_number: validatedData.phone_number,
-          location: validatedData.location,
-          map_location: validatedData.map_location || {}, // map_location is optional
+          address: validatedData.address,
           social_networks: validatedData.social_networks || [], // social_networks is optional
           license_number: validatedData.license_number || "" // license_number is optional
         }
@@ -70,6 +69,7 @@ const vendorRegistration = async (req, res, next) => {
       const { password_hash, refresh_Token, resetPassword_Token, resetPassword_Expire, created_at, updated_at, ...vendorResponse } = newVendor;
   
       res.status(201).json({
+        success:true,
         message: "Vendor registered successfully. Verification email sent.",
         vendor: vendorResponse,
       });

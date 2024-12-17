@@ -62,8 +62,8 @@ uploadRouter.post(
       const media = await prisma.Media.upsert({
         where: { serviceId: serviceId },
         update: {
-          image_urls:  [...imageUrls] ,
-          video_urls:  [...videoUrls] ,
+          image_urls: [...imageUrls],
+          video_urls: [...videoUrls],
         },
         create: {
           serviceId: serviceId,
@@ -86,3 +86,29 @@ uploadRouter.post(
 );
 
 export default uploadRouter;
+
+// POST route for file upload and return string url only
+
+uploadRouter.post(
+  "/upload-single",
+  upload.single("file"), // Handle a single file upload
+  async (req, res, next) => {
+    const file = req.file; // Access the uploaded file from Multer
+
+    console.log(file);
+
+    // Validate the input
+    if (!file) {
+      return next(new CustomError("No file uploaded", 400));
+    }
+
+    try {
+      res.status(200).json({
+        message: "File uploaded successfully",
+        file,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);

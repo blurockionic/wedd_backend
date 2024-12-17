@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 const userLogout = async (req, res, next) => {
   try {
     // Get user ID from the authenticated request
-    
-    const userId = req.user?.id ;
+
+    const userId = req.user?.id;
 
     if (!userId) {
-      return res.status(400).json({ message: "User ID is missing" });
+      throw new CustomError("User ID is required but not found", 404);
     }
 
     // Clear the refresh token from the database
@@ -37,8 +37,7 @@ const userLogout = async (req, res, next) => {
         message: "Logged out successfully",
       });
   } catch (error) {
-    console.error("Logout Error:", error);
-    next(new CustomError("Failed to log out", 500));
+    next(error);
   }
 };
 

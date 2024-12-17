@@ -16,12 +16,11 @@ model Vendor {
   license_number      String?
   service_type        String[]     @default([]) // Ensure default value for arrays
   description         String // Detailed description of the business
-  logo_url            String?
-  location            String?
+  logo_url            Json?
+  address             Json
   email               String       @unique
   password_hash       String
   phone_number        String
-  map_location        Json
   social_networks     Json?
   services            Service[]    @relation("VendorServices") // One-to-many relation
   promotions          Promotion[] // One-to-many relation
@@ -52,6 +51,8 @@ model Service {
   media          Media[]        @relation("ServiceToMedia")
   created_at     DateTime       @default(now())
   updated_at     DateTime       @updatedAt
+
+  @@index([service_type], map: "idx_service_type")
 }
 
 model Availability {

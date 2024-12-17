@@ -1580,8 +1580,6 @@ export namespace Prisma {
     business_category: string | null
     license_number: string | null
     description: string | null
-    logo_url: string | null
-    location: string | null
     email: string | null
     password_hash: string | null
     phone_number: string | null
@@ -1600,8 +1598,6 @@ export namespace Prisma {
     business_category: string | null
     license_number: string | null
     description: string | null
-    logo_url: string | null
-    location: string | null
     email: string | null
     password_hash: string | null
     phone_number: string | null
@@ -1622,11 +1618,10 @@ export namespace Prisma {
     service_type: number
     description: number
     logo_url: number
-    location: number
+    address: number
     email: number
     password_hash: number
     phone_number: number
-    map_location: number
     social_networks: number
     created_at: number
     updated_at: number
@@ -1645,8 +1640,6 @@ export namespace Prisma {
     business_category?: true
     license_number?: true
     description?: true
-    logo_url?: true
-    location?: true
     email?: true
     password_hash?: true
     phone_number?: true
@@ -1665,8 +1658,6 @@ export namespace Prisma {
     business_category?: true
     license_number?: true
     description?: true
-    logo_url?: true
-    location?: true
     email?: true
     password_hash?: true
     phone_number?: true
@@ -1687,11 +1678,10 @@ export namespace Prisma {
     service_type?: true
     description?: true
     logo_url?: true
-    location?: true
+    address?: true
     email?: true
     password_hash?: true
     phone_number?: true
-    map_location?: true
     social_networks?: true
     created_at?: true
     updated_at?: true
@@ -1782,12 +1772,11 @@ export namespace Prisma {
     license_number: string | null
     service_type: string[]
     description: string
-    logo_url: string | null
-    location: string | null
+    logo_url: JsonValue | null
+    address: JsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: JsonValue
     social_networks: JsonValue | null
     created_at: Date
     updated_at: Date
@@ -1823,11 +1812,10 @@ export namespace Prisma {
     service_type?: boolean
     description?: boolean
     logo_url?: boolean
-    location?: boolean
+    address?: boolean
     email?: boolean
     password_hash?: boolean
     phone_number?: boolean
-    map_location?: boolean
     social_networks?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -1853,11 +1841,10 @@ export namespace Prisma {
     service_type?: boolean
     description?: boolean
     logo_url?: boolean
-    location?: boolean
+    address?: boolean
     email?: boolean
     password_hash?: boolean
     phone_number?: boolean
-    map_location?: boolean
     social_networks?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -1893,12 +1880,11 @@ export namespace Prisma {
       license_number: string | null
       service_type: string[]
       description: string
-      logo_url: string | null
-      location: string | null
+      logo_url: Prisma.JsonValue | null
+      address: Prisma.JsonValue
       email: string
       password_hash: string
       phone_number: string
-      map_location: Prisma.JsonValue
       social_networks: Prisma.JsonValue | null
       created_at: Date
       updated_at: Date
@@ -2310,12 +2296,11 @@ export namespace Prisma {
     readonly license_number: FieldRef<"Vendor", 'String'>
     readonly service_type: FieldRef<"Vendor", 'String[]'>
     readonly description: FieldRef<"Vendor", 'String'>
-    readonly logo_url: FieldRef<"Vendor", 'String'>
-    readonly location: FieldRef<"Vendor", 'String'>
+    readonly logo_url: FieldRef<"Vendor", 'Json'>
+    readonly address: FieldRef<"Vendor", 'Json'>
     readonly email: FieldRef<"Vendor", 'String'>
     readonly password_hash: FieldRef<"Vendor", 'String'>
     readonly phone_number: FieldRef<"Vendor", 'String'>
-    readonly map_location: FieldRef<"Vendor", 'Json'>
     readonly social_networks: FieldRef<"Vendor", 'Json'>
     readonly created_at: FieldRef<"Vendor", 'DateTime'>
     readonly updated_at: FieldRef<"Vendor", 'DateTime'>
@@ -9616,11 +9601,10 @@ export namespace Prisma {
     service_type: 'service_type',
     description: 'description',
     logo_url: 'logo_url',
-    location: 'location',
+    address: 'address',
     email: 'email',
     password_hash: 'password_hash',
     phone_number: 'phone_number',
-    map_location: 'map_location',
     social_networks: 'social_networks',
     created_at: 'created_at',
     updated_at: 'updated_at',
@@ -9845,12 +9829,11 @@ export namespace Prisma {
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
     description?: StringFilter<"Vendor"> | string
-    logo_url?: StringNullableFilter<"Vendor"> | string | null
-    location?: StringNullableFilter<"Vendor"> | string | null
+    logo_url?: JsonNullableFilter<"Vendor">
+    address?: JsonFilter<"Vendor">
     email?: StringFilter<"Vendor"> | string
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
-    map_location?: JsonFilter<"Vendor">
     social_networks?: JsonNullableFilter<"Vendor">
     created_at?: DateTimeFilter<"Vendor"> | Date | string
     updated_at?: DateTimeFilter<"Vendor"> | Date | string
@@ -9874,11 +9857,10 @@ export namespace Prisma {
     service_type?: SortOrder
     description?: SortOrder
     logo_url?: SortOrder
-    location?: SortOrder
+    address?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
-    map_location?: SortOrder
     social_networks?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -9905,11 +9887,10 @@ export namespace Prisma {
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
     description?: StringFilter<"Vendor"> | string
-    logo_url?: StringNullableFilter<"Vendor"> | string | null
-    location?: StringNullableFilter<"Vendor"> | string | null
+    logo_url?: JsonNullableFilter<"Vendor">
+    address?: JsonFilter<"Vendor">
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
-    map_location?: JsonFilter<"Vendor">
     social_networks?: JsonNullableFilter<"Vendor">
     created_at?: DateTimeFilter<"Vendor"> | Date | string
     updated_at?: DateTimeFilter<"Vendor"> | Date | string
@@ -9933,11 +9914,10 @@ export namespace Prisma {
     service_type?: SortOrder
     description?: SortOrder
     logo_url?: SortOrder
-    location?: SortOrder
+    address?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
-    map_location?: SortOrder
     social_networks?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -9961,12 +9941,11 @@ export namespace Prisma {
     license_number?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
     description?: StringWithAggregatesFilter<"Vendor"> | string
-    logo_url?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
-    location?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
+    logo_url?: JsonNullableWithAggregatesFilter<"Vendor">
+    address?: JsonWithAggregatesFilter<"Vendor">
     email?: StringWithAggregatesFilter<"Vendor"> | string
     password_hash?: StringWithAggregatesFilter<"Vendor"> | string
     phone_number?: StringWithAggregatesFilter<"Vendor"> | string
-    map_location?: JsonWithAggregatesFilter<"Vendor">
     social_networks?: JsonNullableWithAggregatesFilter<"Vendor">
     created_at?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
@@ -10465,12 +10444,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -10493,12 +10471,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -10520,12 +10497,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10547,12 +10523,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10575,12 +10550,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -10597,12 +10571,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10619,12 +10592,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11152,17 +11124,6 @@ export namespace Prisma {
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
-  export type JsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-  }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -11174,6 +11135,17 @@ export namespace Prisma {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     isSet?: boolean
+  }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -11251,11 +11223,10 @@ export namespace Prisma {
     service_type?: SortOrder
     description?: SortOrder
     logo_url?: SortOrder
-    location?: SortOrder
+    address?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
-    map_location?: SortOrder
     social_networks?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11272,8 +11243,6 @@ export namespace Prisma {
     business_category?: SortOrder
     license_number?: SortOrder
     description?: SortOrder
-    logo_url?: SortOrder
-    location?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
@@ -11292,8 +11261,6 @@ export namespace Prisma {
     business_category?: SortOrder
     license_number?: SortOrder
     description?: SortOrder
-    logo_url?: SortOrder
-    location?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
@@ -11341,20 +11308,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
@@ -11369,6 +11322,20 @@ export namespace Prisma {
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12332,17 +12299,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
   }
-  export type NestedJsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-  }
   export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -12354,6 +12310,17 @@ export namespace Prisma {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     isSet?: boolean
+  }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12760,12 +12727,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12787,12 +12753,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12904,12 +12869,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12930,12 +12894,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13184,12 +13147,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13211,12 +13173,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13253,12 +13214,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13279,12 +13239,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13306,12 +13265,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13333,12 +13291,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13375,12 +13332,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13401,12 +13357,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13428,12 +13383,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13455,12 +13409,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13497,12 +13450,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13523,12 +13475,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13550,12 +13501,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13577,12 +13527,11 @@ export namespace Prisma {
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
     description: string
-    logo_url?: string | null
-    location?: string | null
+    logo_url?: InputJsonValue | null
+    address: InputJsonValue
     email: string
     password_hash: string
     phone_number: string
-    map_location: InputJsonValue
     social_networks?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13656,12 +13605,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13682,12 +13630,11 @@ export namespace Prisma {
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
     description?: StringFieldUpdateOperationsInput | string
-    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    address?: InputJsonValue | InputJsonValue
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
-    map_location?: InputJsonValue | InputJsonValue
     social_networks?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
