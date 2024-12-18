@@ -17,7 +17,11 @@ model Vendor {
   service_type        String[]     @default([]) // Ensure default value for arrays
   description         String // Detailed description of the business
   logo_url            Json?
-  address             Json
+  country             String?
+  state               String?
+  latitude            String?
+  longitude           String?
+  city                String?
   email               String       @unique
   password_hash       String
   phone_number        String

@@ -30,15 +30,10 @@ export const querySchema = z.object({
   limit: z.coerce.number().int().positive().optional().default(10), // Coerce to number for limit
   service_type: z.string().optional(),
   minPrice: z.coerce.number().optional(), // Coerce string to number for minPrice
-  maxPrice: z.coerce.number().optional(), // Coerce string to number for maxPrice
   rating: z.coerce.number().optional(), // Coerce string to number for rating
   sort_by: z.enum(['created_at', 'min_price', 'rating']).optional().default('created_at'), // Ensure valid enum values
   sort_order: z.enum(['asc', 'desc']).optional().default('desc'),
   location: z.string().optional(),
-  vendor_name: z.string()
-    .min(1, { message: 'Name must not be empty' })
-    .optional()
-    .transform((val) => val?.toLowerCase()), // Transform vendor_name to lowercase
 });
 
 
