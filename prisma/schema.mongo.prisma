@@ -17,7 +17,11 @@ model Vendor {
   service_type      String[]          @default([]) // Ensure default value for arrays
   description       String            // Detailed description of the business
   logo_url          Json?
-  address           Json
+  country            String?
+  state             String?
+  latitude          String?
+  longitude         String?
+  city              String?
   email             String            @unique
   password_hash     String
   phone_number      String 
@@ -48,7 +52,7 @@ model Service {
   rating         Float          @default(0.0)
   availabilities Availability[]   
   reviews        Review[]         
-   media         Media[]    @relation("ServiceToMedia")      
+  media         Media[]    @relation("ServiceToMedia")      
   created_at     DateTime          @default(now())
   updated_at     DateTime          @updatedAt
    @@index([service_type], map: "idx_service_type")

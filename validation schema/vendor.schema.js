@@ -3,7 +3,7 @@ import { z } from "zod";
 // Password validation
 export const passwordValidation = z
   .string()
-  .min(8, { message: "Password must be at least 8 characters long" })
+  .min(6, { message: "Password must be at least 6 characters long" })
   .regex(/[a-z]/, {
     message: "Password must include at least one lowercase letter",
   })
@@ -17,17 +17,6 @@ export const passwordValidation = z
   .max(128, { message: "Password must not exceed 128 characters" });
 
 // Address Schema
-const addressSchema = z.object({
-  country: z.string().min(1, { message: "Country is required" }),
-  state: z.string().optional(),
-  city: z.string().min(1, { message: "City is required" }),
-  latitude: z
-    .string()
-    .regex(/^[-+]?\d*\.?\d+$/, { message: "Invalid latitude format" }),
-  longitude: z
-    .string()
-    .regex(/^[-+]?\d*\.?\d+$/, { message: "Invalid longitude format" }),
-});
 
 // Vendor schema
 export const vendorSchema = z.object({
@@ -64,7 +53,15 @@ export const vendorSchema = z.object({
     .string()
     .min(10, { message: "Phone number must be at least 10 digits long" })
     .regex(/^\d+$/, { message: "Phone number must only contain digits" }),
-  address: addressSchema.optional(), 
+  country: z.string().min(1, { message: "Country is required" }),
+  state: z.string().optional(),
+  city: z.string().min(1, { message: "City is required" }),
+  latitude: z
+    .string()
+    .regex(/^[-+]?\d*\.?\d+$/, { message: "Invalid latitude format" }).optional(),
+  longitude: z
+    .string()
+    .regex(/^[-+]?\d*\.?\d+$/, { message: "Invalid longitude format" }).optional(),
   social_networks: z
     .object({
       facebook: z

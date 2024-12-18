@@ -5,48 +5,44 @@ import { querySchema } from "../../validation schema/service.schema.js"; // Assu
 
 const prisma = new PrismaClient();
 
-// Controller to get all services 
+// Controller to get all services
 const getAllServices = async (req, res, next) => {
   try {
     // Validate query parameters
     const validatedQuery = querySchema.parse(req.query);
 
     const {
-      page,
-      limit,
+      page = 1,
+      limit = 10,
       service_type,
       minPrice,
-      maxPrice,
-      vendor_name,
       location,
     } = validatedQuery;
+
     const where = {}; // Initialize where clause for filtering
 
-    // If vendor_name is provided, find the vendor by name
-    if (vendor_name) {
-      const vendor = await prisma.Vendor.findFirst({
-        where: { name: vendor_name },
-      });
+    // Add filters for service_type if provided
+    if (service_type) where.service_type = { contains: service_type, mode: "insensitive" };
 
-      if (!vendor) {
-        throw new CustomError("Vendor not found", 404);
-      }
-      where.vendorId = vendor.id;
-    }
-
-    // Add filters for service_type
-    if (service_type) where.service_type = { contains: service_type }; // Assuming service_type is an array
-
-    // Add filters for price range
+    // Add filters for price range if provided
     if (minPrice && minPrice !== null) where.min_price = { gte: minPrice };
-    if (maxPrice && maxPrice !== null) where.max_price = { lte: maxPrice };
+  
 
-    // Add filters for location
+    // Add filters for location if provided
+    let vendorsInLocation
     if (location) {
-      const vendorsInLocation = await prisma.Vendor.findMany({
-        where: { location: { contains: location, mode: "insensitive" } },
+       vendorsInLocation = await prisma.Vendor.findMany({
+        where: {
+          city: {
+            contains  : location.trim().toLowerCase(),
+            mode: "insensitive",
+          },
+        },
         select: { id: true },
       });
+
+      console.log(vendorsInLocation,{extends: true});
+      
 
       if (vendorsInLocation.length > 0) {
         const vendorIds = vendorsInLocation.map((vendor) => vendor.id);
@@ -62,6 +58,7 @@ const getAllServices = async (req, res, next) => {
     // Get the total count of services matching the filters
     const totalServices = await prisma.Service.count({ where });
 
+    // If no services match, return an appropriate error
     if (totalServices === 0) {
       throw new CustomError(
         "No services found matching the specified criteria",
@@ -69,7 +66,7 @@ const getAllServices = async (req, res, next) => {
       );
     }
 
-    // Get the actual services based on the filters
+    // Fetch the services with pagination and associated vendor data
     const services = await prisma.Service.findMany({
       where,
       skip: (page - 1) * limit,
@@ -77,17 +74,22 @@ const getAllServices = async (req, res, next) => {
       include: {
         vendor: {
           select: {
+            id: true,
             name: true,
             description: true,
-            location: true,
+            city: true,
           },
         },
       },
     });
+    const formattedServices = services.map((service) => ({
+      ...service,
+      vendor: service.vendor || { id: null, name: null, description: null, city: null }, // Provide default values for null vendors
+    }));
 
     // Send the response with services data and pagination info
     res.status(200).json({
-      services,
+      formattedServices,
       total: totalServices,
       page: parseInt(page),
       totalPages: Math.ceil(totalServices / limit),
