@@ -4,7 +4,7 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 import CustomError from "../utils/CustomError.js";
 
 // Configure Cloudinary
-cloudinary.config({
+ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_SECREAT_KEY,

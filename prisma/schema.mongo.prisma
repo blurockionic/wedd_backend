@@ -114,7 +114,6 @@ model FAQ {
 
 model Review {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-
   vendorId    String   @db.ObjectId
   vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
