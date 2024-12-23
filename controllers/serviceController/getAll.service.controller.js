@@ -82,14 +82,14 @@ const getAllServices = async (req, res, next) => {
         },
       },
     });
-    const formattedServices = services.map((service) => ({
+    const ServiceResult = services.map((service) => ({
       ...service,
       vendor: service.vendor || { id: null, name: null, description: null, city: null }, // Provide default values for null vendors
     }));
 
     // Send the response with services data and pagination info
     res.status(200).json({
-      formattedServices,
+      ServiceResult,
       total: totalServices,
       page: parseInt(page),
       totalPages: Math.ceil(totalServices / limit),

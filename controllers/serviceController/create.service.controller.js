@@ -56,12 +56,7 @@ const createService = async (req, res, next) => {
       `Error Type: ${error.constructor.name}, Message: ${error.message}, Stack: ${error.stack}`
     );
 
-    if (error instanceof z.ZodError) {
-      // Handle validation errors
-      return res.status(400).json({ errors: error.errors });
-    }
-
-    next(new CustomError("An error occurred during service creation.", 500));
+    next(error);
   }
 };
 

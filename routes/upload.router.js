@@ -2,6 +2,7 @@ import express from "express";
 import upload from "../middleware/multer.middleware.js";
 import { PrismaClient } from "../prisma/generated/mongo/index.js";
 import CustomError from "../utils/CustomError.js";
+import { v2 as cloudinary } from "cloudinary"; 
 
 const prisma = new PrismaClient();
 const uploadRouter = express.Router();
@@ -85,7 +86,7 @@ uploadRouter.post(
   }
 );
 
-export default uploadRouter;
+
 
 // POST route for file upload and return string url only
 
@@ -112,3 +113,70 @@ uploadRouter.post(
     }
   }
 );
+
+uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
+  const { serviceId } = req.params;
+  const publicId = req.body.publicId;
+
+  if (!serviceId || !publicId) {
+    return next(new CustomError("Both serviceId and publicId are required", 400));
+  }
+
+  try {
+    // Check if the service exists
+    const serviceExists = await prisma.Service.findUnique({
+      where: { id: serviceId },
+    });
+
+    if (!serviceExists) {
+      return next(new CustomError("Service not found", 404));
+    }
+
+    // Delete the media from Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.destroy(publicId);
+
+    if (cloudinaryResponse.result !== "ok") {
+      throw new CustomError("Failed to delete media from Cloudinary", 500);
+    }
+
+    // Delete the media record from the database
+    const deletedMedia = await prisma.Media.updateMany({
+      where: {
+        serviceId: serviceId,
+        OR: [
+          {
+            image_urls: {
+              has: publicId, // Use `has` to check if `public_id` exists in the array
+            },
+          },
+          {
+            video_urls: {
+              has: publicId, // Use `has` to check if `public_id` exists in the array
+            },
+          },
+        ],
+      },
+      data: {
+        image_urls: {
+          deleteMany: { public_id: publicId }, // Deletes any entry with that `public_id` from image_urls
+        },
+        video_urls: {
+          deleteMany: { public_id: publicId }, // Deletes any entry with that `public_id` from video_urls
+        },
+      },
+    });
+
+    // If no media was found with that public_id
+    if (deletedMedia.count === 0) {
+      return next(new CustomError("Media not found in the database for this service", 404));
+    }
+
+    res.status(200).json({
+      message: "Media deleted successfully from Cloudinary and the database.",
+    });
+  } catch (error) {
+    next(error); // Pass errors to error-handling middleware
+  }
+});
+
+export default uploadRouter;
