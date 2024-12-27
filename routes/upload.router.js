@@ -3,6 +3,7 @@ import upload from "../middleware/multer.middleware.js";
 import { PrismaClient } from "../prisma/generated/mongo/index.js";
 import CustomError from "../utils/CustomError.js";
 import { v2 as cloudinary } from "cloudinary"; 
+import e from "express";
 
 const prisma = new PrismaClient();
 const uploadRouter = express.Router();
@@ -23,6 +24,7 @@ uploadRouter.post(
       // Check if the referenced service exists
       const serviceExists = await prisma.Service.findUnique({
         where: { id: serviceId },
+        include: { media: true },
       });
       if (!serviceExists) {
         throw new CustomError("Service not found", 404);
@@ -54,17 +56,27 @@ uploadRouter.post(
         if (isImage) {
           imageUrls.push(fileObject);
         } else if (isVideo) {
-          videoUrls.push(fileObject);
+          videoUrls.push(fileObject); 
         }
       }
+
+      console.log(serviceExists);
+      
+
+      const existingImageUrl = serviceExists.media?.[0]?.image_urls||[];
+
+      const existingVideoUrl = serviceExists.media?.[0]?.video_urls||[];
+
+    
+      
 
       // Check for existing media and update/create accordingly
 
       const media = await prisma.Media.upsert({
         where: { serviceId: serviceId },
         update: {
-          image_urls: [...imageUrls],
-          video_urls: [...videoUrls],
+          image_urls: [...imageUrls,...existingImageUrl],
+          video_urls: [...videoUrls,...existingVideoUrl],
         },
         create: {
           serviceId: serviceId,
