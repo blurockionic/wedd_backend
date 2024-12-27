@@ -48,6 +48,7 @@ const createService = async (req, res, next) => {
     const { created_at, updated_at, ...serviceResponse } = newService;
 
     res.status(201).json({
+      success: true,
       message: "Service created successfully.",
       service: serviceResponse,
     });

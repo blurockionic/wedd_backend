@@ -17,6 +17,9 @@ const getAllServices = async (req, res, next) => {
       service_type,
       minPrice,
       location,
+      sort_by, 
+      sort_order,
+      rating
     } = validatedQuery;
 
     const where = {}; // Initialize where clause for filtering
@@ -26,9 +29,11 @@ const getAllServices = async (req, res, next) => {
 
     // Add filters for price range if provided
     if (minPrice && minPrice !== null) where.min_price = { gte: minPrice };
+
+    // Add filters for rating if provided
+    if (rating && rating !== null) where.rating = { gte: rating };
   
 
-    // Add filters for location if provided
     let vendorsInLocation
     if (location) {
        vendorsInLocation = await prisma.Vendor.findMany({
@@ -71,6 +76,10 @@ const getAllServices = async (req, res, next) => {
       where,
       skip: (page - 1) * limit,
       take: limit,
+      orderBy:{
+        [sort_by]: sort_order,
+
+      },
       include: {
         vendor: {
           select: {
@@ -78,14 +87,18 @@ const getAllServices = async (req, res, next) => {
             name: true,
             description: true,
             city: true,
+            business_name: true,
           },
         },
+        media:true
       },
     });
     const ServiceResult = services.map((service) => ({
       ...service,
-      vendor: service.vendor || { id: null, name: null, description: null, city: null }, // Provide default values for null vendors
+      vendor: service.vendor || { id: null, name: null, description: null, city: null }, 
     }));
+    console.log(ServiceResult.media);
+    
 
     // Send the response with services data and pagination info
     res.status(200).json({

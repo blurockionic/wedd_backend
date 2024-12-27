@@ -30,4 +30,4 @@ export const querySchema = z.object({
 
 
 
-export const updateServiceSchema = serviceCreateSchema.partial(); // Make all fields optional for updates
+export const updateServiceSchema = serviceCreateSchema.partial(); 
