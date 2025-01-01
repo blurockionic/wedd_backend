@@ -2,10 +2,13 @@ import CustomError from "../../utils/CustomError.js";
 import z from "zod";
 import { updateUserSchema } from "../../validation schema/user.schema.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
+import upload from "../../middleware/multer.middleware.js";
 
 const prisma = new PrismaClient();
 
 const updateUser = async (req, res, next) => {
+  console.log("iam update user");
+  
   try {
     // Validate user update input using Zod schema
     const validatedData = updateUserSchema.parse(req.body);
@@ -13,6 +16,11 @@ const updateUser = async (req, res, next) => {
     // Extract user email from the authenticated request
     const userEmail = req.user.email ; // Assuming authentication middleware sets user.email
 
+
+    if (req.file) {
+      const profilePhoto = req.file.path; // Multer saves the file and provides the path
+      validatedData.profile_photo = profilePhoto;
+    }
     // Update the user in the database
     const updatedUser = await prisma.User.update({
       where: { email: userEmail },
@@ -52,3 +60,4 @@ const updateUser = async (req, res, next) => {
 };
 
 export default updateUser;
+export const uploadMiddleware = upload.single("profile_photo");

@@ -1385,8 +1385,8 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string | null
     resetPassword_Token: string | null
-    first_name: string | null
-    last_name: string | null
+    profile_photo: string | null
+    user_name: string | null
     phone_number: string | null
     role: $Enums.Role | null
     wedding_date: Date | null
@@ -1402,8 +1402,8 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string | null
     resetPassword_Token: string | null
-    first_name: string | null
-    last_name: string | null
+    profile_photo: string | null
+    user_name: string | null
     phone_number: string | null
     role: $Enums.Role | null
     wedding_date: Date | null
@@ -1419,8 +1419,8 @@ export namespace Prisma {
     refresh_Token: number
     password_hash: number
     resetPassword_Token: number
-    first_name: number
-    last_name: number
+    profile_photo: number
+    user_name: number
     phone_number: number
     role: number
     wedding_date: number
@@ -1438,8 +1438,8 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    first_name?: true
-    last_name?: true
+    profile_photo?: true
+    user_name?: true
     phone_number?: true
     role?: true
     wedding_date?: true
@@ -1455,8 +1455,8 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    first_name?: true
-    last_name?: true
+    profile_photo?: true
+    user_name?: true
     phone_number?: true
     role?: true
     wedding_date?: true
@@ -1472,8 +1472,8 @@ export namespace Prisma {
     refresh_Token?: true
     password_hash?: true
     resetPassword_Token?: true
-    first_name?: true
-    last_name?: true
+    profile_photo?: true
+    user_name?: true
     phone_number?: true
     role?: true
     wedding_date?: true
@@ -1562,8 +1562,8 @@ export namespace Prisma {
     refresh_Token: string | null
     password_hash: string
     resetPassword_Token: string | null
-    first_name: string
-    last_name: string
+    profile_photo: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date: Date | null
@@ -1596,8 +1596,8 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    first_name?: boolean
-    last_name?: boolean
+    profile_photo?: boolean
+    user_name?: boolean
     phone_number?: boolean
     role?: boolean
     wedding_date?: boolean
@@ -1617,8 +1617,8 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    first_name?: boolean
-    last_name?: boolean
+    profile_photo?: boolean
+    user_name?: boolean
     phone_number?: boolean
     role?: boolean
     wedding_date?: boolean
@@ -1634,8 +1634,8 @@ export namespace Prisma {
     refresh_Token?: boolean
     password_hash?: boolean
     resetPassword_Token?: boolean
-    first_name?: boolean
-    last_name?: boolean
+    profile_photo?: boolean
+    user_name?: boolean
     phone_number?: boolean
     role?: boolean
     wedding_date?: boolean
@@ -1666,8 +1666,8 @@ export namespace Prisma {
       refresh_Token: string | null
       password_hash: string
       resetPassword_Token: string | null
-      first_name: string
-      last_name: string
+      profile_photo: string | null
+      user_name: string
       phone_number: string
       role: $Enums.Role
       wedding_date: Date | null
@@ -2076,8 +2076,8 @@ export namespace Prisma {
     readonly refresh_Token: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
     readonly resetPassword_Token: FieldRef<"User", 'String'>
-    readonly first_name: FieldRef<"User", 'String'>
-    readonly last_name: FieldRef<"User", 'String'>
+    readonly profile_photo: FieldRef<"User", 'String'>
+    readonly user_name: FieldRef<"User", 'String'>
     readonly phone_number: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly wedding_date: FieldRef<"User", 'DateTime'>
@@ -7379,8 +7379,8 @@ export namespace Prisma {
     refresh_Token: 'refresh_Token',
     password_hash: 'password_hash',
     resetPassword_Token: 'resetPassword_Token',
-    first_name: 'first_name',
-    last_name: 'last_name',
+    profile_photo: 'profile_photo',
+    user_name: 'user_name',
     phone_number: 'phone_number',
     role: 'role',
     wedding_date: 'wedding_date',
@@ -7592,8 +7592,8 @@ export namespace Prisma {
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     resetPassword_Token?: StringNullableFilter<"User"> | string | null
-    first_name?: StringFilter<"User"> | string
-    last_name?: StringFilter<"User"> | string
+    profile_photo?: StringNullableFilter<"User"> | string | null
+    user_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     wedding_date?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -7612,8 +7612,8 @@ export namespace Prisma {
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
+    profile_photo?: SortOrderInput | SortOrder
+    user_name?: SortOrder
     phone_number?: SortOrder
     role?: SortOrder
     wedding_date?: SortOrderInput | SortOrder
@@ -7635,8 +7635,8 @@ export namespace Prisma {
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     resetPassword_Token?: StringNullableFilter<"User"> | string | null
-    first_name?: StringFilter<"User"> | string
-    last_name?: StringFilter<"User"> | string
+    profile_photo?: StringNullableFilter<"User"> | string | null
+    user_name?: StringFilter<"User"> | string
     phone_number?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     wedding_date?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -7655,8 +7655,8 @@ export namespace Prisma {
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
+    profile_photo?: SortOrderInput | SortOrder
+    user_name?: SortOrder
     phone_number?: SortOrder
     role?: SortOrder
     wedding_date?: SortOrderInput | SortOrder
@@ -7678,8 +7678,8 @@ export namespace Prisma {
     refresh_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
     resetPassword_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
-    first_name?: StringWithAggregatesFilter<"User"> | string
-    last_name?: StringWithAggregatesFilter<"User"> | string
+    profile_photo?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_name?: StringWithAggregatesFilter<"User"> | string
     phone_number?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     wedding_date?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -8037,8 +8037,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -8057,8 +8057,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -8077,8 +8077,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8097,8 +8097,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8117,8 +8117,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -8134,8 +8134,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8151,8 +8151,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8631,8 +8631,8 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
+    profile_photo?: SortOrder
+    user_name?: SortOrder
     phone_number?: SortOrder
     role?: SortOrder
     wedding_date?: SortOrder
@@ -8648,8 +8648,8 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
+    profile_photo?: SortOrder
+    user_name?: SortOrder
     phone_number?: SortOrder
     role?: SortOrder
     wedding_date?: SortOrder
@@ -8665,8 +8665,8 @@ export namespace Prisma {
     refresh_Token?: SortOrder
     password_hash?: SortOrder
     resetPassword_Token?: SortOrder
-    first_name?: SortOrder
-    last_name?: SortOrder
+    profile_photo?: SortOrder
+    user_name?: SortOrder
     phone_number?: SortOrder
     role?: SortOrder
     wedding_date?: SortOrder
@@ -9793,8 +9793,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -9812,8 +9812,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -9875,8 +9875,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9894,8 +9894,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9942,8 +9942,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -9961,8 +9961,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -9996,8 +9996,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10015,8 +10015,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10106,8 +10106,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -10125,8 +10125,8 @@ export namespace Prisma {
     refresh_Token?: string | null
     password_hash: string
     resetPassword_Token?: string | null
-    first_name: string
-    last_name: string
+    profile_photo?: string | null
+    user_name: string
     phone_number: string
     role: $Enums.Role
     wedding_date?: Date | string | null
@@ -10160,8 +10160,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10179,8 +10179,8 @@ export namespace Prisma {
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    first_name?: StringFieldUpdateOperationsInput | string
-    last_name?: StringFieldUpdateOperationsInput | string
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
