@@ -260,7 +260,6 @@ export namespace Prisma {
   export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
   export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
   export import PrismaClientValidationError = runtime.PrismaClientValidationError
-  export import NotFoundError = runtime.NotFoundError
 
   /**
    * Re-export of sql-template-tag
@@ -299,8 +298,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.22.0
-   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
+   * Prisma Client JS version: 6.2.0-dev.9
+   * Query Engine version: cc0167b764494213f0e42d0867d48643c39c83b6
    */
   export type PrismaVersion = {
     client: string
@@ -10042,7 +10041,7 @@ export namespace Prisma {
     rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
@@ -10081,7 +10080,7 @@ export namespace Prisma {
     rating?: FloatFilter<"Service"> | number
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
@@ -10133,7 +10132,7 @@ export namespace Prisma {
     wedding_date?: DateTimeFilter<"Availability"> | Date | string
     is_available?: BoolFilter<"Availability"> | boolean
     created_at?: DateTimeFilter<"Availability"> | Date | string
-    service?: XOR<ServiceRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
   }
 
   export type AvailabilityOrderByWithRelationInput = {
@@ -10156,7 +10155,7 @@ export namespace Prisma {
     wedding_date?: DateTimeFilter<"Availability"> | Date | string
     is_available?: BoolFilter<"Availability"> | boolean
     created_at?: DateTimeFilter<"Availability"> | Date | string
-    service?: XOR<ServiceRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
   }, "id" | "serviceId">
 
   export type AvailabilityOrderByWithAggregationInput = {
@@ -10192,7 +10191,7 @@ export namespace Prisma {
     image_urls?: JsonFilter<"Media">
     video_urls?: JsonFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
-    service?: XOR<ServiceRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
   }
 
   export type MediaOrderByWithRelationInput = {
@@ -10213,7 +10212,7 @@ export namespace Prisma {
     image_urls?: JsonFilter<"Media">
     video_urls?: JsonFilter<"Media">
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
-    service?: XOR<ServiceRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
   }, "id" | "serviceId">
 
   export type MediaOrderByWithAggregationInput = {
@@ -10251,7 +10250,7 @@ export namespace Prisma {
     photo_url?: StringNullableFilter<"TeamMember"> | string | null
     social_links?: JsonNullableFilter<"TeamMember">
     created_at?: DateTimeFilter<"TeamMember"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }
 
   export type TeamMemberOrderByWithRelationInput = {
@@ -10280,7 +10279,7 @@ export namespace Prisma {
     photo_url?: StringNullableFilter<"TeamMember"> | string | null
     social_links?: JsonNullableFilter<"TeamMember">
     created_at?: DateTimeFilter<"TeamMember"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }, "id">
 
   export type TeamMemberOrderByWithAggregationInput = {
@@ -10325,7 +10324,7 @@ export namespace Prisma {
     start_date?: DateTimeFilter<"Promotion"> | Date | string
     end_date?: DateTimeFilter<"Promotion"> | Date | string
     created_at?: DateTimeFilter<"Promotion"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }
 
   export type PromotionOrderByWithRelationInput = {
@@ -10352,7 +10351,7 @@ export namespace Prisma {
     start_date?: DateTimeFilter<"Promotion"> | Date | string
     end_date?: DateTimeFilter<"Promotion"> | Date | string
     created_at?: DateTimeFilter<"Promotion"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }, "id">
 
   export type PromotionOrderByWithAggregationInput = {
@@ -10394,7 +10393,7 @@ export namespace Prisma {
     question?: StringFilter<"FAQ"> | string
     answer?: StringNullableFilter<"FAQ"> | string | null
     created_at?: DateTimeFilter<"FAQ"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }
 
   export type FAQOrderByWithRelationInput = {
@@ -10415,7 +10414,7 @@ export namespace Prisma {
     question?: StringFilter<"FAQ"> | string
     answer?: StringNullableFilter<"FAQ"> | string | null
     created_at?: DateTimeFilter<"FAQ"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
   }, "id">
 
   export type FAQOrderByWithAggregationInput = {
@@ -10451,8 +10450,8 @@ export namespace Prisma {
     comment?: StringNullableFilter<"Review"> | string | null
     type?: EnumReviewTypeFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeFilter<"Review"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
-    service?: XOR<ServiceNullableRelationFilter, ServiceWhereInput> | null
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }
 
   export type ReviewOrderByWithRelationInput = {
@@ -10478,8 +10477,8 @@ export namespace Prisma {
     comment?: StringNullableFilter<"Review"> | string | null
     type?: EnumReviewTypeFilter<"Review"> | $Enums.ReviewType
     created_at?: DateTimeFilter<"Review"> | Date | string
-    vendor?: XOR<VendorRelationFilter, VendorWhereInput>
-    service?: XOR<ServiceNullableRelationFilter, ServiceWhereInput> | null
+    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }, "id">
 
   export type ReviewOrderByWithAggregationInput = {
@@ -11472,7 +11471,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type VendorRelationFilter = {
+  export type VendorScalarRelationFilter = {
     is?: VendorWhereInput
     isNot?: VendorWhereInput
   }
@@ -11586,7 +11585,7 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type ServiceRelationFilter = {
+  export type ServiceScalarRelationFilter = {
     is?: ServiceWhereInput
     isNot?: ServiceWhereInput
   }
@@ -11769,7 +11768,7 @@ export namespace Prisma {
     not?: NestedEnumReviewTypeFilter<$PrismaModel> | $Enums.ReviewType
   }
 
-  export type ServiceNullableRelationFilter = {
+  export type ServiceNullableScalarRelationFilter = {
     is?: ServiceWhereInput | null
     isNot?: ServiceWhereInput | null
   }
@@ -14162,50 +14161,6 @@ export namespace Prisma {
   }
 
 
-
-  /**
-   * Aliases for legacy arg types
-   */
-    /**
-     * @deprecated Use VendorCountOutputTypeDefaultArgs instead
-     */
-    export type VendorCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VendorCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ServiceCountOutputTypeDefaultArgs instead
-     */
-    export type ServiceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServiceCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use VendorDefaultArgs instead
-     */
-    export type VendorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VendorDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ServiceDefaultArgs instead
-     */
-    export type ServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServiceDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use AvailabilityDefaultArgs instead
-     */
-    export type AvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AvailabilityDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use MediaDefaultArgs instead
-     */
-    export type MediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MediaDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TeamMemberDefaultArgs instead
-     */
-    export type TeamMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TeamMemberDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use PromotionDefaultArgs instead
-     */
-    export type PromotionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PromotionDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use FAQDefaultArgs instead
-     */
-    export type FAQArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FAQDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ReviewDefaultArgs instead
-     */
-    export type ReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReviewDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

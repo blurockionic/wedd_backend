@@ -263,7 +263,6 @@ export namespace Prisma {
   export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
   export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
   export import PrismaClientValidationError = runtime.PrismaClientValidationError
-  export import NotFoundError = runtime.NotFoundError
 
   /**
    * Re-export of sql-template-tag
@@ -302,8 +301,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.22.0
-   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
+   * Prisma Client JS version: 6.2.0-dev.9
+   * Query Engine version: cc0167b764494213f0e42d0867d48643c39c83b6
    */
   export type PrismaVersion = {
     client: string
@@ -7704,7 +7703,7 @@ export namespace Prisma {
     totalAmount?: FloatFilter<"Booking"> | number
     created_at?: DateTimeFilter<"Booking"> | Date | string
     updated_at?: DateTimeFilter<"Booking"> | Date | string
-    userId?: XOR<UserRelationFilter, UserWhereInput>
+    userId?: XOR<UserScalarRelationFilter, UserWhereInput>
     payments?: PaymentListRelationFilter
   }
 
@@ -7739,7 +7738,7 @@ export namespace Prisma {
     totalAmount?: FloatFilter<"Booking"> | number
     created_at?: DateTimeFilter<"Booking"> | Date | string
     updated_at?: DateTimeFilter<"Booking"> | Date | string
-    userId?: XOR<UserRelationFilter, UserWhereInput>
+    userId?: XOR<UserScalarRelationFilter, UserWhereInput>
     payments?: PaymentListRelationFilter
   }, "booking_id">
 
@@ -7787,7 +7786,7 @@ export namespace Prisma {
     userId?: StringFilter<"Cart"> | string
     serviceId?: StringFilter<"Cart"> | string
     createdAt?: DateTimeFilter<"Cart"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type CartOrderByWithRelationInput = {
@@ -7807,7 +7806,7 @@ export namespace Prisma {
     userId?: StringFilter<"Cart"> | string
     serviceId?: StringFilter<"Cart"> | string
     createdAt?: DateTimeFilter<"Cart"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id_userId">
 
   export type CartOrderByWithAggregationInput = {
@@ -7841,7 +7840,7 @@ export namespace Prisma {
     payment_method?: StringFilter<"Payment"> | string
     transaction_id?: StringFilter<"Payment"> | string
     payment_date?: DateTimeFilter<"Payment"> | Date | string
-    booking?: XOR<BookingRelationFilter, BookingWhereInput>
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
   }
 
   export type PaymentOrderByWithRelationInput = {
@@ -7866,7 +7865,7 @@ export namespace Prisma {
     payment_method?: StringFilter<"Payment"> | string
     transaction_id?: StringFilter<"Payment"> | string
     payment_date?: DateTimeFilter<"Payment"> | Date | string
-    booking?: XOR<BookingRelationFilter, BookingWhereInput>
+    booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
   }, "payment_id">
 
   export type PaymentOrderByWithAggregationInput = {
@@ -7907,7 +7906,7 @@ export namespace Prisma {
     rating?: IntFilter<"Review"> | number
     review_text?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ReviewOrderByWithRelationInput = {
@@ -7930,7 +7929,7 @@ export namespace Prisma {
     rating?: IntFilter<"Review"> | number
     review_text?: StringFilter<"Review"> | string
     created_at?: DateTimeFilter<"Review"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "review_id">
 
   export type ReviewOrderByWithAggregationInput = {
@@ -8780,7 +8779,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type UserRelationFilter = {
+  export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
@@ -8916,7 +8915,7 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type BookingRelationFilter = {
+  export type BookingScalarRelationFilter = {
     is?: BookingWhereInput
     isNot?: BookingWhereInput
   }
@@ -10339,42 +10338,6 @@ export namespace Prisma {
   }
 
 
-
-  /**
-   * Aliases for legacy arg types
-   */
-    /**
-     * @deprecated Use UserCountOutputTypeDefaultArgs instead
-     */
-    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BookingCountOutputTypeDefaultArgs instead
-     */
-    export type BookingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use UserDefaultArgs instead
-     */
-    export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BookingDefaultArgs instead
-     */
-    export type BookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use CartDefaultArgs instead
-     */
-    export type CartArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CartDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use PaymentDefaultArgs instead
-     */
-    export type PaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ReviewDefaultArgs instead
-     */
-    export type ReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReviewDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use EventScheduleDefaultArgs instead
-     */
-    export type EventScheduleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EventScheduleDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
