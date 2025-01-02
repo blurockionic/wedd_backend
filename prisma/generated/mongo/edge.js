@@ -214,7 +214,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\LENOVO\\Desktop\\blurock_ionic\\Weddingwire_clone\\prisma\\generated\\mongo",
+      "value": "F:\\web application\\wedd_backend\\prisma\\generated\\mongo",
       "fromEnvVar": null
     },
     "config": {
@@ -228,7 +228,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\LENOVO\\Desktop\\blurock_ionic\\Weddingwire_clone\\prisma\\schema.mongo.prisma",
+    "sourceFilePath": "F:\\web application\\wedd_backend\\prisma\\schema.mongo.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -242,7 +242,6 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
