@@ -195,7 +195,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\LENOVO\\Desktop\\blurock_ionic\\Weddingwire_clone\\prisma\\generated\\postgres",
+      "value": "F:\\web application\\wedd_backend\\prisma\\generated\\postgres",
       "fromEnvVar": null
     },
     "config": {
@@ -220,7 +220,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\LENOVO\\Desktop\\blurock_ionic\\Weddingwire_clone\\prisma\\schema.postgre.prisma",
+    "sourceFilePath": "F:\\web application\\wedd_backend\\prisma\\schema.postgre.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -234,7 +234,6 @@ const config = {
     "db_postgres"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db_postgres": {
       "url": {
