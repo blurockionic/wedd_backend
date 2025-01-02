@@ -1,8 +1,8 @@
 generator client_postgres {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
   output   = "./generated/postgres"
    datasources = [db_postgres]
-  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
 }
 datasource db_postgres {
   provider = "postgresql"
