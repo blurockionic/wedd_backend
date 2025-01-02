@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "./generated/mongo"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+  output        = "./generated/mongo"
 }
 
 datasource db {
