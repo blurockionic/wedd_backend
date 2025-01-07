@@ -20,10 +20,10 @@ const jwtAuthentication = (req, res, next) => {
     // Attach the decoded user data to the request object
     req.user = decoded;
 
-    // Optional: Log the user data during development
-    if (process.env.NODE_ENV === "development") {
-      console.log("Authenticated user:", req.user);
-    }
+    // // Optional: Log the user data during development
+    // if (process.env.NODE_ENV === "development") {
+    //   console.log("Authenticated user:", req.user);
+    // }
 
     next();
   } catch (error) {

@@ -25,7 +25,11 @@ export const getCart = async (req, res, next) => {
     });
 
     if (!cartItems.length) {
-      return res.status(404).json({ message: "Cart is empty" });
+      return res.status(201).json({
+        message: "No items found in the cart",
+        cartItems: [],
+        success: true,
+      });
     }
 
     // Step 2: Fetch related service and media details from MongoDB
@@ -47,13 +51,6 @@ export const getCart = async (req, res, next) => {
           },
         });
 
-        if (!service) {
-          throw new CustomError(
-            `Service with ID ${cartItem.serviceId} not found`,
-            404
-          );
-        }
-
         return {
           ...cartItem, // Include cart details from PostgreSQL
           service, // Include service details from MongoDB
@@ -72,9 +69,9 @@ export const getCart = async (req, res, next) => {
   }
 };
 // Add Product/Service to the Cart
-export const addProductToCart = async (req, res, next) => {
+export const toggleCart = async (req, res, next) => {
   try {
-    const { serviceId } = req.body;
+    const { id } = req.body;
     const userId = req.user.id;
 
     if (!userId) {
@@ -83,30 +80,34 @@ export const addProductToCart = async (req, res, next) => {
 
     // Validate if the service exists in MongoDB
     const service = await mongoPrisma.Service.findUnique({
-      where: { id: serviceId },
+      where: { id },
     });
 
     if (!service) {
       throw new CustomError("Service not found in MongoDB", 404);
     }
 
-    // Check if the service is already in the cart
-    const existingCartItem = await postgresPrisma.Cart.findFirst({
+    // Attempt to find the item in the cart
+    const deletedItem = await postgresPrisma.Cart.deleteMany({
       where: {
-        userId: userId,
-        serviceId: serviceId,
+        userId,
+        serviceId: id,
       },
     });
 
-    if (existingCartItem) {
-      throw new CustomError("Service already exists in the cart", 400);
+    if (deletedItem.count > 0) {
+      // If item was deleted, return success response
+      return res.status(200).json({
+        success: true,
+        message: "Service removed from cart successfully",
+      });
     }
 
-    // Add service to the cart in PostgreSQL
+    // If item wasn't found, add it to the cart
     const cartItem = await postgresPrisma.Cart.create({
       data: {
         userId: userId,
-        serviceId: serviceId,
+        serviceId: id,
       },
     });
 
@@ -116,48 +117,7 @@ export const addProductToCart = async (req, res, next) => {
       cartItem,
     });
   } catch (error) {
-    next(error); // Pass to error middleware
-  }
-};
-
-export const removeProductFromCart = async (req, res, next) => {
-  try {
-    const { id } = req.params; // Extract cart item ID from URL params
-    const userId = req.user.id; // Get the user ID from authenticated user
-
-    if (!userId) {
-      throw new CustomError("userId is required but not found", 404);
-    }
-
-    // Check if the cart item exists for the user
-    const cartItem = await postgresPrisma.Cart.findFirst({
-      where: {
-        serviceId: id, // Cart item's ID
-        userId, // User's ID
-      },
-    });
-
-    if (!cartItem) {
-      throw new CustomError(
-        "Cart item not found or you do not have permission",
-        404
-      );
-    }
-
-    console.log("cartItem", cartItem);
-
-    await postgresPrisma.Cart.deleteMany({
-      where: {
-        AND: [{ id }, { userId }],
-      },
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "Service removed from cart successfully",
-    });
-  } catch (error) {
-    next(error); // Pass to error middleware
+    next(error);
   }
 };
 

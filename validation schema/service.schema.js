@@ -26,6 +26,7 @@ export const querySchema = z.object({
   sort_by: z.enum(['created_at', 'min_price', 'rating']).optional().default('created_at'), // Ensure valid enum values
   sort_order: z.enum(['asc', 'desc']).optional().default('desc'),
   location: z.string().optional(),
+  vendorId:z.string().optional(),
 });
 
 
