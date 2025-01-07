@@ -11,7 +11,10 @@ const prisma = new PrismaClient();
 // Request Password Reset for Vendor
 const requestVendorPasswordReset = async (req, res, next) => {
   try {
+    console.log( " password reset");
     const { email } = requestPasswordResetSchema.parse(req.body);
+
+    
 
     if (!email) {
       throw new CustomError("Email is required", 400);
@@ -27,9 +30,8 @@ const requestVendorPasswordReset = async (req, res, next) => {
     }
 
     // Generate reset token
-    const resetToken = await GenerateToken.generateVendorPasswordResetToken(vendor);
+    const resetToken = await GenerateToken.generatePasswordResetToken(vendor);
 
-    // Save the reset token and expiration in the database
     const updatedVendor = await prisma.Vendor.update({
       where: { id: vendor.id },
       data: {
@@ -37,17 +39,18 @@ const requestVendorPasswordReset = async (req, res, next) => {
       },
     });
 
+    
     // Send reset token via email
     await sendVerificationEmail(updatedVendor.email, vendorResetPassEmailContent(resetToken));
 
-    return res.status(200).json({ message: "Reset password link sent" });
-  } catch (error) {
-    console.error(`${error.message} : ${error.stack}`);
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({ errors: error.errors });
-    }
+    return res.status(200).json({
+      message: "Reset password link sent",
+      success: true,
+      
 
-    next(new CustomError(error.message || "Error in vendor password reset request", 500));
+    });
+  } catch (error) {
+    next(error);
   }
 };
 

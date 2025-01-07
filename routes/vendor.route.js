@@ -5,11 +5,11 @@ import verifyEmail from '../controllers/emailVerification.controller.js';
 import jwtAuthentication from '../middleware/auth.middleware.js';
 import vendorLogout from '../controllers/vendorController/vendor.logout.controller.js';
 import requestVendorPasswordReset from '../controllers/vendorController/vendor.reqPasswordReset.js';
-import resetVendorPassword  from '../controllers/vendorController/vendor.resetPassword.controller.js';
 import vendorRefreshAccessToken  from '../controllers/vendorController/vendor.refreshAccessToken.controlller.js';
 import deleteVendorAccount from '../controllers/vendorController/vendor.delete.controller.js';
 import updateVendor from '../controllers/vendorController/vendor.update.controller.js';
 import getVendorById from '../controllers/vendorController/vendor.Details.controller.js';
+import { resetVendorPassword } from '../controllers/vendorController/vendor.resetPassword.controller.js';
 
 
 const vendorRouter = express.Router();

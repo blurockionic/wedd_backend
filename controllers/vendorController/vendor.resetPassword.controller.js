@@ -1,19 +1,25 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "../../prisma/generated/mongo/index.js"; // MongoDB Prisma client
+import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 import CustomError from "../../utils/CustomError.js";
-import {
-  resetPasswordSchema,
-  resetTokenSchema,
-} from "../../validation schema/user.schema.js"; // Update schema for vendor
+import { z } from "zod";
 
 const prisma = new PrismaClient();
 
- const resetVendorPassword = async (req, res, next) => {
+const passValid = z
+  .string()
+  .min(6, "Password must be at least 6 characters long")
+  .regex(/[a-z]/, "Password must include at least one lowercase letter")
+  .regex(/[A-Z]/, "Password must include at least one uppercase letter")
+  .regex(/\d/, "Password must include at least one number")
+  .regex(/[!@#$%^&*]/, "Password must include at least one special character");
+
+export const resetVendorPassword = async (req, res, next) => {
   try {
-    // Extract and validate token (from query or params) and new password
-    const { token } = resetTokenSchema.parse(req.query); // Assuming token comes from query string
-    const { password } = resetPasswordSchema.parse(req.body); // Renamed for clarity
+    // Validate token from query params
+    const { token } = req.query;
+
+    const { confirmPassword } = req.body;
 
     // Verify the JWT token
     let decodedToken;
@@ -26,34 +32,37 @@ const prisma = new PrismaClient();
           400
         );
       }
-      throw new CustomError("Invalid token. Please request a new reset link.", 400);
+      throw new CustomError(
+        "Invalid token. Please request a new reset link.",
+        400
+      );
     }
 
-    
-
-    // Fetch the vendor using the decoded token's vendor_id
-    const vendor = await prisma.Vendor.findUnique({
+    // Fetch the user using the decoded token's ID
+    const user = await prisma.Vendor.findUnique({
       where: { id: decodedToken.id },
     });
 
-    if (!vendor || vendor.resetPassword_Token !== token) {
+    if (!user || user.resetPassword_Token !== token) {
       throw new CustomError("Invalid or expired token", 400);
     }
 
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(confirmPassword, 10);
 
-    // Update the password and clear reset token fields
+    // Update the user's password and clear the reset token
     await prisma.Vendor.update({
-      where: { id: vendor.id },
+      where: { id: user.id },
       data: {
         password_hash: hashedPassword,
-        resetPassword_Token: "", // Clear token
+        resetPassword_Token: "", // Clear the reset token
       },
     });
 
+    // Send success response
     return res.status(200).json({
-      message: "Password reset successfully. You can now log in with your new password.",
+      message:
+        "Password reset successfully. You can now log in with your new password.",
     });
   } catch (error) {
     console.error("Error resetting password:", error); // Log error details
@@ -65,5 +74,3 @@ const prisma = new PrismaClient();
     );
   }
 };
-
-export default resetVendorPassword;
