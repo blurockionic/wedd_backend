@@ -14,13 +14,13 @@ export const getCart = async (req, res, next) => {
       throw new CustomError("userId is required but not found", 404);
     }
 
-    // Fetch the user's cart from PostgreSQL
+    // Step 1: Fetch cart items from PostgreSQL
     const cartItems = await postgresPrisma.Cart.findMany({
       where: { userId },
       select: {
         id: true,
-        serviceId: true,
-        userId: true, // Select other necessary fields from Cart
+        serviceId: true, // Get serviceId from PostgreSQL
+        userId: true,
       },
     });
 
@@ -28,22 +28,42 @@ export const getCart = async (req, res, next) => {
       return res.status(404).json({ message: "Cart is empty" });
     }
 
-    // Fetch the service details from MongoDB for each cart item
+    // Step 2: Fetch related service and media details from MongoDB
     const cartWithServices = await Promise.all(
       cartItems.map(async (cartItem) => {
         const service = await mongoPrisma.Service.findUnique({
           where: { id: cartItem.serviceId },
+          include: {
+            media: true,
+            vendor: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+                city: true,
+                business_name: true,
+              },
+            },
+          },
         });
 
-        // Return cart item along with the related service data
+        if (!service) {
+          throw new CustomError(
+            `Service with ID ${cartItem.serviceId} not found`,
+            404
+          );
+        }
+
         return {
-          ...cartItem,
-          service: service || null, // If service is not found, return null
+          ...cartItem, // Include cart details from PostgreSQL
+          service, // Include service details from MongoDB
         };
       })
     );
 
+    // Step 3: Respond with merged cart and service data
     res.status(200).json({
+      success: true,
       message: "Cart fetched successfully",
       cartItems: cartWithServices,
     });
@@ -90,9 +110,11 @@ export const addProductToCart = async (req, res, next) => {
       },
     });
 
-    res
-      .status(201)
-      .json({ message: "Service added to cart successfully", cartItem });
+    res.status(201).json({
+      success: true,
+      message: "Service added to cart successfully",
+      cartItem,
+    });
   } catch (error) {
     next(error); // Pass to error middleware
   }
@@ -110,31 +132,34 @@ export const removeProductFromCart = async (req, res, next) => {
     // Check if the cart item exists for the user
     const cartItem = await postgresPrisma.Cart.findFirst({
       where: {
-        id,        // Cart item's ID
-        userId,    // User's ID
+        serviceId: id, // Cart item's ID
+        userId, // User's ID
       },
     });
 
     if (!cartItem) {
-      throw new CustomError("Cart item not found or you do not have permission", 404);
+      throw new CustomError(
+        "Cart item not found or you do not have permission",
+        404
+      );
     }
 
-    // Proceed with deleting the cart item
-    const deletedCartItem = await postgresPrisma.Cart.deleteMany({
+    console.log("cartItem", cartItem);
+
+    await postgresPrisma.Cart.deleteMany({
       where: {
-        id_userId: {
-          id,        // Cart item's ID
-          userId,    // User's ID
-        },
+        AND: [{ id }, { userId }],
       },
     });
 
-    res.status(200).json({ message: "Service removed from cart successfully" });
+    res.status(200).json({
+      success: true,
+      message: "Service removed from cart successfully",
+    });
   } catch (error) {
     next(error); // Pass to error middleware
   }
 };
-
 
 export const clearCart = async (req, res) => {
   try {
@@ -153,7 +178,9 @@ export const clearCart = async (req, res) => {
       throw new CustomError("No cart items found to clear", 404);
     }
 
-    res.status(200).json({ message: "Cart cleared successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Cart cleared successfully" });
   } catch (error) {
     next(error);
   }

@@ -3,19 +3,29 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 import CustomError from "../../utils/CustomError.js";
 import {
-  resetPasswordSchema,
+
   resetTokenSchema,
 } from "../../validation schema/user.schema.js";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
+
+const passValid = z
+.string()
+.min(6, "Password must be at least 6 characters long")
+.regex(/[a-z]/, "Password must include at least one lowercase letter")
+.regex(/[A-Z]/, "Password must include at least one uppercase letter")
+.regex(/\d/, "Password must include at least one number")
+.regex(/[!@#$%^&*]/, "Password must include at least one special character");
 
 export const resetPassword = async (req, res, next) => {
   try {
 
     // Extract and validate token (from query or params) and new password
 
-    const { token } = resetTokenSchema.parse(req.query); // Assuming token comes from query string
-    const { password } = resetPasswordSchema.parse(req.body); // Renamed for clarity
+    const { token } = req.query;
+
+    const { confirmPassword } = req.body;
 
     // Verify the JWT token
     let decodedToken;
@@ -37,33 +47,28 @@ export const resetPassword = async (req, res, next) => {
       where: { id: decodedToken.id },
     });
 
-    if (!user || user.resetPassword_Token !== token) {
-      throw new CustomError("Invalid or expired token", 400);
+    if (!user) {
+      throw new CustomError("Email is Not registerd", 400);
     }
 
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(confirmPassword, 10);
 
     // Update the password and clear reset token fields
     await prisma.User.update({
       where: { id: user.id },
       data: {
         password_hash: hashedPassword,
-        resetPassword_Token: "", // Clear token
-        resetPassword_Expire: "", // Clear expiry
       },
     });
 
     return res.status(200).json({
       message: "Password reset successfully. You can now log in with your new password.",
+      success:true
     });
   } catch (error) {
-    console.error("Error resetting password:", error); // Log error details
     next(
-      new CustomError(
-        error.message || "Error while resetting the password",
-        500
-      )
+      error
     );
   }
 };

@@ -24,6 +24,8 @@ const vendorLogin = async (req, res, next) => {
       throw new CustomError("Vendor not found with this email", 404);
     }
 
+    
+
     // Check if the password is correct
     if (!isPasswordCorrect(validatedData.password, vendor.password_hash)) {
       throw new CustomError("Invalid password", 401);
