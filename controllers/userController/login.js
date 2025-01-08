@@ -73,7 +73,6 @@ const userLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: "Lax",
       path: "/",
-      expiry: 60 * 60 * 100,
     };
 
     return res
