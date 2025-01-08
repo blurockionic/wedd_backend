@@ -1,0 +1,100 @@
+generator client_postgres {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "windows"]
+  output        = "./generated/postgres"
+  datasources   = [db_postgres]
+}
+
+datasource db_postgres {
+  provider          = "postgresql"
+  url               = env("POST_GRE_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL_PG")
+}
+
+model User {
+  id                  String    @id @default(uuid())
+  email               String    @unique
+  refresh_Token       String?
+  password_hash       String
+  resetPassword_Token String?
+  profile_photo       String?
+  user_name           String
+  phone_number        String
+  role                Role
+  wedding_date        DateTime?
+  wedding_location    String?
+  created_at          DateTime  @default(now())
+  is_verified         Boolean   @default(false)
+  bookings            Booking[]
+  reviews             Review[]
+  cart                Cart[]
+  updated_at          DateTime?
+}
+
+model Booking {
+  id               String
+  userId           User      @relation(fields: [id], references: [id])
+  booking_id       String    @id @default(uuid())
+  service_id       String // Refers to a Service in MongoDB
+  vendor_id        String // Refers to a Vendor in MongoDB
+  booking_date     DateTime
+  status           String    @default("pending")
+  negotiated_price Float? // Agreed price after negotiation
+  is_negotiable    Boolean   @default(false) // Flag for negotiation
+  totalAmount      Float // Total cost of the booking
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  payments         Payment[]
+}
+
+model Cart {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String // Refers to a Service in MongoDB
+  createdAt DateTime @default(now()) // Timestamp when the service was added
+
+  @@unique([userId, serviceId])
+}
+
+model Payment {
+  payment_id     String   @id @default(uuid())
+  booking_id     String
+  amount         Decimal
+  payment_status String // e.g., "pending", "completed", "failed"
+  payment_method String // e.g., "credit card", "PayPal"
+  transaction_id String
+  payment_date   DateTime
+
+  // Relations
+  booking Booking @relation(fields: [booking_id], references: [booking_id])
+}
+
+model Review {
+  review_id   String   @id @default(uuid())
+  vendor_id   String // Refers to a Vendor in MongoDB
+  id          String
+  rating      Int // Rating 1 to 5
+  review_text String
+  created_at  DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [id], references: [id])
+}
+
+model EventSchedule {
+  event_id         String   @id @default(uuid())
+  vendor_id        String // Refers to a Vendor in MongoDB
+  media_id         String // Refers to a Media in MongoDB
+  event_name       String
+  event_start_date DateTime
+  event_end_date   DateTime
+  event_location   String
+  description      String
+  created_at       DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
