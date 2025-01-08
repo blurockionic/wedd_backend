@@ -71,7 +71,7 @@ const userLogin = async (req, res, next) => {
     const cookieOptions = {
       secure: true,
       httpOnly: true,
-      sameSite: "Lax",
+      sameSite: "None",
       path: "/",
       expiry: 60 * 60 * 1000,
     };
