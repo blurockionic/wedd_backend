@@ -1,6 +1,5 @@
 import { loginSchema } from "../../validation schema/user.schema.js";
 import GenerateToken from "../../helper/generateToken.js";
-
 import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
@@ -10,14 +9,12 @@ import sendVerificationEmail from "../../service/emailService.js";
 const prisma = new PrismaClient();
 
 const userLogin = async (req, res, next) => {
-
-  console.log(req.cookie);
-
   try {
     const validatedData = loginSchema.parse(req.body);
 
     const user = await prisma.User.findUnique({
       where: { email: validatedData.email },
+      
     });
 
     if (!user) {
@@ -59,6 +56,9 @@ const userLogin = async (req, res, next) => {
     });
 
     // Sanitize user object
+
+    console.log(user);
+
     const {
       password_hash,
       resetPassword_Token,
@@ -73,11 +73,11 @@ const userLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: "Lax",
       path: "/",
-      expiry:60*60*100
+      expiry: 60 * 60 * 100,
     };
 
     return res
-   
+
       .cookie("accessToken", accessToken, cookieOptions)
       .cookie("refreshToken", refreshToken, cookieOptions)
       .status(200)

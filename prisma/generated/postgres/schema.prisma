@@ -48,13 +48,13 @@ model Booking {
 }
 
 model Cart {
-  id        String   @id @default(uuid()) // Unique identifier for the cart
-  userId    String // References the user who owns the cart
+  id        String   @id @default(uuid())
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   serviceId String // Refers to a Service in MongoDB
   createdAt DateTime @default(now()) // Timestamp when the service was added
 
-  @@unique([id, userId])
+  @@unique([userId, serviceId])
 }
 
 model Payment {

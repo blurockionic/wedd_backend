@@ -19,7 +19,8 @@ const getAllServices = async (req, res, next) => {
       location,
       sort_by, 
       sort_order,
-      rating
+      rating,
+      vendorId
     } = validatedQuery;
 
     const where = {}; // Initialize where clause for filtering
@@ -32,6 +33,9 @@ const getAllServices = async (req, res, next) => {
 
     // Add filters for rating if provided
     if (rating && rating !== null) where.rating = { gte: rating };
+    
+    // Add filters for vendorId if provided
+    if (vendorId && vendorId!== null) where.vendorId = vendorId;
   
 
     let vendorsInLocation
@@ -46,7 +50,7 @@ const getAllServices = async (req, res, next) => {
         select: { id: true },
       });
 
-      console.log(vendorsInLocation,{extends: true});
+      // console.log(vendorsInLocation,{extends: true});
       
 
       if (vendorsInLocation.length > 0) {
