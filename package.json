@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": " nodemon server.js",
+    "prisma:generate-debian": "prisma generate --schema=prisma/schema.postgre.prisma --binary-target debian-openssl-3.0.x",
     "prisma-generate": "prisma generate --schema=prisma/schema.postgre.prisma",
     "prisma:generate-mongo": "prisma generate --schema=prisma/schema.mongo.prisma",
     "prisma:generate-all": "npm run prisma-generate && npm run prisma:generate-mongo",
@@ -37,7 +38,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7",
-    "prisma": "^6.2.0-dev.9"
+    "prisma": "^6.2.0"
   },
   "keywords": [],
   "author": "",
