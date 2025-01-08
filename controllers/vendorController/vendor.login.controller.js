@@ -62,7 +62,6 @@ const vendorLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: "Lax",
       path: "/",
-      expiry: 60 * 60 * 100,
     };
 
     // Send response with cookies and vendor data
