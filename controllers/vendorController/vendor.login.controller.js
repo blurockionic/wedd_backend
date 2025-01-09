@@ -67,11 +67,12 @@ const vendorLogin = async (req, res, next) => {
 
     // Cookie options for security
     const cookieOptions = {
-      secure: process.env.NODE_ENV === "production" ? true : false,
-      httpOnly: true,
-      sameSite: "None",
+      secure: process.env.NODE_ENV === "production", 
+      httpOnly: true, 
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", 
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     };
-
     // Send response with cookies and vendor data
     return res
       .status(200)
