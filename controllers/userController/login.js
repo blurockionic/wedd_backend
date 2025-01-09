@@ -65,10 +65,13 @@ const userLogin = async (req, res, next) => {
       ...sanitizedUser
     } = user;
 
+    // Cookie options for security
     const cookieOptions = {
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "None",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     };
 
     return res
