@@ -76,7 +76,6 @@ model Review {
   rating         Int      // Rating 1 to 5
   review_text    String
   created_at     DateTime @default(now())
-
   // Relations
   user           User     @relation(fields: [id], references: [id])
 }

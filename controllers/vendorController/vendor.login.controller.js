@@ -24,8 +24,6 @@ const vendorLogin = async (req, res, next) => {
       throw new CustomError("Vendor not found with this email", 404);
     }
 
-    
-
     // Check if the password is correct
     if (!isPasswordCorrect(validatedData.password, vendor.password_hash)) {
       throw new CustomError("Invalid password", 401);
@@ -33,13 +31,19 @@ const vendorLogin = async (req, res, next) => {
 
     // Check if the vendor's email is verified
     if (!vendor.is_verified) {
-        const emailVerificationToken = GenerateToken.generateEmailVerificationToken(vendor);
-      const emailContent = vendorRegisterEmailContent(emailVerificationToken,"vendor")
-  
-      await sendVerificationEmail(vendor.email, emailContent);
-        
-      throw new CustomError("Your email is not verified. Please check your mail for verifiaction.", 400);
+      const emailVerificationToken =
+        GenerateToken.generateEmailVerificationToken(vendor);
+      const emailContent = vendorRegisterEmailContent(
+        emailVerificationToken,
+        "vendor"
+      );
 
+      await sendVerificationEmail(vendor.email, emailContent);
+
+      throw new CustomError(
+        "Your email is not verified. Please check your mail for verifiaction.",
+        400
+      );
     }
 
     // Generate access and refresh tokens
@@ -53,15 +57,19 @@ const vendorLogin = async (req, res, next) => {
     });
 
     // Sanitize user object to exclude sensitive fields
-    const { password_hash, resetPassword_Token, updated_at, created_at, ...sanitizedVendor } = vendor;
+    const {
+      password_hash,
+      resetPassword_Token,
+      updated_at,
+      created_at,
+      ...sanitizedVendor
+    } = vendor;
 
     // Cookie options for security
     const cookieOptions = {
-      // secure: process.env.NODE_ENV === "production",
-      secure: true,
+      secure: process.env.NODE_ENV === "production" ? true : false,
       httpOnly: true,
       sameSite: "None",
-      path: "/",
     };
 
     // Send response with cookies and vendor data
@@ -77,12 +85,12 @@ const vendorLogin = async (req, res, next) => {
       });
   } catch (error) {
     console.error(`${error.message} : ${error.stack}`);
-    
+
     // Handle validation errors (Zod)
     if (error instanceof z.ZodError) {
       return res.status(400).json({ errors: error.errors });
     }
-    
+
     // Handle custom errors
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ message: error.message });
