@@ -14,7 +14,6 @@ const userLogin = async (req, res, next) => {
 
     const user = await prisma.User.findUnique({
       where: { email: validatedData.email },
-      
     });
 
     if (!user) {
@@ -57,8 +56,6 @@ const userLogin = async (req, res, next) => {
 
     // Sanitize user object
 
-    console.log(user);
-
     const {
       password_hash,
       resetPassword_Token,
@@ -69,15 +66,12 @@ const userLogin = async (req, res, next) => {
     } = user;
 
     const cookieOptions = {
-      secure: true,
+      secure: process.env.NODE_ENV === "production" ? true : false,
       httpOnly: true,
       sameSite: "None",
-      path: "/",
-      
     };
 
     return res
-
       .cookie("accessToken", accessToken, cookieOptions)
       .cookie("refreshToken", refreshToken, cookieOptions)
       .status(200)
