@@ -22,9 +22,10 @@ const userLogout = async (req, res, next) => {
 
     // Cookie options for clearing cookies securely
     const cookieOption = {
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
+      secure: true, // Secure cookies in production
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "None",
     };
 
     // Clear cookies and respond
