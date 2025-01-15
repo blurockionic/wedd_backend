@@ -8,6 +8,12 @@ const getServiceById = async (req, res, next) => {
     // Extract service ID from request parameters
     const serviceId = req.params.id;
 
+    const userId = req.user?.id || "anonymous"; 
+
+    if (userId === "anonymous") {
+      console.log("Anonymous user is viewing the service.");
+    }
+
     // Fetch the service by ID from the database
     const service = await prisma.Service.findUnique({
       where: {
@@ -34,6 +40,31 @@ const getServiceById = async (req, res, next) => {
     if (!service) {
       throw new CustomError(`Service with ID ${serviceId} not found.`, 404);
     }
+    
+    
+console.log(req.user.role,serviceId);
+
+   if(req?.user?.role==="user"){
+    await prisma.Views.upsert({
+      where: {
+        serviceId_userId: {
+          serviceId: serviceId,
+          userId: userId,
+        },
+      },
+      update: {
+        viewCount: {
+          increment: 1, // Increment view count for existing entry
+        },
+      },
+      create: {
+        serviceId: serviceId,
+        userId: userId,
+        lead: false, // Default to `false` for now
+        viewCount: 1,
+      },
+    });
+   }
 
     // Respond with the service details
     res.status(200).json({

@@ -15,7 +15,7 @@ import bulkInsertServices from '../controllers/serviceController/bulkInstertionO
 const serviceRouter = express.Router();
 
 serviceRouter.route("/").get(getAllServices)
-serviceRouter.route("/:id").get(getServiceById);
+serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
