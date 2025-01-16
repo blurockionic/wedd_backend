@@ -18,7 +18,7 @@ const serviceRouter = express.Router();
 serviceRouter.route("/").get(getAllServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
-serviceRouter.route("/makeLead/:id").get(jwtAuthentication,roleMiddleware(["user"]),makeLead)
+serviceRouter.route("/makeLead/:id").put(jwtAuthentication,roleMiddleware(["user"]),makeLead)
 
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
