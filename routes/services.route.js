@@ -9,6 +9,7 @@ import getAllServices from '../controllers/serviceController/getAll.service.cont
 import getServiceById from '../controllers/serviceController/getServiceById.service.controller.js';
 import getAllServicesByVendorId from '../controllers/serviceController/getServiceByvendorId.controller.js';
 import bulkInsertServices from '../controllers/serviceController/bulkInstertionOrupdation.controller.js';
+import { makeLead } from '../controllers/serviceController/lead.service.controller.js';
 
 
 
@@ -17,6 +18,8 @@ const serviceRouter = express.Router();
 serviceRouter.route("/").get(getAllServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
+serviceRouter.route("/makeLead/:id").get(jwtAuthentication,roleMiddleware(["user"]),makeLead)
+
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
 serviceRouter.route('/').post(createService);
