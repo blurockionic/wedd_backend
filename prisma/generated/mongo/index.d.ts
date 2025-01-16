@@ -24,6 +24,11 @@ export type Vendor = $Result.DefaultSelection<Prisma.$VendorPayload>
  */
 export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
 /**
+ * Model Views
+ * 
+ */
+export type Views = $Result.DefaultSelection<Prisma.$ViewsPayload>
+/**
  * Model Availability
  * 
  */
@@ -180,6 +185,16 @@ export class PrismaClient<
     * ```
     */
   get service(): Prisma.ServiceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.views`: Exposes CRUD operations for the **Views** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Views
+    * const views = await prisma.views.findMany()
+    * ```
+    */
+  get views(): Prisma.ViewsDelegate<ExtArgs>;
 
   /**
    * `prisma.availability`: Exposes CRUD operations for the **Availability** model.
@@ -682,6 +697,7 @@ export namespace Prisma {
   export const ModelName: {
     Vendor: 'Vendor',
     Service: 'Service',
+    Views: 'Views',
     Availability: 'Availability',
     Media: 'Media',
     TeamMember: 'TeamMember',
@@ -703,7 +719,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "vendor" | "service" | "availability" | "media" | "teamMember" | "promotion" | "fAQ" | "review"
+      modelProps: "vendor" | "service" | "views" | "availability" | "media" | "teamMember" | "promotion" | "fAQ" | "review"
       txIsolationLevel: never
     }
     model: {
@@ -852,6 +868,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ServiceCountArgs<ExtArgs>
             result: $Utils.Optional<ServiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Views: {
+        payload: Prisma.$ViewsPayload<ExtArgs>
+        fields: Prisma.ViewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ViewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ViewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          findFirst: {
+            args: Prisma.ViewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ViewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          findMany: {
+            args: Prisma.ViewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>[]
+          }
+          create: {
+            args: Prisma.ViewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          createMany: {
+            args: Prisma.ViewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ViewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          update: {
+            args: Prisma.ViewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ViewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ViewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ViewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          aggregate: {
+            args: Prisma.ViewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateViews>
+          }
+          groupBy: {
+            args: Prisma.ViewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ViewsGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ViewsFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ViewsAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ViewsCountArgs<ExtArgs>
+            result: $Utils.Optional<ViewsCountAggregateOutputType> | number
           }
         }
       }
@@ -1517,12 +1607,14 @@ export namespace Prisma {
     availabilities: number
     reviews: number
     media: number
+    views: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     availabilities?: boolean | ServiceCountOutputTypeCountAvailabilitiesArgs
     reviews?: boolean | ServiceCountOutputTypeCountReviewsArgs
     media?: boolean | ServiceCountOutputTypeCountMediaArgs
+    views?: boolean | ServiceCountOutputTypeCountViewsArgs
   }
 
   // Custom InputTypes
@@ -1555,6 +1647,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MediaWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ViewsWhereInput
   }
 
 
@@ -3057,6 +3156,7 @@ export namespace Prisma {
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
     reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
+    views?: boolean | Service$viewsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -3080,6 +3180,7 @@ export namespace Prisma {
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
     reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
+    views?: boolean | Service$viewsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3090,6 +3191,7 @@ export namespace Prisma {
       availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
       media: Prisma.$MediaPayload<ExtArgs>[]
+      views: Prisma.$ViewsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3470,6 +3572,7 @@ export namespace Prisma {
     availabilities<T extends Service$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Service$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany"> | Null>
     reviews<T extends Service$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Service$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany"> | Null>
     media<T extends Service$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Service$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany"> | Null>
+    views<T extends Service$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Service$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3896,6 +3999,26 @@ export namespace Prisma {
   }
 
   /**
+   * Service.views
+   */
+  export type Service$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    where?: ViewsWhereInput
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    cursor?: ViewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3907,6 +4030,991 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Views
+   */
+
+  export type AggregateViews = {
+    _count: ViewsCountAggregateOutputType | null
+    _avg: ViewsAvgAggregateOutputType | null
+    _sum: ViewsSumAggregateOutputType | null
+    _min: ViewsMinAggregateOutputType | null
+    _max: ViewsMaxAggregateOutputType | null
+  }
+
+  export type ViewsAvgAggregateOutputType = {
+    viewCount: number | null
+  }
+
+  export type ViewsSumAggregateOutputType = {
+    viewCount: number | null
+  }
+
+  export type ViewsMinAggregateOutputType = {
+    id: string | null
+    serviceId: string | null
+    userId: string | null
+    viewCount: number | null
+    lead: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ViewsMaxAggregateOutputType = {
+    id: string | null
+    serviceId: string | null
+    userId: string | null
+    viewCount: number | null
+    lead: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ViewsCountAggregateOutputType = {
+    id: number
+    serviceId: number
+    userId: number
+    viewCount: number
+    lead: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ViewsAvgAggregateInputType = {
+    viewCount?: true
+  }
+
+  export type ViewsSumAggregateInputType = {
+    viewCount?: true
+  }
+
+  export type ViewsMinAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ViewsMaxAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ViewsCountAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ViewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Views to aggregate.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Views
+    **/
+    _count?: true | ViewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ViewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ViewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ViewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ViewsMaxAggregateInputType
+  }
+
+  export type GetViewsAggregateType<T extends ViewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateViews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateViews[P]>
+      : GetScalarType<T[P], AggregateViews[P]>
+  }
+
+
+
+
+  export type ViewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ViewsWhereInput
+    orderBy?: ViewsOrderByWithAggregationInput | ViewsOrderByWithAggregationInput[]
+    by: ViewsScalarFieldEnum[] | ViewsScalarFieldEnum
+    having?: ViewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ViewsCountAggregateInputType | true
+    _avg?: ViewsAvgAggregateInputType
+    _sum?: ViewsSumAggregateInputType
+    _min?: ViewsMinAggregateInputType
+    _max?: ViewsMaxAggregateInputType
+  }
+
+  export type ViewsGroupByOutputType = {
+    id: string
+    serviceId: string
+    userId: string
+    viewCount: number
+    lead: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ViewsCountAggregateOutputType | null
+    _avg: ViewsAvgAggregateOutputType | null
+    _sum: ViewsSumAggregateOutputType | null
+    _min: ViewsMinAggregateOutputType | null
+    _max: ViewsMaxAggregateOutputType | null
+  }
+
+  type GetViewsGroupByPayload<T extends ViewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ViewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ViewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ViewsGroupByOutputType[P]>
+            : GetScalarType<T[P], ViewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ViewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    serviceId?: boolean
+    userId?: boolean
+    viewCount?: boolean
+    lead?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["views"]>
+
+
+  export type ViewsSelectScalar = {
+    id?: boolean
+    serviceId?: boolean
+    userId?: boolean
+    viewCount?: boolean
+    lead?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ViewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+  }
+
+  export type $ViewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Views"
+    objects: {
+      service: Prisma.$ServicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      serviceId: string
+      userId: string
+      viewCount: number
+      lead: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["views"]>
+    composites: {}
+  }
+
+  type ViewsGetPayload<S extends boolean | null | undefined | ViewsDefaultArgs> = $Result.GetResult<Prisma.$ViewsPayload, S>
+
+  type ViewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ViewsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ViewsCountAggregateInputType | true
+    }
+
+  export interface ViewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Views'], meta: { name: 'Views' } }
+    /**
+     * Find zero or one Views that matches the filter.
+     * @param {ViewsFindUniqueArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ViewsFindUniqueArgs>(args: SelectSubset<T, ViewsFindUniqueArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Views that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ViewsFindUniqueOrThrowArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ViewsFindUniqueOrThrowArgs>(args: SelectSubset<T, ViewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindFirstArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ViewsFindFirstArgs>(args?: SelectSubset<T, ViewsFindFirstArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Views that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindFirstOrThrowArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ViewsFindFirstOrThrowArgs>(args?: SelectSubset<T, ViewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Views
+     * const views = await prisma.views.findMany()
+     * 
+     * // Get first 10 Views
+     * const views = await prisma.views.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const viewsWithIdOnly = await prisma.views.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ViewsFindManyArgs>(args?: SelectSubset<T, ViewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Views.
+     * @param {ViewsCreateArgs} args - Arguments to create a Views.
+     * @example
+     * // Create one Views
+     * const Views = await prisma.views.create({
+     *   data: {
+     *     // ... data to create a Views
+     *   }
+     * })
+     * 
+     */
+    create<T extends ViewsCreateArgs>(args: SelectSubset<T, ViewsCreateArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Views.
+     * @param {ViewsCreateManyArgs} args - Arguments to create many Views.
+     * @example
+     * // Create many Views
+     * const views = await prisma.views.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ViewsCreateManyArgs>(args?: SelectSubset<T, ViewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Views.
+     * @param {ViewsDeleteArgs} args - Arguments to delete one Views.
+     * @example
+     * // Delete one Views
+     * const Views = await prisma.views.delete({
+     *   where: {
+     *     // ... filter to delete one Views
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ViewsDeleteArgs>(args: SelectSubset<T, ViewsDeleteArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Views.
+     * @param {ViewsUpdateArgs} args - Arguments to update one Views.
+     * @example
+     * // Update one Views
+     * const views = await prisma.views.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ViewsUpdateArgs>(args: SelectSubset<T, ViewsUpdateArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Views.
+     * @param {ViewsDeleteManyArgs} args - Arguments to filter Views to delete.
+     * @example
+     * // Delete a few Views
+     * const { count } = await prisma.views.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ViewsDeleteManyArgs>(args?: SelectSubset<T, ViewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Views
+     * const views = await prisma.views.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ViewsUpdateManyArgs>(args: SelectSubset<T, ViewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Views.
+     * @param {ViewsUpsertArgs} args - Arguments to update or create a Views.
+     * @example
+     * // Update or create a Views
+     * const views = await prisma.views.upsert({
+     *   create: {
+     *     // ... data to create a Views
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Views we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ViewsUpsertArgs>(args: SelectSubset<T, ViewsUpsertArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+    /**
+     * Find zero or more Views that matches the filter.
+     * @param {ViewsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const views = await prisma.views.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+     */
+    findRaw(args?: ViewsFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Views.
+     * @param {ViewsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const views = await prisma.views.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ViewsAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsCountArgs} args - Arguments to filter Views to count.
+     * @example
+     * // Count the number of Views
+     * const count = await prisma.views.count({
+     *   where: {
+     *     // ... the filter for the Views we want to count
+     *   }
+     * })
+    **/
+    count<T extends ViewsCountArgs>(
+      args?: Subset<T, ViewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ViewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ViewsAggregateArgs>(args: Subset<T, ViewsAggregateArgs>): Prisma.PrismaPromise<GetViewsAggregateType<T>>
+
+    /**
+     * Group by Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ViewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ViewsGroupByArgs['orderBy'] }
+        : { orderBy?: ViewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ViewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetViewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Views model
+   */
+  readonly fields: ViewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Views.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ViewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Views model
+   */ 
+  interface ViewsFieldRefs {
+    readonly id: FieldRef<"Views", 'String'>
+    readonly serviceId: FieldRef<"Views", 'String'>
+    readonly userId: FieldRef<"Views", 'String'>
+    readonly viewCount: FieldRef<"Views", 'Int'>
+    readonly lead: FieldRef<"Views", 'Boolean'>
+    readonly created_at: FieldRef<"Views", 'DateTime'>
+    readonly updated_at: FieldRef<"Views", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Views findUnique
+   */
+  export type ViewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views findUniqueOrThrow
+   */
+  export type ViewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views findFirst
+   */
+  export type ViewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Views.
+     */
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views findFirstOrThrow
+   */
+  export type ViewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Views.
+     */
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views findMany
+   */
+  export type ViewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views create
+   */
+  export type ViewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Views.
+     */
+    data: XOR<ViewsCreateInput, ViewsUncheckedCreateInput>
+  }
+
+  /**
+   * Views createMany
+   */
+  export type ViewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Views.
+     */
+    data: ViewsCreateManyInput | ViewsCreateManyInput[]
+  }
+
+  /**
+   * Views update
+   */
+  export type ViewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Views.
+     */
+    data: XOR<ViewsUpdateInput, ViewsUncheckedUpdateInput>
+    /**
+     * Choose, which Views to update.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views updateMany
+   */
+  export type ViewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Views.
+     */
+    data: XOR<ViewsUpdateManyMutationInput, ViewsUncheckedUpdateManyInput>
+    /**
+     * Filter which Views to update
+     */
+    where?: ViewsWhereInput
+  }
+
+  /**
+   * Views upsert
+   */
+  export type ViewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Views to update in case it exists.
+     */
+    where: ViewsWhereUniqueInput
+    /**
+     * In case the Views found by the `where` argument doesn't exist, create a new Views with this data.
+     */
+    create: XOR<ViewsCreateInput, ViewsUncheckedCreateInput>
+    /**
+     * In case the Views was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ViewsUpdateInput, ViewsUncheckedUpdateInput>
+  }
+
+  /**
+   * Views delete
+   */
+  export type ViewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter which Views to delete.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views deleteMany
+   */
+  export type ViewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Views to delete
+     */
+    where?: ViewsWhereInput
+  }
+
+  /**
+   * Views findRaw
+   */
+  export type ViewsFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Views aggregateRaw
+   */
+  export type ViewsAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Views without action
+   */
+  export type ViewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
   }
 
 
@@ -9685,6 +10793,19 @@ export namespace Prisma {
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
+  export const ViewsScalarFieldEnum: {
+    id: 'id',
+    serviceId: 'serviceId',
+    userId: 'userId',
+    viewCount: 'viewCount',
+    lead: 'lead',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ViewsScalarFieldEnum = (typeof ViewsScalarFieldEnum)[keyof typeof ViewsScalarFieldEnum]
+
+
   export const AvailabilityScalarFieldEnum: {
     id: 'id',
     serviceId: 'serviceId',
@@ -9839,20 +10960,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ReviewType'
-   */
-  export type EnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType'>
-    
-
-
-  /**
-   * Reference to a field of type 'ReviewType[]'
-   */
-  export type ListEnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9863,6 +10970,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType'
+   */
+  export type EnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType[]'
+   */
+  export type ListEnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType[]'>
     
   /**
    * Deep Input Types
@@ -10045,6 +11166,7 @@ export namespace Prisma {
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
+    views?: ViewsListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -10063,6 +11185,7 @@ export namespace Prisma {
     availabilities?: AvailabilityOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
     media?: MediaOrderByRelationAggregateInput
+    views?: ViewsOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -10084,6 +11207,7 @@ export namespace Prisma {
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
+    views?: ViewsListRelationFilter
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -10120,6 +11244,74 @@ export namespace Prisma {
     rating?: FloatWithAggregatesFilter<"Service"> | number
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+  }
+
+  export type ViewsWhereInput = {
+    AND?: ViewsWhereInput | ViewsWhereInput[]
+    OR?: ViewsWhereInput[]
+    NOT?: ViewsWhereInput | ViewsWhereInput[]
+    id?: StringFilter<"Views"> | string
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+  }
+
+  export type ViewsOrderByWithRelationInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    service?: ServiceOrderByWithRelationInput
+  }
+
+  export type ViewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    serviceId_userId?: ViewsServiceIdUserIdCompoundUniqueInput
+    AND?: ViewsWhereInput | ViewsWhereInput[]
+    OR?: ViewsWhereInput[]
+    NOT?: ViewsWhereInput | ViewsWhereInput[]
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+  }, "id" | "serviceId_userId">
+
+  export type ViewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ViewsCountOrderByAggregateInput
+    _avg?: ViewsAvgOrderByAggregateInput
+    _max?: ViewsMaxOrderByAggregateInput
+    _min?: ViewsMinOrderByAggregateInput
+    _sum?: ViewsSumOrderByAggregateInput
+  }
+
+  export type ViewsScalarWhereWithAggregatesInput = {
+    AND?: ViewsScalarWhereWithAggregatesInput | ViewsScalarWhereWithAggregatesInput[]
+    OR?: ViewsScalarWhereWithAggregatesInput[]
+    NOT?: ViewsScalarWhereWithAggregatesInput | ViewsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Views"> | string
+    serviceId?: StringWithAggregatesFilter<"Views"> | string
+    userId?: StringWithAggregatesFilter<"Views"> | string
+    viewCount?: IntWithAggregatesFilter<"Views"> | number
+    lead?: BoolWithAggregatesFilter<"Views"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Views"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Views"> | Date | string
   }
 
   export type AvailabilityWhereInput = {
@@ -10720,6 +11912,7 @@ export namespace Prisma {
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -10737,6 +11930,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -10753,6 +11947,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -10769,6 +11964,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -10806,6 +12002,71 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsCreateInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: ServiceCreateNestedOneWithoutViewsInput
+  }
+
+  export type ViewsUncheckedCreateInput = {
+    id?: string
+    serviceId: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type ViewsUncheckedUpdateInput = {
+    serviceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsCreateManyInput = {
+    id?: string
+    serviceId: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateManyInput = {
+    serviceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11488,11 +12749,21 @@ export namespace Prisma {
     none?: MediaWhereInput
   }
 
+  export type ViewsListRelationFilter = {
+    every?: ViewsWhereInput
+    some?: ViewsWhereInput
+    none?: ViewsWhereInput
+  }
+
   export type AvailabilityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ViewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11585,9 +12856,79 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type ServiceScalarRelationFilter = {
     is?: ServiceWhereInput
     isNot?: ServiceWhereInput
+  }
+
+  export type ViewsServiceIdUserIdCompoundUniqueInput = {
+    serviceId: string
+    userId: string
+  }
+
+  export type ViewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsAvgOrderByAggregateInput = {
+    viewCount?: SortOrder
+  }
+
+  export type ViewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsSumOrderByAggregateInput = {
+    viewCount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AvailabilityCountOrderByAggregateInput = {
@@ -12076,6 +13417,13 @@ export namespace Prisma {
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
+  export type ViewsCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+  }
+
   export type AvailabilityUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
@@ -12095,6 +13443,13 @@ export namespace Prisma {
     connectOrCreate?: MediaCreateOrConnectWithoutServiceInput | MediaCreateOrConnectWithoutServiceInput[]
     createMany?: MediaCreateManyServiceInputEnvelope
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
+  export type ViewsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -12164,6 +13519,20 @@ export namespace Prisma {
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
+  export type ViewsUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    upsert?: ViewsUpsertWithWhereUniqueWithoutServiceInput | ViewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    set?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    disconnect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    delete?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    update?: ViewsUpdateWithWhereUniqueWithoutServiceInput | ViewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ViewsUpdateManyWithWhereWithoutServiceInput | ViewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+  }
+
   export type AvailabilityUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
@@ -12204,6 +13573,42 @@ export namespace Prisma {
     update?: MediaUpdateWithWhereUniqueWithoutServiceInput | MediaUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: MediaUpdateManyWithWhereWithoutServiceInput | MediaUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
+  }
+
+  export type ViewsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    upsert?: ViewsUpsertWithWhereUniqueWithoutServiceInput | ViewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    set?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    disconnect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    delete?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    update?: ViewsUpdateWithWhereUniqueWithoutServiceInput | ViewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ViewsUpdateManyWithWhereWithoutServiceInput | ViewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+  }
+
+  export type ServiceCreateNestedOneWithoutViewsInput = {
+    create?: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutViewsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ServiceUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutViewsInput
+    upsert?: ServiceUpsertWithoutViewsInput
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutViewsInput, ServiceUpdateWithoutViewsInput>, ServiceUncheckedUpdateWithoutViewsInput>
   }
 
   export type ServiceCreateNestedOneWithoutAvailabilitiesInput = {
@@ -12502,6 +13907,22 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
   export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -12545,6 +13966,7 @@ export namespace Prisma {
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutVendorInput = {
@@ -12561,6 +13983,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutVendorInput = {
@@ -12972,6 +14395,33 @@ export namespace Prisma {
     data: MediaCreateManyServiceInput | MediaCreateManyServiceInput[]
   }
 
+  export type ViewsCreateWithoutServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUncheckedCreateWithoutServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsCreateOrConnectWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    create: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ViewsCreateManyServiceInputEnvelope = {
+    data: ViewsCreateManyServiceInput | ViewsCreateManyServiceInput[]
+  }
+
   export type VendorUpsertWithoutServicesInput = {
     update: XOR<VendorUpdateWithoutServicesInput, VendorUncheckedUpdateWithoutServicesInput>
     create: XOR<VendorCreateWithoutServicesInput, VendorUncheckedCreateWithoutServicesInput>
@@ -13112,6 +14562,117 @@ export namespace Prisma {
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
   }
 
+  export type ViewsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    update: XOR<ViewsUpdateWithoutServiceInput, ViewsUncheckedUpdateWithoutServiceInput>
+    create: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ViewsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    data: XOR<ViewsUpdateWithoutServiceInput, ViewsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type ViewsUpdateManyWithWhereWithoutServiceInput = {
+    where: ViewsScalarWhereInput
+    data: XOR<ViewsUpdateManyMutationInput, ViewsUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type ViewsScalarWhereInput = {
+    AND?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+    OR?: ViewsScalarWhereInput[]
+    NOT?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+    id?: StringFilter<"Views"> | string
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+  }
+
+  export type ServiceCreateWithoutViewsInput = {
+    id?: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    price?: number | null
+    service_type: string
+    rating?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    vendor: VendorCreateNestedOneWithoutServicesInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
+    media?: MediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutViewsInput = {
+    id?: string
+    vendorId: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    price?: number | null
+    service_type: string
+    rating?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
+    media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutViewsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+  }
+
+  export type ServiceUpsertWithoutViewsInput = {
+    update: XOR<ServiceUpdateWithoutViewsInput, ServiceUncheckedUpdateWithoutViewsInput>
+    create: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutViewsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutViewsInput, ServiceUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type ServiceUpdateWithoutViewsInput = {
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
+    media?: MediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutViewsInput = {
+    vendorId?: StringFieldUpdateOperationsInput | string
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
+    media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
   export type ServiceCreateWithoutAvailabilitiesInput = {
     id?: string
     service_name: string
@@ -13126,6 +14687,7 @@ export namespace Prisma {
     vendor: VendorCreateNestedOneWithoutServicesInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutAvailabilitiesInput = {
@@ -13142,6 +14704,7 @@ export namespace Prisma {
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutAvailabilitiesInput = {
@@ -13173,6 +14736,7 @@ export namespace Prisma {
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutAvailabilitiesInput = {
@@ -13188,6 +14752,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateWithoutMediaInput = {
@@ -13204,6 +14769,7 @@ export namespace Prisma {
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutMediaInput = {
@@ -13220,6 +14786,7 @@ export namespace Prisma {
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutMediaInput = {
@@ -13251,6 +14818,7 @@ export namespace Prisma {
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutMediaInput = {
@@ -13266,6 +14834,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type VendorCreateWithoutTeam_membersInput = {
@@ -13749,6 +15318,7 @@ export namespace Prisma {
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutReviewsInput = {
@@ -13765,6 +15335,7 @@ export namespace Prisma {
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutReviewsInput = {
@@ -13865,6 +15436,7 @@ export namespace Prisma {
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutReviewsInput = {
@@ -13880,6 +15452,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyVendorInput = {
@@ -13945,6 +15518,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutVendorInput = {
@@ -13960,6 +15534,7 @@ export namespace Prisma {
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutVendorInput = {
@@ -14097,6 +15672,15 @@ export namespace Prisma {
     uploaded_at?: Date | string
   }
 
+  export type ViewsCreateManyServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type AvailabilityUpdateWithoutServiceInput = {
     available_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wedding_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14158,6 +15742,30 @@ export namespace Prisma {
     image_urls?: InputJsonValue | InputJsonValue
     video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUpdateWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateManyWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

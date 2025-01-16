@@ -150,6 +150,16 @@ exports.Prisma.ServiceScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ViewsScalarFieldEnum = {
+  id: 'id',
+  serviceId: 'serviceId',
+  userId: 'userId',
+  viewCount: 'viewCount',
+  lead: 'lead',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.AvailabilityScalarFieldEnum = {
   id: 'id',
   serviceId: 'serviceId',
@@ -225,6 +235,7 @@ exports.ReviewType = exports.$Enums.ReviewType = {
 exports.Prisma.ModelName = {
   Vendor: 'Vendor',
   Service: 'Service',
+  Views: 'Views',
   Availability: 'Availability',
   Media: 'Media',
   TeamMember: 'TeamMember',

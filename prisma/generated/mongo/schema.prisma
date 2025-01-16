@@ -53,10 +53,24 @@ model Service {
   availabilities Availability[]
   reviews        Review[]
   media          Media[]        @relation("ServiceToMedia")
+  views          Views[]
   created_at     DateTime       @default(now())
   updated_at     DateTime       @updatedAt
 
   @@index([service_type], map: "idx_service_type")
+}
+
+model Views {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId  String   @db.ObjectId
+  userId     String
+  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  viewCount  Int      @default(1)
+  lead       Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([serviceId, userId])
 }
 
 model Availability {
