@@ -42,10 +42,11 @@ const getServiceById = async (req, res, next) => {
     }
     
     
-console.log(req.user.role,serviceId);
 
-   if(req?.user?.role==="user"){
-    await prisma.Views.upsert({
+   if(req?.user?.role==="USER"){
+  console.log(req.user.role,serviceId);
+
+   const res = await prisma.Views.upsert({
       where: {
         serviceId_userId: {
           serviceId: serviceId,
@@ -64,6 +65,8 @@ console.log(req.user.role,serviceId);
         viewCount: 1,
       },
     });
+
+    console.log(res);
    }
 
     // Respond with the service details

@@ -17,7 +17,8 @@ const getVendorDashboardData = async (req, res, next) => {
       throw new CustomError(`No services found for vendor with ID ${vendorId}.`, 404);
     }
 
-   
+    console.log(services,"services");
+
     const { _sum: totalViewsData, _count: totalLeadsData } = await prisma.Views.aggregate({
       _sum: {
         viewCount: true, 
@@ -59,6 +60,8 @@ const getVendorDashboardData = async (req, res, next) => {
         totalLeads: viewData ? viewData._count.lead : 0,
       };
     });
+
+    console.log(totalViewsData.viewCount,"view count");
 
     // Respond with the data
     res.status(200).json({
