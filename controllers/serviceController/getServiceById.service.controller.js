@@ -4,6 +4,8 @@ import CustomError from "../../utils/CustomError.js";
 const prisma = new PrismaClient();
 
 const getServiceById = async (req, res, next) => {
+  
+  
   try {
     // Extract service ID from request parameters
     const serviceId = req.params.id;
@@ -13,6 +15,7 @@ const getServiceById = async (req, res, next) => {
     if (userId === "anonymous") {
       console.log("Anonymous user is viewing the service.");
     }
+    
 
     // Fetch the service by ID from the database
     const service = await prisma.Service.findUnique({
@@ -41,12 +44,10 @@ const getServiceById = async (req, res, next) => {
       throw new CustomError(`Service with ID ${serviceId} not found.`, 404);
     }
     
-    
+    const userRole = req?.user?.role.toLowerCase();
 
-   if(req?.user?.role==="USER"){
-  console.log(req.user.role,serviceId);
-
-   const res = await prisma.Views.upsert({
+   if(userRole==="user"){
+    await prisma.Views.upsert({
       where: {
         serviceId_userId: {
           serviceId: serviceId,
@@ -73,6 +74,7 @@ const getServiceById = async (req, res, next) => {
     res.status(200).json({
       message: "Service fetched successfully.",
       service,
+      success:true
     });
   } catch (error) {
     console.error(
