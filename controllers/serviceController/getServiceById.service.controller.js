@@ -38,8 +38,7 @@ const getServiceById = async (req, res, next) => {
         },
       },
     });
-
-    // If no service found, throw an error
+    
     if (!service) {
       throw new CustomError(`Service with ID ${serviceId} not found.`, 404);
     }
