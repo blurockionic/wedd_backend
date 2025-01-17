@@ -10,12 +10,14 @@ import bookingRouter from './booking.route.js';
 import cartRouter from './cart.route.js';
 import AnalyticsRouter from './analytics.route.js';
 
+
 routes.use("/users", UserRouter);
 routes.use("/vendors", vendorRouter);
 routes.use("/services", serviceRouter);
 routes.use("/booking", bookingRouter);
 routes.use('/cart',cartRouter);
 routes.use("/analytics",AnalyticsRouter)
+
 
 
 export default routes
