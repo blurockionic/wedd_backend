@@ -67,7 +67,6 @@ export const upsertFaq = async (req, res, next) => {
       data: updatedService,
     });
   } catch (error) {
-    console.error("Error upserting FAQ:", error);
     next(error);
   }
 };

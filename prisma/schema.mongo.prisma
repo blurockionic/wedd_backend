@@ -29,7 +29,7 @@ model Vendor {
   services          Service[]           @relation("VendorServices")  // One-to-many relation
   promotions        Promotion[]       // One-to-many relation
   team_members      TeamMember[]      // One-to-many relation
-  faqs              FAQ[]             // One-to-many relation
+  faqs              Json?            
   reviews           Review[]  
   created_at        DateTime          @default(now())
   updated_at        DateTime          @updatedAt
@@ -53,7 +53,8 @@ model Service {
   availabilities Availability[]   
   reviews        Review[]         
   media         Media[]    @relation("ServiceToMedia")  
-  views          Views[]         
+  views          Views[]    
+  faqs          Json?
   created_at     DateTime          @default(now())
   updated_at     DateTime          @updatedAt
    @@index([service_type], map: "idx_service_type")
@@ -123,14 +124,6 @@ model Promotion {
   created_at          DateTime @default(now())
 }
 
-model FAQ {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId    String   @db.ObjectId
-  vendor      Vendor   @relation(fields: [vendorId], references: [id])
-  question    String
-  answer      String?
-  created_at  DateTime @default(now())
-}
 
 model Review {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
