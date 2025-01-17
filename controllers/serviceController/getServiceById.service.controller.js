@@ -36,6 +36,15 @@ const getServiceById = async (req, res, next) => {
             video_urls: true,
           },
         },
+        feedback:{
+         
+         select:{
+          comment:true,
+          rating:true,
+          id:true,
+          userId:true
+         }
+        }
       },
     });
     
