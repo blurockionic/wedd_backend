@@ -128,6 +128,7 @@ exports.Prisma.VendorScalarFieldEnum = {
   password_hash: 'password_hash',
   phone_number: 'phone_number',
   social_networks: 'social_networks',
+  faqs: 'faqs',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_verified: 'is_verified',
@@ -146,6 +147,17 @@ exports.Prisma.ServiceScalarFieldEnum = {
   price: 'price',
   service_type: 'service_type',
   rating: 'rating',
+  faqs: 'faqs',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ViewsScalarFieldEnum = {
+  id: 'id',
+  serviceId: 'serviceId',
+  userId: 'userId',
+  viewCount: 'viewCount',
+  lead: 'lead',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -190,14 +202,6 @@ exports.Prisma.PromotionScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.FAQScalarFieldEnum = {
-  id: 'id',
-  vendorId: 'vendorId',
-  question: 'question',
-  answer: 'answer',
-  created_at: 'created_at'
-};
-
 exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   vendorId: 'vendorId',
@@ -225,11 +229,11 @@ exports.ReviewType = exports.$Enums.ReviewType = {
 exports.Prisma.ModelName = {
   Vendor: 'Vendor',
   Service: 'Service',
+  Views: 'Views',
   Availability: 'Availability',
   Media: 'Media',
   TeamMember: 'TeamMember',
   Promotion: 'Promotion',
-  FAQ: 'FAQ',
   Review: 'Review'
 };
 
