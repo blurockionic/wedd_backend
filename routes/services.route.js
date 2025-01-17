@@ -10,6 +10,7 @@ import getServiceById from '../controllers/serviceController/getServiceById.serv
 import getAllServicesByVendorId from '../controllers/serviceController/getServiceByvendorId.controller.js';
 import bulkInsertServices from '../controllers/serviceController/bulkInstertionOrupdation.controller.js';
 import { makeLead } from '../controllers/serviceController/lead.service.controller.js';
+import { deleteFaq, upsertFaq } from '../controllers/faq controller/faq.controller.js';
 
 
 
@@ -26,6 +27,9 @@ serviceRouter.route('/').post(createService);
 serviceRouter.route("/:id").put( updateService);
 serviceRouter.route("/:id").delete(deleteService);
 serviceRouter.route("/bulk").post(bulkInsertServices)
+// add faq
+serviceRouter.post("/:serviceId/faq/:faqId?", upsertFaq);
+serviceRouter.delete("/:serviceId/faq/:faqId", deleteFaq);
 
 
 

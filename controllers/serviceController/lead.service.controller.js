@@ -83,7 +83,7 @@ export const leaddetails = async (req, res, next) => {
   
           return {
             serviceId: service.serviceId,
-            serviceDetails: service.service, // Includes service details
+            serviceDetails: service.service, 
             updatedAt: service.updated_at,
             userDetails: user, 
           };
