@@ -13,10 +13,15 @@ const validateFaq = z.object({
 
 export const upsertFaq = async (req, res, next) => {
   try {
-    const { question, answer } = validateFaq.parse(req.body);
     const serviceId = req.params.serviceId; // Adjusted for clarity
     const faqId = req.params.faqId; // Adjusted for clarity
     const vendorId = req.user.id;
+
+    // Validate the input (either a single FAQ or an array of FAQs)
+    const isBulk = Array.isArray(req.body);
+    const validatedFaqs = isBulk
+      ? req.body.map((faq) => validateFaq.parse(faq))
+      : [validateFaq.parse(req.body)];
 
     // Fetch the service
     const service = await mongoPrisma.service.findFirst({
@@ -27,30 +32,31 @@ export const upsertFaq = async (req, res, next) => {
       return res.status(404).json({ message: "Service not found." });
     }
 
-    // Ensure faqs is always an array
-    const faqs = Array.isArray(service.faqs) ? service.faqs : [];
+    // Ensure `faqs` is always an array
+    const existingFaqs = Array.isArray(service.faqs) ? service.faqs : [];
     let updatedFaqs;
 
     if (faqId) {
-      // Update existing FAQ
-      const faqExists = faqs.some((faq) => faq.id === faqId);
+      // Update a specific FAQ
+      const faqExists = existingFaqs.some((faq) => faq.id === faqId);
       if (!faqExists) {
         return res.status(404).json({ message: "FAQ not found." });
       }
 
-      updatedFaqs = faqs.map((faq) =>
-        faq.id === faqId ? { ...faq, question, answer } : faq
+      updatedFaqs = existingFaqs.map((faq) =>
+        faq.id === faqId
+          ? { ...faq, question: validatedFaqs[0].question, answer: validatedFaqs[0].answer }
+          : faq
       );
     } else {
-      // Create new FAQ
-      updatedFaqs = [
-        ...faqs,
-        {
-          id: uuidv4(),
-          question,
-          answer,
-        },
-      ];
+      // Create new FAQs (single or multiple)
+      const newFaqs = validatedFaqs.map((faq) => ({
+        id: uuidv4(),
+        question: faq.question,
+        answer: faq.answer,
+      }));
+
+      updatedFaqs = [...existingFaqs, ...newFaqs];
     }
 
     // Update the service with the new or updated FAQs
@@ -62,17 +68,17 @@ export const upsertFaq = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: faqId
-        ? `FAQ  updated successfully.`
+        ? `FAQ updated successfully.`
+        : isBulk
+        ? "FAQs created successfully."
         : "FAQ created successfully.",
       data: updatedService,
     });
   } catch (error) {
+    console.error("Error upserting FAQ:", error);
     next(error);
   }
 };
-
-
-
 // Delete FAQ
 export const deleteFaq = async (req, res, next) => {
   try {
