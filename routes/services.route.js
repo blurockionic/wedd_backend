@@ -11,6 +11,7 @@ import getAllServicesByVendorId from '../controllers/serviceController/getServic
 import bulkInsertServices from '../controllers/serviceController/bulkInstertionOrupdation.controller.js';
 import { makeLead } from '../controllers/serviceController/lead.service.controller.js';
 import { deleteFaq, upsertFaq } from '../controllers/faq controller/faq.controller.js';
+import feedback from '../controllers/serviceController/feedback.controller.js';
 
 
 
@@ -20,6 +21,7 @@ serviceRouter.route("/").get(getAllServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 serviceRouter.route("/makeLead/:id").put(jwtAuthentication,roleMiddleware(["user"]),makeLead)
+serviceRouter.route("/feedback/:id/:feedId?").post(jwtAuthentication,roleMiddleware(["user"]),feedback)
 
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
@@ -30,6 +32,7 @@ serviceRouter.route("/bulk").post(bulkInsertServices)
 // add faq
 serviceRouter.post("/:serviceId/faq/:faqId?", upsertFaq);
 serviceRouter.delete("/:serviceId/faq/:faqId", deleteFaq);
+
 
 
 
