@@ -29,7 +29,7 @@ model Vendor {
   services            Service[]    @relation("VendorServices") // One-to-many relation
   promotions          Promotion[] // One-to-many relation
   team_members        TeamMember[] // One-to-many relation
-  faqs                FAQ[] // One-to-many relation
+  faqs                Json?
   reviews             Review[]
   created_at          DateTime     @default(now())
   updated_at          DateTime     @updatedAt
@@ -54,6 +54,7 @@ model Service {
   reviews        Review[]
   media          Media[]        @relation("ServiceToMedia")
   views          Views[]
+  faqs           Json?
   created_at     DateTime       @default(now())
   updated_at     DateTime       @updatedAt
 
@@ -115,15 +116,6 @@ model Promotion {
   start_date          DateTime
   end_date            DateTime
   created_at          DateTime @default(now())
-}
-
-model FAQ {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId   String   @db.ObjectId
-  vendor     Vendor   @relation(fields: [vendorId], references: [id])
-  question   String
-  answer     String?
-  created_at DateTime @default(now())
 }
 
 model Review {
