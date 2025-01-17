@@ -58,9 +58,6 @@ model Service {
   created_at     DateTime          @default(now())
   updated_at     DateTime          @updatedAt
    @@index([service_type], map: "idx_service_type")
-
- 
-
 }
 
 model Views {
