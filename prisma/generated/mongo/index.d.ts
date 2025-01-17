@@ -24,6 +24,11 @@ export type Vendor = $Result.DefaultSelection<Prisma.$VendorPayload>
  */
 export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
 /**
+ * Model Views
+ * 
+ */
+export type Views = $Result.DefaultSelection<Prisma.$ViewsPayload>
+/**
  * Model Availability
  * 
  */
@@ -43,11 +48,6 @@ export type TeamMember = $Result.DefaultSelection<Prisma.$TeamMemberPayload>
  * 
  */
 export type Promotion = $Result.DefaultSelection<Prisma.$PromotionPayload>
-/**
- * Model FAQ
- * 
- */
-export type FAQ = $Result.DefaultSelection<Prisma.$FAQPayload>
 /**
  * Model Review
  * 
@@ -182,6 +182,16 @@ export class PrismaClient<
   get service(): Prisma.ServiceDelegate<ExtArgs>;
 
   /**
+   * `prisma.views`: Exposes CRUD operations for the **Views** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Views
+    * const views = await prisma.views.findMany()
+    * ```
+    */
+  get views(): Prisma.ViewsDelegate<ExtArgs>;
+
+  /**
    * `prisma.availability`: Exposes CRUD operations for the **Availability** model.
     * Example usage:
     * ```ts
@@ -220,16 +230,6 @@ export class PrismaClient<
     * ```
     */
   get promotion(): Prisma.PromotionDelegate<ExtArgs>;
-
-  /**
-   * `prisma.fAQ`: Exposes CRUD operations for the **FAQ** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more FAQS
-    * const fAQS = await prisma.fAQ.findMany()
-    * ```
-    */
-  get fAQ(): Prisma.FAQDelegate<ExtArgs>;
 
   /**
    * `prisma.review`: Exposes CRUD operations for the **Review** model.
@@ -682,11 +682,11 @@ export namespace Prisma {
   export const ModelName: {
     Vendor: 'Vendor',
     Service: 'Service',
+    Views: 'Views',
     Availability: 'Availability',
     Media: 'Media',
     TeamMember: 'TeamMember',
     Promotion: 'Promotion',
-    FAQ: 'FAQ',
     Review: 'Review'
   };
 
@@ -703,7 +703,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "vendor" | "service" | "availability" | "media" | "teamMember" | "promotion" | "fAQ" | "review"
+      modelProps: "vendor" | "service" | "views" | "availability" | "media" | "teamMember" | "promotion" | "review"
       txIsolationLevel: never
     }
     model: {
@@ -852,6 +852,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ServiceCountArgs<ExtArgs>
             result: $Utils.Optional<ServiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Views: {
+        payload: Prisma.$ViewsPayload<ExtArgs>
+        fields: Prisma.ViewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ViewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ViewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          findFirst: {
+            args: Prisma.ViewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ViewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          findMany: {
+            args: Prisma.ViewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>[]
+          }
+          create: {
+            args: Prisma.ViewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          createMany: {
+            args: Prisma.ViewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ViewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          update: {
+            args: Prisma.ViewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ViewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ViewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ViewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ViewsPayload>
+          }
+          aggregate: {
+            args: Prisma.ViewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateViews>
+          }
+          groupBy: {
+            args: Prisma.ViewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ViewsGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ViewsFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ViewsAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ViewsCountArgs<ExtArgs>
+            result: $Utils.Optional<ViewsCountAggregateOutputType> | number
           }
         }
       }
@@ -1151,80 +1225,6 @@ export namespace Prisma {
           }
         }
       }
-      FAQ: {
-        payload: Prisma.$FAQPayload<ExtArgs>
-        fields: Prisma.FAQFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.FAQFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.FAQFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          findFirst: {
-            args: Prisma.FAQFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.FAQFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          findMany: {
-            args: Prisma.FAQFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>[]
-          }
-          create: {
-            args: Prisma.FAQCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          createMany: {
-            args: Prisma.FAQCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.FAQDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          update: {
-            args: Prisma.FAQUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          deleteMany: {
-            args: Prisma.FAQDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.FAQUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.FAQUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FAQPayload>
-          }
-          aggregate: {
-            args: Prisma.FAQAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateFAQ>
-          }
-          groupBy: {
-            args: Prisma.FAQGroupByArgs<ExtArgs>
-            result: $Utils.Optional<FAQGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.FAQFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.FAQAggregateRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          count: {
-            args: Prisma.FAQCountArgs<ExtArgs>
-            result: $Utils.Optional<FAQCountAggregateOutputType> | number
-          }
-        }
-      }
       Review: {
         payload: Prisma.$ReviewPayload<ExtArgs>
         fields: Prisma.ReviewFieldRefs
@@ -1450,7 +1450,6 @@ export namespace Prisma {
     services: number
     promotions: number
     team_members: number
-    faqs: number
     reviews: number
   }
 
@@ -1458,7 +1457,6 @@ export namespace Prisma {
     services?: boolean | VendorCountOutputTypeCountServicesArgs
     promotions?: boolean | VendorCountOutputTypeCountPromotionsArgs
     team_members?: boolean | VendorCountOutputTypeCountTeam_membersArgs
-    faqs?: boolean | VendorCountOutputTypeCountFaqsArgs
     reviews?: boolean | VendorCountOutputTypeCountReviewsArgs
   }
 
@@ -1497,13 +1495,6 @@ export namespace Prisma {
   /**
    * VendorCountOutputType without action
    */
-  export type VendorCountOutputTypeCountFaqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FAQWhereInput
-  }
-
-  /**
-   * VendorCountOutputType without action
-   */
   export type VendorCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
   }
@@ -1517,12 +1508,14 @@ export namespace Prisma {
     availabilities: number
     reviews: number
     media: number
+    views: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     availabilities?: boolean | ServiceCountOutputTypeCountAvailabilitiesArgs
     reviews?: boolean | ServiceCountOutputTypeCountReviewsArgs
     media?: boolean | ServiceCountOutputTypeCountMediaArgs
+    views?: boolean | ServiceCountOutputTypeCountViewsArgs
   }
 
   // Custom InputTypes
@@ -1555,6 +1548,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MediaWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ViewsWhereInput
   }
 
 
@@ -1636,6 +1636,7 @@ export namespace Prisma {
     password_hash: number
     phone_number: number
     social_networks: number
+    faqs: number
     created_at: number
     updated_at: number
     is_verified: number
@@ -1710,6 +1711,7 @@ export namespace Prisma {
     password_hash?: true
     phone_number?: true
     social_networks?: true
+    faqs?: true
     created_at?: true
     updated_at?: true
     is_verified?: true
@@ -1809,6 +1811,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks: JsonValue | null
+    faqs: JsonValue | null
     created_at: Date
     updated_at: Date
     is_verified: boolean
@@ -1852,6 +1855,7 @@ export namespace Prisma {
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
+    faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
@@ -1861,7 +1865,6 @@ export namespace Prisma {
     services?: boolean | Vendor$servicesArgs<ExtArgs>
     promotions?: boolean | Vendor$promotionsArgs<ExtArgs>
     team_members?: boolean | Vendor$team_membersArgs<ExtArgs>
-    faqs?: boolean | Vendor$faqsArgs<ExtArgs>
     reviews?: boolean | Vendor$reviewsArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vendor"]>
@@ -1885,6 +1888,7 @@ export namespace Prisma {
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
+    faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
@@ -1897,7 +1901,6 @@ export namespace Prisma {
     services?: boolean | Vendor$servicesArgs<ExtArgs>
     promotions?: boolean | Vendor$promotionsArgs<ExtArgs>
     team_members?: boolean | Vendor$team_membersArgs<ExtArgs>
-    faqs?: boolean | Vendor$faqsArgs<ExtArgs>
     reviews?: boolean | Vendor$reviewsArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1908,7 +1911,6 @@ export namespace Prisma {
       services: Prisma.$ServicePayload<ExtArgs>[]
       promotions: Prisma.$PromotionPayload<ExtArgs>[]
       team_members: Prisma.$TeamMemberPayload<ExtArgs>[]
-      faqs: Prisma.$FAQPayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1929,6 +1931,7 @@ export namespace Prisma {
       password_hash: string
       phone_number: string
       social_networks: Prisma.JsonValue | null
+      faqs: Prisma.JsonValue | null
       created_at: Date
       updated_at: Date
       is_verified: boolean
@@ -2301,7 +2304,6 @@ export namespace Prisma {
     services<T extends Vendor$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany"> | Null>
     promotions<T extends Vendor$promotionsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$promotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionPayload<ExtArgs>, T, "findMany"> | Null>
     team_members<T extends Vendor$team_membersArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$team_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany"> | Null>
-    faqs<T extends Vendor$faqsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findMany"> | Null>
     reviews<T extends Vendor$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2349,6 +2351,7 @@ export namespace Prisma {
     readonly password_hash: FieldRef<"Vendor", 'String'>
     readonly phone_number: FieldRef<"Vendor", 'String'>
     readonly social_networks: FieldRef<"Vendor", 'Json'>
+    readonly faqs: FieldRef<"Vendor", 'Json'>
     readonly created_at: FieldRef<"Vendor", 'DateTime'>
     readonly updated_at: FieldRef<"Vendor", 'DateTime'>
     readonly is_verified: FieldRef<"Vendor", 'Boolean'>
@@ -2741,26 +2744,6 @@ export namespace Prisma {
   }
 
   /**
-   * Vendor.faqs
-   */
-  export type Vendor$faqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    where?: FAQWhereInput
-    orderBy?: FAQOrderByWithRelationInput | FAQOrderByWithRelationInput[]
-    cursor?: FAQWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FAQScalarFieldEnum | FAQScalarFieldEnum[]
-  }
-
-  /**
    * Vendor.reviews
    */
   export type Vendor$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2859,6 +2842,7 @@ export namespace Prisma {
     price: number
     service_type: number
     rating: number
+    faqs: number
     created_at: number
     updated_at: number
     _all: number
@@ -2917,6 +2901,7 @@ export namespace Prisma {
     price?: true
     service_type?: true
     rating?: true
+    faqs?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -3018,6 +3003,7 @@ export namespace Prisma {
     price: number | null
     service_type: string
     rating: number
+    faqs: JsonValue | null
     created_at: Date
     updated_at: Date
     _count: ServiceCountAggregateOutputType | null
@@ -3051,12 +3037,14 @@ export namespace Prisma {
     price?: boolean
     service_type?: boolean
     rating?: boolean
+    faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
     reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
+    views?: boolean | Service$viewsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -3071,6 +3059,7 @@ export namespace Prisma {
     price?: boolean
     service_type?: boolean
     rating?: boolean
+    faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
@@ -3080,6 +3069,7 @@ export namespace Prisma {
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
     reviews?: boolean | Service$reviewsArgs<ExtArgs>
     media?: boolean | Service$mediaArgs<ExtArgs>
+    views?: boolean | Service$viewsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3090,6 +3080,7 @@ export namespace Prisma {
       availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
       media: Prisma.$MediaPayload<ExtArgs>[]
+      views: Prisma.$ViewsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3101,6 +3092,7 @@ export namespace Prisma {
       price: number | null
       service_type: string
       rating: number
+      faqs: Prisma.JsonValue | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["service"]>
@@ -3470,6 +3462,7 @@ export namespace Prisma {
     availabilities<T extends Service$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Service$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany"> | Null>
     reviews<T extends Service$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Service$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany"> | Null>
     media<T extends Service$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Service$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany"> | Null>
+    views<T extends Service$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Service$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3508,6 +3501,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
     readonly rating: FieldRef<"Service", 'Float'>
+    readonly faqs: FieldRef<"Service", 'Json'>
     readonly created_at: FieldRef<"Service", 'DateTime'>
     readonly updated_at: FieldRef<"Service", 'DateTime'>
   }
@@ -3896,6 +3890,26 @@ export namespace Prisma {
   }
 
   /**
+   * Service.views
+   */
+  export type Service$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    where?: ViewsWhereInput
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    cursor?: ViewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3907,6 +3921,991 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Views
+   */
+
+  export type AggregateViews = {
+    _count: ViewsCountAggregateOutputType | null
+    _avg: ViewsAvgAggregateOutputType | null
+    _sum: ViewsSumAggregateOutputType | null
+    _min: ViewsMinAggregateOutputType | null
+    _max: ViewsMaxAggregateOutputType | null
+  }
+
+  export type ViewsAvgAggregateOutputType = {
+    viewCount: number | null
+  }
+
+  export type ViewsSumAggregateOutputType = {
+    viewCount: number | null
+  }
+
+  export type ViewsMinAggregateOutputType = {
+    id: string | null
+    serviceId: string | null
+    userId: string | null
+    viewCount: number | null
+    lead: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ViewsMaxAggregateOutputType = {
+    id: string | null
+    serviceId: string | null
+    userId: string | null
+    viewCount: number | null
+    lead: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ViewsCountAggregateOutputType = {
+    id: number
+    serviceId: number
+    userId: number
+    viewCount: number
+    lead: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ViewsAvgAggregateInputType = {
+    viewCount?: true
+  }
+
+  export type ViewsSumAggregateInputType = {
+    viewCount?: true
+  }
+
+  export type ViewsMinAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ViewsMaxAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ViewsCountAggregateInputType = {
+    id?: true
+    serviceId?: true
+    userId?: true
+    viewCount?: true
+    lead?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ViewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Views to aggregate.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Views
+    **/
+    _count?: true | ViewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ViewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ViewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ViewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ViewsMaxAggregateInputType
+  }
+
+  export type GetViewsAggregateType<T extends ViewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateViews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateViews[P]>
+      : GetScalarType<T[P], AggregateViews[P]>
+  }
+
+
+
+
+  export type ViewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ViewsWhereInput
+    orderBy?: ViewsOrderByWithAggregationInput | ViewsOrderByWithAggregationInput[]
+    by: ViewsScalarFieldEnum[] | ViewsScalarFieldEnum
+    having?: ViewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ViewsCountAggregateInputType | true
+    _avg?: ViewsAvgAggregateInputType
+    _sum?: ViewsSumAggregateInputType
+    _min?: ViewsMinAggregateInputType
+    _max?: ViewsMaxAggregateInputType
+  }
+
+  export type ViewsGroupByOutputType = {
+    id: string
+    serviceId: string
+    userId: string
+    viewCount: number
+    lead: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ViewsCountAggregateOutputType | null
+    _avg: ViewsAvgAggregateOutputType | null
+    _sum: ViewsSumAggregateOutputType | null
+    _min: ViewsMinAggregateOutputType | null
+    _max: ViewsMaxAggregateOutputType | null
+  }
+
+  type GetViewsGroupByPayload<T extends ViewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ViewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ViewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ViewsGroupByOutputType[P]>
+            : GetScalarType<T[P], ViewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ViewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    serviceId?: boolean
+    userId?: boolean
+    viewCount?: boolean
+    lead?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["views"]>
+
+
+  export type ViewsSelectScalar = {
+    id?: boolean
+    serviceId?: boolean
+    userId?: boolean
+    viewCount?: boolean
+    lead?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ViewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | ServiceDefaultArgs<ExtArgs>
+  }
+
+  export type $ViewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Views"
+    objects: {
+      service: Prisma.$ServicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      serviceId: string
+      userId: string
+      viewCount: number
+      lead: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["views"]>
+    composites: {}
+  }
+
+  type ViewsGetPayload<S extends boolean | null | undefined | ViewsDefaultArgs> = $Result.GetResult<Prisma.$ViewsPayload, S>
+
+  type ViewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ViewsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ViewsCountAggregateInputType | true
+    }
+
+  export interface ViewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Views'], meta: { name: 'Views' } }
+    /**
+     * Find zero or one Views that matches the filter.
+     * @param {ViewsFindUniqueArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ViewsFindUniqueArgs>(args: SelectSubset<T, ViewsFindUniqueArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Views that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ViewsFindUniqueOrThrowArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ViewsFindUniqueOrThrowArgs>(args: SelectSubset<T, ViewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindFirstArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ViewsFindFirstArgs>(args?: SelectSubset<T, ViewsFindFirstArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Views that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindFirstOrThrowArgs} args - Arguments to find a Views
+     * @example
+     * // Get one Views
+     * const views = await prisma.views.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ViewsFindFirstOrThrowArgs>(args?: SelectSubset<T, ViewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Views
+     * const views = await prisma.views.findMany()
+     * 
+     * // Get first 10 Views
+     * const views = await prisma.views.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const viewsWithIdOnly = await prisma.views.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ViewsFindManyArgs>(args?: SelectSubset<T, ViewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Views.
+     * @param {ViewsCreateArgs} args - Arguments to create a Views.
+     * @example
+     * // Create one Views
+     * const Views = await prisma.views.create({
+     *   data: {
+     *     // ... data to create a Views
+     *   }
+     * })
+     * 
+     */
+    create<T extends ViewsCreateArgs>(args: SelectSubset<T, ViewsCreateArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Views.
+     * @param {ViewsCreateManyArgs} args - Arguments to create many Views.
+     * @example
+     * // Create many Views
+     * const views = await prisma.views.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ViewsCreateManyArgs>(args?: SelectSubset<T, ViewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Views.
+     * @param {ViewsDeleteArgs} args - Arguments to delete one Views.
+     * @example
+     * // Delete one Views
+     * const Views = await prisma.views.delete({
+     *   where: {
+     *     // ... filter to delete one Views
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ViewsDeleteArgs>(args: SelectSubset<T, ViewsDeleteArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Views.
+     * @param {ViewsUpdateArgs} args - Arguments to update one Views.
+     * @example
+     * // Update one Views
+     * const views = await prisma.views.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ViewsUpdateArgs>(args: SelectSubset<T, ViewsUpdateArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Views.
+     * @param {ViewsDeleteManyArgs} args - Arguments to filter Views to delete.
+     * @example
+     * // Delete a few Views
+     * const { count } = await prisma.views.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ViewsDeleteManyArgs>(args?: SelectSubset<T, ViewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Views
+     * const views = await prisma.views.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ViewsUpdateManyArgs>(args: SelectSubset<T, ViewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Views.
+     * @param {ViewsUpsertArgs} args - Arguments to update or create a Views.
+     * @example
+     * // Update or create a Views
+     * const views = await prisma.views.upsert({
+     *   create: {
+     *     // ... data to create a Views
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Views we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ViewsUpsertArgs>(args: SelectSubset<T, ViewsUpsertArgs<ExtArgs>>): Prisma__ViewsClient<$Result.GetResult<Prisma.$ViewsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+    /**
+     * Find zero or more Views that matches the filter.
+     * @param {ViewsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const views = await prisma.views.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+     */
+    findRaw(args?: ViewsFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Views.
+     * @param {ViewsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const views = await prisma.views.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ViewsAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsCountArgs} args - Arguments to filter Views to count.
+     * @example
+     * // Count the number of Views
+     * const count = await prisma.views.count({
+     *   where: {
+     *     // ... the filter for the Views we want to count
+     *   }
+     * })
+    **/
+    count<T extends ViewsCountArgs>(
+      args?: Subset<T, ViewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ViewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ViewsAggregateArgs>(args: Subset<T, ViewsAggregateArgs>): Prisma.PrismaPromise<GetViewsAggregateType<T>>
+
+    /**
+     * Group by Views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ViewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ViewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ViewsGroupByArgs['orderBy'] }
+        : { orderBy?: ViewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ViewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetViewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Views model
+   */
+  readonly fields: ViewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Views.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ViewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Views model
+   */ 
+  interface ViewsFieldRefs {
+    readonly id: FieldRef<"Views", 'String'>
+    readonly serviceId: FieldRef<"Views", 'String'>
+    readonly userId: FieldRef<"Views", 'String'>
+    readonly viewCount: FieldRef<"Views", 'Int'>
+    readonly lead: FieldRef<"Views", 'Boolean'>
+    readonly created_at: FieldRef<"Views", 'DateTime'>
+    readonly updated_at: FieldRef<"Views", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Views findUnique
+   */
+  export type ViewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views findUniqueOrThrow
+   */
+  export type ViewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views findFirst
+   */
+  export type ViewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Views.
+     */
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views findFirstOrThrow
+   */
+  export type ViewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Views.
+     */
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views findMany
+   */
+  export type ViewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter, which Views to fetch.
+     */
+    where?: ViewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Views to fetch.
+     */
+    orderBy?: ViewsOrderByWithRelationInput | ViewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Views.
+     */
+    cursor?: ViewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Views.
+     */
+    skip?: number
+    distinct?: ViewsScalarFieldEnum | ViewsScalarFieldEnum[]
+  }
+
+  /**
+   * Views create
+   */
+  export type ViewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Views.
+     */
+    data: XOR<ViewsCreateInput, ViewsUncheckedCreateInput>
+  }
+
+  /**
+   * Views createMany
+   */
+  export type ViewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Views.
+     */
+    data: ViewsCreateManyInput | ViewsCreateManyInput[]
+  }
+
+  /**
+   * Views update
+   */
+  export type ViewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Views.
+     */
+    data: XOR<ViewsUpdateInput, ViewsUncheckedUpdateInput>
+    /**
+     * Choose, which Views to update.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views updateMany
+   */
+  export type ViewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Views.
+     */
+    data: XOR<ViewsUpdateManyMutationInput, ViewsUncheckedUpdateManyInput>
+    /**
+     * Filter which Views to update
+     */
+    where?: ViewsWhereInput
+  }
+
+  /**
+   * Views upsert
+   */
+  export type ViewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Views to update in case it exists.
+     */
+    where: ViewsWhereUniqueInput
+    /**
+     * In case the Views found by the `where` argument doesn't exist, create a new Views with this data.
+     */
+    create: XOR<ViewsCreateInput, ViewsUncheckedCreateInput>
+    /**
+     * In case the Views was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ViewsUpdateInput, ViewsUncheckedUpdateInput>
+  }
+
+  /**
+   * Views delete
+   */
+  export type ViewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
+    /**
+     * Filter which Views to delete.
+     */
+    where: ViewsWhereUniqueInput
+  }
+
+  /**
+   * Views deleteMany
+   */
+  export type ViewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Views to delete
+     */
+    where?: ViewsWhereInput
+  }
+
+  /**
+   * Views findRaw
+   */
+  export type ViewsFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Views aggregateRaw
+   */
+  export type ViewsAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Views without action
+   */
+  export type ViewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Views
+     */
+    select?: ViewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViewsInclude<ExtArgs> | null
   }
 
 
@@ -7737,935 +8736,6 @@ export namespace Prisma {
 
 
   /**
-   * Model FAQ
-   */
-
-  export type AggregateFAQ = {
-    _count: FAQCountAggregateOutputType | null
-    _min: FAQMinAggregateOutputType | null
-    _max: FAQMaxAggregateOutputType | null
-  }
-
-  export type FAQMinAggregateOutputType = {
-    id: string | null
-    vendorId: string | null
-    question: string | null
-    answer: string | null
-    created_at: Date | null
-  }
-
-  export type FAQMaxAggregateOutputType = {
-    id: string | null
-    vendorId: string | null
-    question: string | null
-    answer: string | null
-    created_at: Date | null
-  }
-
-  export type FAQCountAggregateOutputType = {
-    id: number
-    vendorId: number
-    question: number
-    answer: number
-    created_at: number
-    _all: number
-  }
-
-
-  export type FAQMinAggregateInputType = {
-    id?: true
-    vendorId?: true
-    question?: true
-    answer?: true
-    created_at?: true
-  }
-
-  export type FAQMaxAggregateInputType = {
-    id?: true
-    vendorId?: true
-    question?: true
-    answer?: true
-    created_at?: true
-  }
-
-  export type FAQCountAggregateInputType = {
-    id?: true
-    vendorId?: true
-    question?: true
-    answer?: true
-    created_at?: true
-    _all?: true
-  }
-
-  export type FAQAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FAQ to aggregate.
-     */
-    where?: FAQWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FAQS to fetch.
-     */
-    orderBy?: FAQOrderByWithRelationInput | FAQOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: FAQWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FAQS from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FAQS.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned FAQS
-    **/
-    _count?: true | FAQCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: FAQMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: FAQMaxAggregateInputType
-  }
-
-  export type GetFAQAggregateType<T extends FAQAggregateArgs> = {
-        [P in keyof T & keyof AggregateFAQ]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateFAQ[P]>
-      : GetScalarType<T[P], AggregateFAQ[P]>
-  }
-
-
-
-
-  export type FAQGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FAQWhereInput
-    orderBy?: FAQOrderByWithAggregationInput | FAQOrderByWithAggregationInput[]
-    by: FAQScalarFieldEnum[] | FAQScalarFieldEnum
-    having?: FAQScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: FAQCountAggregateInputType | true
-    _min?: FAQMinAggregateInputType
-    _max?: FAQMaxAggregateInputType
-  }
-
-  export type FAQGroupByOutputType = {
-    id: string
-    vendorId: string
-    question: string
-    answer: string | null
-    created_at: Date
-    _count: FAQCountAggregateOutputType | null
-    _min: FAQMinAggregateOutputType | null
-    _max: FAQMaxAggregateOutputType | null
-  }
-
-  type GetFAQGroupByPayload<T extends FAQGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<FAQGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof FAQGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], FAQGroupByOutputType[P]>
-            : GetScalarType<T[P], FAQGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type FAQSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    vendorId?: boolean
-    question?: boolean
-    answer?: boolean
-    created_at?: boolean
-    vendor?: boolean | VendorDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["fAQ"]>
-
-
-  export type FAQSelectScalar = {
-    id?: boolean
-    vendorId?: boolean
-    question?: boolean
-    answer?: boolean
-    created_at?: boolean
-  }
-
-  export type FAQInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    vendor?: boolean | VendorDefaultArgs<ExtArgs>
-  }
-
-  export type $FAQPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FAQ"
-    objects: {
-      vendor: Prisma.$VendorPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      vendorId: string
-      question: string
-      answer: string | null
-      created_at: Date
-    }, ExtArgs["result"]["fAQ"]>
-    composites: {}
-  }
-
-  type FAQGetPayload<S extends boolean | null | undefined | FAQDefaultArgs> = $Result.GetResult<Prisma.$FAQPayload, S>
-
-  type FAQCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<FAQFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: FAQCountAggregateInputType | true
-    }
-
-  export interface FAQDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FAQ'], meta: { name: 'FAQ' } }
-    /**
-     * Find zero or one FAQ that matches the filter.
-     * @param {FAQFindUniqueArgs} args - Arguments to find a FAQ
-     * @example
-     * // Get one FAQ
-     * const fAQ = await prisma.fAQ.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends FAQFindUniqueArgs>(args: SelectSubset<T, FAQFindUniqueArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one FAQ that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {FAQFindUniqueOrThrowArgs} args - Arguments to find a FAQ
-     * @example
-     * // Get one FAQ
-     * const fAQ = await prisma.fAQ.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends FAQFindUniqueOrThrowArgs>(args: SelectSubset<T, FAQFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first FAQ that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQFindFirstArgs} args - Arguments to find a FAQ
-     * @example
-     * // Get one FAQ
-     * const fAQ = await prisma.fAQ.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends FAQFindFirstArgs>(args?: SelectSubset<T, FAQFindFirstArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first FAQ that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQFindFirstOrThrowArgs} args - Arguments to find a FAQ
-     * @example
-     * // Get one FAQ
-     * const fAQ = await prisma.fAQ.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends FAQFindFirstOrThrowArgs>(args?: SelectSubset<T, FAQFindFirstOrThrowArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more FAQS that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all FAQS
-     * const fAQS = await prisma.fAQ.findMany()
-     * 
-     * // Get first 10 FAQS
-     * const fAQS = await prisma.fAQ.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const fAQWithIdOnly = await prisma.fAQ.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends FAQFindManyArgs>(args?: SelectSubset<T, FAQFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a FAQ.
-     * @param {FAQCreateArgs} args - Arguments to create a FAQ.
-     * @example
-     * // Create one FAQ
-     * const FAQ = await prisma.fAQ.create({
-     *   data: {
-     *     // ... data to create a FAQ
-     *   }
-     * })
-     * 
-     */
-    create<T extends FAQCreateArgs>(args: SelectSubset<T, FAQCreateArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many FAQS.
-     * @param {FAQCreateManyArgs} args - Arguments to create many FAQS.
-     * @example
-     * // Create many FAQS
-     * const fAQ = await prisma.fAQ.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends FAQCreateManyArgs>(args?: SelectSubset<T, FAQCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a FAQ.
-     * @param {FAQDeleteArgs} args - Arguments to delete one FAQ.
-     * @example
-     * // Delete one FAQ
-     * const FAQ = await prisma.fAQ.delete({
-     *   where: {
-     *     // ... filter to delete one FAQ
-     *   }
-     * })
-     * 
-     */
-    delete<T extends FAQDeleteArgs>(args: SelectSubset<T, FAQDeleteArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one FAQ.
-     * @param {FAQUpdateArgs} args - Arguments to update one FAQ.
-     * @example
-     * // Update one FAQ
-     * const fAQ = await prisma.fAQ.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends FAQUpdateArgs>(args: SelectSubset<T, FAQUpdateArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more FAQS.
-     * @param {FAQDeleteManyArgs} args - Arguments to filter FAQS to delete.
-     * @example
-     * // Delete a few FAQS
-     * const { count } = await prisma.fAQ.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends FAQDeleteManyArgs>(args?: SelectSubset<T, FAQDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FAQS.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many FAQS
-     * const fAQ = await prisma.fAQ.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends FAQUpdateManyArgs>(args: SelectSubset<T, FAQUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one FAQ.
-     * @param {FAQUpsertArgs} args - Arguments to update or create a FAQ.
-     * @example
-     * // Update or create a FAQ
-     * const fAQ = await prisma.fAQ.upsert({
-     *   create: {
-     *     // ... data to create a FAQ
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the FAQ we want to update
-     *   }
-     * })
-     */
-    upsert<T extends FAQUpsertArgs>(args: SelectSubset<T, FAQUpsertArgs<ExtArgs>>): Prisma__FAQClient<$Result.GetResult<Prisma.$FAQPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-    /**
-     * Find zero or more FAQS that matches the filter.
-     * @param {FAQFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const fAQ = await prisma.fAQ.findRaw({
-     *   filter: { age: { $gt: 25 } } 
-     * })
-     */
-    findRaw(args?: FAQFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a FAQ.
-     * @param {FAQAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const fAQ = await prisma.fAQ.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: FAQAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
-
-
-    /**
-     * Count the number of FAQS.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQCountArgs} args - Arguments to filter FAQS to count.
-     * @example
-     * // Count the number of FAQS
-     * const count = await prisma.fAQ.count({
-     *   where: {
-     *     // ... the filter for the FAQS we want to count
-     *   }
-     * })
-    **/
-    count<T extends FAQCountArgs>(
-      args?: Subset<T, FAQCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], FAQCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a FAQ.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends FAQAggregateArgs>(args: Subset<T, FAQAggregateArgs>): Prisma.PrismaPromise<GetFAQAggregateType<T>>
-
-    /**
-     * Group by FAQ.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FAQGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends FAQGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FAQGroupByArgs['orderBy'] }
-        : { orderBy?: FAQGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, FAQGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFAQGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the FAQ model
-   */
-  readonly fields: FAQFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for FAQ.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__FAQClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    vendor<T extends VendorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VendorDefaultArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the FAQ model
-   */ 
-  interface FAQFieldRefs {
-    readonly id: FieldRef<"FAQ", 'String'>
-    readonly vendorId: FieldRef<"FAQ", 'String'>
-    readonly question: FieldRef<"FAQ", 'String'>
-    readonly answer: FieldRef<"FAQ", 'String'>
-    readonly created_at: FieldRef<"FAQ", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * FAQ findUnique
-   */
-  export type FAQFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter, which FAQ to fetch.
-     */
-    where: FAQWhereUniqueInput
-  }
-
-  /**
-   * FAQ findUniqueOrThrow
-   */
-  export type FAQFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter, which FAQ to fetch.
-     */
-    where: FAQWhereUniqueInput
-  }
-
-  /**
-   * FAQ findFirst
-   */
-  export type FAQFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter, which FAQ to fetch.
-     */
-    where?: FAQWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FAQS to fetch.
-     */
-    orderBy?: FAQOrderByWithRelationInput | FAQOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FAQS.
-     */
-    cursor?: FAQWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FAQS from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FAQS.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FAQS.
-     */
-    distinct?: FAQScalarFieldEnum | FAQScalarFieldEnum[]
-  }
-
-  /**
-   * FAQ findFirstOrThrow
-   */
-  export type FAQFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter, which FAQ to fetch.
-     */
-    where?: FAQWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FAQS to fetch.
-     */
-    orderBy?: FAQOrderByWithRelationInput | FAQOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FAQS.
-     */
-    cursor?: FAQWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FAQS from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FAQS.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FAQS.
-     */
-    distinct?: FAQScalarFieldEnum | FAQScalarFieldEnum[]
-  }
-
-  /**
-   * FAQ findMany
-   */
-  export type FAQFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter, which FAQS to fetch.
-     */
-    where?: FAQWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FAQS to fetch.
-     */
-    orderBy?: FAQOrderByWithRelationInput | FAQOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing FAQS.
-     */
-    cursor?: FAQWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FAQS from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FAQS.
-     */
-    skip?: number
-    distinct?: FAQScalarFieldEnum | FAQScalarFieldEnum[]
-  }
-
-  /**
-   * FAQ create
-   */
-  export type FAQCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * The data needed to create a FAQ.
-     */
-    data: XOR<FAQCreateInput, FAQUncheckedCreateInput>
-  }
-
-  /**
-   * FAQ createMany
-   */
-  export type FAQCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many FAQS.
-     */
-    data: FAQCreateManyInput | FAQCreateManyInput[]
-  }
-
-  /**
-   * FAQ update
-   */
-  export type FAQUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * The data needed to update a FAQ.
-     */
-    data: XOR<FAQUpdateInput, FAQUncheckedUpdateInput>
-    /**
-     * Choose, which FAQ to update.
-     */
-    where: FAQWhereUniqueInput
-  }
-
-  /**
-   * FAQ updateMany
-   */
-  export type FAQUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update FAQS.
-     */
-    data: XOR<FAQUpdateManyMutationInput, FAQUncheckedUpdateManyInput>
-    /**
-     * Filter which FAQS to update
-     */
-    where?: FAQWhereInput
-  }
-
-  /**
-   * FAQ upsert
-   */
-  export type FAQUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * The filter to search for the FAQ to update in case it exists.
-     */
-    where: FAQWhereUniqueInput
-    /**
-     * In case the FAQ found by the `where` argument doesn't exist, create a new FAQ with this data.
-     */
-    create: XOR<FAQCreateInput, FAQUncheckedCreateInput>
-    /**
-     * In case the FAQ was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<FAQUpdateInput, FAQUncheckedUpdateInput>
-  }
-
-  /**
-   * FAQ delete
-   */
-  export type FAQDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-    /**
-     * Filter which FAQ to delete.
-     */
-    where: FAQWhereUniqueInput
-  }
-
-  /**
-   * FAQ deleteMany
-   */
-  export type FAQDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FAQS to delete
-     */
-    where?: FAQWhereInput
-  }
-
-  /**
-   * FAQ findRaw
-   */
-  export type FAQFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * FAQ aggregateRaw
-   */
-  export type FAQAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * FAQ without action
-   */
-  export type FAQDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FAQ
-     */
-    select?: FAQSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FAQInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Review
    */
 
@@ -9657,6 +9727,7 @@ export namespace Prisma {
     password_hash: 'password_hash',
     phone_number: 'phone_number',
     social_networks: 'social_networks',
+    faqs: 'faqs',
     created_at: 'created_at',
     updated_at: 'updated_at',
     is_verified: 'is_verified',
@@ -9678,11 +9749,25 @@ export namespace Prisma {
     price: 'price',
     service_type: 'service_type',
     rating: 'rating',
+    faqs: 'faqs',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+
+
+  export const ViewsScalarFieldEnum: {
+    id: 'id',
+    serviceId: 'serviceId',
+    userId: 'userId',
+    viewCount: 'viewCount',
+    lead: 'lead',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ViewsScalarFieldEnum = (typeof ViewsScalarFieldEnum)[keyof typeof ViewsScalarFieldEnum]
 
 
   export const AvailabilityScalarFieldEnum: {
@@ -9735,17 +9820,6 @@ export namespace Prisma {
   };
 
   export type PromotionScalarFieldEnum = (typeof PromotionScalarFieldEnum)[keyof typeof PromotionScalarFieldEnum]
-
-
-  export const FAQScalarFieldEnum: {
-    id: 'id',
-    vendorId: 'vendorId',
-    question: 'question',
-    answer: 'answer',
-    created_at: 'created_at'
-  };
-
-  export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
 
 
   export const ReviewScalarFieldEnum: {
@@ -9839,20 +9913,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ReviewType'
-   */
-  export type EnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType'>
-    
-
-
-  /**
-   * Reference to a field of type 'ReviewType[]'
-   */
-  export type ListEnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9863,6 +9923,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType'
+   */
+  export type EnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ReviewType[]'
+   */
+  export type ListEnumReviewTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewType[]'>
     
   /**
    * Deep Input Types
@@ -9890,6 +9964,7 @@ export namespace Prisma {
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
+    faqs?: JsonNullableFilter<"Vendor">
     created_at?: DateTimeFilter<"Vendor"> | Date | string
     updated_at?: DateTimeFilter<"Vendor"> | Date | string
     is_verified?: BoolFilter<"Vendor"> | boolean
@@ -9899,7 +9974,6 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     promotions?: PromotionListRelationFilter
     team_members?: TeamMemberListRelationFilter
-    faqs?: FAQListRelationFilter
     reviews?: ReviewListRelationFilter
   }
 
@@ -9921,6 +9995,7 @@ export namespace Prisma {
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
@@ -9930,7 +10005,6 @@ export namespace Prisma {
     services?: ServiceOrderByRelationAggregateInput
     promotions?: PromotionOrderByRelationAggregateInput
     team_members?: TeamMemberOrderByRelationAggregateInput
-    faqs?: FAQOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
   }
 
@@ -9955,6 +10029,7 @@ export namespace Prisma {
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
+    faqs?: JsonNullableFilter<"Vendor">
     created_at?: DateTimeFilter<"Vendor"> | Date | string
     updated_at?: DateTimeFilter<"Vendor"> | Date | string
     is_verified?: BoolFilter<"Vendor"> | boolean
@@ -9964,7 +10039,6 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     promotions?: PromotionListRelationFilter
     team_members?: TeamMemberListRelationFilter
-    faqs?: FAQListRelationFilter
     reviews?: ReviewListRelationFilter
   }, "id" | "email">
 
@@ -9986,6 +10060,7 @@ export namespace Prisma {
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
@@ -10018,6 +10093,7 @@ export namespace Prisma {
     password_hash?: StringWithAggregatesFilter<"Vendor"> | string
     phone_number?: StringWithAggregatesFilter<"Vendor"> | string
     social_networks?: JsonNullableWithAggregatesFilter<"Vendor">
+    faqs?: JsonNullableWithAggregatesFilter<"Vendor">
     created_at?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Vendor"> | Date | string
     is_verified?: BoolWithAggregatesFilter<"Vendor"> | boolean
@@ -10039,12 +10115,14 @@ export namespace Prisma {
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
+    faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
+    views?: ViewsListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -10057,12 +10135,14 @@ export namespace Prisma {
     price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     vendor?: VendorOrderByWithRelationInput
     availabilities?: AvailabilityOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
     media?: MediaOrderByRelationAggregateInput
+    views?: ViewsOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -10078,12 +10158,14 @@ export namespace Prisma {
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
+    faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
     vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
     availabilities?: AvailabilityListRelationFilter
     reviews?: ReviewListRelationFilter
     media?: MediaListRelationFilter
+    views?: ViewsListRelationFilter
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -10096,6 +10178,7 @@ export namespace Prisma {
     price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
@@ -10118,8 +10201,77 @@ export namespace Prisma {
     price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
     rating?: FloatWithAggregatesFilter<"Service"> | number
+    faqs?: JsonNullableWithAggregatesFilter<"Service">
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+  }
+
+  export type ViewsWhereInput = {
+    AND?: ViewsWhereInput | ViewsWhereInput[]
+    OR?: ViewsWhereInput[]
+    NOT?: ViewsWhereInput | ViewsWhereInput[]
+    id?: StringFilter<"Views"> | string
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+  }
+
+  export type ViewsOrderByWithRelationInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    service?: ServiceOrderByWithRelationInput
+  }
+
+  export type ViewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    serviceId_userId?: ViewsServiceIdUserIdCompoundUniqueInput
+    AND?: ViewsWhereInput | ViewsWhereInput[]
+    OR?: ViewsWhereInput[]
+    NOT?: ViewsWhereInput | ViewsWhereInput[]
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+  }, "id" | "serviceId_userId">
+
+  export type ViewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ViewsCountOrderByAggregateInput
+    _avg?: ViewsAvgOrderByAggregateInput
+    _max?: ViewsMaxOrderByAggregateInput
+    _min?: ViewsMinOrderByAggregateInput
+    _sum?: ViewsSumOrderByAggregateInput
+  }
+
+  export type ViewsScalarWhereWithAggregatesInput = {
+    AND?: ViewsScalarWhereWithAggregatesInput | ViewsScalarWhereWithAggregatesInput[]
+    OR?: ViewsScalarWhereWithAggregatesInput[]
+    NOT?: ViewsScalarWhereWithAggregatesInput | ViewsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Views"> | string
+    serviceId?: StringWithAggregatesFilter<"Views"> | string
+    userId?: StringWithAggregatesFilter<"Views"> | string
+    viewCount?: IntWithAggregatesFilter<"Views"> | number
+    lead?: BoolWithAggregatesFilter<"Views"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Views"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Views"> | Date | string
   }
 
   export type AvailabilityWhereInput = {
@@ -10384,61 +10536,6 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Promotion"> | Date | string
   }
 
-  export type FAQWhereInput = {
-    AND?: FAQWhereInput | FAQWhereInput[]
-    OR?: FAQWhereInput[]
-    NOT?: FAQWhereInput | FAQWhereInput[]
-    id?: StringFilter<"FAQ"> | string
-    vendorId?: StringFilter<"FAQ"> | string
-    question?: StringFilter<"FAQ"> | string
-    answer?: StringNullableFilter<"FAQ"> | string | null
-    created_at?: DateTimeFilter<"FAQ"> | Date | string
-    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-  }
-
-  export type FAQOrderByWithRelationInput = {
-    id?: SortOrder
-    vendorId?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
-    created_at?: SortOrder
-    vendor?: VendorOrderByWithRelationInput
-  }
-
-  export type FAQWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: FAQWhereInput | FAQWhereInput[]
-    OR?: FAQWhereInput[]
-    NOT?: FAQWhereInput | FAQWhereInput[]
-    vendorId?: StringFilter<"FAQ"> | string
-    question?: StringFilter<"FAQ"> | string
-    answer?: StringNullableFilter<"FAQ"> | string | null
-    created_at?: DateTimeFilter<"FAQ"> | Date | string
-    vendor?: XOR<VendorScalarRelationFilter, VendorWhereInput>
-  }, "id">
-
-  export type FAQOrderByWithAggregationInput = {
-    id?: SortOrder
-    vendorId?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
-    created_at?: SortOrder
-    _count?: FAQCountOrderByAggregateInput
-    _max?: FAQMaxOrderByAggregateInput
-    _min?: FAQMinOrderByAggregateInput
-  }
-
-  export type FAQScalarWhereWithAggregatesInput = {
-    AND?: FAQScalarWhereWithAggregatesInput | FAQScalarWhereWithAggregatesInput[]
-    OR?: FAQScalarWhereWithAggregatesInput[]
-    NOT?: FAQScalarWhereWithAggregatesInput | FAQScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"FAQ"> | string
-    vendorId?: StringWithAggregatesFilter<"FAQ"> | string
-    question?: StringWithAggregatesFilter<"FAQ"> | string
-    answer?: StringNullableWithAggregatesFilter<"FAQ"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"FAQ"> | Date | string
-  }
-
   export type ReviewWhereInput = {
     AND?: ReviewWhereInput | ReviewWhereInput[]
     OR?: ReviewWhereInput[]
@@ -10525,6 +10622,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -10534,7 +10632,6 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutVendorInput
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
-    faqs?: FAQCreateNestedManyWithoutVendorInput
     reviews?: ReviewCreateNestedManyWithoutVendorInput
   }
 
@@ -10556,6 +10653,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -10565,7 +10663,6 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
-    faqs?: FAQUncheckedCreateNestedManyWithoutVendorInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -10586,6 +10683,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -10595,7 +10693,6 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUpdateManyWithoutVendorNestedInput
   }
 
@@ -10616,6 +10713,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -10625,7 +10723,6 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -10647,6 +10744,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -10672,6 +10770,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -10697,6 +10796,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -10714,12 +10814,14 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -10732,11 +10834,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -10747,12 +10851,14 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -10764,11 +10870,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -10781,6 +10889,7 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -10793,6 +10902,7 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10806,6 +10916,72 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsCreateInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: ServiceCreateNestedOneWithoutViewsInput
+  }
+
+  export type ViewsUncheckedCreateInput = {
+    id?: string
+    serviceId: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type ViewsUncheckedUpdateInput = {
+    serviceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsCreateManyInput = {
+    id?: string
+    serviceId: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateManyInput = {
+    serviceId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11070,57 +11246,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FAQCreateInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-    vendor: VendorCreateNestedOneWithoutFaqsInput
-  }
-
-  export type FAQUncheckedCreateInput = {
-    id?: string
-    vendorId: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-  }
-
-  export type FAQUpdateInput = {
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    vendor?: VendorUpdateOneRequiredWithoutFaqsNestedInput
-  }
-
-  export type FAQUncheckedUpdateInput = {
-    vendorId?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FAQCreateManyInput = {
-    id?: string
-    vendorId: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-  }
-
-  export type FAQUpdateManyMutationInput = {
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FAQUncheckedUpdateManyInput = {
-    vendorId?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type ReviewCreateInput = {
     id?: string
     reviewerId: string
@@ -11270,12 +11395,6 @@ export namespace Prisma {
     none?: TeamMemberWhereInput
   }
 
-  export type FAQListRelationFilter = {
-    every?: FAQWhereInput
-    some?: FAQWhereInput
-    none?: FAQWhereInput
-  }
-
   export type ReviewListRelationFilter = {
     every?: ReviewWhereInput
     some?: ReviewWhereInput
@@ -11291,10 +11410,6 @@ export namespace Prisma {
   }
 
   export type TeamMemberOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type FAQOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11320,6 +11435,7 @@ export namespace Prisma {
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
@@ -11488,11 +11604,21 @@ export namespace Prisma {
     none?: MediaWhereInput
   }
 
+  export type ViewsListRelationFilter = {
+    every?: ViewsWhereInput
+    some?: ViewsWhereInput
+    none?: ViewsWhereInput
+  }
+
   export type AvailabilityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ViewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11506,6 +11632,7 @@ export namespace Prisma {
     price?: SortOrder
     service_type?: SortOrder
     rating?: SortOrder
+    faqs?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -11585,9 +11712,79 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type ServiceScalarRelationFilter = {
     is?: ServiceWhereInput
     isNot?: ServiceWhereInput
+  }
+
+  export type ViewsServiceIdUserIdCompoundUniqueInput = {
+    serviceId: string
+    userId: string
+  }
+
+  export type ViewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsAvgOrderByAggregateInput = {
+    viewCount?: SortOrder
+  }
+
+  export type ViewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    serviceId?: SortOrder
+    userId?: SortOrder
+    viewCount?: SortOrder
+    lead?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ViewsSumOrderByAggregateInput = {
+    viewCount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AvailabilityCountOrderByAggregateInput = {
@@ -11737,30 +11934,6 @@ export namespace Prisma {
     discount_percentage?: SortOrder
   }
 
-  export type FAQCountOrderByAggregateInput = {
-    id?: SortOrder
-    vendorId?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type FAQMaxOrderByAggregateInput = {
-    id?: SortOrder
-    vendorId?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type FAQMinOrderByAggregateInput = {
-    id?: SortOrder
-    vendorId?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
-    created_at?: SortOrder
-  }
-
   export type EnumReviewTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.ReviewType | EnumReviewTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ReviewType[] | ListEnumReviewTypeFieldRefInput<$PrismaModel>
@@ -11838,13 +12011,6 @@ export namespace Prisma {
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
   }
 
-  export type FAQCreateNestedManyWithoutVendorInput = {
-    create?: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput> | FAQCreateWithoutVendorInput[] | FAQUncheckedCreateWithoutVendorInput[]
-    connectOrCreate?: FAQCreateOrConnectWithoutVendorInput | FAQCreateOrConnectWithoutVendorInput[]
-    createMany?: FAQCreateManyVendorInputEnvelope
-    connect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-  }
-
   export type ReviewCreateNestedManyWithoutVendorInput = {
     create?: XOR<ReviewCreateWithoutVendorInput, ReviewUncheckedCreateWithoutVendorInput> | ReviewCreateWithoutVendorInput[] | ReviewUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutVendorInput | ReviewCreateOrConnectWithoutVendorInput[]
@@ -11871,13 +12037,6 @@ export namespace Prisma {
     connectOrCreate?: TeamMemberCreateOrConnectWithoutVendorInput | TeamMemberCreateOrConnectWithoutVendorInput[]
     createMany?: TeamMemberCreateManyVendorInputEnvelope
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-  }
-
-  export type FAQUncheckedCreateNestedManyWithoutVendorInput = {
-    create?: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput> | FAQCreateWithoutVendorInput[] | FAQUncheckedCreateWithoutVendorInput[]
-    connectOrCreate?: FAQCreateOrConnectWithoutVendorInput | FAQCreateOrConnectWithoutVendorInput[]
-    createMany?: FAQCreateManyVendorInputEnvelope
-    connect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
   }
 
   export type ReviewUncheckedCreateNestedManyWithoutVendorInput = {
@@ -11951,20 +12110,6 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
-  export type FAQUpdateManyWithoutVendorNestedInput = {
-    create?: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput> | FAQCreateWithoutVendorInput[] | FAQUncheckedCreateWithoutVendorInput[]
-    connectOrCreate?: FAQCreateOrConnectWithoutVendorInput | FAQCreateOrConnectWithoutVendorInput[]
-    upsert?: FAQUpsertWithWhereUniqueWithoutVendorInput | FAQUpsertWithWhereUniqueWithoutVendorInput[]
-    createMany?: FAQCreateManyVendorInputEnvelope
-    set?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    disconnect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    delete?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    connect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    update?: FAQUpdateWithWhereUniqueWithoutVendorInput | FAQUpdateWithWhereUniqueWithoutVendorInput[]
-    updateMany?: FAQUpdateManyWithWhereWithoutVendorInput | FAQUpdateManyWithWhereWithoutVendorInput[]
-    deleteMany?: FAQScalarWhereInput | FAQScalarWhereInput[]
-  }
-
   export type ReviewUpdateManyWithoutVendorNestedInput = {
     create?: XOR<ReviewCreateWithoutVendorInput, ReviewUncheckedCreateWithoutVendorInput> | ReviewCreateWithoutVendorInput[] | ReviewUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutVendorInput | ReviewCreateOrConnectWithoutVendorInput[]
@@ -12021,20 +12166,6 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
-  export type FAQUncheckedUpdateManyWithoutVendorNestedInput = {
-    create?: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput> | FAQCreateWithoutVendorInput[] | FAQUncheckedCreateWithoutVendorInput[]
-    connectOrCreate?: FAQCreateOrConnectWithoutVendorInput | FAQCreateOrConnectWithoutVendorInput[]
-    upsert?: FAQUpsertWithWhereUniqueWithoutVendorInput | FAQUpsertWithWhereUniqueWithoutVendorInput[]
-    createMany?: FAQCreateManyVendorInputEnvelope
-    set?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    disconnect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    delete?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    connect?: FAQWhereUniqueInput | FAQWhereUniqueInput[]
-    update?: FAQUpdateWithWhereUniqueWithoutVendorInput | FAQUpdateWithWhereUniqueWithoutVendorInput[]
-    updateMany?: FAQUpdateManyWithWhereWithoutVendorInput | FAQUpdateManyWithWhereWithoutVendorInput[]
-    deleteMany?: FAQScalarWhereInput | FAQScalarWhereInput[]
-  }
-
   export type ReviewUncheckedUpdateManyWithoutVendorNestedInput = {
     create?: XOR<ReviewCreateWithoutVendorInput, ReviewUncheckedCreateWithoutVendorInput> | ReviewCreateWithoutVendorInput[] | ReviewUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutVendorInput | ReviewCreateOrConnectWithoutVendorInput[]
@@ -12076,6 +12207,13 @@ export namespace Prisma {
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
+  export type ViewsCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+  }
+
   export type AvailabilityUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
@@ -12095,6 +12233,13 @@ export namespace Prisma {
     connectOrCreate?: MediaCreateOrConnectWithoutServiceInput | MediaCreateOrConnectWithoutServiceInput[]
     createMany?: MediaCreateManyServiceInputEnvelope
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
+  export type ViewsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -12164,6 +12309,20 @@ export namespace Prisma {
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
+  export type ViewsUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    upsert?: ViewsUpsertWithWhereUniqueWithoutServiceInput | ViewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    set?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    disconnect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    delete?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    update?: ViewsUpdateWithWhereUniqueWithoutServiceInput | ViewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ViewsUpdateManyWithWhereWithoutServiceInput | ViewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+  }
+
   export type AvailabilityUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
@@ -12204,6 +12363,42 @@ export namespace Prisma {
     update?: MediaUpdateWithWhereUniqueWithoutServiceInput | MediaUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: MediaUpdateManyWithWhereWithoutServiceInput | MediaUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
+  }
+
+  export type ViewsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput> | ViewsCreateWithoutServiceInput[] | ViewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ViewsCreateOrConnectWithoutServiceInput | ViewsCreateOrConnectWithoutServiceInput[]
+    upsert?: ViewsUpsertWithWhereUniqueWithoutServiceInput | ViewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ViewsCreateManyServiceInputEnvelope
+    set?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    disconnect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    delete?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    connect?: ViewsWhereUniqueInput | ViewsWhereUniqueInput[]
+    update?: ViewsUpdateWithWhereUniqueWithoutServiceInput | ViewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ViewsUpdateManyWithWhereWithoutServiceInput | ViewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+  }
+
+  export type ServiceCreateNestedOneWithoutViewsInput = {
+    create?: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutViewsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ServiceUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutViewsInput
+    upsert?: ServiceUpsertWithoutViewsInput
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutViewsInput, ServiceUpdateWithoutViewsInput>, ServiceUncheckedUpdateWithoutViewsInput>
   }
 
   export type ServiceCreateNestedOneWithoutAvailabilitiesInput = {
@@ -12260,20 +12455,6 @@ export namespace Prisma {
     upsert?: VendorUpsertWithoutPromotionsInput
     connect?: VendorWhereUniqueInput
     update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutPromotionsInput, VendorUpdateWithoutPromotionsInput>, VendorUncheckedUpdateWithoutPromotionsInput>
-  }
-
-  export type VendorCreateNestedOneWithoutFaqsInput = {
-    create?: XOR<VendorCreateWithoutFaqsInput, VendorUncheckedCreateWithoutFaqsInput>
-    connectOrCreate?: VendorCreateOrConnectWithoutFaqsInput
-    connect?: VendorWhereUniqueInput
-  }
-
-  export type VendorUpdateOneRequiredWithoutFaqsNestedInput = {
-    create?: XOR<VendorCreateWithoutFaqsInput, VendorUncheckedCreateWithoutFaqsInput>
-    connectOrCreate?: VendorCreateOrConnectWithoutFaqsInput
-    upsert?: VendorUpsertWithoutFaqsInput
-    connect?: VendorWhereUniqueInput
-    update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutFaqsInput, VendorUpdateWithoutFaqsInput>, VendorUncheckedUpdateWithoutFaqsInput>
   }
 
   export type VendorCreateNestedOneWithoutReviewsInput = {
@@ -12502,6 +12683,22 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
   export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -12540,11 +12737,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutVendorInput = {
@@ -12556,11 +12755,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutVendorInput = {
@@ -12632,29 +12833,6 @@ export namespace Prisma {
     data: TeamMemberCreateManyVendorInput | TeamMemberCreateManyVendorInput[]
   }
 
-  export type FAQCreateWithoutVendorInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-  }
-
-  export type FAQUncheckedCreateWithoutVendorInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-  }
-
-  export type FAQCreateOrConnectWithoutVendorInput = {
-    where: FAQWhereUniqueInput
-    create: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput>
-  }
-
-  export type FAQCreateManyVendorInputEnvelope = {
-    data: FAQCreateManyVendorInput | FAQCreateManyVendorInput[]
-  }
-
   export type ReviewCreateWithoutVendorInput = {
     id?: string
     reviewerId: string
@@ -12711,6 +12889,7 @@ export namespace Prisma {
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
+    faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
     updated_at?: DateTimeFilter<"Service"> | Date | string
   }
@@ -12776,33 +12955,6 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"TeamMember"> | Date | string
   }
 
-  export type FAQUpsertWithWhereUniqueWithoutVendorInput = {
-    where: FAQWhereUniqueInput
-    update: XOR<FAQUpdateWithoutVendorInput, FAQUncheckedUpdateWithoutVendorInput>
-    create: XOR<FAQCreateWithoutVendorInput, FAQUncheckedCreateWithoutVendorInput>
-  }
-
-  export type FAQUpdateWithWhereUniqueWithoutVendorInput = {
-    where: FAQWhereUniqueInput
-    data: XOR<FAQUpdateWithoutVendorInput, FAQUncheckedUpdateWithoutVendorInput>
-  }
-
-  export type FAQUpdateManyWithWhereWithoutVendorInput = {
-    where: FAQScalarWhereInput
-    data: XOR<FAQUpdateManyMutationInput, FAQUncheckedUpdateManyWithoutVendorInput>
-  }
-
-  export type FAQScalarWhereInput = {
-    AND?: FAQScalarWhereInput | FAQScalarWhereInput[]
-    OR?: FAQScalarWhereInput[]
-    NOT?: FAQScalarWhereInput | FAQScalarWhereInput[]
-    id?: StringFilter<"FAQ"> | string
-    vendorId?: StringFilter<"FAQ"> | string
-    question?: StringFilter<"FAQ"> | string
-    answer?: StringNullableFilter<"FAQ"> | string | null
-    created_at?: DateTimeFilter<"FAQ"> | Date | string
-  }
-
   export type ReviewUpsertWithWhereUniqueWithoutVendorInput = {
     where: ReviewWhereUniqueInput
     update: XOR<ReviewUpdateWithoutVendorInput, ReviewUncheckedUpdateWithoutVendorInput>
@@ -12850,6 +13002,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -12858,7 +13011,6 @@ export namespace Prisma {
     role?: string
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
-    faqs?: FAQCreateNestedManyWithoutVendorInput
     reviews?: ReviewCreateNestedManyWithoutVendorInput
   }
 
@@ -12880,6 +13032,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -12888,7 +13041,6 @@ export namespace Prisma {
     role?: string
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
-    faqs?: FAQUncheckedCreateNestedManyWithoutVendorInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -12972,6 +13124,33 @@ export namespace Prisma {
     data: MediaCreateManyServiceInput | MediaCreateManyServiceInput[]
   }
 
+  export type ViewsCreateWithoutServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsUncheckedCreateWithoutServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ViewsCreateOrConnectWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    create: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ViewsCreateManyServiceInputEnvelope = {
+    data: ViewsCreateManyServiceInput | ViewsCreateManyServiceInput[]
+  }
+
   export type VendorUpsertWithoutServicesInput = {
     update: XOR<VendorUpdateWithoutServicesInput, VendorUncheckedUpdateWithoutServicesInput>
     create: XOR<VendorCreateWithoutServicesInput, VendorUncheckedCreateWithoutServicesInput>
@@ -13000,6 +13179,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13008,7 +13188,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUpdateManyWithoutVendorNestedInput
   }
 
@@ -13029,6 +13208,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13037,7 +13217,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -13112,6 +13291,121 @@ export namespace Prisma {
     uploaded_at?: DateTimeFilter<"Media"> | Date | string
   }
 
+  export type ViewsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    update: XOR<ViewsUpdateWithoutServiceInput, ViewsUncheckedUpdateWithoutServiceInput>
+    create: XOR<ViewsCreateWithoutServiceInput, ViewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ViewsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: ViewsWhereUniqueInput
+    data: XOR<ViewsUpdateWithoutServiceInput, ViewsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type ViewsUpdateManyWithWhereWithoutServiceInput = {
+    where: ViewsScalarWhereInput
+    data: XOR<ViewsUpdateManyMutationInput, ViewsUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type ViewsScalarWhereInput = {
+    AND?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+    OR?: ViewsScalarWhereInput[]
+    NOT?: ViewsScalarWhereInput | ViewsScalarWhereInput[]
+    id?: StringFilter<"Views"> | string
+    serviceId?: StringFilter<"Views"> | string
+    userId?: StringFilter<"Views"> | string
+    viewCount?: IntFilter<"Views"> | number
+    lead?: BoolFilter<"Views"> | boolean
+    created_at?: DateTimeFilter<"Views"> | Date | string
+    updated_at?: DateTimeFilter<"Views"> | Date | string
+  }
+
+  export type ServiceCreateWithoutViewsInput = {
+    id?: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    price?: number | null
+    service_type: string
+    rating?: number
+    faqs?: InputJsonValue | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    vendor: VendorCreateNestedOneWithoutServicesInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    reviews?: ReviewCreateNestedManyWithoutServiceInput
+    media?: MediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutViewsInput = {
+    id?: string
+    vendorId: string
+    service_name: string
+    description: string
+    min_price?: number | null
+    max_price?: number | null
+    price?: number | null
+    service_type: string
+    rating?: number
+    faqs?: InputJsonValue | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
+    media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutViewsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+  }
+
+  export type ServiceUpsertWithoutViewsInput = {
+    update: XOR<ServiceUpdateWithoutViewsInput, ServiceUncheckedUpdateWithoutViewsInput>
+    create: XOR<ServiceCreateWithoutViewsInput, ServiceUncheckedCreateWithoutViewsInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutViewsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutViewsInput, ServiceUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type ServiceUpdateWithoutViewsInput = {
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUpdateManyWithoutServiceNestedInput
+    media?: MediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutViewsInput = {
+    vendorId?: StringFieldUpdateOperationsInput | string
+    service_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    min_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    service_type?: StringFieldUpdateOperationsInput | string
+    rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
+    media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
   export type ServiceCreateWithoutAvailabilitiesInput = {
     id?: string
     service_name: string
@@ -13121,11 +13415,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutAvailabilitiesInput = {
@@ -13138,10 +13434,12 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutAvailabilitiesInput = {
@@ -13168,11 +13466,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutAvailabilitiesInput = {
@@ -13184,10 +13484,12 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateWithoutMediaInput = {
@@ -13199,11 +13501,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     reviews?: ReviewCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutMediaInput = {
@@ -13216,10 +13520,12 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutMediaInput = {
@@ -13246,11 +13552,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutMediaInput = {
@@ -13262,10 +13570,12 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type VendorCreateWithoutTeam_membersInput = {
@@ -13286,6 +13596,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13294,7 +13605,6 @@ export namespace Prisma {
     role?: string
     services?: ServiceCreateNestedManyWithoutVendorInput
     promotions?: PromotionCreateNestedManyWithoutVendorInput
-    faqs?: FAQCreateNestedManyWithoutVendorInput
     reviews?: ReviewCreateNestedManyWithoutVendorInput
   }
 
@@ -13316,6 +13626,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13324,7 +13635,6 @@ export namespace Prisma {
     role?: string
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
-    faqs?: FAQUncheckedCreateNestedManyWithoutVendorInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -13361,6 +13671,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13369,7 +13680,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     services?: ServiceUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUpdateManyWithoutVendorNestedInput
   }
 
@@ -13390,6 +13700,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13398,7 +13709,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -13420,6 +13730,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13428,7 +13739,6 @@ export namespace Prisma {
     role?: string
     services?: ServiceCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
-    faqs?: FAQCreateNestedManyWithoutVendorInput
     reviews?: ReviewCreateNestedManyWithoutVendorInput
   }
 
@@ -13450,6 +13760,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13458,7 +13769,6 @@ export namespace Prisma {
     role?: string
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
-    faqs?: FAQUncheckedCreateNestedManyWithoutVendorInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -13495,6 +13805,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13503,7 +13814,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     services?: ServiceUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUpdateManyWithoutVendorNestedInput
   }
 
@@ -13524,6 +13834,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13531,141 +13842,6 @@ export namespace Prisma {
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
-    team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutVendorNestedInput
-  }
-
-  export type VendorCreateWithoutFaqsInput = {
-    id?: string
-    name: string
-    business_name: string
-    business_category: string
-    license_number?: string | null
-    service_type?: VendorCreateservice_typeInput | string[]
-    description: string
-    logo_url?: InputJsonValue | null
-    country?: string | null
-    state?: string | null
-    latitude?: string | null
-    longitude?: string | null
-    city?: string | null
-    email: string
-    password_hash: string
-    phone_number: string
-    social_networks?: InputJsonValue | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean
-    refresh_Token?: string | null
-    resetPassword_Token?: string | null
-    role?: string
-    services?: ServiceCreateNestedManyWithoutVendorInput
-    promotions?: PromotionCreateNestedManyWithoutVendorInput
-    team_members?: TeamMemberCreateNestedManyWithoutVendorInput
-    reviews?: ReviewCreateNestedManyWithoutVendorInput
-  }
-
-  export type VendorUncheckedCreateWithoutFaqsInput = {
-    id?: string
-    name: string
-    business_name: string
-    business_category: string
-    license_number?: string | null
-    service_type?: VendorCreateservice_typeInput | string[]
-    description: string
-    logo_url?: InputJsonValue | null
-    country?: string | null
-    state?: string | null
-    latitude?: string | null
-    longitude?: string | null
-    city?: string | null
-    email: string
-    password_hash: string
-    phone_number: string
-    social_networks?: InputJsonValue | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean
-    refresh_Token?: string | null
-    resetPassword_Token?: string | null
-    role?: string
-    services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
-    promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
-    team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutVendorInput
-  }
-
-  export type VendorCreateOrConnectWithoutFaqsInput = {
-    where: VendorWhereUniqueInput
-    create: XOR<VendorCreateWithoutFaqsInput, VendorUncheckedCreateWithoutFaqsInput>
-  }
-
-  export type VendorUpsertWithoutFaqsInput = {
-    update: XOR<VendorUpdateWithoutFaqsInput, VendorUncheckedUpdateWithoutFaqsInput>
-    create: XOR<VendorCreateWithoutFaqsInput, VendorUncheckedCreateWithoutFaqsInput>
-    where?: VendorWhereInput
-  }
-
-  export type VendorUpdateToOneWithWhereWithoutFaqsInput = {
-    where?: VendorWhereInput
-    data: XOR<VendorUpdateWithoutFaqsInput, VendorUncheckedUpdateWithoutFaqsInput>
-  }
-
-  export type VendorUpdateWithoutFaqsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    business_name?: StringFieldUpdateOperationsInput | string
-    business_category?: StringFieldUpdateOperationsInput | string
-    license_number?: NullableStringFieldUpdateOperationsInput | string | null
-    service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
-    logo_url?: InputJsonValue | InputJsonValue | null
-    country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    latitude?: NullableStringFieldUpdateOperationsInput | string | null
-    longitude?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    social_networks?: InputJsonValue | InputJsonValue | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
-    services?: ServiceUpdateManyWithoutVendorNestedInput
-    promotions?: PromotionUpdateManyWithoutVendorNestedInput
-    team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
-    reviews?: ReviewUpdateManyWithoutVendorNestedInput
-  }
-
-  export type VendorUncheckedUpdateWithoutFaqsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    business_name?: StringFieldUpdateOperationsInput | string
-    business_category?: StringFieldUpdateOperationsInput | string
-    license_number?: NullableStringFieldUpdateOperationsInput | string | null
-    service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
-    logo_url?: InputJsonValue | InputJsonValue | null
-    country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    latitude?: NullableStringFieldUpdateOperationsInput | string | null
-    longitude?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
-    phone_number?: StringFieldUpdateOperationsInput | string
-    social_networks?: InputJsonValue | InputJsonValue | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
-    services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
-    promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -13688,6 +13864,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13697,7 +13874,6 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutVendorInput
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
-    faqs?: FAQCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUncheckedCreateWithoutReviewsInput = {
@@ -13718,6 +13894,7 @@ export namespace Prisma {
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean
@@ -13727,7 +13904,6 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
-    faqs?: FAQUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorCreateOrConnectWithoutReviewsInput = {
@@ -13744,11 +13920,13 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     vendor: VendorCreateNestedOneWithoutServicesInput
     availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
     media?: MediaCreateNestedManyWithoutServiceInput
+    views?: ViewsCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutReviewsInput = {
@@ -13761,10 +13939,12 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
     media?: MediaUncheckedCreateNestedManyWithoutServiceInput
+    views?: ViewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutReviewsInput = {
@@ -13800,6 +13980,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13809,7 +13990,6 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorUncheckedUpdateWithoutReviewsInput = {
@@ -13829,6 +14009,7 @@ export namespace Prisma {
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: BoolFieldUpdateOperationsInput | boolean
@@ -13838,7 +14019,6 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
-    faqs?: FAQUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type ServiceUpsertWithoutReviewsInput = {
@@ -13860,11 +14040,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneRequiredWithoutServicesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutReviewsInput = {
@@ -13876,10 +14058,12 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyVendorInput = {
@@ -13891,6 +14075,7 @@ export namespace Prisma {
     price?: number | null
     service_type: string
     rating?: number
+    faqs?: InputJsonValue | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13916,13 +14101,6 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
-  export type FAQCreateManyVendorInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    created_at?: Date | string
-  }
-
   export type ReviewCreateManyVendorInput = {
     id?: string
     serviceId?: string | null
@@ -13940,11 +14118,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUpdateManyWithoutServiceNestedInput
     media?: MediaUpdateManyWithoutServiceNestedInput
+    views?: ViewsUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutVendorInput = {
@@ -13955,11 +14135,13 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     media?: MediaUncheckedUpdateManyWithoutServiceNestedInput
+    views?: ViewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutVendorInput = {
@@ -13970,6 +14152,7 @@ export namespace Prisma {
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14031,24 +14214,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FAQUpdateWithoutVendorInput = {
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FAQUncheckedUpdateWithoutVendorInput = {
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FAQUncheckedUpdateManyWithoutVendorInput = {
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type ReviewUpdateWithoutVendorInput = {
     reviewerId?: StringFieldUpdateOperationsInput | string
     comment?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14095,6 +14260,15 @@ export namespace Prisma {
     image_urls: InputJsonValue
     video_urls: InputJsonValue
     uploaded_at?: Date | string
+  }
+
+  export type ViewsCreateManyServiceInput = {
+    id?: string
+    userId: string
+    viewCount?: number
+    lead?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AvailabilityUpdateWithoutServiceInput = {
@@ -14158,6 +14332,30 @@ export namespace Prisma {
     image_urls?: InputJsonValue | InputJsonValue
     video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUpdateWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViewsUncheckedUpdateManyWithoutServiceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    lead?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
