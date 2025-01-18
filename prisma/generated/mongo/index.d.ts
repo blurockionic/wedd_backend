@@ -4902,6 +4902,7 @@ export namespace Prisma {
     serviceId: string | null
     comment: string | null
     rating: number | null
+    user_name: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4912,6 +4913,7 @@ export namespace Prisma {
     serviceId: string | null
     comment: string | null
     rating: number | null
+    user_name: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4922,6 +4924,7 @@ export namespace Prisma {
     serviceId: number
     comment: number
     rating: number
+    user_name: number
     created_at: number
     updated_at: number
     _all: number
@@ -4942,6 +4945,7 @@ export namespace Prisma {
     serviceId?: true
     comment?: true
     rating?: true
+    user_name?: true
     created_at?: true
     updated_at?: true
   }
@@ -4952,6 +4956,7 @@ export namespace Prisma {
     serviceId?: true
     comment?: true
     rating?: true
+    user_name?: true
     created_at?: true
     updated_at?: true
   }
@@ -4962,6 +4967,7 @@ export namespace Prisma {
     serviceId?: true
     comment?: true
     rating?: true
+    user_name?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -5059,6 +5065,7 @@ export namespace Prisma {
     serviceId: string
     comment: string
     rating: number
+    user_name: string
     created_at: Date
     updated_at: Date
     _count: FeedbackCountAggregateOutputType | null
@@ -5088,6 +5095,7 @@ export namespace Prisma {
     serviceId?: boolean
     comment?: boolean
     rating?: boolean
+    user_name?: boolean
     created_at?: boolean
     updated_at?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -5100,6 +5108,7 @@ export namespace Prisma {
     serviceId?: boolean
     comment?: boolean
     rating?: boolean
+    user_name?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
@@ -5119,6 +5128,7 @@ export namespace Prisma {
       serviceId: string
       comment: string
       rating: number
+      user_name: string
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["feedback"]>
@@ -5519,6 +5529,7 @@ export namespace Prisma {
     readonly serviceId: FieldRef<"Feedback", 'String'>
     readonly comment: FieldRef<"Feedback", 'String'>
     readonly rating: FieldRef<"Feedback", 'Float'>
+    readonly user_name: FieldRef<"Feedback", 'String'>
     readonly created_at: FieldRef<"Feedback", 'DateTime'>
     readonly updated_at: FieldRef<"Feedback", 'DateTime'>
   }
@@ -9758,6 +9769,7 @@ export namespace Prisma {
     serviceId: 'serviceId',
     comment: 'comment',
     rating: 'rating',
+    user_name: 'user_name',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -10248,6 +10260,7 @@ export namespace Prisma {
     serviceId?: StringFilter<"Feedback"> | string
     comment?: StringFilter<"Feedback"> | string
     rating?: FloatFilter<"Feedback"> | number
+    user_name?: StringFilter<"Feedback"> | string
     created_at?: DateTimeFilter<"Feedback"> | Date | string
     updated_at?: DateTimeFilter<"Feedback"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
@@ -10259,6 +10272,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     comment?: SortOrder
     rating?: SortOrder
+    user_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     service?: ServiceOrderByWithRelationInput
@@ -10274,6 +10288,7 @@ export namespace Prisma {
     serviceId?: StringFilter<"Feedback"> | string
     comment?: StringFilter<"Feedback"> | string
     rating?: FloatFilter<"Feedback"> | number
+    user_name?: StringFilter<"Feedback"> | string
     created_at?: DateTimeFilter<"Feedback"> | Date | string
     updated_at?: DateTimeFilter<"Feedback"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
@@ -10285,6 +10300,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     comment?: SortOrder
     rating?: SortOrder
+    user_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: FeedbackCountOrderByAggregateInput
@@ -10303,6 +10319,7 @@ export namespace Prisma {
     serviceId?: StringWithAggregatesFilter<"Feedback"> | string
     comment?: StringWithAggregatesFilter<"Feedback"> | string
     rating?: FloatWithAggregatesFilter<"Feedback"> | number
+    user_name?: StringWithAggregatesFilter<"Feedback"> | string
     created_at?: DateTimeWithAggregatesFilter<"Feedback"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Feedback"> | Date | string
   }
@@ -10952,6 +10969,7 @@ export namespace Prisma {
     userId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
     service: ServiceCreateNestedOneWithoutFeedbackInput
@@ -10963,6 +10981,7 @@ export namespace Prisma {
     serviceId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -10971,6 +10990,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutFeedbackNestedInput
@@ -10981,6 +11001,7 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10991,6 +11012,7 @@ export namespace Prisma {
     serviceId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -10999,6 +11021,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11008,6 +11031,7 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11760,6 +11784,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     comment?: SortOrder
     rating?: SortOrder
+    user_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -11774,6 +11799,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     comment?: SortOrder
     rating?: SortOrder
+    user_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -11784,6 +11810,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     comment?: SortOrder
     rating?: SortOrder
+    user_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -12895,6 +12922,7 @@ export namespace Prisma {
     userId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -12904,6 +12932,7 @@ export namespace Prisma {
     userId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13087,6 +13116,7 @@ export namespace Prisma {
     serviceId?: StringFilter<"Feedback"> | string
     comment?: StringFilter<"Feedback"> | string
     rating?: FloatFilter<"Feedback"> | number
+    user_name?: StringFilter<"Feedback"> | string
     created_at?: DateTimeFilter<"Feedback"> | Date | string
     updated_at?: DateTimeFilter<"Feedback"> | Date | string
   }
@@ -13903,6 +13933,7 @@ export namespace Prisma {
     userId: string
     comment: string
     rating: number
+    user_name?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13948,6 +13979,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13956,6 +13988,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13964,6 +13997,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    user_name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

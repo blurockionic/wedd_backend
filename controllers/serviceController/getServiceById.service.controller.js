@@ -42,6 +42,7 @@ const getServiceById = async (req, res, next) => {
           rating:true,
           id:true,
           userId:true,
+          user_name:true
          }
         }
       },
