@@ -1,12 +1,14 @@
 import z from "zod";
-import { PrismaClient } from "../../prisma/generated/mongo/index.js";
+import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
+import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
+
+const postgresPrisma = new PostgresClient();
+const mongoPrisma = new MongoClient();
 
 const validateFeedback = z.object({
   comment: z.string().transform((str) => str.trim().toLowerCase()),
   rating: z.number().min(1).max(5),
 });
-
-const prisma = new PrismaClient();
 
 const feedback = async (req, res) => {
   try {
@@ -14,12 +16,12 @@ const feedback = async (req, res) => {
     const userId = req.user.id; // Authenticated user ID
     const { rating, comment } = validateFeedback.parse(req.body);
 
-    console.log("serviceId", serviceId);
-    console.log("userId", userId);
-    console.log("rating and comment", rating, comment);
+    const { user_name } = await postgresPrisma.User.findFirst({
+      where: { id: userId },
+    });
 
     // Check if the service exists
-    const serviceExists = await prisma.Service.findUnique({
+    const serviceExists = await mongoPrisma.Service.findUnique({
       where: { id: serviceId },
       select: { id: true },
     });
@@ -30,39 +32,39 @@ const feedback = async (req, res) => {
         message: "Service not found",
       });
     }
-
     // Check if feedback already exists for this user and service
-    const existingFeedback = await prisma.Feedback.findFirst({
-      where:{
-        userId, serviceId
-      }
+    const existingFeedback = await prisma.Feedback.findUnique({
+      where: {
+         userId, serviceId 
+      },
     });
 
     if (existingFeedback) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "You have already submitted feedback for this service.",
       });
     }
 
     // Create new feedback entry
-    const feedbackData = await prisma.Feedback.create({
+    const feedbackData = await mongoPrisma.Feedback.create({
       data: {
         serviceId,
         userId,
         rating,
         comment,
+        user_name,
       },
     });
 
     // Recalculate the average rating for the service
-    const { _avg } = await prisma.Feedback.aggregate({
+    const { _avg } = await mongoPrisma.Feedback.aggregate({
       where: { serviceId },
       _avg: { rating: true },
     });
 
     // Update the service's average rating
-    await prisma.Service.update({
+    await mongoPrisma.Service.update({
       where: { id: serviceId },
       data: {
         rating: parseFloat((_avg.rating || 0).toFixed(2)),

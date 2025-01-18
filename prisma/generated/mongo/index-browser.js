@@ -168,6 +168,7 @@ exports.Prisma.FeedbackScalarFieldEnum = {
   serviceId: 'serviceId',
   comment: 'comment',
   rating: 'rating',
+  user_name: 'user_name',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };

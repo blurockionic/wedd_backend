@@ -21,7 +21,7 @@ serviceRouter.route("/").get(getAllServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 serviceRouter.route("/makeLead/:id").put(jwtAuthentication,roleMiddleware(["user"]),makeLead)
-serviceRouter.route("/feedback/:id").post(jwtAuthentication,roleMiddleware(["user"]),feedback)
+serviceRouter.route("/feedback/:id/").post(jwtAuthentication,roleMiddleware(["user"]),feedback)
 
 
 serviceRouter.use([jwtAuthentication, roleMiddleware(["vendor", "admin"])]);
