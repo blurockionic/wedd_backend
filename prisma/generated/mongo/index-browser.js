@@ -162,6 +162,16 @@ exports.Prisma.ViewsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  comment: 'comment',
+  rating: 'rating',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.AvailabilityScalarFieldEnum = {
   id: 'id',
   serviceId: 'serviceId',
@@ -202,16 +212,6 @@ exports.Prisma.PromotionScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  vendorId: 'vendorId',
-  serviceId: 'serviceId',
-  reviewerId: 'reviewerId',
-  comment: 'comment',
-  type: 'type',
-  created_at: 'created_at'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -221,20 +221,17 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.ReviewType = exports.$Enums.ReviewType = {
-  VENDOR: 'VENDOR',
-  SERVICE: 'SERVICE'
-};
+
 
 exports.Prisma.ModelName = {
   Vendor: 'Vendor',
   Service: 'Service',
   Views: 'Views',
+  Feedback: 'Feedback',
   Availability: 'Availability',
   Media: 'Media',
   TeamMember: 'TeamMember',
-  Promotion: 'Promotion',
-  Review: 'Review'
+  Promotion: 'Promotion'
 };
 
 /**
