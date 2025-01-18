@@ -29,8 +29,7 @@ model Vendor {
   services          Service[]           @relation("VendorServices")  // One-to-many relation
   promotions        Promotion[]       // One-to-many relation
   team_members      TeamMember[]      // One-to-many relation
-  faqs              Json?            
-  reviews           Review[]  
+  faqs              Json?             
   created_at        DateTime          @default(now())
   updated_at        DateTime          @updatedAt
   is_verified       Boolean             @default(false)
@@ -51,7 +50,7 @@ model Service {
   service_type   String
   rating         Float          @default(0.0)
   availabilities Availability[]   
-  reviews        Review[]         
+  feedback        Feedback[]         
   media         Media[]    @relation("ServiceToMedia")  
   views          Views[]    
   faqs          Json?
@@ -70,6 +69,20 @@ model Views {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   @@unique([serviceId, userId])
+  @@index([serviceId])
+}
+
+model Feedback {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @unique
+  serviceId   String   @db.ObjectId
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  comment     String
+  rating      Float    
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+ @@unique([serviceId, userId])
+  @@index([serviceId])
 }
 
 
@@ -122,20 +135,6 @@ model Promotion {
 }
 
 
-model Review {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId    String   @db.ObjectId
-  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-
-  serviceId   String?  @db.ObjectId  // Service ID for reviews associated with a service
-  service     Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
-  reviewerId  String   // ID of the user who submitted the review
-  comment     String?  // Optional user comment
-  type        ReviewType
-
-  created_at  DateTime @default(now())
-}
 
 
 enum ReviewType {
