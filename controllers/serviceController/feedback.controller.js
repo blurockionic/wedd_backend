@@ -28,14 +28,15 @@ const feedback = async (req, res) => {
     }
 
     // Check if feedback already exists for this user and service
-    const existingFeedback = await prisma.Feedback.findUnique({
+    const existingFeedback = await prisma.Feedback.findFirst({
       where: {
-        userId_serviceId: { userId, serviceId }, // Composite key
+        userId,
+        serviceId,
       },
     });
 
     if (existingFeedback) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "You have already submitted feedback for this service.",
       });
