@@ -42,7 +42,8 @@ const getServiceById = async (req, res, next) => {
           comment:true,
           rating:true,
           id:true,
-          userId:true
+          userId:true,
+          user_name:true
          }
         }
       },

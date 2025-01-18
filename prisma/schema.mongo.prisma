@@ -81,7 +81,8 @@ model Feedback {
   serviceId   String   @db.ObjectId
   service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   comment     String
-  rating      Float    
+  rating      Float 
+  user_name   String   @default("")  
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
  @@unique([serviceId, userId])
