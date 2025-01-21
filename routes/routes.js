@@ -9,6 +9,8 @@ import serviceRouter from './services.route.js';
 import bookingRouter from './booking.route.js';
 import cartRouter from './cart.route.js';
 import AnalyticsRouter from './analytics.route.js';
+import planRouter from './plan.route.js';
+import subscribeRouter from './subscribe.route.js';
 
 
 routes.use("/users", UserRouter);
@@ -17,6 +19,8 @@ routes.use("/services", serviceRouter);
 routes.use("/booking", bookingRouter);
 routes.use('/cart',cartRouter);
 routes.use("/analytics",AnalyticsRouter)
+routes.use("/plan",planRouter)
+routes.use("/subscribe",subscribeRouter)
 
 
 
