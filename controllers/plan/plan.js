@@ -1,4 +1,5 @@
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
+import CustomError from "../../utils/CustomError.js";
 
 const mongoPrisma = new MongoClient();
 
@@ -85,13 +86,36 @@ export const editPlan = async (req, res, next) => {
       data: updatedData,
     });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Plan updated successfully",
-        updatedPlan,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Plan updated successfully",
+      updatedPlan,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPlan = async (req, res, next) => {
+  const {id} = req.params;
+  try {
+    if (!id) {
+      throw new CustomError("plan id required", 404, false);
+    }
+
+    const plan = await mongoPrisma.Plan.findUnique({
+      where: { id },
+    });
+
+    if (!plan) {
+      throw new CustomError("plan not found", 404, false);
+    }
+
+    res.status(201).json({
+      success: true,
+      message: "paln fetched successfully",
+      plan,
+    });
   } catch (error) {
     next(error);
   }
