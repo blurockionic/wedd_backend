@@ -1,4 +1,4 @@
-import  {PrismaClient}  from '../prisma/generated/mongo/index.js';
+import  {PrismaClient}  from '../prisma/generated/mongo/index.js'
 
 class PrismaServiceMongo {
   constructor() {
