@@ -39,7 +39,7 @@ const vendorLogout = async (req, res, next) => {
       });
   } catch (error) {
     console.error("Vendor Logout Error:", error);
-    next(new CustomError("Failed to log out vendor", 500));
+    next(error);
   }
 };
 
