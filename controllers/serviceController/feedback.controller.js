@@ -33,9 +33,10 @@ const feedback = async (req, res) => {
       });
     }
     // Check if feedback already exists for this user and service
-    const existingFeedback = await prisma.Feedback.findUnique({
+    const existingFeedback = await mongoPrisma.Feedback.findFirst({
       where: {
-         userId, serviceId 
+        userId,
+        serviceId,
       },
     });
 
@@ -83,6 +84,5 @@ const feedback = async (req, res) => {
     });
   }
 };
-
 
 export default feedback;

@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 const deleteService = async (req, res, next) => {
     try {
       const serviceId = req.params.id;
+
+      console.log(serviceId)
+      console.log(req.user.id)
       
       // Attempt to delete the service from the database
       const deletedService = await prisma.Service.delete({
