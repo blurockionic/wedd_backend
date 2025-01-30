@@ -1,40 +1,42 @@
 import jwt from "jsonwebtoken";
 import CustomError from "../utils/CustomError.js";
+
+// Validate environment variable at startup
+if (!process.env.ACCESS_TOKEN_SECRET) {
+  throw new Error("ACCESS_TOKEN_SECRET environment variable is missing");
+}
+
 const jwtAuthentication = (req, res, next) => {
   try {
-    // Extract the token from the cookies or Authorization header
+    // Extract token from cookies or Authorization header
     const token =
       req.cookies.accessToken ||
-      (req.headers["authorization"] &&
-        req.headers["authorization"].startsWith("Bearer ") &&
-        req.headers["authorization"].split(" ")[1]);
+      (req.headers.authorization?.startsWith("Bearer ") &&
+        req.headers.authorization.split(" ")[1]);
 
-    // If no token is found, deny access
     if (!token) {
-      throw new CustomError("Access token is missing or invalid", 403);
+      return next(new CustomError("Unauthorized: No token provided", 401)); // 401 instead of 403
     }
 
-    // Verify and decode the token
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    // Attach the decoded user data to the request object
     req.user = decoded;
 
-    // // Optional: Log the user data during development
-    // if (process.env.NODE_ENV === "development") {
-    //   console.log("Authenticated user:", req.user);
-    // }
+    // Optional logging
+    if (process.env.NODE_ENV === "development") {
+      console.log(`Authenticated user: ${decoded.id}`);
+    }
 
     next();
   } catch (error) {
-    // Handle token verification errors
+    // Handle JWT-specific errors
     if (error.name === "TokenExpiredError") {
-      return new CustomError("Token has expired. Please log in again", 401);
+      return next(new CustomError("Token expired. Please log in again", 401));
     }
     if (error.name === "JsonWebTokenError") {
-      return new CustomError("Invalid token. Please log in again."), 403;
+      return next(new CustomError("Invalid token. Please log in again", 401));
     }
 
+    // Forward other errors
     next(error);
   }
 };
