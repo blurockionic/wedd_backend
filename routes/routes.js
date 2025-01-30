@@ -12,7 +12,7 @@ import AnalyticsRouter from './analytics.route.js';
 import planRouter from './plan.route.js';
 import subscribeRouter from './subscribe.route.js';
 
-
+routes.use("/subscribe",subscribeRouter)
 routes.use("/users", UserRouter);
 routes.use("/vendors", vendorRouter);
 routes.use("/services", serviceRouter);
@@ -20,7 +20,7 @@ routes.use("/booking", bookingRouter);
 routes.use('/cart',cartRouter);
 routes.use("/analytics",AnalyticsRouter)
 routes.use("/plan",planRouter)
-routes.use("/subscribe",subscribeRouter)
+
 
 
 

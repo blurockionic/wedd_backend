@@ -1,4 +1,26 @@
-node_modules
-# Keep environment variables out of version control
+# Node.js dependencies
+node_modules/
+
+# Environment variables
 .env
-logs/application-2025-01-02.log
+
+# Log files
+logs/*.log
+
+# Prisma generated files
+prisma/generated/*
+prisma/migrations/*
+
+
+# Debugging logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor-specific files
+.vscode/
+.idea/
+.DS_Store
+
+# OS-specific files
+Thumbs.db
