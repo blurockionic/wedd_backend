@@ -33,6 +33,7 @@
     "nodemailer": "^6.9.16",
     "razorpay": "^2.9.5",
     "uuid": "^11.0.5",
+    "razorpay": "^2.9.5",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0",
     "zod": "^3.23.8"

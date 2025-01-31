@@ -97,15 +97,10 @@ export const editPlan = async (req, res, next) => {
 };
 
 export const getPlan = async (req, res, next) => {
-  const {id} = req.params;
   try {
-    if (!id) {
-      throw new CustomError("plan id required", 404, false);
-    }
+    
 
-    const plan = await mongoPrisma.Plan.findUnique({
-      where: { id },
-    });
+    const plan = await mongoPrisma.Plan.findMany();
 
     if (!plan) {
       throw new CustomError("plan not found", 404, false);

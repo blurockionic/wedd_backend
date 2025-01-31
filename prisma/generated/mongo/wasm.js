@@ -17,11 +17,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.0-dev.9
+ * Prisma Client JS version: 6.2.1
  * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
  */
 Prisma.prismaVersion = {
-  client: "6.2.0-dev.9",
+  client: "6.2.1",
   engine: "4123509d24aa4dede1e864b46351bf2790323b69"
 }
 
@@ -213,6 +213,52 @@ exports.Prisma.PromotionScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.PlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  duration: 'duration',
+  description: 'description',
+  features: 'features',
+  trial_period: 'trial_period',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  planId: 'planId',
+  status: 'status',
+  order_id: 'order_id',
+  payment_id: 'payment_id',
+  razorpay_subscription_id: 'razorpay_subscription_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  auto_renew: 'auto_renew',
+  is_trial: 'is_trial',
+  trial_end_date: 'trial_end_date',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  vendorId: 'vendorId',
+  subscriptionId: 'subscriptionId',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  payment_method: 'payment_method',
+  razorpay_payment_id: 'razorpay_payment_id',
+  refund_id: 'refund_id',
+  is_refunded: 'is_refunded',
+  failure_reason: 'failure_reason',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -222,7 +268,19 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED'
+};
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+};
 
 exports.Prisma.ModelName = {
   Vendor: 'Vendor',
@@ -232,7 +290,10 @@ exports.Prisma.ModelName = {
   Availability: 'Availability',
   Media: 'Media',
   TeamMember: 'TeamMember',
-  Promotion: 'Promotion'
+  Promotion: 'Promotion',
+  Plan: 'Plan',
+  Subscription: 'Subscription',
+  Payment: 'Payment'
 };
 
 /**
