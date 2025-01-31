@@ -879,6 +879,7 @@ export declare namespace DMMF {
         createManyAndReturn?: string | null;
         update?: string | null;
         updateMany?: string | null;
+        updateManyAndReturn?: string | null;
         upsert?: string | null;
         delete?: string | null;
         deleteMany?: string | null;
@@ -899,6 +900,7 @@ export declare namespace DMMF {
         createManyAndReturn = "createManyAndReturn",
         update = "update",
         updateMany = "updateMany",
+        updateManyAndReturn = "updateManyAndReturn",
         upsert = "upsert",
         delete = "delete",
         deleteMany = "deleteMany",
@@ -1706,6 +1708,7 @@ export declare type GetResult<Payload extends OperationPayload, Args, OperationN
     createManyAndReturn: GetFindResult<Payload, Args, ClientOptions>[];
     update: GetFindResult<Payload, Args, ClientOptions>;
     updateMany: GetBatchResult;
+    updateManyAndReturn: GetFindResult<Payload, Args, ClientOptions>[];
     upsert: GetFindResult<Payload, Args, ClientOptions>;
     delete: GetFindResult<Payload, Args, ClientOptions>;
     deleteMany: GetBatchResult;
@@ -1956,7 +1959,7 @@ export declare type JsonQuery = {
     query: JsonFieldSelection;
 };
 
-declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
+declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'updateManyAndReturn' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
 
 declare type JsonSelectionSet = {
     $scalars?: boolean;
@@ -2243,7 +2246,7 @@ export { Omit_2 as Omit }
 
 export declare type OmitValue<Omit, Key> = Key extends keyof Omit ? Omit[Key] : false;
 
-export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
+export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'updateManyAndReturn' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
 
 export declare type OperationPayload = {
     name: string;
