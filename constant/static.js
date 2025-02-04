@@ -1,5 +1,5 @@
 export  const registerEmailContent = (token,role) => ({
-    subject: "Weed-Clone Email Verification",
+    subject: "marriage vendors Email Verification",
     text: `Click on the link below to verify your email: ${process.env.BACKEND_URL}/api/v1/users/verify-email?token=${token}&entityType=${role}`,
     html: `
       <p>Hello,</p>
@@ -10,7 +10,7 @@ export  const registerEmailContent = (token,role) => ({
     `,
   });
   export const vendorRegisterEmailContent = (token,role) => ({
-    subject: "Weed-Clone Vendor Email Verification",
+    subject: "marriage vendors  Email Verification",
     text: `Click on the link below to verify your email as a vendor: ${process.env.BACKEND_URL}/api/v1/vendors/verify-email=${token}&entityType=${role}`,
     html: `
       <p>Hello,</p>
@@ -38,7 +38,7 @@ export  const registerEmailContent = (token,role) => ({
   
 
   export const vendorResetPassEmailContent = (token) => ({
-    subject: "Weed-Clone Vendor Password Reset Request",
+    subject: "marriage vendors  Password Reset Request",
     text: `Click on the link below to reset your vendor password: ${process.env.BASE_URL}/vendor-change-password?token=${token}`,
     html: `
       <p>Hello,</p>

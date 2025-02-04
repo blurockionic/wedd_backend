@@ -13,7 +13,7 @@ import planRouter from './plan.route.js';
 import subscribeRouter from './subscribe.route.js';
 import checklistRouter from './checklist.route.js';
 
-
+routes.use("/subscribe",subscribeRouter)
 routes.use("/users", UserRouter);
 routes.use("/vendors", vendorRouter);
 routes.use("/services", serviceRouter);
@@ -21,8 +21,8 @@ routes.use("/booking", bookingRouter);
 routes.use('/cart',cartRouter);
 routes.use("/analytics",AnalyticsRouter)
 routes.use("/plan",planRouter)
-routes.use("/subscribe",subscribeRouter)
 routes.use("/checklist", checklistRouter)
+
 
 
 
