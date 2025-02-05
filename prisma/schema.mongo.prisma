@@ -51,6 +51,7 @@ model Service {
   max_price      Float?
   price          Float?
   service_type   String
+  service_unit   String?
   rating         Float          @default(0.0)
   availabilities Availability[]
   feedback       Feedback[]
@@ -171,23 +172,36 @@ model Subscription {
 }
 
 model Payment {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId       String? @db.ObjectId
-  vendor         Vendor? @relation(fields: [vendorId], references: [id])
-  subscriptionId String? @db.ObjectId
-
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId            String?       @db.ObjectId
+  vendor              Vendor?       @relation(fields: [vendorId], references: [id])
+  subscriptionId      String?       @db.ObjectId
   subscription        Subscription? @relation(fields: [subscriptionId], references: [id])
-  amount              Float // Amount paid
-  currency            String // "INR", "USD", etc.
+  
+  amount              Float         // Amount paid
+  currency            String        // Currency: "INR", "USD", etc.
   status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
-  payment_method      String // "UPI", "card", etc.
-  razorpay_payment_id String? // Razorpay payment ID
-  refund_id           String? // Razorpay refund ID (if applicable)
+  payment_method      String?       // "UPI", "card", etc.
+  razorpay_order_id   String?       // Razorpay Order ID
+  razorpay_payment_id String?       // Razorpay Payment ID
+  refund_id           String?       // Razorpay refund ID (if applicable)
   is_refunded         Boolean       @default(false)
-  failure_reason      String? // If payment failed
+  failure_reason      String?       // If payment failed
+  vpa                   String?
+  fee                 Float?        // Razorpay's fee (converted to the base currency)
+  tax                 Float?        // Tax on the transaction (converted to the base currency)
+  rrn                 String?       // Reference Retrieval Number (for banking transactions)
+  upi_transaction_id  String?       // UPI transaction ID if applicable
+  email               String?       // Payer's email
+  contact             String?       // Payer's contact number
+  acquirer_data       Json?         // Acquirer data from Razorpay (e.g., bank details, UPI data)
+  notes               Json?         // Additional notes or metadata
+  autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
+
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
 }
+
 
 enum SubscriptionStatus {
   PENDING

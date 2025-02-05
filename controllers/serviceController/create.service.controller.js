@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 
 const createService = async (req, res, next) => {
   try {
-    // Validate request body
+ 
     const validatedData = serviceCreateSchema.parse(req.body);
 
     // Extract vendor information from authenticated user

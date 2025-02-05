@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 const updateService = async (req, res, next) => {
 
-  console.log("hi from update",req.body);
   
   try {
     // Validate the request body using the existing service schema
