@@ -17,6 +17,8 @@ const getVendorDashboardData = async (req, res, next) => {
       throw new CustomError(`No services found for vendor with ID ${vendorId}.`, 404);
     }
 
+    console.log(services,"services");
+
     const { _sum: totalViewsData, _count: totalLeadsData } = await prisma.Views.aggregate({
       _sum: {
         viewCount: true,
@@ -48,16 +50,18 @@ const getVendorDashboardData = async (req, res, next) => {
     });
 
     const servicesWithViewData = services.map(service => {
-      const viewData = aggregatedViewsData.find(data => data.serviceId === service.id);
+    const viewData = aggregatedViewsData.find(data => data.serviceId === service.id);
 
       return {
         id: service.id,
-        name: service.name,
+        name: service.service_name,
         description: service.description,
         totalViews: viewData ? viewData._sum.viewCount : 0,
         totalLeads: viewData ? viewData._count.lead : 0,
       };
     });
+
+    console.log(totalViewsData.viewCount,"view count");
 
     // Sort services by totalViews in descending order and get the top three
     const topThreeServices = [...servicesWithViewData]

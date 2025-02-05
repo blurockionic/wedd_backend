@@ -11,7 +11,11 @@ import cartRouter from './cart.route.js';
 import AnalyticsRouter from './analytics.route.js';
 import planRouter from './plan.route.js';
 import subscribeRouter from './subscribe.route.js';
+<<<<<<< HEAD
 import generateDescription from '../controllers/AIDescription.controller.js';
+=======
+import checklistRouter from './checklist.route.js';
+>>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
 
 
 routes.use("/users", UserRouter);
@@ -22,7 +26,11 @@ routes.use('/cart',cartRouter);
 routes.use("/analytics",AnalyticsRouter)
 routes.use("/plan",planRouter)
 routes.use("/subscribe",subscribeRouter)
+<<<<<<< HEAD
 routes.use("/generateAIDescription",generateDescription)
+=======
+routes.use("/checklist", checklistRouter)
+>>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
 
 
 

@@ -181,10 +181,16 @@ model Payment {
   amount              Float         // Amount paid
   currency            String        // Currency: "INR", "USD", etc.
   status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
+<<<<<<< HEAD
   payment_method      String?       // "UPI", "card", etc.
   razorpay_order_id   String?       // Razorpay Order ID
   razorpay_payment_id String?       // Razorpay Payment ID
   refund_id           String?       // Razorpay refund ID (if applicable)
+=======
+  payment_method      String? // "UPI", "card", etc.
+  razorpay_payment_id String? // Razorpay payment ID
+  refund_id           String? // Razorpay refund ID (if applicable)
+>>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
   is_refunded         Boolean       @default(false)
   failure_reason      String?       // If payment failed
   vpa                   String?
