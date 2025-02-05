@@ -123,8 +123,6 @@ export const vendorRegisterEmailContent = (token, role) => ({
   `,
 });
 
-
-
 // reset password for user 
 export const resetPassEmailContent = (token) => ({
   subject: "🔒 Reset Your Password - Secure Your Account | Marriage Vendors",
@@ -180,9 +178,6 @@ Marriage Vendors Team`,
   `,
 });
 
-
-
-  
 // reset password for vendor 
 export const vendorResetPassEmailContent = (token) => ({
   subject: "🔒 Reset Your Vendor Password - Marriage Vendors",
