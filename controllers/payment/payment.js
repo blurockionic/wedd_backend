@@ -12,18 +12,10 @@ export const instance = new Razorpay({
 
 // Create Razorpay Order
 export const createOrder = async (req, res, next) => {
-<<<<<<< HEAD
-=======
-  
->>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
   try {
     const { planId } = req.params;
     const vendorId = req.user.id;
 
-<<<<<<< HEAD
-=======
-    // console.log(planId,vendorId);
->>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
     
 
     if (!planId) {
@@ -50,25 +42,14 @@ export const createOrder = async (req, res, next) => {
       },
     };
 
-    console.log(instance);
 
     
 
     const order = await instance.orders.create(options);
-<<<<<<< HEAD
-    console.log(order);
     const subscription = await mongoPrisma.Subscription.create({
       data: {
         vendorId: vendorId,
         order_id: order.id,
-=======
-    // console.log(order);
-    
-    const subscription = await mongoPrisma.Subscription.create({
-      data: {
-        vendorId: vendorId,
-        order_id:order.id,
->>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
         planId: planId,
         status: "PENDING", 
         start_date: new Date(),
@@ -76,12 +57,7 @@ export const createOrder = async (req, res, next) => {
       },
     });
 
-<<<<<<< HEAD
     await mongoPrisma.Payment.create({
-=======
-
-   const data = await mongoPrisma.payment.create({
->>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
       data: {
         vendorId: vendorId,
         subscriptionId: subscription.id,
@@ -91,17 +67,11 @@ export const createOrder = async (req, res, next) => {
       },
     });
 
-
-
     res.status(201).json({
       success: true,
       message: "Order created successfully",
-<<<<<<< HEAD
       order,
       subscription,
-=======
-      order
->>>>>>> 8320f677327545dad4e75bb13e82303acae0641e
     });
   } catch (error) {
     next(error);
