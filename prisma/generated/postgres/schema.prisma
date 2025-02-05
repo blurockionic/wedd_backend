@@ -12,8 +12,8 @@ datasource db_postgres {
 }
 
 model User {
-  id                  String    @id @default(uuid())
-  email               String    @unique
+  id                  String      @id @default(uuid())
+  email               String      @unique
   refresh_Token       String?
   password_hash       String
   resetPassword_Token String?
@@ -23,12 +23,13 @@ model User {
   role                Role
   wedding_date        DateTime?
   wedding_location    String?
-  created_at          DateTime  @default(now())
-  is_verified         Boolean   @default(false)
+  created_at          DateTime    @default(now())
+  is_verified         Boolean     @default(false)
   bookings            Booking[]
   reviews             Review[]
   cart                Cart[]
   updated_at          DateTime?
+  checklists          Checklist[] @relation(name: "UserChecklists")
 }
 
 model Booking {
@@ -55,6 +56,15 @@ model Cart {
   createdAt DateTime @default(now()) // Timestamp when the service was added
 
   @@unique([userId, serviceId])
+}
+
+model Checklist {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(name: "UserChecklists", fields: [userId], references: [id])
+  items     Json // Store checklist items as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Payment {

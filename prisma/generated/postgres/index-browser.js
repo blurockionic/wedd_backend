@@ -155,6 +155,14 @@ exports.Prisma.CartScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ChecklistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  items: 'items',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PaymentScalarFieldEnum = {
   payment_id: 'payment_id',
   booking_id: 'booking_id',
@@ -191,6 +199,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -199,6 +211,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -209,6 +227,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
   Cart: 'Cart',
+  Checklist: 'Checklist',
   Payment: 'Payment',
   Review: 'Review',
   EventSchedule: 'EventSchedule'
