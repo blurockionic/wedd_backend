@@ -37,7 +37,6 @@ const getServiceById = async (req, res, next) => {
           },
         },
         feedback:{
-         
          select:{
           comment:true,
           rating:true,

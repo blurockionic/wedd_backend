@@ -30,13 +30,15 @@ model Vendor {
   promotions          Promotion[] // One-to-many relation
   team_members        TeamMember[] // One-to-many relation
   faqs                Json?
-  reviews             Review[]
   created_at          DateTime     @default(now())
   updated_at          DateTime     @updatedAt
   is_verified         Boolean      @default(false)
   refresh_Token       String?
   resetPassword_Token String?
   role                String       @default("vendor") @db.String
+  payment             Payment[]
+
+  Subscription Subscription[]
 }
 
 model Service {
@@ -51,7 +53,7 @@ model Service {
   service_type   String
   rating         Float          @default(0.0)
   availabilities Availability[]
-  reviews        Review[]
+  feedback       Feedback[]
   media          Media[]        @relation("ServiceToMedia")
   views          Views[]
   faqs           Json?
@@ -72,6 +74,22 @@ model Views {
   updated_at DateTime @updatedAt
 
   @@unique([serviceId, userId])
+  @@index([serviceId])
+}
+
+model Feedback {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @unique
+  serviceId  String   @db.ObjectId
+  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  comment    String
+  rating     Float
+  user_name  String   @default("")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([serviceId, userId])
+  @@index([serviceId]) //index for lookup
 }
 
 model Availability {
@@ -118,22 +136,69 @@ model Promotion {
   created_at          DateTime @default(now())
 }
 
-model Review {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId String @db.ObjectId
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-
-  serviceId String?  @db.ObjectId // Service ID for reviews associated with a service
-  service   Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
-  reviewerId String // ID of the user who submitted the review
-  comment    String? // Optional user comment
-  type       ReviewType
-
-  created_at DateTime @default(now())
+model Plan {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  name          String // Name of the plan (e.g., "Basic", "Premium")
+  price         Float // Monthly or yearly cost
+  duration      String // Duration of the plan (e.g., "1 month", "1 year")
+  description   String // Description of the plan
+  features      Json?
+  trial_period  Int?
+  is_active     Boolean        @default(true)
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  subscriptions Subscription[]
 }
 
-enum ReviewType {
-  VENDOR
-  SERVICE
+model Subscription {
+  id                       String             @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId                 String?            @db.ObjectId
+  vendor                   Vendor?            @relation(fields: [vendorId], references: [id])
+  planId                   String             @db.ObjectId
+  plan                     Plan               @relation(fields: [planId], references: [id])
+  status                   SubscriptionStatus @default(PENDING)
+  order_id                 String
+  payment_id               String?
+  payments                 Payment[]
+  razorpay_subscription_id String?
+  start_date               DateTime           @default(now())
+  end_date                 DateTime?
+  auto_renew               Boolean            @default(true)
+  is_trial                 Boolean            @default(false) // Indicates if this subscription is a trial
+  trial_end_date           DateTime? // End date for the trial period
+  created_at               DateTime           @default(now())
+  updated_at               DateTime           @updatedAt
+}
+
+model Payment {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId       String? @db.ObjectId
+  vendor         Vendor? @relation(fields: [vendorId], references: [id])
+  subscriptionId String? @db.ObjectId
+
+  subscription        Subscription? @relation(fields: [subscriptionId], references: [id])
+  amount              Float // Amount paid
+  currency            String // "INR", "USD", etc.
+  status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
+  payment_method      String? // "UPI", "card", etc.
+  razorpay_payment_id String? // Razorpay payment ID
+  refund_id           String? // Razorpay refund ID (if applicable)
+  is_refunded         Boolean       @default(false)
+  failure_reason      String? // If payment failed
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+}
+
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
 }
