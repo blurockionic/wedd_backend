@@ -2,6 +2,7 @@ import { z } from "zod";
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 import { querySchema } from "../../validation schema/service.schema.js"; // Assuming schema is defined here
+import { stat } from "fs";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +21,7 @@ const getAllServices = async (req, res, next) => {
       sort_by, 
       sort_order,
       rating,
+      status,
       vendorId
     } = validatedQuery;
 
@@ -36,6 +38,9 @@ const getAllServices = async (req, res, next) => {
     
     // Add filters for vendorId if provided
     if (vendorId && vendorId!== null) where.vendorId = vendorId;
+
+    // Add filters for status if provided
+    if (status && status !== null) where.status = status;
   
 
     let vendorsInLocation
