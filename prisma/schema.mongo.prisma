@@ -52,6 +52,7 @@ model Service {
   price          Float?
   service_type   String
   service_unit   String?
+  status         String         @default("active")
   rating         Float          @default(0.0)
   availabilities Availability[]
   feedback       Feedback[]
@@ -141,7 +142,7 @@ model Plan {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String // Name of the plan (e.g., "Basic", "Premium")
   price         Float // Monthly or yearly cost
-  duration      String // Duration of the plan (e.g., "1 month", "1 year")
+  duration      String 
   description   String // Description of the plan
   features      Json?
   trial_period  Int?
@@ -177,7 +178,6 @@ model Payment {
   vendor              Vendor?       @relation(fields: [vendorId], references: [id])
   subscriptionId      String?       @db.ObjectId
   subscription        Subscription? @relation(fields: [subscriptionId], references: [id])
-  
   amount              Float         // Amount paid
   currency            String        // Currency: "INR", "USD", etc.
   status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
@@ -197,7 +197,6 @@ model Payment {
   acquirer_data       Json?         // Acquirer data from Razorpay (e.g., bank details, UPI data)
   notes               Json?         // Additional notes or metadata
   autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
-
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
 }

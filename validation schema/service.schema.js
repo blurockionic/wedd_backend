@@ -1,3 +1,4 @@
+import { stat } from "fs/promises";
 import { z } from "zod";
 
 export const serviceCreateSchema = z.object({
@@ -22,7 +23,7 @@ export const querySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1), // Coerce to number for page
   limit: z.coerce.number().int().positive().optional().default(10), // Coerce to number for limit
   service_type: z.string().optional(),
- 
+ status: z.string().optional(),
   minPrice: z.coerce.number().optional(), // Coerce string to number for minPrice
   rating: z.coerce.number().optional(), // Coerce string to number for rating
   sort_by: z.enum(['created_at', 'min_price', 'rating']).optional().default('created_at'), // Ensure valid enum values

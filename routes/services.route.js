@@ -12,6 +12,7 @@ import bulkInsertServices from '../controllers/serviceController/bulkInstertionO
 import { makeLead } from '../controllers/serviceController/lead.service.controller.js';
 import { deleteFaq, upsertFaq } from '../controllers/faq controller/faq.controller.js';
 import feedback from '../controllers/serviceController/feedback.controller.js';
+import serviceArchive from '../controllers/serviceController/archive.service.controller.js';
 
 
 
@@ -29,6 +30,7 @@ serviceRouter.route('/').post(createService);
 serviceRouter.route("/:id").put( updateService);
 serviceRouter.route("/:id").delete(deleteService);
 serviceRouter.route("/bulk").post(bulkInsertServices)
+serviceRouter.route("/serviceArchive/:id").put(serviceArchive)
 // add faq
 serviceRouter.post("/:serviceId/faq/:faqId?", upsertFaq);
 serviceRouter.delete("/:serviceId/faq/:faqId", deleteFaq);

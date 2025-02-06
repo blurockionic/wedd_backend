@@ -2,6 +2,7 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
 import CustomError from "../../utils/CustomError.js";
+import { parseDuration } from "../../helper/helper.js";
 
 const mongoPrisma = new MongoClient();
 
@@ -16,8 +17,6 @@ export const createOrder = async (req, res, next) => {
     const { planId } = req.params;
     const vendorId = req.user.id;
 
-    
-
     if (!planId) {
       throw new CustomError("Plan ID is required", 400, false);
     }
@@ -27,11 +26,7 @@ export const createOrder = async (req, res, next) => {
       throw new CustomError("Plan not found", 404, false);
     }
 
-
-
-
     const amount = plan.price * 100;
-
     const options = {
       amount: amount,
       currency: "INR",
@@ -42,20 +37,43 @@ export const createOrder = async (req, res, next) => {
       },
     };
 
-
-    
-
     const order = await instance.orders.create(options);
+
+    if (!order) {
+      throw new CustomError("Failed to create order with Razorpay", 500, false);
+    }
+
+    const userSubscriptions = await mongoPrisma.Subscription.findMany({where:{vendorId: vendorId}});
+
+    let is_trial = false;
+
+    if (userSubscriptions.length === 0) {
+      is_trial = true; 
+    }
+
     const subscription = await mongoPrisma.Subscription.create({
       data: {
         vendorId: vendorId,
         order_id: order.id,
         planId: planId,
-        status: "PENDING", 
+        status: "PENDING",
         start_date: new Date(),
-        auto_renew: true, 
+        end_date: new Date(
+          new Date().setMonth(
+            new Date().getMonth() + parseDuration(plan.duration)
+          )
+        ),
+        trial_end_date: plan.trial_period
+          ? new Date(
+              new Date().setDate(new Date().getDate() + plan.trial_period)
+            )
+          : null,
+        auto_renew: true,
+        is_trial,
       },
     });
+
+    console.log(subscription);
 
     await mongoPrisma.Payment.create({
       data: {
@@ -74,6 +92,7 @@ export const createOrder = async (req, res, next) => {
       subscription,
     });
   } catch (error) {
+    console.error("Error creating order:", error);
     next(error);
   }
 };
@@ -81,52 +100,60 @@ export const createOrder = async (req, res, next) => {
 // Verify Payment
 export const verifyPayment = async (req, res, next) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
 
-    // Validate inputs
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return res.status(400).json({ success: false, message: "Missing required fields!" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing required fields!" });
     }
 
-    // Generate expected signature
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.PAY_SECRET)
       .update(body)
       .digest("hex");
 
-    if (!crypto.timingSafeEqual(Buffer.from(expectedSignature), Buffer.from(razorpay_signature))) {
-      return res.status(400).json({ success: false, message: "Invalid signature!" });
+    if (
+      !crypto.timingSafeEqual(
+        Buffer.from(expectedSignature),
+        Buffer.from(razorpay_signature)
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid signature!" });
     }
 
-    // Fetch Subscription
     const subscription = await mongoPrisma.Subscription.findFirst({
       where: { order_id: razorpay_order_id },
     });
-
     if (!subscription) {
       console.error("Subscription not found for order_id:", razorpay_order_id);
       throw new CustomError("Subscription not found", 404);
     }
 
-    // Fetch Payment
     const payment = await mongoPrisma.Payment.findFirst({
       where: { subscriptionId: subscription.id },
     });
-
     if (!payment) {
-      console.error("Payment record not found for subscription:", subscription.id);
+      console.error(
+        "Payment record not found for subscription:",
+        subscription.id
+      );
       throw new CustomError("Payment record not found", 404);
     }
 
-    // Fetch payment details from Razorpay
     const razorpayPayment = await instance.payments.fetch(razorpay_payment_id);
     if (!razorpayPayment) {
-      console.error("Payment details not found in Razorpay:", razorpay_payment_id);
+      console.error(
+        "Payment details not found in Razorpay:",
+        razorpay_payment_id
+      );
       throw new CustomError("Payment details not found in Razorpay", 404);
     }
 
-    // Prepare updated payment data
     const updatedPaymentData = {
       status: razorpayPayment.status === "captured" ? "SUCCESS" : "FAILED",
       razorpay_payment_id,
@@ -146,7 +173,6 @@ export const verifyPayment = async (req, res, next) => {
       updated_at: new Date(),
     };
 
-    // Use a transaction to update both Payment & Subscription atomically
     await mongoPrisma.$transaction([
       mongoPrisma.Payment.update({
         where: { id: payment.id },
@@ -168,9 +194,7 @@ export const verifyPayment = async (req, res, next) => {
   }
 };
 
-
 // Get Payment History
-
 export const getPaymentHistory = async (req, res, next) => {
   try {
     const vendorId = req.user.id;
@@ -189,7 +213,9 @@ export const getPaymentHistory = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
+
+// Get Subscription
 export const getSubscription = async (req, res, next) => {
   try {
     const vendorId = req.user.id;
@@ -208,4 +234,4 @@ export const getSubscription = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
