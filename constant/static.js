@@ -13,7 +13,7 @@ export const registerEmailContent = (token, role) => ({
       <!-- Couple Image / Romantic Theme -->
       <img src="https://res.cloudinary.com/dyq1p22xk/image/upload/v1738726158/wedding-wire-clone/assets/profile_photo-1738726154668-353715542.png" alt="Happy Couple" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
       
-      <h2 style="color: #F20474; margin-top: 20px;">Welcome, Lovebirds! 💖</h2>
+      <h2 style="color: #F20474; margin-top: 20px;">Welcome to Marriage Vendors! 💖</h2>
       
       <p style="font-size: 16px; color: #333;">Hello,</p>
       <p style="font-size: 16px; color: #333;">
