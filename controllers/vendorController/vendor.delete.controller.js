@@ -25,6 +25,7 @@ const  deleteVendorAccount = async (req, res, next) => {
       // Step 4: Return a success response
       res.status(200).json({
         message: "Vendor account deleted successfully.",
+        success:true
       });
     } catch (error) {
    
