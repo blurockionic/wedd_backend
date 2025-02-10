@@ -15,10 +15,9 @@ model Vendor {
   business_category   String
   license_number      String?
   service_type        String[]     @default([]) // Ensure default value for arrays
-  description         String // Detailed description of the business
-  logo_url            Json?
+  description         String? // Detailed description of the business
+  logo_url             Json?
   country             String?
-  state               String?
   latitude            String?
   longitude           String?
   city                String?
@@ -107,7 +106,7 @@ model Availability {
 model Media {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   serviceId   String   @unique
-  service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia")
+  service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia",onDelete: Cascade)
   image_urls  Json
   video_urls  Json
   uploaded_at DateTime @default(now())

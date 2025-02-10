@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 const  deleteVendorAccount = async (req, res, next) => {
     try {
 
-      // Extract user ID from request object (assumes authentication middleware sets it)
 
       const id = req.user.id;
       
@@ -28,8 +27,6 @@ const  deleteVendorAccount = async (req, res, next) => {
         success:true
       });
     } catch (error) {
-   
-
       next(error); 
     }
   };
