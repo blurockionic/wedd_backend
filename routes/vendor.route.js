@@ -7,11 +7,14 @@ import vendorLogout from '../controllers/vendorController/vendor.logout.controll
 import requestVendorPasswordReset from '../controllers/vendorController/vendor.reqPasswordReset.js';
 import vendorRefreshAccessToken  from '../controllers/vendorController/vendor.refreshAccessToken.controlller.js';
 import deleteVendorAccount from '../controllers/vendorController/vendor.delete.controller.js';
-import updateVendor from '../controllers/vendorController/vendor.update.controller.js';
+import updateVendor, { uploadVendorMiddleware } from '../controllers/vendorController/vendor.update.controller.js';
 import getVendorById from '../controllers/vendorController/vendor.Details.controller.js';
 import { resetVendorPassword } from '../controllers/vendorController/vendor.resetPassword.controller.js';
 import roleMiddleware from '../middleware/role.middleware.js';
 import changePassword from '../controllers/vendorController/vendor.chnagePass.controller.js';
+
+
+
 
 
 const vendorRouter = express.Router();
@@ -25,7 +28,7 @@ vendorRouter.route("/request-password-reset").post(requestVendorPasswordReset)
 vendorRouter.route("/reset-password").post(resetVendorPassword)
 vendorRouter.route("/refresh-access-token").get(vendorRefreshAccessToken);
 vendorRouter.route("/delete").delete(jwtAuthentication,deleteVendorAccount)
-vendorRouter.route("/update").patch(jwtAuthentication,updateVendor)
+vendorRouter.route("/update").patch(jwtAuthentication, uploadVendorMiddleware,updateVendor)
 vendorRouter.route("/details/:id").get(getVendorById)
 vendorRouter.route("/change-password").patch(jwtAuthentication,roleMiddleware(["vendor"]),changePassword)
 

@@ -6,7 +6,7 @@ import upload from "../../middleware/multer.middleware.js";
 const prisma = new PrismaClient();
 
 const updateUser = async (req, res, next) => {
-  console.log("iam update user");
+ 
   
   try {
     // Validate user update input using Zod schema

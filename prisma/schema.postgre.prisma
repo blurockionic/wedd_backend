@@ -16,7 +16,7 @@ model User {
   refresh_Token        String?  
   password_hash        String
   resetPassword_Token  String?
-  profile_photo String?
+  profile_photo       String?
   user_name          String
   phone_number        String
   role                Role
