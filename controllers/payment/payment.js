@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
 import CustomError from "../../utils/CustomError.js";
 import { parseDuration } from "../../helper/helper.js";
-
+import logger from "../../config/logger.js";
 const mongoPrisma = new MongoClient();
 
 export const instance = new Razorpay({
@@ -42,13 +42,24 @@ export const createOrder = async (req, res, next) => {
     if (!order) {
       throw new CustomError("Failed to create order with Razorpay", 500, false);
     }
+    const latestActiveSubscription = await mongoPrisma.Subscription.findFirst({
+      where: { vendorId: vendorId, status: "ACTIVE" },
+      orderBy: { end_date: "desc" },
+    });
 
-    const userSubscriptions = await mongoPrisma.Subscription.findMany({where:{vendorId: vendorId}});
+    let startDate = new Date();
+    let endDate = new Date();
 
-    let is_trial = false;
+    if (latestActiveSubscription) {
+      startDate = latestActiveSubscription.end_date;
+      endDate = new Date(startDate);
 
-    if (userSubscriptions.length === 0) {
-      is_trial = true; 
+      endDate.setMonth(endDate.getMonth() + parseDuration(plan.duration));
+    } else {
+      if (plan.trial_period) {
+        endDate.setDate(endDate.getDate() + plan.trial_period);
+      }
+      endDate.setMonth(endDate.getMonth() + parseDuration(plan.duration));
     }
 
     const subscription = await mongoPrisma.Subscription.create({
@@ -57,23 +68,19 @@ export const createOrder = async (req, res, next) => {
         order_id: order.id,
         planId: planId,
         status: "PENDING",
-        start_date: new Date(),
-        end_date: new Date(
-          new Date().setMonth(
-            new Date().getMonth() + parseDuration(plan.duration)
-          )
-        ),
-        trial_end_date: plan.trial_period
+        start_date: startDate,
+        end_date: endDate,
+        trial_end_date: latestActiveSubscription
+          ? null
+          : plan.trial_period
           ? new Date(
               new Date().setDate(new Date().getDate() + plan.trial_period)
             )
           : null,
         auto_renew: true,
-        is_trial,
+        is_trial: !latestActiveSubscription && plan.trial_period ? true : false,
       },
     });
-
-    console.log(subscription);
 
     await mongoPrisma.Payment.create({
       data: {
@@ -154,6 +161,17 @@ export const verifyPayment = async (req, res, next) => {
       throw new CustomError("Payment details not found in Razorpay", 404);
     }
 
+    if (razorpayPayment.status !== "captured") {
+      logger.warn("Payment not captured in Razorpay:", {
+        paymentId: razorpay_payment_id,
+        status: razorpayPayment.status,
+      });
+      return res.status(400).json({
+        success: false,
+        message: `Payment not yet captured. Status: ${razorpayPayment.status}`,
+      });
+    }
+
     const updatedPaymentData = {
       status: razorpayPayment.status === "captured" ? "SUCCESS" : "FAILED",
       razorpay_payment_id,
@@ -171,6 +189,12 @@ export const verifyPayment = async (req, res, next) => {
       acquirer_data: razorpayPayment.acquirer_data,
       notes: razorpayPayment.notes,
       updated_at: new Date(),
+      autoRenew: subscription.auto_renew,
+    };
+
+    const updatedSubData = {
+      status: "ACTIVE",
+      payment_id: razorpay_payment_id,
     };
 
     await mongoPrisma.$transaction([
@@ -180,7 +204,7 @@ export const verifyPayment = async (req, res, next) => {
       }),
       mongoPrisma.Subscription.update({
         where: { id: subscription.id },
-        data: { status: "ACTIVE" },
+        data: updatedSubData,
       }),
     ]);
 

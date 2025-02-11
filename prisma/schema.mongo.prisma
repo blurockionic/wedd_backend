@@ -162,7 +162,6 @@ model Subscription {
   order_id                 String
   payment_id               String?
   payments                 Payment[]
-  razorpay_subscription_id String?
   start_date               DateTime           @default(now())
   end_date                 DateTime?
   auto_renew               Boolean            @default(true)
