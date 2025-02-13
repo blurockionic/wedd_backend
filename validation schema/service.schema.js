@@ -30,6 +30,7 @@ export const querySchema = z.object({
   sort_order: z.enum(['asc', 'desc']).optional().default('desc'),
   location: z.string().optional(),
   vendorId:z.string().optional(),
+  vendor_name:z.string().optional()
 });
 
 
