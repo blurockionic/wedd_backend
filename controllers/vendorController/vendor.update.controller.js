@@ -25,10 +25,15 @@ const updateVendor = async (req, res, next) => {
       return res.status(404).json({ message: "Vendor not found", success: false });
     }
 
+    const cleanedData = Object.fromEntries(
+      Object.entries(validatedData).filter(([_, value]) => value !== "")
+    );
+    
     const updatedVendor = await prisma.Vendor.update({
       where: { id: vendorId },
-      data: validatedData,
+      data: cleanedData,
     });
+
 
     const { password_hash, refresh_Token, resetPassword_Token, resetPassword_Expire, created_at, updated_at, ...vendorResponse } = updatedVendor;
 
