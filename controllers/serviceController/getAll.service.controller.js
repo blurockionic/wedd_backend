@@ -16,9 +16,10 @@ const getAllServices = async (req, res, next) => {
       limit = 10,
       service_type,
       minPrice,
-      location,
+      city,
       sort_by,
       sort_order,
+      state,
       rating,
       status,
       vendorId,
@@ -32,6 +33,7 @@ const getAllServices = async (req, res, next) => {
 
     // Add filters for price range if provided
     if (minPrice && minPrice !== null) where.min_price = { gte: minPrice };
+    if (state) where.state = state;
 
     // Add filters for rating if provided
     if (rating && rating !== null) where.rating = { gte: rating };
@@ -41,14 +43,14 @@ const getAllServices = async (req, res, next) => {
 
     if (status && status !== null) where.status = status;
 
-    let vendorIds = []; // To hold vendor IDs matching location or name
+    let vendorIds = []; // To hold vendor IDs matching city or name
 
-    // If location is provided, filter vendors by city
-    if (location) {
+    // If city is provided, filter vendors by city
+    if (city) {
       const vendorsInLocation = await prisma.Vendor.findMany({
         where: {
           city: {
-            contains: location.trim().toLowerCase(),
+            contains: city.trim().toLowerCase(),
             mode: "insensitive",
           },
         },
