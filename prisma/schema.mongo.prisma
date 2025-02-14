@@ -49,6 +49,8 @@ model Service {
   description    String
   min_price      Float?
   max_price      Float?
+  city                String?
+  state               String?
   price          Float?
   service_type   String
   service_unit   String?
