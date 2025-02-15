@@ -34,6 +34,7 @@ const getAllServices = async (req, res, next) => {
     // Add filters for price range if provided
     if (minPrice && minPrice !== null) where.min_price = { gte: minPrice };
     if (state) where.state = state;
+    if (city) where.city = city;
 
     // Add filters for rating if provided
     if (rating && rating !== null) where.rating = { gte: rating };
@@ -45,24 +46,24 @@ const getAllServices = async (req, res, next) => {
 
     let vendorIds = []; // To hold vendor IDs matching city or name
 
-    // If city is provided, filter vendors by city
-    if (city) {
-      const vendorsInLocation = await prisma.Vendor.findMany({
-        where: {
-          city: {
-            contains: city.trim().toLowerCase(),
-            mode: "insensitive",
-          },
-        },
-        select: { id: true },
-      });
+    // // If city is provided, filter vendors by city
+    // if (city) {
+    //   const vendorsInLocation = await prisma.Vendor.findMany({
+    //     where: {
+    //       city: {
+    //         contains: city.trim().toLowerCase(),
+    //         mode: "insensitive",
+    //       },
+    //     },
+    //     select: { id: true },
+    //   });
 
-      if (vendorsInLocation.length > 0) {
-        vendorIds = vendorsInLocation.map((vendor) => vendor.id);
-      } else {
-        throw new CustomError("No vendors found for the specified location", 404);
-      }
-    }
+    //   if (vendorsInLocation.length > 0) {
+    //     vendorIds = vendorsInLocation.map((vendor) => vendor.id);
+    //   } else {
+    //     throw new CustomError("No vendors found for the specified location", 404);
+    //   }
+    // }
 
     // If vendor_name is provided, filter by vendor name
     if (vendor_name && vendor_name.trim() !== "") {
