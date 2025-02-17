@@ -106,4 +106,5 @@ model EventSchedule {
 enum Role {
   USER
   ADMIN
+  SUPER_ADMIN
 }
