@@ -95,7 +95,6 @@ export const createOrder = async (req, res, next) => {
       },
     });
 
-    console.log(subscription);
 
     await mongoPrisma.Payment.create({
       data: {
@@ -277,7 +276,7 @@ export const getSubscription = async (req, res, next) => {
       include: { plan: true },
     });
 
-    console.log(subscriptions);
+
 
     res.status(200).json({
       success: true,
