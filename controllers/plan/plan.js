@@ -9,8 +9,6 @@ export const createPlan = async (req, res, next) => {
     const { name, price, duration, description, features, trial_period } =
       req.body;
 
-
-    console.log(name,price, duration,description);
     
 
     // Validate the necessary fields before creating the plan
