@@ -9,13 +9,14 @@ export const createPlan = async (req, res, next) => {
     const { name, price, duration, description, features, trial_period } =
       req.body;
 
-    // Validate the necessary fields before creating the plan
-    if (!name || !price || !duration || !description) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required" });
-    }
 
+    console.log(name,price, duration,description);
+    
+
+    // Validate the necessary fields before creating the plan
+    if (!name?.trim() || price === undefined || !duration?.trim() || !description?.trim()) {
+      return res.status(400).json({ success: false, message: "All fields are required" });
+    }
     const plan = await mongoPrisma.Plan.create({
       data: {
         name,
@@ -100,16 +101,22 @@ export const getPlan = async (req, res, next) => {
   try {
     
 
-    const plan = await mongoPrisma.Plan.findMany();
+    const plans = await mongoPrisma.Plan.findMany({
+      where: {
+        OR: [
+          { trial_period: 0 },        
+        ],
+      },
+    });
 
-    if (!plan) {
-      throw new CustomError("plan not found", 404, false);
+    if (!plans) {
+      throw new CustomError("plans not found", 404, false);
     }
 
     res.status(201).json({
       success: true,
       message: "paln fetched successfully",
-      plan,
+      plans,
     });
   } catch (error) {
     next(error);
