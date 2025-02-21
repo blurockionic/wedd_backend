@@ -85,8 +85,8 @@ if (cluster.isPrimary) {
 
   app.post("/orders", async (req, res) => {
     const razorpay = new Razorpay({
-      key_id: "rzp_test_vZpYWmGXUMEQ7W",
-      key_secret: "PZLnzm3sZxWQmFhujjloS4lN",
+      key_id: process.env.PAY_ID,
+      key_secret: process.env.PAY_SECRET,
     });
 
     const options = {
@@ -113,8 +113,8 @@ if (cluster.isPrimary) {
     const { paymentId } = req.params;
 
     const razorpay = new Razorpay({
-      key_id: "rzp_test_vZpYWmGXUMEQ7W",
-      key_secret: "PZLnzm3sZxWQmFhujjloS4lN",
+      key_id: process.env.PAY_ID,
+      key_secret: process.env.PAY_SECRET,
     });
 
     try {
