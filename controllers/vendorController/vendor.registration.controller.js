@@ -23,7 +23,7 @@ const vendorRegistration = async (req, res, next) => {
         // Email exists and is already verified
         return res
           .status(400)
-          .json({ message: "Email already exists and is verified." });
+          .json({ message: "Email already exists and is verified." ,success:false});
       } else {
         // Email exists but is not verified, resend the verification email
         const emailVerificationToken =
@@ -38,6 +38,7 @@ const vendorRegistration = async (req, res, next) => {
         return res.status(200).json({
           message:
             "Email already exists but not verified. Verification email resent.",
+            success:false
         });
       }
     }
