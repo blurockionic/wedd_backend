@@ -27,7 +27,7 @@ const verifyEmail = async (req, res, next) => {
 
     // Verify the token
     const decoded = jwt.verify(token, process.env.EMAIL_TOKEN_SECRET);
-   
+  
 
     // Determine the correct database and model
     const prismaClient = entityLower === 'user' ? postgresPrisma : mongoPrisma;
