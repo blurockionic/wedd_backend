@@ -15,14 +15,14 @@ model Vendor {
   business_category   String
   license_number      String?
   service_type        String[]     @default([]) // Ensure default value for arrays
-  description         String // Detailed description of the business
+  description         String? // Detailed description of the business
   logo_url            Json?
   country             String?
-  state               String?
   latitude            String?
   longitude           String?
   city                String?
   email               String       @unique
+  state               String?
   password_hash       String
   phone_number        String
   social_networks     Json?
@@ -49,8 +49,12 @@ model Service {
   description    String
   min_price      Float?
   max_price      Float?
+  city           String?
+  state          String?
   price          Float?
   service_type   String
+  service_unit   String?
+  status         String         @default("active")
   rating         Float          @default(0.0)
   availabilities Availability[]
   feedback       Feedback[]
@@ -105,7 +109,7 @@ model Availability {
 model Media {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   serviceId   String   @unique
-  service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia")
+  service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia", onDelete: Cascade)
   image_urls  Json
   video_urls  Json
   uploaded_at DateTime @default(now())
@@ -140,7 +144,7 @@ model Plan {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String // Name of the plan (e.g., "Basic", "Premium")
   price         Float // Monthly or yearly cost
-  duration      String // Duration of the plan (e.g., "1 month", "1 year")
+  duration      String
   description   String // Description of the plan
   features      Json?
   trial_period  Int?
@@ -151,40 +155,49 @@ model Plan {
 }
 
 model Subscription {
-  id                       String             @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId                 String?            @db.ObjectId
-  vendor                   Vendor?            @relation(fields: [vendorId], references: [id])
-  planId                   String             @db.ObjectId
-  plan                     Plan               @relation(fields: [planId], references: [id])
-  status                   SubscriptionStatus @default(PENDING)
-  order_id                 String
-  payment_id               String?
-  payments                 Payment[]
-  razorpay_subscription_id String?
-  start_date               DateTime           @default(now())
-  end_date                 DateTime?
-  auto_renew               Boolean            @default(true)
-  is_trial                 Boolean            @default(false) // Indicates if this subscription is a trial
-  trial_end_date           DateTime? // End date for the trial period
-  created_at               DateTime           @default(now())
-  updated_at               DateTime           @updatedAt
+  id             String             @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId       String?            @db.ObjectId
+  vendor         Vendor?            @relation(fields: [vendorId], references: [id])
+  planId         String             @db.ObjectId
+  plan           Plan               @relation(fields: [planId], references: [id])
+  status         SubscriptionStatus @default(PENDING)
+  order_id       String
+  payment_id     String?
+  payments       Payment[]
+  start_date     DateTime           @default(now())
+  end_date       DateTime?
+  auto_renew     Boolean            @default(true)
+  is_trial       Boolean            @default(false) // Indicates if this subscription is a trial
+  trial_end_date DateTime? // End date for the trial period
+  created_at     DateTime           @default(now())
+  updated_at     DateTime           @updatedAt
 }
 
 model Payment {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId       String? @db.ObjectId
-  vendor         Vendor? @relation(fields: [vendorId], references: [id])
-  subscriptionId String? @db.ObjectId
-
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId            String?       @db.ObjectId
+  vendor              Vendor?       @relation(fields: [vendorId], references: [id])
+  subscriptionId      String?       @db.ObjectId
   subscription        Subscription? @relation(fields: [subscriptionId], references: [id])
   amount              Float // Amount paid
-  currency            String // "INR", "USD", etc.
+  currency            String // Currency: "INR", "USD", etc.
   status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
   payment_method      String? // "UPI", "card", etc.
-  razorpay_payment_id String? // Razorpay payment ID
+  razorpay_order_id   String? // Razorpay Order ID
+  razorpay_payment_id String? // Razorpay Payment ID
   refund_id           String? // Razorpay refund ID (if applicable)
   is_refunded         Boolean       @default(false)
   failure_reason      String? // If payment failed
+  vpa                 String?
+  fee                 Float? // Razorpay's fee (converted to the base currency)
+  tax                 Float? // Tax on the transaction (converted to the base currency)
+  rrn                 String? // Reference Retrieval Number (for banking transactions)
+  upi_transaction_id  String? // UPI transaction ID if applicable
+  email               String? // Payer's email
+  contact             String? // Payer's contact number
+  acquirer_data       Json? // Acquirer data from Razorpay (e.g., bank details, UPI data)
+  notes               Json? // Additional notes or metadata
+  autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
 }

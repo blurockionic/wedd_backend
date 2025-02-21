@@ -1967,11 +1967,11 @@ export namespace Prisma {
     license_number: string | null
     description: string | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string | null
+    state: string | null
     password_hash: string | null
     phone_number: string | null
     created_at: Date | null
@@ -1990,11 +1990,11 @@ export namespace Prisma {
     license_number: string | null
     description: string | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string | null
+    state: string | null
     password_hash: string | null
     phone_number: string | null
     created_at: Date | null
@@ -2015,11 +2015,11 @@ export namespace Prisma {
     description: number
     logo_url: number
     country: number
-    state: number
     latitude: number
     longitude: number
     city: number
     email: number
+    state: number
     password_hash: number
     phone_number: number
     social_networks: number
@@ -2042,11 +2042,11 @@ export namespace Prisma {
     license_number?: true
     description?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     created_at?: true
@@ -2065,11 +2065,11 @@ export namespace Prisma {
     license_number?: true
     description?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     created_at?: true
@@ -2090,11 +2090,11 @@ export namespace Prisma {
     description?: true
     logo_url?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     social_networks?: true
@@ -2187,14 +2187,14 @@ export namespace Prisma {
     business_category: string
     license_number: string | null
     service_type: string[]
-    description: string
+    description: string | null
     logo_url: JsonValue | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string
+    state: string | null
     password_hash: string
     phone_number: string
     social_networks: JsonValue | null
@@ -2234,11 +2234,11 @@ export namespace Prisma {
     description?: boolean
     logo_url?: boolean
     country?: boolean
-    state?: boolean
     latitude?: boolean
     longitude?: boolean
     city?: boolean
     email?: boolean
+    state?: boolean
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
@@ -2269,11 +2269,11 @@ export namespace Prisma {
     description?: boolean
     logo_url?: boolean
     country?: boolean
-    state?: boolean
     latitude?: boolean
     longitude?: boolean
     city?: boolean
     email?: boolean
+    state?: boolean
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
@@ -2286,7 +2286,7 @@ export namespace Prisma {
     role?: boolean
   }
 
-  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "business_name" | "business_category" | "license_number" | "service_type" | "description" | "logo_url" | "country" | "state" | "latitude" | "longitude" | "city" | "email" | "password_hash" | "phone_number" | "social_networks" | "faqs" | "created_at" | "updated_at" | "is_verified" | "refresh_Token" | "resetPassword_Token" | "role", ExtArgs["result"]["vendor"]>
+  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "business_name" | "business_category" | "license_number" | "service_type" | "description" | "logo_url" | "country" | "latitude" | "longitude" | "city" | "email" | "state" | "password_hash" | "phone_number" | "social_networks" | "faqs" | "created_at" | "updated_at" | "is_verified" | "refresh_Token" | "resetPassword_Token" | "role", ExtArgs["result"]["vendor"]>
   export type VendorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Vendor$servicesArgs<ExtArgs>
     promotions?: boolean | Vendor$promotionsArgs<ExtArgs>
@@ -2312,14 +2312,14 @@ export namespace Prisma {
       business_category: string
       license_number: string | null
       service_type: string[]
-      description: string
+      description: string | null
       logo_url: Prisma.JsonValue | null
       country: string | null
-      state: string | null
       latitude: string | null
       longitude: string | null
       city: string | null
       email: string
+      state: string | null
       password_hash: string
       phone_number: string
       social_networks: Prisma.JsonValue | null
@@ -2736,11 +2736,11 @@ export namespace Prisma {
     readonly description: FieldRef<"Vendor", 'String'>
     readonly logo_url: FieldRef<"Vendor", 'Json'>
     readonly country: FieldRef<"Vendor", 'String'>
-    readonly state: FieldRef<"Vendor", 'String'>
     readonly latitude: FieldRef<"Vendor", 'String'>
     readonly longitude: FieldRef<"Vendor", 'String'>
     readonly city: FieldRef<"Vendor", 'String'>
     readonly email: FieldRef<"Vendor", 'String'>
+    readonly state: FieldRef<"Vendor", 'String'>
     readonly password_hash: FieldRef<"Vendor", 'String'>
     readonly phone_number: FieldRef<"Vendor", 'String'>
     readonly social_networks: FieldRef<"Vendor", 'Json'>
@@ -3284,8 +3284,12 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string | null
+    service_unit: string | null
+    status: string | null
     rating: number | null
     created_at: Date | null
     updated_at: Date | null
@@ -3298,8 +3302,12 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string | null
+    service_unit: string | null
+    status: string | null
     rating: number | null
     created_at: Date | null
     updated_at: Date | null
@@ -3312,8 +3320,12 @@ export namespace Prisma {
     description: number
     min_price: number
     max_price: number
+    city: number
+    state: number
     price: number
     service_type: number
+    service_unit: number
+    status: number
     rating: number
     faqs: number
     created_at: number
@@ -3343,8 +3355,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     created_at?: true
     updated_at?: true
@@ -3357,8 +3373,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     created_at?: true
     updated_at?: true
@@ -3371,8 +3391,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     faqs?: true
     created_at?: true
@@ -3473,8 +3497,12 @@ export namespace Prisma {
     description: string
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string
+    service_unit: string | null
+    status: string
     rating: number
     faqs: JsonValue | null
     created_at: Date
@@ -3507,8 +3535,12 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    city?: boolean
+    state?: boolean
     price?: boolean
     service_type?: boolean
+    service_unit?: boolean
+    status?: boolean
     rating?: boolean
     faqs?: boolean
     created_at?: boolean
@@ -3530,15 +3562,19 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    city?: boolean
+    state?: boolean
     price?: boolean
     service_type?: boolean
+    service_unit?: boolean
+    status?: boolean
     rating?: boolean
     faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "price" | "service_type" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "city" | "state" | "price" | "service_type" | "service_unit" | "status" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
@@ -3564,8 +3600,12 @@ export namespace Prisma {
       description: string
       min_price: number | null
       max_price: number | null
+      city: string | null
+      state: string | null
       price: number | null
       service_type: string
+      service_unit: string | null
+      status: string
       rating: number
       faqs: Prisma.JsonValue | null
       created_at: Date
@@ -3973,8 +4013,12 @@ export namespace Prisma {
     readonly description: FieldRef<"Service", 'String'>
     readonly min_price: FieldRef<"Service", 'Float'>
     readonly max_price: FieldRef<"Service", 'Float'>
+    readonly city: FieldRef<"Service", 'String'>
+    readonly state: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
+    readonly service_unit: FieldRef<"Service", 'String'>
+    readonly status: FieldRef<"Service", 'String'>
     readonly rating: FieldRef<"Service", 'Float'>
     readonly faqs: FieldRef<"Service", 'Json'>
     readonly created_at: FieldRef<"Service", 'DateTime'>
@@ -11617,7 +11661,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus | null
     order_id: string | null
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date | null
     end_date: Date | null
     auto_renew: boolean | null
@@ -11634,7 +11677,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus | null
     order_id: string | null
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date | null
     end_date: Date | null
     auto_renew: boolean | null
@@ -11651,7 +11693,6 @@ export namespace Prisma {
     status: number
     order_id: number
     payment_id: number
-    razorpay_subscription_id: number
     start_date: number
     end_date: number
     auto_renew: number
@@ -11670,7 +11711,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11687,7 +11727,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11704,7 +11743,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11794,7 +11832,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus
     order_id: string
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date
     end_date: Date | null
     auto_renew: boolean
@@ -11828,7 +11865,6 @@ export namespace Prisma {
     status?: boolean
     order_id?: boolean
     payment_id?: boolean
-    razorpay_subscription_id?: boolean
     start_date?: boolean
     end_date?: boolean
     auto_renew?: boolean
@@ -11851,7 +11887,6 @@ export namespace Prisma {
     status?: boolean
     order_id?: boolean
     payment_id?: boolean
-    razorpay_subscription_id?: boolean
     start_date?: boolean
     end_date?: boolean
     auto_renew?: boolean
@@ -11861,7 +11896,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "planId" | "status" | "order_id" | "payment_id" | "razorpay_subscription_id" | "start_date" | "end_date" | "auto_renew" | "is_trial" | "trial_end_date" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "planId" | "status" | "order_id" | "payment_id" | "start_date" | "end_date" | "auto_renew" | "is_trial" | "trial_end_date" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | Subscription$vendorArgs<ExtArgs>
     plan?: boolean | PlanDefaultArgs<ExtArgs>
@@ -11883,7 +11918,6 @@ export namespace Prisma {
       status: $Enums.SubscriptionStatus
       order_id: string
       payment_id: string | null
-      razorpay_subscription_id: string | null
       start_date: Date
       end_date: Date | null
       auto_renew: boolean
@@ -12292,7 +12326,6 @@ export namespace Prisma {
     readonly status: FieldRef<"Subscription", 'SubscriptionStatus'>
     readonly order_id: FieldRef<"Subscription", 'String'>
     readonly payment_id: FieldRef<"Subscription", 'String'>
-    readonly razorpay_subscription_id: FieldRef<"Subscription", 'String'>
     readonly start_date: FieldRef<"Subscription", 'DateTime'>
     readonly end_date: FieldRef<"Subscription", 'DateTime'>
     readonly auto_renew: FieldRef<"Subscription", 'Boolean'>
@@ -12737,10 +12770,14 @@ export namespace Prisma {
 
   export type PaymentAvgAggregateOutputType = {
     amount: number | null
+    fee: number | null
+    tax: number | null
   }
 
   export type PaymentSumAggregateOutputType = {
     amount: number | null
+    fee: number | null
+    tax: number | null
   }
 
   export type PaymentMinAggregateOutputType = {
@@ -12751,10 +12788,19 @@ export namespace Prisma {
     currency: string | null
     status: $Enums.PaymentStatus | null
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean | null
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    autoRenew: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12767,10 +12813,19 @@ export namespace Prisma {
     currency: string | null
     status: $Enums.PaymentStatus | null
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean | null
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    autoRenew: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12783,10 +12838,21 @@ export namespace Prisma {
     currency: number
     status: number
     payment_method: number
+    razorpay_order_id: number
     razorpay_payment_id: number
     refund_id: number
     is_refunded: number
     failure_reason: number
+    vpa: number
+    fee: number
+    tax: number
+    rrn: number
+    upi_transaction_id: number
+    email: number
+    contact: number
+    acquirer_data: number
+    notes: number
+    autoRenew: number
     created_at: number
     updated_at: number
     _all: number
@@ -12795,10 +12861,14 @@ export namespace Prisma {
 
   export type PaymentAvgAggregateInputType = {
     amount?: true
+    fee?: true
+    tax?: true
   }
 
   export type PaymentSumAggregateInputType = {
     amount?: true
+    fee?: true
+    tax?: true
   }
 
   export type PaymentMinAggregateInputType = {
@@ -12809,10 +12879,19 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
   }
@@ -12825,10 +12904,19 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
   }
@@ -12841,10 +12929,21 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    acquirer_data?: true
+    notes?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -12944,10 +13043,21 @@ export namespace Prisma {
     currency: string
     status: $Enums.PaymentStatus
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    acquirer_data: JsonValue | null
+    notes: JsonValue | null
+    autoRenew: boolean
     created_at: Date
     updated_at: Date
     _count: PaymentCountAggregateOutputType | null
@@ -12979,10 +13089,21 @@ export namespace Prisma {
     currency?: boolean
     status?: boolean
     payment_method?: boolean
+    razorpay_order_id?: boolean
     razorpay_payment_id?: boolean
     refund_id?: boolean
     is_refunded?: boolean
     failure_reason?: boolean
+    vpa?: boolean
+    fee?: boolean
+    tax?: boolean
+    rrn?: boolean
+    upi_transaction_id?: boolean
+    email?: boolean
+    contact?: boolean
+    acquirer_data?: boolean
+    notes?: boolean
+    autoRenew?: boolean
     created_at?: boolean
     updated_at?: boolean
     vendor?: boolean | Payment$vendorArgs<ExtArgs>
@@ -12999,15 +13120,26 @@ export namespace Prisma {
     currency?: boolean
     status?: boolean
     payment_method?: boolean
+    razorpay_order_id?: boolean
     razorpay_payment_id?: boolean
     refund_id?: boolean
     is_refunded?: boolean
     failure_reason?: boolean
+    vpa?: boolean
+    fee?: boolean
+    tax?: boolean
+    rrn?: boolean
+    upi_transaction_id?: boolean
+    email?: boolean
+    contact?: boolean
+    acquirer_data?: boolean
+    notes?: boolean
+    autoRenew?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "subscriptionId" | "amount" | "currency" | "status" | "payment_method" | "razorpay_payment_id" | "refund_id" | "is_refunded" | "failure_reason" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "subscriptionId" | "amount" | "currency" | "status" | "payment_method" | "razorpay_order_id" | "razorpay_payment_id" | "refund_id" | "is_refunded" | "failure_reason" | "vpa" | "fee" | "tax" | "rrn" | "upi_transaction_id" | "email" | "contact" | "acquirer_data" | "notes" | "autoRenew" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | Payment$vendorArgs<ExtArgs>
     subscription?: boolean | Payment$subscriptionArgs<ExtArgs>
@@ -13027,10 +13159,21 @@ export namespace Prisma {
       currency: string
       status: $Enums.PaymentStatus
       payment_method: string | null
+      razorpay_order_id: string | null
       razorpay_payment_id: string | null
       refund_id: string | null
       is_refunded: boolean
       failure_reason: string | null
+      vpa: string | null
+      fee: number | null
+      tax: number | null
+      rrn: string | null
+      upi_transaction_id: string | null
+      email: string | null
+      contact: string | null
+      acquirer_data: Prisma.JsonValue | null
+      notes: Prisma.JsonValue | null
+      autoRenew: boolean
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["payment"]>
@@ -13434,10 +13577,21 @@ export namespace Prisma {
     readonly currency: FieldRef<"Payment", 'String'>
     readonly status: FieldRef<"Payment", 'PaymentStatus'>
     readonly payment_method: FieldRef<"Payment", 'String'>
+    readonly razorpay_order_id: FieldRef<"Payment", 'String'>
     readonly razorpay_payment_id: FieldRef<"Payment", 'String'>
     readonly refund_id: FieldRef<"Payment", 'String'>
     readonly is_refunded: FieldRef<"Payment", 'Boolean'>
     readonly failure_reason: FieldRef<"Payment", 'String'>
+    readonly vpa: FieldRef<"Payment", 'String'>
+    readonly fee: FieldRef<"Payment", 'Float'>
+    readonly tax: FieldRef<"Payment", 'Float'>
+    readonly rrn: FieldRef<"Payment", 'String'>
+    readonly upi_transaction_id: FieldRef<"Payment", 'String'>
+    readonly email: FieldRef<"Payment", 'String'>
+    readonly contact: FieldRef<"Payment", 'String'>
+    readonly acquirer_data: FieldRef<"Payment", 'Json'>
+    readonly notes: FieldRef<"Payment", 'Json'>
+    readonly autoRenew: FieldRef<"Payment", 'Boolean'>
     readonly created_at: FieldRef<"Payment", 'DateTime'>
     readonly updated_at: FieldRef<"Payment", 'DateTime'>
   }
@@ -13872,11 +14026,11 @@ export namespace Prisma {
     description: 'description',
     logo_url: 'logo_url',
     country: 'country',
-    state: 'state',
     latitude: 'latitude',
     longitude: 'longitude',
     city: 'city',
     email: 'email',
+    state: 'state',
     password_hash: 'password_hash',
     phone_number: 'phone_number',
     social_networks: 'social_networks',
@@ -13899,8 +14053,12 @@ export namespace Prisma {
     description: 'description',
     min_price: 'min_price',
     max_price: 'max_price',
+    city: 'city',
+    state: 'state',
     price: 'price',
     service_type: 'service_type',
+    service_unit: 'service_unit',
+    status: 'status',
     rating: 'rating',
     faqs: 'faqs',
     created_at: 'created_at',
@@ -14012,7 +14170,6 @@ export namespace Prisma {
     status: 'status',
     order_id: 'order_id',
     payment_id: 'payment_id',
-    razorpay_subscription_id: 'razorpay_subscription_id',
     start_date: 'start_date',
     end_date: 'end_date',
     auto_renew: 'auto_renew',
@@ -14033,10 +14190,21 @@ export namespace Prisma {
     currency: 'currency',
     status: 'status',
     payment_method: 'payment_method',
+    razorpay_order_id: 'razorpay_order_id',
     razorpay_payment_id: 'razorpay_payment_id',
     refund_id: 'refund_id',
     is_refunded: 'is_refunded',
     failure_reason: 'failure_reason',
+    vpa: 'vpa',
+    fee: 'fee',
+    tax: 'tax',
+    rrn: 'rrn',
+    upi_transaction_id: 'upi_transaction_id',
+    email: 'email',
+    contact: 'contact',
+    acquirer_data: 'acquirer_data',
+    notes: 'notes',
+    autoRenew: 'autoRenew',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -14176,14 +14344,14 @@ export namespace Prisma {
     business_category?: StringFilter<"Vendor"> | string
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringFilter<"Vendor"> | string
+    description?: StringNullableFilter<"Vendor"> | string | null
     logo_url?: JsonNullableFilter<"Vendor">
     country?: StringNullableFilter<"Vendor"> | string | null
-    state?: StringNullableFilter<"Vendor"> | string | null
     latitude?: StringNullableFilter<"Vendor"> | string | null
     longitude?: StringNullableFilter<"Vendor"> | string | null
     city?: StringNullableFilter<"Vendor"> | string | null
     email?: StringFilter<"Vendor"> | string
+    state?: StringNullableFilter<"Vendor"> | string | null
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
@@ -14211,11 +14379,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -14244,13 +14412,13 @@ export namespace Prisma {
     business_category?: StringFilter<"Vendor"> | string
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringFilter<"Vendor"> | string
+    description?: StringNullableFilter<"Vendor"> | string | null
     logo_url?: JsonNullableFilter<"Vendor">
     country?: StringNullableFilter<"Vendor"> | string | null
-    state?: StringNullableFilter<"Vendor"> | string | null
     latitude?: StringNullableFilter<"Vendor"> | string | null
     longitude?: StringNullableFilter<"Vendor"> | string | null
     city?: StringNullableFilter<"Vendor"> | string | null
+    state?: StringNullableFilter<"Vendor"> | string | null
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
@@ -14278,11 +14446,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -14308,14 +14476,14 @@ export namespace Prisma {
     business_category?: StringWithAggregatesFilter<"Vendor"> | string
     license_number?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringWithAggregatesFilter<"Vendor"> | string
+    description?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     logo_url?: JsonNullableWithAggregatesFilter<"Vendor">
     country?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
-    state?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     latitude?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     longitude?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     city?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     email?: StringWithAggregatesFilter<"Vendor"> | string
+    state?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     password_hash?: StringWithAggregatesFilter<"Vendor"> | string
     phone_number?: StringWithAggregatesFilter<"Vendor"> | string
     social_networks?: JsonNullableWithAggregatesFilter<"Vendor">
@@ -14338,8 +14506,12 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -14358,8 +14530,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -14381,8 +14557,12 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -14401,8 +14581,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -14424,8 +14608,12 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Service"> | string
     min_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     max_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
+    city?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    state?: StringNullableWithAggregatesFilter<"Service"> | string | null
     price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
+    service_unit?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    status?: StringWithAggregatesFilter<"Service"> | string
     rating?: FloatWithAggregatesFilter<"Service"> | number
     faqs?: JsonNullableWithAggregatesFilter<"Service">
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -14927,7 +15115,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -14947,7 +15134,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -14970,7 +15156,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -14990,7 +15175,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -15013,7 +15197,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringWithAggregatesFilter<"Subscription"> | string
     payment_id?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     start_date?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolWithAggregatesFilter<"Subscription"> | boolean
@@ -15034,10 +15217,21 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
@@ -15052,10 +15246,21 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     vendor?: VendorOrderByWithRelationInput
@@ -15073,10 +15278,21 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
@@ -15091,10 +15307,21 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
@@ -15115,10 +15342,21 @@ export namespace Prisma {
     currency?: StringWithAggregatesFilter<"Payment"> | string
     status?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     refund_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     is_refunded?: BoolWithAggregatesFilter<"Payment"> | boolean
     failure_reason?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    vpa?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    fee?: FloatNullableWithAggregatesFilter<"Payment"> | number | null
+    tax?: FloatNullableWithAggregatesFilter<"Payment"> | number | null
+    rrn?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    contact?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableWithAggregatesFilter<"Payment">
+    notes?: JsonNullableWithAggregatesFilter<"Payment">
+    autoRenew?: BoolWithAggregatesFilter<"Payment"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
   }
@@ -15130,14 +15368,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15162,14 +15400,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15193,14 +15431,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15224,14 +15462,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15256,14 +15494,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15282,14 +15520,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15308,14 +15546,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15334,8 +15572,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15354,8 +15596,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15371,8 +15617,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15390,8 +15640,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15409,8 +15663,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15422,8 +15680,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15436,8 +15698,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15937,7 +16203,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -15957,7 +16222,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -15972,7 +16236,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -15991,7 +16254,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16009,7 +16271,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -16023,7 +16284,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16039,7 +16299,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16055,10 +16314,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     vendor?: VendorCreateNestedOneWithoutPaymentInput
@@ -16073,10 +16343,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -16086,10 +16367,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneWithoutPaymentNestedInput
@@ -16103,10 +16395,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16119,10 +16422,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -16132,10 +16446,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16147,10 +16472,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16282,11 +16618,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -16307,11 +16643,11 @@ export namespace Prisma {
     license_number?: SortOrder
     description?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     created_at?: SortOrder
@@ -16330,11 +16666,11 @@ export namespace Prisma {
     license_number?: SortOrder
     description?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     created_at?: SortOrder
@@ -16494,8 +16830,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -16516,8 +16856,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -16530,8 +16874,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -16957,7 +17305,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -16974,7 +17321,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -16991,7 +17337,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -17046,16 +17391,29 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type PaymentAvgOrderByAggregateInput = {
     amount?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
   }
 
   export type PaymentMaxOrderByAggregateInput = {
@@ -17066,10 +17424,19 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -17082,16 +17449,27 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type PaymentSumOrderByAggregateInput = {
     amount?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -18103,8 +18481,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18121,8 +18503,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18208,10 +18594,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     subscription?: SubscriptionCreateNestedOneWithoutPaymentsInput
@@ -18224,10 +18621,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -18246,7 +18654,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -18264,7 +18671,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -18310,8 +18716,12 @@ export namespace Prisma {
     description?: StringFilter<"Service"> | string
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -18406,10 +18816,21 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
   }
@@ -18440,7 +18861,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -18457,14 +18877,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -18488,14 +18908,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -18638,14 +19058,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -18668,14 +19088,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -18812,8 +19232,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18831,8 +19255,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18863,8 +19291,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18881,8 +19313,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18898,8 +19334,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18917,8 +19357,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18949,8 +19393,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18967,8 +19415,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18984,8 +19436,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19003,8 +19459,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19035,8 +19495,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19053,8 +19517,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19070,8 +19538,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19089,8 +19561,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19121,8 +19597,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19139,8 +19619,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19157,14 +19641,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19188,14 +19672,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19234,14 +19718,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19264,14 +19748,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19295,14 +19779,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19326,14 +19810,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19372,14 +19856,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19402,14 +19886,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19431,7 +19915,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19449,7 +19932,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19492,14 +19974,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19523,14 +20005,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19589,10 +20071,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     vendor?: VendorCreateNestedOneWithoutPaymentInput
@@ -19605,10 +20098,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -19639,14 +20143,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19669,14 +20173,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19751,14 +20255,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19782,14 +20286,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19816,7 +20320,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19835,7 +20338,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19867,14 +20369,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19897,14 +20399,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19936,7 +20438,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -19954,7 +20455,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -19970,8 +20470,12 @@ export namespace Prisma {
     description: string
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -20006,10 +20510,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -20020,7 +20535,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -20035,8 +20549,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20052,8 +20570,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20069,8 +20591,12 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20139,10 +20665,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subscription?: SubscriptionUpdateOneWithoutPaymentsNestedInput
@@ -20154,10 +20691,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20168,10 +20716,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20180,7 +20739,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20197,7 +20755,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20213,7 +20770,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20353,7 +20909,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -20367,7 +20922,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20384,7 +20938,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20400,7 +20953,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20417,10 +20969,21 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -20430,10 +20993,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vendor?: VendorUpdateOneWithoutPaymentNestedInput
@@ -20445,10 +21019,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20459,10 +21044,21 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
