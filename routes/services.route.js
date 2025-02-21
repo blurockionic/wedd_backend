@@ -13,12 +13,14 @@ import { makeLead } from '../controllers/serviceController/lead.service.controll
 import { deleteFaq, upsertFaq } from '../controllers/faq controller/faq.controller.js';
 import feedback from '../controllers/serviceController/feedback.controller.js';
 import serviceArchive from '../controllers/serviceController/archive.service.controller.js';
+import getMostViewedServices from '../controllers/serviceController/getMostViewedServices.controller.js';
 
 
 
 const serviceRouter = express.Router();
 
 serviceRouter.route("/").get(getAllServices)
+serviceRouter.route("/getMostViewedServices").get(getMostViewedServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 serviceRouter.route("/makeLead/:id").put(jwtAuthentication,roleMiddleware(["user"]),makeLead)

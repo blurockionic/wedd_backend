@@ -18,14 +18,19 @@ export const createOrder = async (req, res, next) => {
     const vendorId = req.user.id;
 
     if (!planId) {
-      throw new CustomError("Plan ID is required", 400, false);
+      return res.status(400).json({
+        success: false,
+        message: "Plan ID is required",
+      });
     }
 
     const plan = await mongoPrisma.Plan.findFirst({ where: { id: planId } });
     if (!plan) {
-      throw new CustomError("Plan not found", 404, false);
+      return res.status(404).json({
+        success: false,
+        message: "Plan not found",
+      });
     }
-
     const amount = plan.price * 100;
     const options = {
       amount: amount,
@@ -38,29 +43,43 @@ export const createOrder = async (req, res, next) => {
     };
 
     const order = await instance.orders.create(options);
-
     if (!order) {
-      throw new CustomError("Failed to create order with Razorpay", 500, false);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to create order with Razorpay",
+      });
     }
-    const latestActiveSubscription = await mongoPrisma.Subscription.findFirst({
-      where: { vendorId: vendorId, status: "ACTIVE" },
+    const latestSubscription = await mongoPrisma.Subscription.findFirst({
+      where: { vendorId: vendorId },
       orderBy: { end_date: "desc" },
     });
 
     let startDate = new Date();
     let endDate = new Date();
 
-    if (latestActiveSubscription) {
-      startDate = latestActiveSubscription.end_date;
-      endDate = new Date(startDate);
-
-      endDate.setMonth(endDate.getMonth() + parseDuration(plan.duration));
-    } else {
-      if (plan.trial_period) {
-        endDate.setDate(endDate.getDate() + plan.trial_period);
-      }
-      endDate.setMonth(endDate.getMonth() + parseDuration(plan.duration));
+    if (
+      latestSubscription?.end_date &&
+      latestSubscription.end_date > new Date()
+    ) {
+      startDate = new Date(latestSubscription.end_date);
     }
+
+    // Set endDate initially to startDate
+    endDate = new Date(startDate);
+
+    // Extract years and months from the plan duration
+    const totalMonths = parseDuration(plan.duration);
+    const yearsToAdd = Math.floor(totalMonths / 12);
+    const monthsToAdd = totalMonths % 12;
+
+    // Add years and months to endDate
+    endDate.setFullYear(endDate.getFullYear() + yearsToAdd);
+    endDate.setMonth(endDate.getMonth() + monthsToAdd);
+
+    const isTrial = latestSubscription == null && plan.trial_period;
+    const trialEndDate = isTrial
+      ? new Date(Date.now() + plan.trial_period * 24 * 60 * 60 * 1000)
+      : null;
 
     const subscription = await mongoPrisma.Subscription.create({
       data: {
@@ -70,17 +89,12 @@ export const createOrder = async (req, res, next) => {
         status: "PENDING",
         start_date: startDate,
         end_date: endDate,
-        trial_end_date: latestActiveSubscription
-          ? null
-          : plan.trial_period
-          ? new Date(
-              new Date().setDate(new Date().getDate() + plan.trial_period)
-            )
-          : null,
+        trial_end_date: trialEndDate,
+        is_trial: isTrial,
         auto_renew: true,
-        is_trial: !latestActiveSubscription && plan.trial_period ? true : false,
       },
     });
+
 
     await mongoPrisma.Payment.create({
       data: {
@@ -99,8 +113,11 @@ export const createOrder = async (req, res, next) => {
       subscription,
     });
   } catch (error) {
-    console.error("Error creating order:", error);
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while creating the order",
+      error: error.message,
+    });
   }
 };
 
@@ -138,7 +155,10 @@ export const verifyPayment = async (req, res, next) => {
     });
     if (!subscription) {
       console.error("Subscription not found for order_id:", razorpay_order_id);
-      throw new CustomError("Subscription not found", 404);
+      return res.status(404).json({
+        success: false,
+        message: "Subscription not found",
+      });
     }
 
     const payment = await mongoPrisma.Payment.findFirst({
@@ -149,7 +169,10 @@ export const verifyPayment = async (req, res, next) => {
         "Payment record not found for subscription:",
         subscription.id
       );
-      throw new CustomError("Payment record not found", 404);
+      return res.status(404).json({
+        success: false,
+        message: "Payment record not found",
+      });
     }
 
     const razorpayPayment = await instance.payments.fetch(razorpay_payment_id);
@@ -158,7 +181,10 @@ export const verifyPayment = async (req, res, next) => {
         "Payment details not found in Razorpay:",
         razorpay_payment_id
       );
-      throw new CustomError("Payment details not found in Razorpay", 404);
+      return res.status(404).json({
+        success: false,
+        message: "Payment details not found in Razorpay",
+      });
     }
 
     if (razorpayPayment.status !== "captured") {
@@ -224,7 +250,7 @@ export const getPaymentHistory = async (req, res, next) => {
     const vendorId = req.user.id;
 
     const payments = await mongoPrisma.Payment.findMany({
-      where: { vendorId },
+      where: { vendorId ,status:"SUCCESS"},
       orderBy: { created_at: "desc" },
       include: { subscription: true },
     });
@@ -242,18 +268,20 @@ export const getPaymentHistory = async (req, res, next) => {
 // Get Subscription
 export const getSubscription = async (req, res, next) => {
   try {
-    const vendorId = req.user.id;
+    const vendorId = req?.user?.id;
 
     const subscriptions = await mongoPrisma.Subscription.findMany({
-      where: { vendorId },
+      where: { vendorId,status:"ACTIVE" },
       orderBy: { start_date: "desc" },
       include: { plan: true },
     });
 
+
+
     res.status(200).json({
       success: true,
       message: "Subscriptions fetched successfully",
-      subscriptions,
+      subscriptions: subscriptions || [],
     });
   } catch (error) {
     next(error);
