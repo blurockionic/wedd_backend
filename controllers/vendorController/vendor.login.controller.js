@@ -4,7 +4,7 @@ import z from "zod";
 import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/mongo/index.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 import { vendorRegisterEmailContent } from "../../constant/static.js";
 
 const prisma = new PrismaClient();
@@ -38,7 +38,7 @@ const vendorLogin = async (req, res, next) => {
         "vendor"
       );
 
-      await sendVerificationEmail(vendor.email, emailContent);
+      await sendEmail(vendor.email, emailContent);
 
       throw new CustomError(
         "Your email is not verified. Please check your mail for verifiaction.",

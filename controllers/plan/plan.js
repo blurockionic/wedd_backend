@@ -99,22 +99,22 @@ export const getPlan = async (req, res, next) => {
   try {
     
 
-    const plans = await mongoPrisma.Plan.findMany({
+    const plan = await mongoPrisma.Plan.findMany({
       where: {
         OR: [
-          { trial_period: 0 },        
+          { trial_period: 90 },        
         ],
       },
     });
 
-    if (!plans) {
+    if (!plan) {
       throw new CustomError("plans not found", 404, false);
     }
 
     res.status(201).json({
       success: true,
       message: "paln fetched successfully",
-      plans,
+      plan,
     });
   } catch (error) {
     next(error);
