@@ -26,12 +26,8 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-<<<<<<< HEAD
     "express": "^4.21.1",
     "handlebars": "^4.7.8",
-=======
-    "express": "^4.21.2",
->>>>>>> 824fb2df2a73b9548dbb3a6d6caf60b8ec72b12f
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
     "morgan": "^1.10.0",
