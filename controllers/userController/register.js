@@ -1,5 +1,5 @@
 import CustomError from "../../utils/CustomError.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 import z from "zod";
 import bcrypt from "bcryptjs";
 import { userSchema } from "../../validation schema/user.schema.js";
@@ -33,7 +33,7 @@ const userRegistration = async (req, res, next) => {
           existingUser.role
         );
 
-        await sendVerificationEmail(existingUser.email, emailContent);
+        await sendEmail(existingUser.email, emailContent);
 
         return res.status(200).json({
           message:
@@ -66,7 +66,7 @@ const userRegistration = async (req, res, next) => {
       validatedData.role
     );
 
-    await sendVerificationEmail(newUser.email, emailContent);
+    await sendEmail(newUser.email, emailContent);
 
     // Exclude sensitive fields before sending the response
     const {

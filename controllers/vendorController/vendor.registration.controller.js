@@ -1,5 +1,5 @@
 import CustomError from "../../utils/CustomError.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 import z from "zod";
 import bcrypt from "bcryptjs";
 import { vendorSchema } from "../../validation schema/vendor.schema.js";
@@ -33,7 +33,7 @@ const vendorRegistration = async (req, res, next) => {
           "vendor"
         );
 
-        await sendVerificationEmail(existingVendor.email, emailContent);
+        await sendEmail(existingVendor.email, emailContent);
 
         return res.status(200).json({
           message:
@@ -76,7 +76,7 @@ const vendorRegistration = async (req, res, next) => {
       "vendor"
     );
 
-    await sendVerificationEmail(newVendor.email, emailContent);
+    await sendEmail(newVendor.email, emailContent);
 
     // Exclude sensitive fields before sending the response
     const {

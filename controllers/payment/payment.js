@@ -4,6 +4,7 @@ import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.
 import CustomError from "../../utils/CustomError.js";
 import { parseDuration } from "../../helper/helper.js";
 import logger from "../../config/logger.js";
+import eventEmitter from "./eventEmitter.js";
 const mongoPrisma = new MongoClient();
 
 export const instance = new Razorpay({
@@ -94,7 +95,6 @@ export const createOrder = async (req, res, next) => {
         auto_renew: true,
       },
     });
-
 
     await mongoPrisma.Payment.create({
       data: {
@@ -223,7 +223,7 @@ export const verifyPayment = async (req, res, next) => {
       payment_id: razorpay_payment_id,
     };
 
-    await mongoPrisma.$transaction([
+    const [savedPayment, savedSubscription] = await mongoPrisma.$transaction([
       mongoPrisma.Payment.update({
         where: { id: payment.id },
         data: updatedPaymentData,
@@ -233,6 +233,12 @@ export const verifyPayment = async (req, res, next) => {
         data: updatedSubData,
       }),
     ]);
+
+    const data =  {
+      savedPayment,
+      savedSubscription,
+    }
+    eventEmitter.emit("invoice.generate",{paymentId:payment.id});
 
     res.status(200).json({
       success: true,
@@ -250,7 +256,7 @@ export const getPaymentHistory = async (req, res, next) => {
     const vendorId = req.user.id;
 
     const payments = await mongoPrisma.Payment.findMany({
-      where: { vendorId ,status:"SUCCESS"},
+      where: { vendorId, status: "SUCCESS" },
       orderBy: { created_at: "desc" },
       include: { subscription: true },
     });
@@ -271,12 +277,10 @@ export const getSubscription = async (req, res, next) => {
     const vendorId = req?.user?.id;
 
     const subscriptions = await mongoPrisma.Subscription.findMany({
-      where: { vendorId,status:"ACTIVE" },
+      where: { vendorId, status: "ACTIVE" },
       orderBy: { start_date: "desc" },
       include: { plan: true },
     });
-
-
 
     res.status(200).json({
       success: true,

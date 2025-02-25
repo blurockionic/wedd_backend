@@ -3,7 +3,7 @@ import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 import CustomError from "../../utils/CustomError.js";
 import { requestPasswordResetSchema } from "../../validation schema/user.schema.js";
 import GenerateToken from "../../helper/generateToken.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 import { resetPassEmailContent } from "../../constant/static.js";
 
 const prisma = new PrismaClient();
@@ -39,7 +39,7 @@ const prisma = new PrismaClient();
    console.log(resetToken);
    
     
-    await sendVerificationEmail(email, resetPassEmailContent(resetToken));
+    await sendEmail(email, resetPassEmailContent(resetToken));
 
 
     

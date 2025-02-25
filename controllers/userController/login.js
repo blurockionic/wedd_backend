@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 import { registerEmailContent } from "../../constant/static.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 
 const prisma = new PrismaClient();
 
@@ -29,7 +29,7 @@ const userLogin = async (req, res, next) => {
       );
 
       // Send the verification email
-      await sendVerificationEmail(user.email, emailContent);
+      await sendEmail(user.email, emailContent);
 
       // Throw error with a clear message about verification
       throw new CustomError(
