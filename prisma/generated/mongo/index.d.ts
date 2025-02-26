@@ -68,6 +68,16 @@ export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
+/**
+ * Model Counter
+ * 
+ */
+export type Counter = $Result.DefaultSelection<Prisma.$CounterPayload>
 
 /**
  * Enums
@@ -303,6 +313,26 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Invoices
+    * const invoices = await prisma.invoice.findMany()
+    * ```
+    */
+  get invoice(): Prisma.InvoiceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.counter`: Exposes CRUD operations for the **Counter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Counters
+    * const counters = await prisma.counter.findMany()
+    * ```
+    */
+  get counter(): Prisma.CounterDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -753,7 +783,9 @@ export namespace Prisma {
     Promotion: 'Promotion',
     Plan: 'Plan',
     Subscription: 'Subscription',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    Invoice: 'Invoice',
+    Counter: 'Counter'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -769,7 +801,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "vendor" | "service" | "views" | "feedback" | "availability" | "media" | "teamMember" | "promotion" | "plan" | "subscription" | "payment"
+      modelProps: "vendor" | "service" | "views" | "feedback" | "availability" | "media" | "teamMember" | "promotion" | "plan" | "subscription" | "payment" | "invoice" | "counter"
       txIsolationLevel: never
     }
     model: {
@@ -1587,6 +1619,154 @@ export namespace Prisma {
           }
         }
       }
+      Invoice: {
+        payload: Prisma.$InvoicePayload<ExtArgs>
+        fields: Prisma.InvoiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InvoiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InvoiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findFirst: {
+            args: Prisma.InvoiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InvoiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findMany: {
+            args: Prisma.InvoiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
+          }
+          create: {
+            args: Prisma.InvoiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          createMany: {
+            args: Prisma.InvoiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.InvoiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          update: {
+            args: Prisma.InvoiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          deleteMany: {
+            args: Prisma.InvoiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InvoiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.InvoiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          aggregate: {
+            args: Prisma.InvoiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvoice>
+          }
+          groupBy: {
+            args: Prisma.InvoiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.InvoiceFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.InvoiceAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.InvoiceCountArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Counter: {
+        payload: Prisma.$CounterPayload<ExtArgs>
+        fields: Prisma.CounterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CounterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CounterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          findFirst: {
+            args: Prisma.CounterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CounterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          findMany: {
+            args: Prisma.CounterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>[]
+          }
+          create: {
+            args: Prisma.CounterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          createMany: {
+            args: Prisma.CounterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CounterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          update: {
+            args: Prisma.CounterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          deleteMany: {
+            args: Prisma.CounterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CounterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CounterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CounterPayload>
+          }
+          aggregate: {
+            args: Prisma.CounterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCounter>
+          }
+          groupBy: {
+            args: Prisma.CounterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CounterGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.CounterFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.CounterAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.CounterCountArgs<ExtArgs>
+            result: $Utils.Optional<CounterCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1669,6 +1849,8 @@ export namespace Prisma {
     plan?: PlanOmit
     subscription?: SubscriptionOmit
     payment?: PaymentOmit
+    invoice?: InvoiceOmit
+    counter?: CounterOmit
   }
 
   /* Types for Logging */
@@ -1767,6 +1949,7 @@ export namespace Prisma {
     promotions: number
     team_members: number
     payment: number
+    invoices: number
     Subscription: number
   }
 
@@ -1775,6 +1958,7 @@ export namespace Prisma {
     promotions?: boolean | VendorCountOutputTypeCountPromotionsArgs
     team_members?: boolean | VendorCountOutputTypeCountTeam_membersArgs
     payment?: boolean | VendorCountOutputTypeCountPaymentArgs
+    invoices?: boolean | VendorCountOutputTypeCountInvoicesArgs
     Subscription?: boolean | VendorCountOutputTypeCountSubscriptionArgs
   }
 
@@ -1815,6 +1999,13 @@ export namespace Prisma {
    */
   export type VendorCountOutputTypeCountPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * VendorCountOutputType without action
+   */
+  export type VendorCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
   }
 
   /**
@@ -1946,6 +2137,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PaymentCountOutputType
+   */
+
+  export type PaymentCountOutputType = {
+    invoices: number
+  }
+
+  export type PaymentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoices?: boolean | PaymentCountOutputTypeCountInvoicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PaymentCountOutputType without action
+   */
+  export type PaymentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentCountOutputType
+     */
+    select?: PaymentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PaymentCountOutputType without action
+   */
+  export type PaymentCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1967,11 +2189,11 @@ export namespace Prisma {
     license_number: string | null
     description: string | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string | null
+    state: string | null
     password_hash: string | null
     phone_number: string | null
     created_at: Date | null
@@ -1990,11 +2212,11 @@ export namespace Prisma {
     license_number: string | null
     description: string | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string | null
+    state: string | null
     password_hash: string | null
     phone_number: string | null
     created_at: Date | null
@@ -2015,11 +2237,11 @@ export namespace Prisma {
     description: number
     logo_url: number
     country: number
-    state: number
     latitude: number
     longitude: number
     city: number
     email: number
+    state: number
     password_hash: number
     phone_number: number
     social_networks: number
@@ -2042,11 +2264,11 @@ export namespace Prisma {
     license_number?: true
     description?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     created_at?: true
@@ -2065,11 +2287,11 @@ export namespace Prisma {
     license_number?: true
     description?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     created_at?: true
@@ -2090,11 +2312,11 @@ export namespace Prisma {
     description?: true
     logo_url?: true
     country?: true
-    state?: true
     latitude?: true
     longitude?: true
     city?: true
     email?: true
+    state?: true
     password_hash?: true
     phone_number?: true
     social_networks?: true
@@ -2187,14 +2409,14 @@ export namespace Prisma {
     business_category: string
     license_number: string | null
     service_type: string[]
-    description: string
+    description: string | null
     logo_url: JsonValue | null
     country: string | null
-    state: string | null
     latitude: string | null
     longitude: string | null
     city: string | null
     email: string
+    state: string | null
     password_hash: string
     phone_number: string
     social_networks: JsonValue | null
@@ -2234,11 +2456,11 @@ export namespace Prisma {
     description?: boolean
     logo_url?: boolean
     country?: boolean
-    state?: boolean
     latitude?: boolean
     longitude?: boolean
     city?: boolean
     email?: boolean
+    state?: boolean
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
@@ -2253,6 +2475,7 @@ export namespace Prisma {
     promotions?: boolean | Vendor$promotionsArgs<ExtArgs>
     team_members?: boolean | Vendor$team_membersArgs<ExtArgs>
     payment?: boolean | Vendor$paymentArgs<ExtArgs>
+    invoices?: boolean | Vendor$invoicesArgs<ExtArgs>
     Subscription?: boolean | Vendor$SubscriptionArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vendor"]>
@@ -2269,11 +2492,11 @@ export namespace Prisma {
     description?: boolean
     logo_url?: boolean
     country?: boolean
-    state?: boolean
     latitude?: boolean
     longitude?: boolean
     city?: boolean
     email?: boolean
+    state?: boolean
     password_hash?: boolean
     phone_number?: boolean
     social_networks?: boolean
@@ -2286,12 +2509,13 @@ export namespace Prisma {
     role?: boolean
   }
 
-  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "business_name" | "business_category" | "license_number" | "service_type" | "description" | "logo_url" | "country" | "state" | "latitude" | "longitude" | "city" | "email" | "password_hash" | "phone_number" | "social_networks" | "faqs" | "created_at" | "updated_at" | "is_verified" | "refresh_Token" | "resetPassword_Token" | "role", ExtArgs["result"]["vendor"]>
+  export type VendorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "business_name" | "business_category" | "license_number" | "service_type" | "description" | "logo_url" | "country" | "latitude" | "longitude" | "city" | "email" | "state" | "password_hash" | "phone_number" | "social_networks" | "faqs" | "created_at" | "updated_at" | "is_verified" | "refresh_Token" | "resetPassword_Token" | "role", ExtArgs["result"]["vendor"]>
   export type VendorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Vendor$servicesArgs<ExtArgs>
     promotions?: boolean | Vendor$promotionsArgs<ExtArgs>
     team_members?: boolean | Vendor$team_membersArgs<ExtArgs>
     payment?: boolean | Vendor$paymentArgs<ExtArgs>
+    invoices?: boolean | Vendor$invoicesArgs<ExtArgs>
     Subscription?: boolean | Vendor$SubscriptionArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2303,6 +2527,7 @@ export namespace Prisma {
       promotions: Prisma.$PromotionPayload<ExtArgs>[]
       team_members: Prisma.$TeamMemberPayload<ExtArgs>[]
       payment: Prisma.$PaymentPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
       Subscription: Prisma.$SubscriptionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2312,14 +2537,14 @@ export namespace Prisma {
       business_category: string
       license_number: string | null
       service_type: string[]
-      description: string
+      description: string | null
       logo_url: Prisma.JsonValue | null
       country: string | null
-      state: string | null
       latitude: string | null
       longitude: string | null
       city: string | null
       email: string
+      state: string | null
       password_hash: string
       phone_number: string
       social_networks: Prisma.JsonValue | null
@@ -2697,6 +2922,7 @@ export namespace Prisma {
     promotions<T extends Vendor$promotionsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$promotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     team_members<T extends Vendor$team_membersArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$team_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     payment<T extends Vendor$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$paymentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    invoices<T extends Vendor$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Subscription<T extends Vendor$SubscriptionArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$SubscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2736,11 +2962,11 @@ export namespace Prisma {
     readonly description: FieldRef<"Vendor", 'String'>
     readonly logo_url: FieldRef<"Vendor", 'Json'>
     readonly country: FieldRef<"Vendor", 'String'>
-    readonly state: FieldRef<"Vendor", 'String'>
     readonly latitude: FieldRef<"Vendor", 'String'>
     readonly longitude: FieldRef<"Vendor", 'String'>
     readonly city: FieldRef<"Vendor", 'String'>
     readonly email: FieldRef<"Vendor", 'String'>
+    readonly state: FieldRef<"Vendor", 'String'>
     readonly password_hash: FieldRef<"Vendor", 'String'>
     readonly phone_number: FieldRef<"Vendor", 'String'>
     readonly social_networks: FieldRef<"Vendor", 'Json'>
@@ -3209,6 +3435,30 @@ export namespace Prisma {
   }
 
   /**
+   * Vendor.invoices
+   */
+  export type Vendor$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
    * Vendor.Subscription
    */
   export type Vendor$SubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3284,8 +3534,12 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string | null
+    service_unit: string | null
+    status: string | null
     rating: number | null
     created_at: Date | null
     updated_at: Date | null
@@ -3298,8 +3552,12 @@ export namespace Prisma {
     description: string | null
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string | null
+    service_unit: string | null
+    status: string | null
     rating: number | null
     created_at: Date | null
     updated_at: Date | null
@@ -3312,8 +3570,12 @@ export namespace Prisma {
     description: number
     min_price: number
     max_price: number
+    city: number
+    state: number
     price: number
     service_type: number
+    service_unit: number
+    status: number
     rating: number
     faqs: number
     created_at: number
@@ -3343,8 +3605,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     created_at?: true
     updated_at?: true
@@ -3357,8 +3623,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     created_at?: true
     updated_at?: true
@@ -3371,8 +3641,12 @@ export namespace Prisma {
     description?: true
     min_price?: true
     max_price?: true
+    city?: true
+    state?: true
     price?: true
     service_type?: true
+    service_unit?: true
+    status?: true
     rating?: true
     faqs?: true
     created_at?: true
@@ -3470,11 +3744,15 @@ export namespace Prisma {
     id: string
     vendorId: string
     service_name: string
-    description: string
+    description: string | null
     min_price: number | null
     max_price: number | null
+    city: string | null
+    state: string | null
     price: number | null
     service_type: string
+    service_unit: string | null
+    status: string
     rating: number
     faqs: JsonValue | null
     created_at: Date
@@ -3507,8 +3785,12 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    city?: boolean
+    state?: boolean
     price?: boolean
     service_type?: boolean
+    service_unit?: boolean
+    status?: boolean
     rating?: boolean
     faqs?: boolean
     created_at?: boolean
@@ -3530,15 +3812,19 @@ export namespace Prisma {
     description?: boolean
     min_price?: boolean
     max_price?: boolean
+    city?: boolean
+    state?: boolean
     price?: boolean
     service_type?: boolean
+    service_unit?: boolean
+    status?: boolean
     rating?: boolean
     faqs?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "price" | "service_type" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "city" | "state" | "price" | "service_type" | "service_unit" | "status" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
@@ -3561,11 +3847,15 @@ export namespace Prisma {
       id: string
       vendorId: string
       service_name: string
-      description: string
+      description: string | null
       min_price: number | null
       max_price: number | null
+      city: string | null
+      state: string | null
       price: number | null
       service_type: string
+      service_unit: string | null
+      status: string
       rating: number
       faqs: Prisma.JsonValue | null
       created_at: Date
@@ -3973,8 +4263,12 @@ export namespace Prisma {
     readonly description: FieldRef<"Service", 'String'>
     readonly min_price: FieldRef<"Service", 'Float'>
     readonly max_price: FieldRef<"Service", 'Float'>
+    readonly city: FieldRef<"Service", 'String'>
+    readonly state: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
+    readonly service_unit: FieldRef<"Service", 'String'>
+    readonly status: FieldRef<"Service", 'String'>
     readonly rating: FieldRef<"Service", 'Float'>
     readonly faqs: FieldRef<"Service", 'Json'>
     readonly created_at: FieldRef<"Service", 'DateTime'>
@@ -11617,7 +11911,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus | null
     order_id: string | null
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date | null
     end_date: Date | null
     auto_renew: boolean | null
@@ -11634,7 +11927,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus | null
     order_id: string | null
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date | null
     end_date: Date | null
     auto_renew: boolean | null
@@ -11651,7 +11943,6 @@ export namespace Prisma {
     status: number
     order_id: number
     payment_id: number
-    razorpay_subscription_id: number
     start_date: number
     end_date: number
     auto_renew: number
@@ -11670,7 +11961,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11687,7 +11977,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11704,7 +11993,6 @@ export namespace Prisma {
     status?: true
     order_id?: true
     payment_id?: true
-    razorpay_subscription_id?: true
     start_date?: true
     end_date?: true
     auto_renew?: true
@@ -11794,7 +12082,6 @@ export namespace Prisma {
     status: $Enums.SubscriptionStatus
     order_id: string
     payment_id: string | null
-    razorpay_subscription_id: string | null
     start_date: Date
     end_date: Date | null
     auto_renew: boolean
@@ -11828,7 +12115,6 @@ export namespace Prisma {
     status?: boolean
     order_id?: boolean
     payment_id?: boolean
-    razorpay_subscription_id?: boolean
     start_date?: boolean
     end_date?: boolean
     auto_renew?: boolean
@@ -11851,7 +12137,6 @@ export namespace Prisma {
     status?: boolean
     order_id?: boolean
     payment_id?: boolean
-    razorpay_subscription_id?: boolean
     start_date?: boolean
     end_date?: boolean
     auto_renew?: boolean
@@ -11861,7 +12146,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "planId" | "status" | "order_id" | "payment_id" | "razorpay_subscription_id" | "start_date" | "end_date" | "auto_renew" | "is_trial" | "trial_end_date" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "planId" | "status" | "order_id" | "payment_id" | "start_date" | "end_date" | "auto_renew" | "is_trial" | "trial_end_date" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | Subscription$vendorArgs<ExtArgs>
     plan?: boolean | PlanDefaultArgs<ExtArgs>
@@ -11883,7 +12168,6 @@ export namespace Prisma {
       status: $Enums.SubscriptionStatus
       order_id: string
       payment_id: string | null
-      razorpay_subscription_id: string | null
       start_date: Date
       end_date: Date | null
       auto_renew: boolean
@@ -12292,7 +12576,6 @@ export namespace Prisma {
     readonly status: FieldRef<"Subscription", 'SubscriptionStatus'>
     readonly order_id: FieldRef<"Subscription", 'String'>
     readonly payment_id: FieldRef<"Subscription", 'String'>
-    readonly razorpay_subscription_id: FieldRef<"Subscription", 'String'>
     readonly start_date: FieldRef<"Subscription", 'DateTime'>
     readonly end_date: FieldRef<"Subscription", 'DateTime'>
     readonly auto_renew: FieldRef<"Subscription", 'Boolean'>
@@ -12737,10 +13020,14 @@ export namespace Prisma {
 
   export type PaymentAvgAggregateOutputType = {
     amount: number | null
+    fee: number | null
+    tax: number | null
   }
 
   export type PaymentSumAggregateOutputType = {
     amount: number | null
+    fee: number | null
+    tax: number | null
   }
 
   export type PaymentMinAggregateOutputType = {
@@ -12751,12 +13038,22 @@ export namespace Prisma {
     currency: string | null
     status: $Enums.PaymentStatus | null
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean | null
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    autoRenew: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    bill_generated: boolean | null
   }
 
   export type PaymentMaxAggregateOutputType = {
@@ -12767,12 +13064,22 @@ export namespace Prisma {
     currency: string | null
     status: $Enums.PaymentStatus | null
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean | null
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    autoRenew: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    bill_generated: boolean | null
   }
 
   export type PaymentCountAggregateOutputType = {
@@ -12783,22 +13090,38 @@ export namespace Prisma {
     currency: number
     status: number
     payment_method: number
+    razorpay_order_id: number
     razorpay_payment_id: number
     refund_id: number
     is_refunded: number
     failure_reason: number
+    vpa: number
+    fee: number
+    tax: number
+    rrn: number
+    upi_transaction_id: number
+    email: number
+    contact: number
+    acquirer_data: number
+    notes: number
+    autoRenew: number
     created_at: number
     updated_at: number
+    bill_generated: number
     _all: number
   }
 
 
   export type PaymentAvgAggregateInputType = {
     amount?: true
+    fee?: true
+    tax?: true
   }
 
   export type PaymentSumAggregateInputType = {
     amount?: true
+    fee?: true
+    tax?: true
   }
 
   export type PaymentMinAggregateInputType = {
@@ -12809,12 +13132,22 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
+    bill_generated?: true
   }
 
   export type PaymentMaxAggregateInputType = {
@@ -12825,12 +13158,22 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
+    bill_generated?: true
   }
 
   export type PaymentCountAggregateInputType = {
@@ -12841,12 +13184,24 @@ export namespace Prisma {
     currency?: true
     status?: true
     payment_method?: true
+    razorpay_order_id?: true
     razorpay_payment_id?: true
     refund_id?: true
     is_refunded?: true
     failure_reason?: true
+    vpa?: true
+    fee?: true
+    tax?: true
+    rrn?: true
+    upi_transaction_id?: true
+    email?: true
+    contact?: true
+    acquirer_data?: true
+    notes?: true
+    autoRenew?: true
     created_at?: true
     updated_at?: true
+    bill_generated?: true
     _all?: true
   }
 
@@ -12944,12 +13299,24 @@ export namespace Prisma {
     currency: string
     status: $Enums.PaymentStatus
     payment_method: string | null
+    razorpay_order_id: string | null
     razorpay_payment_id: string | null
     refund_id: string | null
     is_refunded: boolean
     failure_reason: string | null
+    vpa: string | null
+    fee: number | null
+    tax: number | null
+    rrn: string | null
+    upi_transaction_id: string | null
+    email: string | null
+    contact: string | null
+    acquirer_data: JsonValue | null
+    notes: JsonValue | null
+    autoRenew: boolean
     created_at: Date
     updated_at: Date
+    bill_generated: boolean
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
     _sum: PaymentSumAggregateOutputType | null
@@ -12979,14 +13346,28 @@ export namespace Prisma {
     currency?: boolean
     status?: boolean
     payment_method?: boolean
+    razorpay_order_id?: boolean
     razorpay_payment_id?: boolean
     refund_id?: boolean
     is_refunded?: boolean
     failure_reason?: boolean
+    vpa?: boolean
+    fee?: boolean
+    tax?: boolean
+    rrn?: boolean
+    upi_transaction_id?: boolean
+    email?: boolean
+    contact?: boolean
+    acquirer_data?: boolean
+    notes?: boolean
+    autoRenew?: boolean
     created_at?: boolean
     updated_at?: boolean
+    bill_generated?: boolean
     vendor?: boolean | Payment$vendorArgs<ExtArgs>
     subscription?: boolean | Payment$subscriptionArgs<ExtArgs>
+    invoices?: boolean | Payment$invoicesArgs<ExtArgs>
+    _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
 
@@ -12999,18 +13380,32 @@ export namespace Prisma {
     currency?: boolean
     status?: boolean
     payment_method?: boolean
+    razorpay_order_id?: boolean
     razorpay_payment_id?: boolean
     refund_id?: boolean
     is_refunded?: boolean
     failure_reason?: boolean
+    vpa?: boolean
+    fee?: boolean
+    tax?: boolean
+    rrn?: boolean
+    upi_transaction_id?: boolean
+    email?: boolean
+    contact?: boolean
+    acquirer_data?: boolean
+    notes?: boolean
+    autoRenew?: boolean
     created_at?: boolean
     updated_at?: boolean
+    bill_generated?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "subscriptionId" | "amount" | "currency" | "status" | "payment_method" | "razorpay_payment_id" | "refund_id" | "is_refunded" | "failure_reason" | "created_at" | "updated_at", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "subscriptionId" | "amount" | "currency" | "status" | "payment_method" | "razorpay_order_id" | "razorpay_payment_id" | "refund_id" | "is_refunded" | "failure_reason" | "vpa" | "fee" | "tax" | "rrn" | "upi_transaction_id" | "email" | "contact" | "acquirer_data" | "notes" | "autoRenew" | "created_at" | "updated_at" | "bill_generated", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | Payment$vendorArgs<ExtArgs>
     subscription?: boolean | Payment$subscriptionArgs<ExtArgs>
+    invoices?: boolean | Payment$invoicesArgs<ExtArgs>
+    _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13018,6 +13413,7 @@ export namespace Prisma {
     objects: {
       vendor: Prisma.$VendorPayload<ExtArgs> | null
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13027,12 +13423,24 @@ export namespace Prisma {
       currency: string
       status: $Enums.PaymentStatus
       payment_method: string | null
+      razorpay_order_id: string | null
       razorpay_payment_id: string | null
       refund_id: string | null
       is_refunded: boolean
       failure_reason: string | null
+      vpa: string | null
+      fee: number | null
+      tax: number | null
+      rrn: string | null
+      upi_transaction_id: string | null
+      email: string | null
+      contact: string | null
+      acquirer_data: Prisma.JsonValue | null
+      notes: Prisma.JsonValue | null
+      autoRenew: boolean
       created_at: Date
       updated_at: Date
+      bill_generated: boolean
     }, ExtArgs["result"]["payment"]>
     composites: {}
   }
@@ -13398,6 +13806,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vendor<T extends Payment$vendorArgs<ExtArgs> = {}>(args?: Subset<T, Payment$vendorArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     subscription<T extends Payment$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, Payment$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    invoices<T extends Payment$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Payment$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13434,12 +13843,24 @@ export namespace Prisma {
     readonly currency: FieldRef<"Payment", 'String'>
     readonly status: FieldRef<"Payment", 'PaymentStatus'>
     readonly payment_method: FieldRef<"Payment", 'String'>
+    readonly razorpay_order_id: FieldRef<"Payment", 'String'>
     readonly razorpay_payment_id: FieldRef<"Payment", 'String'>
     readonly refund_id: FieldRef<"Payment", 'String'>
     readonly is_refunded: FieldRef<"Payment", 'Boolean'>
     readonly failure_reason: FieldRef<"Payment", 'String'>
+    readonly vpa: FieldRef<"Payment", 'String'>
+    readonly fee: FieldRef<"Payment", 'Float'>
+    readonly tax: FieldRef<"Payment", 'Float'>
+    readonly rrn: FieldRef<"Payment", 'String'>
+    readonly upi_transaction_id: FieldRef<"Payment", 'String'>
+    readonly email: FieldRef<"Payment", 'String'>
+    readonly contact: FieldRef<"Payment", 'String'>
+    readonly acquirer_data: FieldRef<"Payment", 'Json'>
+    readonly notes: FieldRef<"Payment", 'Json'>
+    readonly autoRenew: FieldRef<"Payment", 'Boolean'>
     readonly created_at: FieldRef<"Payment", 'DateTime'>
     readonly updated_at: FieldRef<"Payment", 'DateTime'>
+    readonly bill_generated: FieldRef<"Payment", 'Boolean'>
   }
     
 
@@ -13840,6 +14261,30 @@ export namespace Prisma {
   }
 
   /**
+   * Payment.invoices
+   */
+  export type Payment$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
    * Payment without action
    */
   export type PaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13859,6 +14304,2097 @@ export namespace Prisma {
 
 
   /**
+   * Model Invoice
+   */
+
+  export type AggregateInvoice = {
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  export type InvoiceAvgAggregateOutputType = {
+    discount: number | null
+    totalExclIGST: number | null
+    igstAmount: number | null
+    igstTotal: number | null
+    totalAmount: number | null
+    amountDue: number | null
+  }
+
+  export type InvoiceSumAggregateOutputType = {
+    discount: number | null
+    totalExclIGST: number | null
+    igstAmount: number | null
+    igstTotal: number | null
+    totalAmount: number | null
+    amountDue: number | null
+  }
+
+  export type InvoiceMinAggregateOutputType = {
+    id: string | null
+    invoiceNumber: string | null
+    vendorId: string | null
+    paymentId: string | null
+    nextBillingDate: Date | null
+    discount: number | null
+    totalExclIGST: number | null
+    igstAmount: number | null
+    igstTotal: number | null
+    totalAmount: number | null
+    amountDue: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type InvoiceMaxAggregateOutputType = {
+    id: string | null
+    invoiceNumber: string | null
+    vendorId: string | null
+    paymentId: string | null
+    nextBillingDate: Date | null
+    discount: number | null
+    totalExclIGST: number | null
+    igstAmount: number | null
+    igstTotal: number | null
+    totalAmount: number | null
+    amountDue: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type InvoiceCountAggregateOutputType = {
+    id: number
+    invoiceNumber: number
+    vendorId: number
+    paymentId: number
+    nextBillingDate: number
+    discount: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type InvoiceAvgAggregateInputType = {
+    discount?: true
+    totalExclIGST?: true
+    igstAmount?: true
+    igstTotal?: true
+    totalAmount?: true
+    amountDue?: true
+  }
+
+  export type InvoiceSumAggregateInputType = {
+    discount?: true
+    totalExclIGST?: true
+    igstAmount?: true
+    igstTotal?: true
+    totalAmount?: true
+    amountDue?: true
+  }
+
+  export type InvoiceMinAggregateInputType = {
+    id?: true
+    invoiceNumber?: true
+    vendorId?: true
+    paymentId?: true
+    nextBillingDate?: true
+    discount?: true
+    totalExclIGST?: true
+    igstAmount?: true
+    igstTotal?: true
+    totalAmount?: true
+    amountDue?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type InvoiceMaxAggregateInputType = {
+    id?: true
+    invoiceNumber?: true
+    vendorId?: true
+    paymentId?: true
+    nextBillingDate?: true
+    discount?: true
+    totalExclIGST?: true
+    igstAmount?: true
+    igstTotal?: true
+    totalAmount?: true
+    amountDue?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type InvoiceCountAggregateInputType = {
+    id?: true
+    invoiceNumber?: true
+    vendorId?: true
+    paymentId?: true
+    nextBillingDate?: true
+    discount?: true
+    totalExclIGST?: true
+    igstAmount?: true
+    igstTotal?: true
+    totalAmount?: true
+    amountDue?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type InvoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoice to aggregate.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Invoices
+    **/
+    _count?: true | InvoiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InvoiceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoiceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InvoiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type GetInvoiceAggregateType<T extends InvoiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvoice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvoice[P]>
+      : GetScalarType<T[P], AggregateInvoice[P]>
+  }
+
+
+
+
+  export type InvoiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithAggregationInput | InvoiceOrderByWithAggregationInput[]
+    by: InvoiceScalarFieldEnum[] | InvoiceScalarFieldEnum
+    having?: InvoiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InvoiceCountAggregateInputType | true
+    _avg?: InvoiceAvgAggregateInputType
+    _sum?: InvoiceSumAggregateInputType
+    _min?: InvoiceMinAggregateInputType
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type InvoiceGroupByOutputType = {
+    id: string
+    invoiceNumber: string
+    vendorId: string | null
+    paymentId: string | null
+    nextBillingDate: Date | null
+    discount: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue: number
+    created_at: Date
+    updated_at: Date
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  type GetInvoiceGroupByPayload<T extends InvoiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InvoiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InvoiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+            : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    invoiceNumber?: boolean
+    vendorId?: boolean
+    paymentId?: boolean
+    nextBillingDate?: boolean
+    discount?: boolean
+    totalExclIGST?: boolean
+    igstAmount?: boolean
+    igstTotal?: boolean
+    totalAmount?: boolean
+    amountDue?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    vendor?: boolean | Invoice$vendorArgs<ExtArgs>
+    payment?: boolean | Invoice$paymentArgs<ExtArgs>
+  }, ExtArgs["result"]["invoice"]>
+
+
+
+  export type InvoiceSelectScalar = {
+    id?: boolean
+    invoiceNumber?: boolean
+    vendorId?: boolean
+    paymentId?: boolean
+    nextBillingDate?: boolean
+    discount?: boolean
+    totalExclIGST?: boolean
+    igstAmount?: boolean
+    igstTotal?: boolean
+    totalAmount?: boolean
+    amountDue?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoiceNumber" | "vendorId" | "paymentId" | "nextBillingDate" | "discount" | "totalExclIGST" | "igstAmount" | "igstTotal" | "totalAmount" | "amountDue" | "created_at" | "updated_at", ExtArgs["result"]["invoice"]>
+  export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vendor?: boolean | Invoice$vendorArgs<ExtArgs>
+    payment?: boolean | Invoice$paymentArgs<ExtArgs>
+  }
+
+  export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invoice"
+    objects: {
+      vendor: Prisma.$VendorPayload<ExtArgs> | null
+      payment: Prisma.$PaymentPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      invoiceNumber: string
+      vendorId: string | null
+      paymentId: string | null
+      nextBillingDate: Date | null
+      discount: number
+      totalExclIGST: number
+      igstAmount: number
+      igstTotal: number
+      totalAmount: number
+      amountDue: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["invoice"]>
+    composites: {}
+  }
+
+  type InvoiceGetPayload<S extends boolean | null | undefined | InvoiceDefaultArgs> = $Result.GetResult<Prisma.$InvoicePayload, S>
+
+  type InvoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvoiceCountAggregateInputType | true
+    }
+
+  export interface InvoiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invoice'], meta: { name: 'Invoice' } }
+    /**
+     * Find zero or one Invoice that matches the filter.
+     * @param {InvoiceFindUniqueArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InvoiceFindUniqueArgs>(args: SelectSubset<T, InvoiceFindUniqueArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Invoice that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InvoiceFindUniqueOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InvoiceFindUniqueOrThrowArgs>(args: SelectSubset<T, InvoiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Invoice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InvoiceFindFirstArgs>(args?: SelectSubset<T, InvoiceFindFirstArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Invoice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InvoiceFindFirstOrThrowArgs>(args?: SelectSubset<T, InvoiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Invoices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Invoices
+     * const invoices = await prisma.invoice.findMany()
+     * 
+     * // Get first 10 Invoices
+     * const invoices = await prisma.invoice.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InvoiceFindManyArgs>(args?: SelectSubset<T, InvoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Invoice.
+     * @param {InvoiceCreateArgs} args - Arguments to create a Invoice.
+     * @example
+     * // Create one Invoice
+     * const Invoice = await prisma.invoice.create({
+     *   data: {
+     *     // ... data to create a Invoice
+     *   }
+     * })
+     * 
+     */
+    create<T extends InvoiceCreateArgs>(args: SelectSubset<T, InvoiceCreateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Invoices.
+     * @param {InvoiceCreateManyArgs} args - Arguments to create many Invoices.
+     * @example
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InvoiceCreateManyArgs>(args?: SelectSubset<T, InvoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Invoice.
+     * @param {InvoiceDeleteArgs} args - Arguments to delete one Invoice.
+     * @example
+     * // Delete one Invoice
+     * const Invoice = await prisma.invoice.delete({
+     *   where: {
+     *     // ... filter to delete one Invoice
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InvoiceDeleteArgs>(args: SelectSubset<T, InvoiceDeleteArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Invoice.
+     * @param {InvoiceUpdateArgs} args - Arguments to update one Invoice.
+     * @example
+     * // Update one Invoice
+     * const invoice = await prisma.invoice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InvoiceUpdateArgs>(args: SelectSubset<T, InvoiceUpdateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Invoices.
+     * @param {InvoiceDeleteManyArgs} args - Arguments to filter Invoices to delete.
+     * @example
+     * // Delete a few Invoices
+     * const { count } = await prisma.invoice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InvoiceDeleteManyArgs>(args?: SelectSubset<T, InvoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InvoiceUpdateManyArgs>(args: SelectSubset<T, InvoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Invoice.
+     * @param {InvoiceUpsertArgs} args - Arguments to update or create a Invoice.
+     * @example
+     * // Update or create a Invoice
+     * const invoice = await prisma.invoice.upsert({
+     *   create: {
+     *     // ... data to create a Invoice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Invoice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InvoiceUpsertArgs>(args: SelectSubset<T, InvoiceUpsertArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Invoices that matches the filter.
+     * @param {InvoiceFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const invoice = await prisma.invoice.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: InvoiceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Invoice.
+     * @param {InvoiceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const invoice = await prisma.invoice.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: InvoiceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCountArgs} args - Arguments to filter Invoices to count.
+     * @example
+     * // Count the number of Invoices
+     * const count = await prisma.invoice.count({
+     *   where: {
+     *     // ... the filter for the Invoices we want to count
+     *   }
+     * })
+    **/
+    count<T extends InvoiceCountArgs>(
+      args?: Subset<T, InvoiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InvoiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InvoiceAggregateArgs>(args: Subset<T, InvoiceAggregateArgs>): Prisma.PrismaPromise<GetInvoiceAggregateType<T>>
+
+    /**
+     * Group by Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InvoiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvoiceGroupByArgs['orderBy'] }
+        : { orderBy?: InvoiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InvoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Invoice model
+   */
+  readonly fields: InvoiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Invoice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vendor<T extends Invoice$vendorArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$vendorArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    payment<T extends Invoice$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Invoice model
+   */ 
+  interface InvoiceFieldRefs {
+    readonly id: FieldRef<"Invoice", 'String'>
+    readonly invoiceNumber: FieldRef<"Invoice", 'String'>
+    readonly vendorId: FieldRef<"Invoice", 'String'>
+    readonly paymentId: FieldRef<"Invoice", 'String'>
+    readonly nextBillingDate: FieldRef<"Invoice", 'DateTime'>
+    readonly discount: FieldRef<"Invoice", 'Float'>
+    readonly totalExclIGST: FieldRef<"Invoice", 'Float'>
+    readonly igstAmount: FieldRef<"Invoice", 'Float'>
+    readonly igstTotal: FieldRef<"Invoice", 'Float'>
+    readonly totalAmount: FieldRef<"Invoice", 'Float'>
+    readonly amountDue: FieldRef<"Invoice", 'Float'>
+    readonly created_at: FieldRef<"Invoice", 'DateTime'>
+    readonly updated_at: FieldRef<"Invoice", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Invoice findUnique
+   */
+  export type InvoiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findUniqueOrThrow
+   */
+  export type InvoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findFirst
+   */
+  export type InvoiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findFirstOrThrow
+   */
+  export type InvoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findMany
+   */
+  export type InvoiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoices to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice create
+   */
+  export type InvoiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Invoice.
+     */
+    data: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+  }
+
+  /**
+   * Invoice createMany
+   */
+  export type InvoiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Invoices.
+     */
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
+  }
+
+  /**
+   * Invoice update
+   */
+  export type InvoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Invoice.
+     */
+    data: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+    /**
+     * Choose, which Invoice to update.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice updateMany
+   */
+  export type InvoiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Invoices.
+     */
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Invoices to update
+     */
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * Invoice upsert
+   */
+  export type InvoiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Invoice to update in case it exists.
+     */
+    where: InvoiceWhereUniqueInput
+    /**
+     * In case the Invoice found by the `where` argument doesn't exist, create a new Invoice with this data.
+     */
+    create: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+    /**
+     * In case the Invoice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+  }
+
+  /**
+   * Invoice delete
+   */
+  export type InvoiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter which Invoice to delete.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice deleteMany
+   */
+  export type InvoiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoices to delete
+     */
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * Invoice findRaw
+   */
+  export type InvoiceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Invoice aggregateRaw
+   */
+  export type InvoiceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Invoice.vendor
+   */
+  export type Invoice$vendorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vendor
+     */
+    select?: VendorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vendor
+     */
+    omit?: VendorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorInclude<ExtArgs> | null
+    where?: VendorWhereInput
+  }
+
+  /**
+   * Invoice.payment
+   */
+  export type Invoice$paymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    where?: PaymentWhereInput
+  }
+
+  /**
+   * Invoice without action
+   */
+  export type InvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Counter
+   */
+
+  export type AggregateCounter = {
+    _count: CounterCountAggregateOutputType | null
+    _avg: CounterAvgAggregateOutputType | null
+    _sum: CounterSumAggregateOutputType | null
+    _min: CounterMinAggregateOutputType | null
+    _max: CounterMaxAggregateOutputType | null
+  }
+
+  export type CounterAvgAggregateOutputType = {
+    value: number | null
+  }
+
+  export type CounterSumAggregateOutputType = {
+    value: number | null
+  }
+
+  export type CounterMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    value: number | null
+  }
+
+  export type CounterMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    value: number | null
+  }
+
+  export type CounterCountAggregateOutputType = {
+    id: number
+    name: number
+    value: number
+    _all: number
+  }
+
+
+  export type CounterAvgAggregateInputType = {
+    value?: true
+  }
+
+  export type CounterSumAggregateInputType = {
+    value?: true
+  }
+
+  export type CounterMinAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+  }
+
+  export type CounterMaxAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+  }
+
+  export type CounterCountAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+    _all?: true
+  }
+
+  export type CounterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Counter to aggregate.
+     */
+    where?: CounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Counters to fetch.
+     */
+    orderBy?: CounterOrderByWithRelationInput | CounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Counters
+    **/
+    _count?: true | CounterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CounterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CounterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CounterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CounterMaxAggregateInputType
+  }
+
+  export type GetCounterAggregateType<T extends CounterAggregateArgs> = {
+        [P in keyof T & keyof AggregateCounter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCounter[P]>
+      : GetScalarType<T[P], AggregateCounter[P]>
+  }
+
+
+
+
+  export type CounterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CounterWhereInput
+    orderBy?: CounterOrderByWithAggregationInput | CounterOrderByWithAggregationInput[]
+    by: CounterScalarFieldEnum[] | CounterScalarFieldEnum
+    having?: CounterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CounterCountAggregateInputType | true
+    _avg?: CounterAvgAggregateInputType
+    _sum?: CounterSumAggregateInputType
+    _min?: CounterMinAggregateInputType
+    _max?: CounterMaxAggregateInputType
+  }
+
+  export type CounterGroupByOutputType = {
+    id: string
+    name: string
+    value: number
+    _count: CounterCountAggregateOutputType | null
+    _avg: CounterAvgAggregateOutputType | null
+    _sum: CounterSumAggregateOutputType | null
+    _min: CounterMinAggregateOutputType | null
+    _max: CounterMaxAggregateOutputType | null
+  }
+
+  type GetCounterGroupByPayload<T extends CounterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CounterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CounterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CounterGroupByOutputType[P]>
+            : GetScalarType<T[P], CounterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CounterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["counter"]>
+
+
+
+  export type CounterSelectScalar = {
+    id?: boolean
+    name?: boolean
+    value?: boolean
+  }
+
+  export type CounterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "value", ExtArgs["result"]["counter"]>
+
+  export type $CounterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Counter"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      value: number
+    }, ExtArgs["result"]["counter"]>
+    composites: {}
+  }
+
+  type CounterGetPayload<S extends boolean | null | undefined | CounterDefaultArgs> = $Result.GetResult<Prisma.$CounterPayload, S>
+
+  type CounterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CounterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CounterCountAggregateInputType | true
+    }
+
+  export interface CounterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Counter'], meta: { name: 'Counter' } }
+    /**
+     * Find zero or one Counter that matches the filter.
+     * @param {CounterFindUniqueArgs} args - Arguments to find a Counter
+     * @example
+     * // Get one Counter
+     * const counter = await prisma.counter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CounterFindUniqueArgs>(args: SelectSubset<T, CounterFindUniqueArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Counter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CounterFindUniqueOrThrowArgs} args - Arguments to find a Counter
+     * @example
+     * // Get one Counter
+     * const counter = await prisma.counter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CounterFindUniqueOrThrowArgs>(args: SelectSubset<T, CounterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Counter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterFindFirstArgs} args - Arguments to find a Counter
+     * @example
+     * // Get one Counter
+     * const counter = await prisma.counter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CounterFindFirstArgs>(args?: SelectSubset<T, CounterFindFirstArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Counter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterFindFirstOrThrowArgs} args - Arguments to find a Counter
+     * @example
+     * // Get one Counter
+     * const counter = await prisma.counter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CounterFindFirstOrThrowArgs>(args?: SelectSubset<T, CounterFindFirstOrThrowArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Counters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Counters
+     * const counters = await prisma.counter.findMany()
+     * 
+     * // Get first 10 Counters
+     * const counters = await prisma.counter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const counterWithIdOnly = await prisma.counter.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CounterFindManyArgs>(args?: SelectSubset<T, CounterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Counter.
+     * @param {CounterCreateArgs} args - Arguments to create a Counter.
+     * @example
+     * // Create one Counter
+     * const Counter = await prisma.counter.create({
+     *   data: {
+     *     // ... data to create a Counter
+     *   }
+     * })
+     * 
+     */
+    create<T extends CounterCreateArgs>(args: SelectSubset<T, CounterCreateArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Counters.
+     * @param {CounterCreateManyArgs} args - Arguments to create many Counters.
+     * @example
+     * // Create many Counters
+     * const counter = await prisma.counter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CounterCreateManyArgs>(args?: SelectSubset<T, CounterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Counter.
+     * @param {CounterDeleteArgs} args - Arguments to delete one Counter.
+     * @example
+     * // Delete one Counter
+     * const Counter = await prisma.counter.delete({
+     *   where: {
+     *     // ... filter to delete one Counter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CounterDeleteArgs>(args: SelectSubset<T, CounterDeleteArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Counter.
+     * @param {CounterUpdateArgs} args - Arguments to update one Counter.
+     * @example
+     * // Update one Counter
+     * const counter = await prisma.counter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CounterUpdateArgs>(args: SelectSubset<T, CounterUpdateArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Counters.
+     * @param {CounterDeleteManyArgs} args - Arguments to filter Counters to delete.
+     * @example
+     * // Delete a few Counters
+     * const { count } = await prisma.counter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CounterDeleteManyArgs>(args?: SelectSubset<T, CounterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Counters
+     * const counter = await prisma.counter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CounterUpdateManyArgs>(args: SelectSubset<T, CounterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Counter.
+     * @param {CounterUpsertArgs} args - Arguments to update or create a Counter.
+     * @example
+     * // Update or create a Counter
+     * const counter = await prisma.counter.upsert({
+     *   create: {
+     *     // ... data to create a Counter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Counter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CounterUpsertArgs>(args: SelectSubset<T, CounterUpsertArgs<ExtArgs>>): Prisma__CounterClient<$Result.GetResult<Prisma.$CounterPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Counters that matches the filter.
+     * @param {CounterFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const counter = await prisma.counter.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: CounterFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Counter.
+     * @param {CounterAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const counter = await prisma.counter.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: CounterAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterCountArgs} args - Arguments to filter Counters to count.
+     * @example
+     * // Count the number of Counters
+     * const count = await prisma.counter.count({
+     *   where: {
+     *     // ... the filter for the Counters we want to count
+     *   }
+     * })
+    **/
+    count<T extends CounterCountArgs>(
+      args?: Subset<T, CounterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CounterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Counter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CounterAggregateArgs>(args: Subset<T, CounterAggregateArgs>): Prisma.PrismaPromise<GetCounterAggregateType<T>>
+
+    /**
+     * Group by Counter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CounterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CounterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CounterGroupByArgs['orderBy'] }
+        : { orderBy?: CounterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CounterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCounterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Counter model
+   */
+  readonly fields: CounterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Counter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CounterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Counter model
+   */ 
+  interface CounterFieldRefs {
+    readonly id: FieldRef<"Counter", 'String'>
+    readonly name: FieldRef<"Counter", 'String'>
+    readonly value: FieldRef<"Counter", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Counter findUnique
+   */
+  export type CounterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter, which Counter to fetch.
+     */
+    where: CounterWhereUniqueInput
+  }
+
+  /**
+   * Counter findUniqueOrThrow
+   */
+  export type CounterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter, which Counter to fetch.
+     */
+    where: CounterWhereUniqueInput
+  }
+
+  /**
+   * Counter findFirst
+   */
+  export type CounterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter, which Counter to fetch.
+     */
+    where?: CounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Counters to fetch.
+     */
+    orderBy?: CounterOrderByWithRelationInput | CounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Counters.
+     */
+    cursor?: CounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Counters.
+     */
+    distinct?: CounterScalarFieldEnum | CounterScalarFieldEnum[]
+  }
+
+  /**
+   * Counter findFirstOrThrow
+   */
+  export type CounterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter, which Counter to fetch.
+     */
+    where?: CounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Counters to fetch.
+     */
+    orderBy?: CounterOrderByWithRelationInput | CounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Counters.
+     */
+    cursor?: CounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Counters.
+     */
+    distinct?: CounterScalarFieldEnum | CounterScalarFieldEnum[]
+  }
+
+  /**
+   * Counter findMany
+   */
+  export type CounterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter, which Counters to fetch.
+     */
+    where?: CounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Counters to fetch.
+     */
+    orderBy?: CounterOrderByWithRelationInput | CounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Counters.
+     */
+    cursor?: CounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Counters.
+     */
+    skip?: number
+    distinct?: CounterScalarFieldEnum | CounterScalarFieldEnum[]
+  }
+
+  /**
+   * Counter create
+   */
+  export type CounterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Counter.
+     */
+    data: XOR<CounterCreateInput, CounterUncheckedCreateInput>
+  }
+
+  /**
+   * Counter createMany
+   */
+  export type CounterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Counters.
+     */
+    data: CounterCreateManyInput | CounterCreateManyInput[]
+  }
+
+  /**
+   * Counter update
+   */
+  export type CounterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Counter.
+     */
+    data: XOR<CounterUpdateInput, CounterUncheckedUpdateInput>
+    /**
+     * Choose, which Counter to update.
+     */
+    where: CounterWhereUniqueInput
+  }
+
+  /**
+   * Counter updateMany
+   */
+  export type CounterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Counters.
+     */
+    data: XOR<CounterUpdateManyMutationInput, CounterUncheckedUpdateManyInput>
+    /**
+     * Filter which Counters to update
+     */
+    where?: CounterWhereInput
+  }
+
+  /**
+   * Counter upsert
+   */
+  export type CounterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Counter to update in case it exists.
+     */
+    where: CounterWhereUniqueInput
+    /**
+     * In case the Counter found by the `where` argument doesn't exist, create a new Counter with this data.
+     */
+    create: XOR<CounterCreateInput, CounterUncheckedCreateInput>
+    /**
+     * In case the Counter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CounterUpdateInput, CounterUncheckedUpdateInput>
+  }
+
+  /**
+   * Counter delete
+   */
+  export type CounterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+    /**
+     * Filter which Counter to delete.
+     */
+    where: CounterWhereUniqueInput
+  }
+
+  /**
+   * Counter deleteMany
+   */
+  export type CounterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Counters to delete
+     */
+    where?: CounterWhereInput
+  }
+
+  /**
+   * Counter findRaw
+   */
+  export type CounterFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Counter aggregateRaw
+   */
+  export type CounterAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Counter without action
+   */
+  export type CounterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Counter
+     */
+    select?: CounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Counter
+     */
+    omit?: CounterOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13872,11 +16408,11 @@ export namespace Prisma {
     description: 'description',
     logo_url: 'logo_url',
     country: 'country',
-    state: 'state',
     latitude: 'latitude',
     longitude: 'longitude',
     city: 'city',
     email: 'email',
+    state: 'state',
     password_hash: 'password_hash',
     phone_number: 'phone_number',
     social_networks: 'social_networks',
@@ -13899,8 +16435,12 @@ export namespace Prisma {
     description: 'description',
     min_price: 'min_price',
     max_price: 'max_price',
+    city: 'city',
+    state: 'state',
     price: 'price',
     service_type: 'service_type',
+    service_unit: 'service_unit',
+    status: 'status',
     rating: 'rating',
     faqs: 'faqs',
     created_at: 'created_at',
@@ -14012,7 +16552,6 @@ export namespace Prisma {
     status: 'status',
     order_id: 'order_id',
     payment_id: 'payment_id',
-    razorpay_subscription_id: 'razorpay_subscription_id',
     start_date: 'start_date',
     end_date: 'end_date',
     auto_renew: 'auto_renew',
@@ -14033,15 +16572,55 @@ export namespace Prisma {
     currency: 'currency',
     status: 'status',
     payment_method: 'payment_method',
+    razorpay_order_id: 'razorpay_order_id',
     razorpay_payment_id: 'razorpay_payment_id',
     refund_id: 'refund_id',
     is_refunded: 'is_refunded',
     failure_reason: 'failure_reason',
+    vpa: 'vpa',
+    fee: 'fee',
+    tax: 'tax',
+    rrn: 'rrn',
+    upi_transaction_id: 'upi_transaction_id',
+    email: 'email',
+    contact: 'contact',
+    acquirer_data: 'acquirer_data',
+    notes: 'notes',
+    autoRenew: 'autoRenew',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    bill_generated: 'bill_generated'
+  };
+
+  export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+  export const InvoiceScalarFieldEnum: {
+    id: 'id',
+    invoiceNumber: 'invoiceNumber',
+    vendorId: 'vendorId',
+    paymentId: 'paymentId',
+    nextBillingDate: 'nextBillingDate',
+    discount: 'discount',
+    totalExclIGST: 'totalExclIGST',
+    igstAmount: 'igstAmount',
+    igstTotal: 'igstTotal',
+    totalAmount: 'totalAmount',
+    amountDue: 'amountDue',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
 
-  export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+  export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+  export const CounterScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    value: 'value'
+  };
+
+  export type CounterScalarFieldEnum = (typeof CounterScalarFieldEnum)[keyof typeof CounterScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14176,14 +16755,14 @@ export namespace Prisma {
     business_category?: StringFilter<"Vendor"> | string
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringFilter<"Vendor"> | string
+    description?: StringNullableFilter<"Vendor"> | string | null
     logo_url?: JsonNullableFilter<"Vendor">
     country?: StringNullableFilter<"Vendor"> | string | null
-    state?: StringNullableFilter<"Vendor"> | string | null
     latitude?: StringNullableFilter<"Vendor"> | string | null
     longitude?: StringNullableFilter<"Vendor"> | string | null
     city?: StringNullableFilter<"Vendor"> | string | null
     email?: StringFilter<"Vendor"> | string
+    state?: StringNullableFilter<"Vendor"> | string | null
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
@@ -14198,6 +16777,7 @@ export namespace Prisma {
     promotions?: PromotionListRelationFilter
     team_members?: TeamMemberListRelationFilter
     payment?: PaymentListRelationFilter
+    invoices?: InvoiceListRelationFilter
     Subscription?: SubscriptionListRelationFilter
   }
 
@@ -14211,11 +16791,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -14230,6 +16810,7 @@ export namespace Prisma {
     promotions?: PromotionOrderByRelationAggregateInput
     team_members?: TeamMemberOrderByRelationAggregateInput
     payment?: PaymentOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
     Subscription?: SubscriptionOrderByRelationAggregateInput
   }
 
@@ -14244,13 +16825,13 @@ export namespace Prisma {
     business_category?: StringFilter<"Vendor"> | string
     license_number?: StringNullableFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringFilter<"Vendor"> | string
+    description?: StringNullableFilter<"Vendor"> | string | null
     logo_url?: JsonNullableFilter<"Vendor">
     country?: StringNullableFilter<"Vendor"> | string | null
-    state?: StringNullableFilter<"Vendor"> | string | null
     latitude?: StringNullableFilter<"Vendor"> | string | null
     longitude?: StringNullableFilter<"Vendor"> | string | null
     city?: StringNullableFilter<"Vendor"> | string | null
+    state?: StringNullableFilter<"Vendor"> | string | null
     password_hash?: StringFilter<"Vendor"> | string
     phone_number?: StringFilter<"Vendor"> | string
     social_networks?: JsonNullableFilter<"Vendor">
@@ -14265,6 +16846,7 @@ export namespace Prisma {
     promotions?: PromotionListRelationFilter
     team_members?: TeamMemberListRelationFilter
     payment?: PaymentListRelationFilter
+    invoices?: InvoiceListRelationFilter
     Subscription?: SubscriptionListRelationFilter
   }, "id" | "email">
 
@@ -14278,11 +16860,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -14308,14 +16890,14 @@ export namespace Prisma {
     business_category?: StringWithAggregatesFilter<"Vendor"> | string
     license_number?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     service_type?: StringNullableListFilter<"Vendor">
-    description?: StringWithAggregatesFilter<"Vendor"> | string
+    description?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     logo_url?: JsonNullableWithAggregatesFilter<"Vendor">
     country?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
-    state?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     latitude?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     longitude?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     city?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     email?: StringWithAggregatesFilter<"Vendor"> | string
+    state?: StringNullableWithAggregatesFilter<"Vendor"> | string | null
     password_hash?: StringWithAggregatesFilter<"Vendor"> | string
     phone_number?: StringWithAggregatesFilter<"Vendor"> | string
     social_networks?: JsonNullableWithAggregatesFilter<"Vendor">
@@ -14335,11 +16917,15 @@ export namespace Prisma {
     id?: StringFilter<"Service"> | string
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
-    description?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -14358,8 +16944,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -14378,11 +16968,15 @@ export namespace Prisma {
     NOT?: ServiceWhereInput | ServiceWhereInput[]
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
-    description?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -14401,8 +16995,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -14421,11 +17019,15 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Service"> | string
     vendorId?: StringWithAggregatesFilter<"Service"> | string
     service_name?: StringWithAggregatesFilter<"Service"> | string
-    description?: StringWithAggregatesFilter<"Service"> | string
+    description?: StringNullableWithAggregatesFilter<"Service"> | string | null
     min_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     max_price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
+    city?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    state?: StringNullableWithAggregatesFilter<"Service"> | string | null
     price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
+    service_unit?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    status?: StringWithAggregatesFilter<"Service"> | string
     rating?: FloatWithAggregatesFilter<"Service"> | number
     faqs?: JsonNullableWithAggregatesFilter<"Service">
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -14927,7 +17529,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -14947,7 +17548,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -14970,7 +17570,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -14990,7 +17589,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -15013,7 +17611,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringWithAggregatesFilter<"Subscription"> | string
     payment_id?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     start_date?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolWithAggregatesFilter<"Subscription"> | boolean
@@ -15034,14 +17631,27 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    bill_generated?: BoolFilter<"Payment"> | boolean
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    invoices?: InvoiceListRelationFilter
   }
 
   export type PaymentOrderByWithRelationInput = {
@@ -15052,14 +17662,27 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    bill_generated?: SortOrder
     vendor?: VendorOrderByWithRelationInput
     subscription?: SubscriptionOrderByWithRelationInput
+    invoices?: InvoiceOrderByRelationAggregateInput
   }
 
   export type PaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -15073,14 +17696,27 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    bill_generated?: BoolFilter<"Payment"> | boolean
     vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    invoices?: InvoiceListRelationFilter
   }, "id">
 
   export type PaymentOrderByWithAggregationInput = {
@@ -15091,12 +17727,24 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    bill_generated?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
     _max?: PaymentMaxOrderByAggregateInput
@@ -15115,12 +17763,168 @@ export namespace Prisma {
     currency?: StringWithAggregatesFilter<"Payment"> | string
     status?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     refund_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     is_refunded?: BoolWithAggregatesFilter<"Payment"> | boolean
     failure_reason?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    vpa?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    fee?: FloatNullableWithAggregatesFilter<"Payment"> | number | null
+    tax?: FloatNullableWithAggregatesFilter<"Payment"> | number | null
+    rrn?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    contact?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableWithAggregatesFilter<"Payment">
+    notes?: JsonNullableWithAggregatesFilter<"Payment">
+    autoRenew?: BoolWithAggregatesFilter<"Payment"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
+    bill_generated?: BoolWithAggregatesFilter<"Payment"> | boolean
+  }
+
+  export type InvoiceWhereInput = {
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    invoiceNumber?: StringFilter<"Invoice"> | string
+    vendorId?: StringNullableFilter<"Invoice"> | string | null
+    paymentId?: StringNullableFilter<"Invoice"> | string | null
+    nextBillingDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    discount?: FloatFilter<"Invoice"> | number
+    totalExclIGST?: FloatFilter<"Invoice"> | number
+    igstAmount?: FloatFilter<"Invoice"> | number
+    igstTotal?: FloatFilter<"Invoice"> | number
+    totalAmount?: FloatFilter<"Invoice"> | number
+    amountDue?: FloatFilter<"Invoice"> | number
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
+  }
+
+  export type InvoiceOrderByWithRelationInput = {
+    id?: SortOrder
+    invoiceNumber?: SortOrder
+    vendorId?: SortOrder
+    paymentId?: SortOrder
+    nextBillingDate?: SortOrder
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    vendor?: VendorOrderByWithRelationInput
+    payment?: PaymentOrderByWithRelationInput
+  }
+
+  export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    invoiceNumber?: string
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    vendorId?: StringNullableFilter<"Invoice"> | string | null
+    paymentId?: StringNullableFilter<"Invoice"> | string | null
+    nextBillingDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    discount?: FloatFilter<"Invoice"> | number
+    totalExclIGST?: FloatFilter<"Invoice"> | number
+    igstAmount?: FloatFilter<"Invoice"> | number
+    igstTotal?: FloatFilter<"Invoice"> | number
+    totalAmount?: FloatFilter<"Invoice"> | number
+    amountDue?: FloatFilter<"Invoice"> | number
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
+  }, "id" | "invoiceNumber">
+
+  export type InvoiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    invoiceNumber?: SortOrder
+    vendorId?: SortOrder
+    paymentId?: SortOrder
+    nextBillingDate?: SortOrder
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: InvoiceCountOrderByAggregateInput
+    _avg?: InvoiceAvgOrderByAggregateInput
+    _max?: InvoiceMaxOrderByAggregateInput
+    _min?: InvoiceMinOrderByAggregateInput
+    _sum?: InvoiceSumOrderByAggregateInput
+  }
+
+  export type InvoiceScalarWhereWithAggregatesInput = {
+    AND?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    OR?: InvoiceScalarWhereWithAggregatesInput[]
+    NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Invoice"> | string
+    invoiceNumber?: StringWithAggregatesFilter<"Invoice"> | string
+    vendorId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    paymentId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    nextBillingDate?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+    discount?: FloatWithAggregatesFilter<"Invoice"> | number
+    totalExclIGST?: FloatWithAggregatesFilter<"Invoice"> | number
+    igstAmount?: FloatWithAggregatesFilter<"Invoice"> | number
+    igstTotal?: FloatWithAggregatesFilter<"Invoice"> | number
+    totalAmount?: FloatWithAggregatesFilter<"Invoice"> | number
+    amountDue?: FloatWithAggregatesFilter<"Invoice"> | number
+    created_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+  }
+
+  export type CounterWhereInput = {
+    AND?: CounterWhereInput | CounterWhereInput[]
+    OR?: CounterWhereInput[]
+    NOT?: CounterWhereInput | CounterWhereInput[]
+    id?: StringFilter<"Counter"> | string
+    name?: StringFilter<"Counter"> | string
+    value?: IntFilter<"Counter"> | number
+  }
+
+  export type CounterOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type CounterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: CounterWhereInput | CounterWhereInput[]
+    OR?: CounterWhereInput[]
+    NOT?: CounterWhereInput | CounterWhereInput[]
+    value?: IntFilter<"Counter"> | number
+  }, "id" | "name">
+
+  export type CounterOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    _count?: CounterCountOrderByAggregateInput
+    _avg?: CounterAvgOrderByAggregateInput
+    _max?: CounterMaxOrderByAggregateInput
+    _min?: CounterMinOrderByAggregateInput
+    _sum?: CounterSumOrderByAggregateInput
+  }
+
+  export type CounterScalarWhereWithAggregatesInput = {
+    AND?: CounterScalarWhereWithAggregatesInput | CounterScalarWhereWithAggregatesInput[]
+    OR?: CounterScalarWhereWithAggregatesInput[]
+    NOT?: CounterScalarWhereWithAggregatesInput | CounterScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Counter"> | string
+    name?: StringWithAggregatesFilter<"Counter"> | string
+    value?: IntWithAggregatesFilter<"Counter"> | number
   }
 
   export type VendorCreateInput = {
@@ -15130,14 +17934,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15152,6 +17956,7 @@ export namespace Prisma {
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
     payment?: PaymentCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
   }
 
@@ -15162,14 +17967,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15184,6 +17989,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
     payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -15193,14 +17999,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15215,6 +18021,7 @@ export namespace Prisma {
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
     payment?: PaymentUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
   }
 
@@ -15224,14 +18031,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15246,6 +18053,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
     payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -15256,14 +18064,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -15282,14 +18090,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15308,14 +18116,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -15331,11 +18139,15 @@ export namespace Prisma {
   export type ServiceCreateInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15351,11 +18163,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15368,11 +18184,15 @@ export namespace Prisma {
 
   export type ServiceUpdateInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15387,11 +18207,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15406,11 +18230,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -15419,11 +18247,15 @@ export namespace Prisma {
 
   export type ServiceUpdateManyMutationInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15433,11 +18265,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateManyInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15937,7 +18773,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -15957,7 +18792,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -15972,7 +18806,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -15991,7 +18824,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16009,7 +18841,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -16023,7 +18854,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16039,7 +18869,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -16055,14 +18884,27 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
     vendor?: VendorCreateNestedOneWithoutPaymentInput
     subscription?: SubscriptionCreateNestedOneWithoutPaymentsInput
+    invoices?: InvoiceCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateInput = {
@@ -16073,12 +18915,25 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUpdateInput = {
@@ -16086,14 +18941,27 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneWithoutPaymentNestedInput
     subscription?: SubscriptionUpdateOneWithoutPaymentsNestedInput
+    invoices?: InvoiceUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateInput = {
@@ -16103,12 +18971,25 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+    invoices?: InvoiceUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentCreateManyInput = {
@@ -16119,12 +19000,24 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
   }
 
   export type PaymentUpdateManyMutationInput = {
@@ -16132,12 +19025,24 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PaymentUncheckedUpdateManyInput = {
@@ -16147,12 +19052,168 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type InvoiceCreateInput = {
+    id?: string
+    invoiceNumber: string
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    vendor?: VendorCreateNestedOneWithoutInvoicesInput
+    payment?: PaymentCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type InvoiceUncheckedCreateInput = {
+    id?: string
+    invoiceNumber: string
+    vendorId?: string | null
+    paymentId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUpdateInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneWithoutInvoicesNestedInput
+    payment?: PaymentUpdateOneWithoutInvoicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceCreateManyInput = {
+    id?: string
+    invoiceNumber: string
+    vendorId?: string | null
+    paymentId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUpdateManyMutationInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUncheckedUpdateManyInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CounterCreateInput = {
+    id?: string
+    name: string
+    value: number
+  }
+
+  export type CounterUncheckedCreateInput = {
+    id?: string
+    name: string
+    value: number
+  }
+
+  export type CounterUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CounterUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CounterCreateManyInput = {
+    id?: string
+    name: string
+    value: number
+  }
+
+  export type CounterUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CounterUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -16246,6 +19307,12 @@ export namespace Prisma {
     none?: PaymentWhereInput
   }
 
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
+  }
+
   export type SubscriptionListRelationFilter = {
     every?: SubscriptionWhereInput
     some?: SubscriptionWhereInput
@@ -16268,6 +19335,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type InvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type SubscriptionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -16282,11 +19353,11 @@ export namespace Prisma {
     description?: SortOrder
     logo_url?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     social_networks?: SortOrder
@@ -16307,11 +19378,11 @@ export namespace Prisma {
     license_number?: SortOrder
     description?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     created_at?: SortOrder
@@ -16330,11 +19401,11 @@ export namespace Prisma {
     license_number?: SortOrder
     description?: SortOrder
     country?: SortOrder
-    state?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    state?: SortOrder
     password_hash?: SortOrder
     phone_number?: SortOrder
     created_at?: SortOrder
@@ -16494,8 +19565,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     faqs?: SortOrder
     created_at?: SortOrder
@@ -16516,8 +19591,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -16530,8 +19609,12 @@ export namespace Prisma {
     description?: SortOrder
     min_price?: SortOrder
     max_price?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_unit?: SortOrder
+    status?: SortOrder
     rating?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -16957,7 +20040,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -16974,7 +20056,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -16991,7 +20072,6 @@ export namespace Prisma {
     status?: SortOrder
     order_id?: SortOrder
     payment_id?: SortOrder
-    razorpay_subscription_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
     auto_renew?: SortOrder
@@ -17046,16 +20126,30 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    acquirer_data?: SortOrder
+    notes?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    bill_generated?: SortOrder
   }
 
   export type PaymentAvgOrderByAggregateInput = {
     amount?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
   }
 
   export type PaymentMaxOrderByAggregateInput = {
@@ -17066,12 +20160,22 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    bill_generated?: SortOrder
   }
 
   export type PaymentMinOrderByAggregateInput = {
@@ -17082,16 +20186,28 @@ export namespace Prisma {
     currency?: SortOrder
     status?: SortOrder
     payment_method?: SortOrder
+    razorpay_order_id?: SortOrder
     razorpay_payment_id?: SortOrder
     refund_id?: SortOrder
     is_refunded?: SortOrder
     failure_reason?: SortOrder
+    vpa?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
+    rrn?: SortOrder
+    upi_transaction_id?: SortOrder
+    email?: SortOrder
+    contact?: SortOrder
+    autoRenew?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    bill_generated?: SortOrder
   }
 
   export type PaymentSumOrderByAggregateInput = {
     amount?: SortOrder
+    fee?: SortOrder
+    tax?: SortOrder
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -17102,6 +20218,103 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type PaymentNullableScalarRelationFilter = {
+    is?: PaymentWhereInput | null
+    isNot?: PaymentWhereInput | null
+  }
+
+  export type InvoiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    invoiceNumber?: SortOrder
+    vendorId?: SortOrder
+    paymentId?: SortOrder
+    nextBillingDate?: SortOrder
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceAvgOrderByAggregateInput = {
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+  }
+
+  export type InvoiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    invoiceNumber?: SortOrder
+    vendorId?: SortOrder
+    paymentId?: SortOrder
+    nextBillingDate?: SortOrder
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    invoiceNumber?: SortOrder
+    vendorId?: SortOrder
+    paymentId?: SortOrder
+    nextBillingDate?: SortOrder
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceSumOrderByAggregateInput = {
+    discount?: SortOrder
+    totalExclIGST?: SortOrder
+    igstAmount?: SortOrder
+    igstTotal?: SortOrder
+    totalAmount?: SortOrder
+    amountDue?: SortOrder
+  }
+
+  export type CounterCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type CounterAvgOrderByAggregateInput = {
+    value?: SortOrder
+  }
+
+  export type CounterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type CounterMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type CounterSumOrderByAggregateInput = {
+    value?: SortOrder
   }
 
   export type VendorCreateservice_typeInput = {
@@ -17134,6 +20347,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutVendorInput | PaymentCreateOrConnectWithoutVendorInput[]
     createMany?: PaymentCreateManyVendorInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type InvoiceCreateNestedManyWithoutVendorInput = {
+    create?: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput> | InvoiceCreateWithoutVendorInput[] | InvoiceUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutVendorInput | InvoiceCreateOrConnectWithoutVendorInput[]
+    createMany?: InvoiceCreateManyVendorInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type SubscriptionCreateNestedManyWithoutVendorInput = {
@@ -17169,6 +20389,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutVendorInput | PaymentCreateOrConnectWithoutVendorInput[]
     createMany?: PaymentCreateManyVendorInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutVendorInput = {
+    create?: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput> | InvoiceCreateWithoutVendorInput[] | InvoiceUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutVendorInput | InvoiceCreateOrConnectWithoutVendorInput[]
+    createMany?: InvoiceCreateManyVendorInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type SubscriptionUncheckedCreateNestedManyWithoutVendorInput = {
@@ -17256,6 +20483,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type InvoiceUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput> | InvoiceCreateWithoutVendorInput[] | InvoiceUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutVendorInput | InvoiceCreateOrConnectWithoutVendorInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutVendorInput | InvoiceUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: InvoiceCreateManyVendorInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutVendorInput | InvoiceUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutVendorInput | InvoiceUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
   export type SubscriptionUpdateManyWithoutVendorNestedInput = {
     create?: XOR<SubscriptionCreateWithoutVendorInput, SubscriptionUncheckedCreateWithoutVendorInput> | SubscriptionCreateWithoutVendorInput[] | SubscriptionUncheckedCreateWithoutVendorInput[]
     connectOrCreate?: SubscriptionCreateOrConnectWithoutVendorInput | SubscriptionCreateOrConnectWithoutVendorInput[]
@@ -17324,6 +20565,20 @@ export namespace Prisma {
     update?: PaymentUpdateWithWhereUniqueWithoutVendorInput | PaymentUpdateWithWhereUniqueWithoutVendorInput[]
     updateMany?: PaymentUpdateManyWithWhereWithoutVendorInput | PaymentUpdateManyWithWhereWithoutVendorInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput> | InvoiceCreateWithoutVendorInput[] | InvoiceUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutVendorInput | InvoiceCreateOrConnectWithoutVendorInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutVendorInput | InvoiceUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: InvoiceCreateManyVendorInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutVendorInput | InvoiceUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutVendorInput | InvoiceUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type SubscriptionUncheckedUpdateManyWithoutVendorNestedInput = {
@@ -17775,6 +21030,20 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput
   }
 
+  export type InvoiceCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput> | InvoiceCreateWithoutPaymentInput[] | InvoiceUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPaymentInput | InvoiceCreateOrConnectWithoutPaymentInput[]
+    createMany?: InvoiceCreateManyPaymentInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput> | InvoiceCreateWithoutPaymentInput[] | InvoiceUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPaymentInput | InvoiceCreateOrConnectWithoutPaymentInput[]
+    createMany?: InvoiceCreateManyPaymentInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
   }
@@ -17797,6 +21066,66 @@ export namespace Prisma {
     delete?: SubscriptionWhereInput | boolean
     connect?: SubscriptionWhereUniqueInput
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutPaymentsInput, SubscriptionUpdateWithoutPaymentsInput>, SubscriptionUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type InvoiceUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput> | InvoiceCreateWithoutPaymentInput[] | InvoiceUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPaymentInput | InvoiceCreateOrConnectWithoutPaymentInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutPaymentInput | InvoiceUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: InvoiceCreateManyPaymentInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutPaymentInput | InvoiceUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutPaymentInput | InvoiceUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput> | InvoiceCreateWithoutPaymentInput[] | InvoiceUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPaymentInput | InvoiceCreateOrConnectWithoutPaymentInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutPaymentInput | InvoiceUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: InvoiceCreateManyPaymentInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutPaymentInput | InvoiceUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutPaymentInput | InvoiceUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type VendorCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<VendorCreateWithoutInvoicesInput, VendorUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutInvoicesInput
+    connect?: VendorWhereUniqueInput
+  }
+
+  export type PaymentCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<PaymentCreateWithoutInvoicesInput, PaymentUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutInvoicesInput
+    connect?: PaymentWhereUniqueInput
+  }
+
+  export type VendorUpdateOneWithoutInvoicesNestedInput = {
+    create?: XOR<VendorCreateWithoutInvoicesInput, VendorUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutInvoicesInput
+    upsert?: VendorUpsertWithoutInvoicesInput
+    disconnect?: boolean
+    delete?: VendorWhereInput | boolean
+    connect?: VendorWhereUniqueInput
+    update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutInvoicesInput, VendorUpdateWithoutInvoicesInput>, VendorUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type PaymentUpdateOneWithoutInvoicesNestedInput = {
+    create?: XOR<PaymentCreateWithoutInvoicesInput, PaymentUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutInvoicesInput
+    upsert?: PaymentUpsertWithoutInvoicesInput
+    disconnect?: boolean
+    delete?: PaymentWhereInput | boolean
+    connect?: PaymentWhereUniqueInput
+    update?: XOR<XOR<PaymentUpdateToOneWithWhereWithoutInvoicesInput, PaymentUpdateWithoutInvoicesInput>, PaymentUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18100,11 +21429,15 @@ export namespace Prisma {
   export type ServiceCreateWithoutVendorInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18118,11 +21451,15 @@ export namespace Prisma {
   export type ServiceUncheckedCreateWithoutVendorInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18208,13 +21545,26 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
     subscription?: SubscriptionCreateNestedOneWithoutPaymentsInput
+    invoices?: InvoiceCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutVendorInput = {
@@ -18224,12 +21574,25 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentCreateOrConnectWithoutVendorInput = {
@@ -18241,12 +21604,50 @@ export namespace Prisma {
     data: PaymentCreateManyVendorInput | PaymentCreateManyVendorInput[]
   }
 
+  export type InvoiceCreateWithoutVendorInput = {
+    id?: string
+    invoiceNumber: string
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    payment?: PaymentCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutVendorInput = {
+    id?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceCreateOrConnectWithoutVendorInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput>
+  }
+
+  export type InvoiceCreateManyVendorInputEnvelope = {
+    data: InvoiceCreateManyVendorInput | InvoiceCreateManyVendorInput[]
+  }
+
   export type SubscriptionCreateWithoutVendorInput = {
     id?: string
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -18264,7 +21665,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -18307,11 +21707,15 @@ export namespace Prisma {
     id?: StringFilter<"Service"> | string
     vendorId?: StringFilter<"Service"> | string
     service_name?: StringFilter<"Service"> | string
-    description?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
     min_price?: FloatNullableFilter<"Service"> | number | null
     max_price?: FloatNullableFilter<"Service"> | number | null
+    city?: StringNullableFilter<"Service"> | string | null
+    state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_unit?: StringNullableFilter<"Service"> | string | null
+    status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
     faqs?: JsonNullableFilter<"Service">
     created_at?: DateTimeFilter<"Service"> | Date | string
@@ -18406,12 +21810,59 @@ export namespace Prisma {
     currency?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     payment_method?: StringNullableFilter<"Payment"> | string | null
+    razorpay_order_id?: StringNullableFilter<"Payment"> | string | null
     razorpay_payment_id?: StringNullableFilter<"Payment"> | string | null
     refund_id?: StringNullableFilter<"Payment"> | string | null
     is_refunded?: BoolFilter<"Payment"> | boolean
     failure_reason?: StringNullableFilter<"Payment"> | string | null
+    vpa?: StringNullableFilter<"Payment"> | string | null
+    fee?: FloatNullableFilter<"Payment"> | number | null
+    tax?: FloatNullableFilter<"Payment"> | number | null
+    rrn?: StringNullableFilter<"Payment"> | string | null
+    upi_transaction_id?: StringNullableFilter<"Payment"> | string | null
+    email?: StringNullableFilter<"Payment"> | string | null
+    contact?: StringNullableFilter<"Payment"> | string | null
+    acquirer_data?: JsonNullableFilter<"Payment">
+    notes?: JsonNullableFilter<"Payment">
+    autoRenew?: BoolFilter<"Payment"> | boolean
     created_at?: DateTimeFilter<"Payment"> | Date | string
     updated_at?: DateTimeFilter<"Payment"> | Date | string
+    bill_generated?: BoolFilter<"Payment"> | boolean
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutVendorInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutVendorInput, InvoiceUncheckedUpdateWithoutVendorInput>
+    create: XOR<InvoiceCreateWithoutVendorInput, InvoiceUncheckedCreateWithoutVendorInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutVendorInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutVendorInput, InvoiceUncheckedUpdateWithoutVendorInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutVendorInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutVendorInput>
+  }
+
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    invoiceNumber?: StringFilter<"Invoice"> | string
+    vendorId?: StringNullableFilter<"Invoice"> | string | null
+    paymentId?: StringNullableFilter<"Invoice"> | string | null
+    nextBillingDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    discount?: FloatFilter<"Invoice"> | number
+    totalExclIGST?: FloatFilter<"Invoice"> | number
+    igstAmount?: FloatFilter<"Invoice"> | number
+    igstTotal?: FloatFilter<"Invoice"> | number
+    totalAmount?: FloatFilter<"Invoice"> | number
+    amountDue?: FloatFilter<"Invoice"> | number
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
   }
 
   export type SubscriptionUpsertWithWhereUniqueWithoutVendorInput = {
@@ -18440,7 +21891,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
     order_id?: StringFilter<"Subscription"> | string
     payment_id?: StringNullableFilter<"Subscription"> | string | null
-    razorpay_subscription_id?: StringNullableFilter<"Subscription"> | string | null
     start_date?: DateTimeFilter<"Subscription"> | Date | string
     end_date?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     auto_renew?: BoolFilter<"Subscription"> | boolean
@@ -18457,14 +21907,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -18478,6 +21928,7 @@ export namespace Prisma {
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
     payment?: PaymentCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
   }
 
@@ -18488,14 +21939,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -18509,6 +21960,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
     payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -18638,14 +22090,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -18659,6 +22111,7 @@ export namespace Prisma {
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
     payment?: PaymentUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
   }
 
@@ -18668,14 +22121,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -18689,6 +22142,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
     payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -18809,11 +22263,15 @@ export namespace Prisma {
   export type ServiceCreateWithoutViewsInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18828,11 +22286,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18860,11 +22322,15 @@ export namespace Prisma {
 
   export type ServiceUpdateWithoutViewsInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18878,11 +22344,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateWithoutViewsInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18895,11 +22365,15 @@ export namespace Prisma {
   export type ServiceCreateWithoutFeedbackInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18914,11 +22388,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -18946,11 +22424,15 @@ export namespace Prisma {
 
   export type ServiceUpdateWithoutFeedbackInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18964,11 +22446,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateWithoutFeedbackInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18981,11 +22467,15 @@ export namespace Prisma {
   export type ServiceCreateWithoutAvailabilitiesInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19000,11 +22490,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19032,11 +22526,15 @@ export namespace Prisma {
 
   export type ServiceUpdateWithoutAvailabilitiesInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19050,11 +22548,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateWithoutAvailabilitiesInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19067,11 +22569,15 @@ export namespace Prisma {
   export type ServiceCreateWithoutMediaInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19086,11 +22592,15 @@ export namespace Prisma {
     id?: string
     vendorId: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -19118,11 +22628,15 @@ export namespace Prisma {
 
   export type ServiceUpdateWithoutMediaInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19136,11 +22650,15 @@ export namespace Prisma {
   export type ServiceUncheckedUpdateWithoutMediaInput = {
     vendorId?: StringFieldUpdateOperationsInput | string
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19157,14 +22675,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19178,6 +22696,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutVendorInput
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     payment?: PaymentCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
   }
 
@@ -19188,14 +22707,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19209,6 +22728,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -19234,14 +22754,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19255,6 +22775,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     payment?: PaymentUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
   }
 
@@ -19264,14 +22785,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19285,6 +22806,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -19295,14 +22817,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19316,6 +22838,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
     payment?: PaymentCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
   }
 
@@ -19326,14 +22849,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19347,6 +22870,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
     payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -19372,14 +22896,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19393,6 +22917,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
     payment?: PaymentUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
   }
 
@@ -19402,14 +22927,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19423,6 +22948,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
     payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -19431,7 +22957,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19449,7 +22974,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19492,14 +23016,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19514,6 +23038,7 @@ export namespace Prisma {
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
     payment?: PaymentCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
   }
 
   export type VendorUncheckedCreateWithoutSubscriptionInput = {
@@ -19523,14 +23048,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19545,6 +23070,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
     payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
   }
 
   export type VendorCreateOrConnectWithoutSubscriptionInput = {
@@ -19589,13 +23115,26 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
     vendor?: VendorCreateNestedOneWithoutPaymentInput
+    invoices?: InvoiceCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutSubscriptionInput = {
@@ -19605,12 +23144,25 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentCreateOrConnectWithoutSubscriptionInput = {
@@ -19639,14 +23191,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19661,6 +23213,7 @@ export namespace Prisma {
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
     payment?: PaymentUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
   }
 
   export type VendorUncheckedUpdateWithoutSubscriptionInput = {
@@ -19669,14 +23222,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19691,6 +23244,7 @@ export namespace Prisma {
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
     payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
   }
 
   export type PlanUpsertWithoutSubscriptionsInput = {
@@ -19751,14 +23305,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19772,6 +23326,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutVendorInput
     promotions?: PromotionCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
   }
 
@@ -19782,14 +23337,14 @@ export namespace Prisma {
     business_category: string
     license_number?: string | null
     service_type?: VendorCreateservice_typeInput | string[]
-    description: string
+    description?: string | null
     logo_url?: InputJsonValue | null
     country?: string | null
-    state?: string | null
     latitude?: string | null
     longitude?: string | null
     city?: string | null
     email: string
+    state?: string | null
     password_hash: string
     phone_number: string
     social_networks?: InputJsonValue | null
@@ -19803,6 +23358,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
     team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutVendorInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -19816,7 +23372,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19835,7 +23390,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -19848,6 +23402,45 @@ export namespace Prisma {
   export type SubscriptionCreateOrConnectWithoutPaymentsInput = {
     where: SubscriptionWhereUniqueInput
     create: XOR<SubscriptionCreateWithoutPaymentsInput, SubscriptionUncheckedCreateWithoutPaymentsInput>
+  }
+
+  export type InvoiceCreateWithoutPaymentInput = {
+    id?: string
+    invoiceNumber: string
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    vendor?: VendorCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    invoiceNumber: string
+    vendorId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceCreateOrConnectWithoutPaymentInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type InvoiceCreateManyPaymentInputEnvelope = {
+    data: InvoiceCreateManyPaymentInput | InvoiceCreateManyPaymentInput[]
   }
 
   export type VendorUpsertWithoutPaymentInput = {
@@ -19867,14 +23460,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19888,6 +23481,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
   }
 
@@ -19897,14 +23491,14 @@ export namespace Prisma {
     business_category?: StringFieldUpdateOperationsInput | string
     license_number?: NullableStringFieldUpdateOperationsInput | string | null
     service_type?: VendorUpdateservice_typeInput | string[]
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: InputJsonValue | InputJsonValue | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     phone_number?: StringFieldUpdateOperationsInput | string
     social_networks?: InputJsonValue | InputJsonValue | null
@@ -19918,6 +23512,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
     team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutVendorNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -19936,7 +23531,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -19954,7 +23548,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -19964,14 +23557,302 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InvoiceUpsertWithWhereUniqueWithoutPaymentInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutPaymentInput, InvoiceUncheckedUpdateWithoutPaymentInput>
+    create: XOR<InvoiceCreateWithoutPaymentInput, InvoiceUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutPaymentInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutPaymentInput, InvoiceUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutPaymentInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutPaymentInput>
+  }
+
+  export type VendorCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    business_name: string
+    business_category: string
+    license_number?: string | null
+    service_type?: VendorCreateservice_typeInput | string[]
+    description?: string | null
+    logo_url?: InputJsonValue | null
+    country?: string | null
+    latitude?: string | null
+    longitude?: string | null
+    city?: string | null
+    email: string
+    state?: string | null
+    password_hash: string
+    phone_number: string
+    social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_verified?: boolean
+    refresh_Token?: string | null
+    resetPassword_Token?: string | null
+    role?: string
+    services?: ServiceCreateNestedManyWithoutVendorInput
+    promotions?: PromotionCreateNestedManyWithoutVendorInput
+    team_members?: TeamMemberCreateNestedManyWithoutVendorInput
+    payment?: PaymentCreateNestedManyWithoutVendorInput
+    Subscription?: SubscriptionCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    business_name: string
+    business_category: string
+    license_number?: string | null
+    service_type?: VendorCreateservice_typeInput | string[]
+    description?: string | null
+    logo_url?: InputJsonValue | null
+    country?: string | null
+    latitude?: string | null
+    longitude?: string | null
+    city?: string | null
+    email: string
+    state?: string | null
+    password_hash: string
+    phone_number: string
+    social_networks?: InputJsonValue | null
+    faqs?: InputJsonValue | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_verified?: boolean
+    refresh_Token?: string | null
+    resetPassword_Token?: string | null
+    role?: string
+    services?: ServiceUncheckedCreateNestedManyWithoutVendorInput
+    promotions?: PromotionUncheckedCreateNestedManyWithoutVendorInput
+    team_members?: TeamMemberUncheckedCreateNestedManyWithoutVendorInput
+    payment?: PaymentUncheckedCreateNestedManyWithoutVendorInput
+    Subscription?: SubscriptionUncheckedCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorCreateOrConnectWithoutInvoicesInput = {
+    where: VendorWhereUniqueInput
+    create: XOR<VendorCreateWithoutInvoicesInput, VendorUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type PaymentCreateWithoutInvoicesInput = {
+    id?: string
+    amount: number
+    currency: string
+    status?: $Enums.PaymentStatus
+    payment_method?: string | null
+    razorpay_order_id?: string | null
+    razorpay_payment_id?: string | null
+    refund_id?: string | null
+    is_refunded?: boolean
+    failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bill_generated?: boolean
+    vendor?: VendorCreateNestedOneWithoutPaymentInput
+    subscription?: SubscriptionCreateNestedOneWithoutPaymentsInput
+  }
+
+  export type PaymentUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    vendorId?: string | null
+    subscriptionId?: string | null
+    amount: number
+    currency: string
+    status?: $Enums.PaymentStatus
+    payment_method?: string | null
+    razorpay_order_id?: string | null
+    razorpay_payment_id?: string | null
+    refund_id?: string | null
+    is_refunded?: boolean
+    failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bill_generated?: boolean
+  }
+
+  export type PaymentCreateOrConnectWithoutInvoicesInput = {
+    where: PaymentWhereUniqueInput
+    create: XOR<PaymentCreateWithoutInvoicesInput, PaymentUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type VendorUpsertWithoutInvoicesInput = {
+    update: XOR<VendorUpdateWithoutInvoicesInput, VendorUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<VendorCreateWithoutInvoicesInput, VendorUncheckedCreateWithoutInvoicesInput>
+    where?: VendorWhereInput
+  }
+
+  export type VendorUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: VendorWhereInput
+    data: XOR<VendorUpdateWithoutInvoicesInput, VendorUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type VendorUpdateWithoutInvoicesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    business_name?: StringFieldUpdateOperationsInput | string
+    business_category?: StringFieldUpdateOperationsInput | string
+    license_number?: NullableStringFieldUpdateOperationsInput | string | null
+    service_type?: VendorUpdateservice_typeInput | string[]
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    services?: ServiceUpdateManyWithoutVendorNestedInput
+    promotions?: PromotionUpdateManyWithoutVendorNestedInput
+    team_members?: TeamMemberUpdateManyWithoutVendorNestedInput
+    payment?: PaymentUpdateManyWithoutVendorNestedInput
+    Subscription?: SubscriptionUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorUncheckedUpdateWithoutInvoicesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    business_name?: StringFieldUpdateOperationsInput | string
+    business_category?: StringFieldUpdateOperationsInput | string
+    license_number?: NullableStringFieldUpdateOperationsInput | string | null
+    service_type?: VendorUpdateservice_typeInput | string[]
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: InputJsonValue | InputJsonValue | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    phone_number?: StringFieldUpdateOperationsInput | string
+    social_networks?: InputJsonValue | InputJsonValue | null
+    faqs?: InputJsonValue | InputJsonValue | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    services?: ServiceUncheckedUpdateManyWithoutVendorNestedInput
+    promotions?: PromotionUncheckedUpdateManyWithoutVendorNestedInput
+    team_members?: TeamMemberUncheckedUpdateManyWithoutVendorNestedInput
+    payment?: PaymentUncheckedUpdateManyWithoutVendorNestedInput
+    Subscription?: SubscriptionUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type PaymentUpsertWithoutInvoicesInput = {
+    update: XOR<PaymentUpdateWithoutInvoicesInput, PaymentUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<PaymentCreateWithoutInvoicesInput, PaymentUncheckedCreateWithoutInvoicesInput>
+    where?: PaymentWhereInput
+  }
+
+  export type PaymentUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: PaymentWhereInput
+    data: XOR<PaymentUpdateWithoutInvoicesInput, PaymentUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type PaymentUpdateWithoutInvoicesInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
+    refund_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_refunded?: BoolFieldUpdateOperationsInput | boolean
+    failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+    vendor?: VendorUpdateOneWithoutPaymentNestedInput
+    subscription?: SubscriptionUpdateOneWithoutPaymentsNestedInput
+  }
+
+  export type PaymentUncheckedUpdateWithoutInvoicesInput = {
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
+    refund_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_refunded?: BoolFieldUpdateOperationsInput | boolean
+    failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type ServiceCreateManyVendorInput = {
     id?: string
     service_name: string
-    description: string
+    description?: string | null
     min_price?: number | null
     max_price?: number | null
+    city?: string | null
+    state?: string | null
     price?: number | null
     service_type: string
+    service_unit?: string | null
+    status?: string
     rating?: number
     faqs?: InputJsonValue | null
     created_at?: Date | string
@@ -20006,10 +23887,37 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bill_generated?: boolean
+  }
+
+  export type InvoiceCreateManyVendorInput = {
+    id?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -20020,7 +23928,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -20032,11 +23939,15 @@ export namespace Prisma {
 
   export type ServiceUpdateWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20049,11 +23960,15 @@ export namespace Prisma {
 
   export type ServiceUncheckedUpdateWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20066,11 +23981,15 @@ export namespace Prisma {
 
   export type ServiceUncheckedUpdateManyWithoutVendorInput = {
     service_name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     min_price?: NullableFloatFieldUpdateOperationsInput | number | null
     max_price?: NullableFloatFieldUpdateOperationsInput | number | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
     faqs?: InputJsonValue | InputJsonValue | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20139,13 +24058,26 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
     subscription?: SubscriptionUpdateOneWithoutPaymentsNestedInput
+    invoices?: InvoiceUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutVendorInput = {
@@ -20154,12 +24086,25 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+    invoices?: InvoiceUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateManyWithoutVendorInput = {
@@ -20168,10 +24113,64 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type InvoiceUpdateWithoutVendorInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUpdateOneWithoutInvoicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutVendorInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutVendorInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20180,7 +24179,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20197,7 +24195,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20213,7 +24210,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20353,7 +24349,6 @@ export namespace Prisma {
     status?: $Enums.SubscriptionStatus
     order_id: string
     payment_id?: string | null
-    razorpay_subscription_id?: string | null
     start_date?: Date | string
     end_date?: Date | string | null
     auto_renew?: boolean
@@ -20367,7 +24362,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20384,7 +24378,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20400,7 +24393,6 @@ export namespace Prisma {
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
     order_id?: StringFieldUpdateOperationsInput | string
     payment_id?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpay_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: BoolFieldUpdateOperationsInput | boolean
@@ -20417,12 +24409,24 @@ export namespace Prisma {
     currency: string
     status?: $Enums.PaymentStatus
     payment_method?: string | null
+    razorpay_order_id?: string | null
     razorpay_payment_id?: string | null
     refund_id?: string | null
     is_refunded?: boolean
     failure_reason?: string | null
+    vpa?: string | null
+    fee?: number | null
+    tax?: number | null
+    rrn?: string | null
+    upi_transaction_id?: string | null
+    email?: string | null
+    contact?: string | null
+    acquirer_data?: InputJsonValue | null
+    notes?: InputJsonValue | null
+    autoRenew?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    bill_generated?: boolean
   }
 
   export type PaymentUpdateWithoutSubscriptionInput = {
@@ -20430,13 +24434,26 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
     vendor?: VendorUpdateOneWithoutPaymentNestedInput
+    invoices?: InvoiceUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutSubscriptionInput = {
@@ -20445,12 +24462,25 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+    invoices?: InvoiceUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateManyWithoutSubscriptionInput = {
@@ -20459,10 +24489,79 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    razorpay_order_id?: NullableStringFieldUpdateOperationsInput | string | null
     razorpay_payment_id?: NullableStringFieldUpdateOperationsInput | string | null
     refund_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_refunded?: BoolFieldUpdateOperationsInput | boolean
     failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    vpa?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: NullableFloatFieldUpdateOperationsInput | number | null
+    tax?: NullableFloatFieldUpdateOperationsInput | number | null
+    rrn?: NullableStringFieldUpdateOperationsInput | string | null
+    upi_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    contact?: NullableStringFieldUpdateOperationsInput | string | null
+    acquirer_data?: InputJsonValue | InputJsonValue | null
+    notes?: InputJsonValue | InputJsonValue | null
+    autoRenew?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bill_generated?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type InvoiceCreateManyPaymentInput = {
+    id?: string
+    invoiceNumber: string
+    vendorId?: string | null
+    nextBillingDate?: Date | string | null
+    discount?: number
+    totalExclIGST: number
+    igstAmount: number
+    igstTotal: number
+    totalAmount: number
+    amountDue?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUpdateWithoutPaymentInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendor?: VendorUpdateOneWithoutInvoicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutPaymentInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutPaymentInput = {
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    nextBillingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: FloatFieldUpdateOperationsInput | number
+    totalExclIGST?: FloatFieldUpdateOperationsInput | number
+    igstAmount?: FloatFieldUpdateOperationsInput | number
+    igstTotal?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    amountDue?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
