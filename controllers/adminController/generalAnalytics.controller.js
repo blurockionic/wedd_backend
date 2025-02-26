@@ -26,6 +26,8 @@ const getTotalServicesbyType = async () => {
 };
 
 const getServicesData = async () => {
+
+  // some views are not connected to valid services in backend so gives wrong data for now
     return await prismaMongo.views.aggregate({
         _sum: {
           viewCount: true,
