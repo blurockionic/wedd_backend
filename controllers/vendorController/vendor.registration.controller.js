@@ -1,5 +1,5 @@
 import CustomError from "../../utils/CustomError.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 import z from "zod";
 import bcrypt from "bcryptjs";
 import { vendorSchema } from "../../validation schema/vendor.schema.js";
@@ -23,7 +23,7 @@ const vendorRegistration = async (req, res, next) => {
         // Email exists and is already verified
         return res
           .status(400)
-          .json({ message: "Email already exists and is verified." });
+          .json({ message: "Email already exists and is verified." ,success:false});
       } else {
         // Email exists but is not verified, resend the verification email
         const emailVerificationToken =
@@ -33,11 +33,12 @@ const vendorRegistration = async (req, res, next) => {
           "vendor"
         );
 
-        await sendVerificationEmail(existingVendor.email, emailContent);
+        await sendEmail(existingVendor.email, emailContent);
 
         return res.status(200).json({
           message:
             "Email already exists but not verified. Verification email resent.",
+            success:false
         });
       }
     }
@@ -75,7 +76,7 @@ const vendorRegistration = async (req, res, next) => {
       "vendor"
     );
 
-    await sendVerificationEmail(newVendor.email, emailContent);
+    await sendEmail(newVendor.email, emailContent);
 
     // Exclude sensitive fields before sending the response
     const {

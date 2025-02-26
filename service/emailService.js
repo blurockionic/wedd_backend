@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import CustomError from "../utils/CustomError.js";
 
-const sendVerificationEmail = async (email, emailContent) => {
+const sendEmail = async (email, emailContent) => {
   // Generate a verification token and send it to the user's email using nodemailer.
   try {
     // smtp server creation for this
@@ -20,13 +20,15 @@ const sendVerificationEmail = async (email, emailContent) => {
     const mailOptions = {
       from: process.env.EMAIL_ADDRESS,
       to: email,
-      subject: emailContent.subject,
-      text: emailContent.text,
-      html: emailContent.html,
+      ...emailContent,
     };
+
+    console.dir(mailOptions);
+    
 
     // send the mail to user
     await transporter.sendMail(mailOptions);
+    return "mail sent"
   } catch (error) {
     console.error("Error sending email:", error.message);
     console.error("Stack trace:", error.stack);
@@ -35,4 +37,4 @@ const sendVerificationEmail = async (email, emailContent) => {
   }
 };
 
-export default sendVerificationEmail;
+export default sendEmail;
