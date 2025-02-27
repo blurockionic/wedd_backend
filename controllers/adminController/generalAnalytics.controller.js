@@ -5,15 +5,27 @@ const prismaPost = new PrismaClientPostgre();
 const prismaMongo = new PrismaClientMongo();
 
 const getTotalUsers = async () => {
-    return await prismaPost.user.count();
+    return await prismaPost.user.count({
+      where: {
+        is_verified: true
+      }
+    });
 };
 
 const getTotalVendors = async () => {
-    return await prismaMongo.vendor.count();
+    return await prismaMongo.vendor.count({
+      where: {
+        is_verified: true
+      }
+    });
 };
 
 const getTotalServices = async () => {
-    return await prismaMongo.service.count();
+    return await prismaMongo.service.count({
+      where: {
+        status: "active"
+      }
+    });
 };
 
 const getTotalServicesbyType = async () => {
@@ -21,6 +33,9 @@ const getTotalServicesbyType = async () => {
     by: ['service_type'],
     _count: {
       service_type: true,
+    },
+    where: {
+      status: "active"
     }
   });
 };

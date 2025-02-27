@@ -8,6 +8,7 @@ import generalAnalytics from '../controllers/adminController/generalAnalytics.co
 import vendorSearch from '../controllers/adminController/vendorSearch.controller.js';
 import serviceSearch from '../controllers/adminController/serviceSearch.controller.js';
 import userSearch from '../controllers/adminController/userSearch.controller.js';
+import transactions from '../controllers/adminController/transactions.controller.js';
 
 
 const AdminRouter = express.Router();
@@ -20,5 +21,6 @@ AdminRouter.route("/general-analytics").get(generalAnalytics);
 AdminRouter.route("/vendor-search").get(vendorSearch);
 AdminRouter.route("/service-search").get(serviceSearch);
 AdminRouter.route("/user-search").get(userSearch);
+AdminRouter.route("/transactions").get(transactions);
 
 export default AdminRouter;
