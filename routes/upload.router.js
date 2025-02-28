@@ -2,7 +2,7 @@ import express from "express";
 import upload from "../middleware/multer.middleware.js";
 import { PrismaClient } from "../prisma/generated/mongo/index.js";
 import CustomError from "../utils/CustomError.js";
-import { v2 as cloudinary } from "cloudinary"; 
+import { v2 as cloudinary } from "cloudinary";
 import e from "express";
 
 const prisma = new PrismaClient();
@@ -56,27 +56,23 @@ uploadRouter.post(
         if (isImage) {
           imageUrls.push(fileObject);
         } else if (isVideo) {
-          videoUrls.push(fileObject); 
+          videoUrls.push(fileObject);
         }
       }
 
       console.log(serviceExists);
-      
 
-      const existingImageUrl = serviceExists.media?.[0]?.image_urls||[];
+      const existingImageUrl = serviceExists.media?.[0]?.image_urls || [];
 
-      const existingVideoUrl = serviceExists.media?.[0]?.video_urls||[];
-
-    
-      
+      const existingVideoUrl = serviceExists.media?.[0]?.video_urls || [];
 
       // Check for existing media and update/create accordingly
 
       const media = await prisma.Media.upsert({
         where: { serviceId: serviceId },
         update: {
-          image_urls: [...imageUrls,...existingImageUrl],
-          video_urls: [...videoUrls,...existingVideoUrl],
+          image_urls: [...imageUrls, ...existingImageUrl],
+          video_urls: [...videoUrls, ...existingVideoUrl],
         },
         create: {
           serviceId: serviceId,
@@ -97,8 +93,6 @@ uploadRouter.post(
     }
   }
 );
-
-
 
 // POST route for file upload and return string url only
 
@@ -131,7 +125,9 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   const publicId = req.body.publicId;
 
   if (!serviceId || !publicId) {
-    return next(new CustomError("Both serviceId and publicId are required", 400));
+    return next(
+      new CustomError("Both serviceId and publicId are required", 400)
+    );
   }
 
   try {
@@ -180,7 +176,9 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
 
     // If no media was found with that public_id
     if (deletedMedia.count === 0) {
-      return next(new CustomError("Media not found in the database for this service", 404));
+      return next(
+        new CustomError("Media not found in the database for this service", 404)
+      );
     }
 
     res.status(200).json({
@@ -192,5 +190,3 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
 });
 
 export default uploadRouter;
-
-

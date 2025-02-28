@@ -15,7 +15,9 @@
     "prisma:dbpush-all": "npm run prisma:dbpush-postgres && npm run prisma:dbpush-mongo",
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.postgre.prisma",
     "prisma:migrate-mongo": "prisma migrate dev --schema=prisma/schema.mongo.prisma",
-    "prisma:migrate-all": "npm run prisma:migrate && npm run prisma:migrate-mongo"
+    "prisma:migrate-all": "npm run prisma:migrate && npm run prisma:migrate-mongo",
+     "tunnel": "ngrok http 4000"
+
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
@@ -26,14 +28,9 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-<<<<<<< HEAD
     "express": "^4.21.1",
     "handlebars": "^4.7.8",
-=======
-    "express": "^4.21.2",
->>>>>>> 824fb2df2a73b9548dbb3a6d6caf60b8ec72b12f
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
