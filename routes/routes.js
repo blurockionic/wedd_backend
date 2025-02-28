@@ -15,6 +15,7 @@ import generateDescription from "../controllers/AIDescription.controller.js";
 import guestRouter from "./guest.route.js";
 import inviteRouter from "./inviteTemplate.route.js";
 import templatePaymentRouter from "./templatePayment.route.js";
+import templateRouter from "./userDataTemplate.route.js";
 
 
 const routes = express.Router();
@@ -33,6 +34,9 @@ routes.use("/guest", guestRouter);
 // routes.use("/cardPayment", router);
 routes.use("/inviteTemplate",inviteRouter);
 routes.use("/template",templatePaymentRouter);
+routes.use("/userDataTemplate",templateRouter)
+
+
 
 
 
