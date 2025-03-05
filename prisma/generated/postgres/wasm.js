@@ -134,30 +134,67 @@ exports.Prisma.UserScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.BookingScalarFieldEnum = {
+exports.Prisma.ChecklistScalarFieldEnum = {
   id: 'id',
-  booking_id: 'booking_id',
-  service_id: 'service_id',
-  vendor_id: 'vendor_id',
-  booking_date: 'booking_date',
-  status: 'status',
-  negotiated_price: 'negotiated_price',
-  is_negotiable: 'is_negotiable',
-  totalAmount: 'totalAmount',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  userId: 'userId',
+  items: 'items',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CartScalarFieldEnum = {
+exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
+  eventName: 'eventName',
+  eventDescription: 'eventDescription',
+  eventDate: 'eventDate',
+  eventStartTime: 'eventStartTime',
+  eventEndTime: 'eventEndTime',
+  eventBudget: 'eventBudget',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventVendorsScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EventTaskScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  items: 'items',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubEventScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  subEventName: 'subEventName',
+  subEventDescription: 'subEventDescription',
+  subEventBudget: 'subEventBudget',
+  subEventDate: 'subEventDate',
+  subEventStartTime: 'subEventStartTime',
+  subEventEndTime: 'subEventEndTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubEventVendorsScalarFieldEnum = {
+  id: 'id',
+  subEventId: 'subEventId',
   userId: 'userId',
   serviceId: 'serviceId',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ChecklistScalarFieldEnum = {
+exports.Prisma.SubEventTaskScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  subEventId: 'subEventId',
   items: 'items',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -194,6 +231,27 @@ exports.Prisma.EventScheduleScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  service_id: 'service_id',
+  vendor_id: 'vendor_id',
+  booking_date: 'booking_date',
+  status: 'status',
+  negotiated_price: 'negotiated_price',
+  is_negotiable: 'is_negotiable',
+  totalAmount: 'totalAmount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,12 +283,18 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Booking: 'Booking',
-  Cart: 'Cart',
   Checklist: 'Checklist',
+  Event: 'Event',
+  EventVendors: 'EventVendors',
+  EventTask: 'EventTask',
+  SubEvent: 'SubEvent',
+  SubEventVendors: 'SubEventVendors',
+  SubEventTask: 'SubEventTask',
   Payment: 'Payment',
   Review: 'Review',
-  EventSchedule: 'EventSchedule'
+  EventSchedule: 'EventSchedule',
+  Booking: 'Booking',
+  Cart: 'Cart'
 };
 
 /**

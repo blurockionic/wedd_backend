@@ -30,32 +30,7 @@ model User {
   cart                Cart[]
   updated_at          DateTime?
   checklists          Checklist[] @relation(name: "UserChecklists")
-}
-
-model Booking {
-  id               String
-  userId           User      @relation(fields: [id], references: [id])
-  booking_id       String    @id @default(uuid())
-  service_id       String // Refers to a Service in MongoDB
-  vendor_id        String // Refers to a Vendor in MongoDB
-  booking_date     DateTime
-  status           String    @default("pending")
-  negotiated_price Float? // Agreed price after negotiation
-  is_negotiable    Boolean   @default(false) // Flag for negotiation
-  totalAmount      Float // Total cost of the booking
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
-  payments         Payment[]
-}
-
-model Cart {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  serviceId String // Refers to a Service in MongoDB
-  createdAt DateTime @default(now()) // Timestamp when the service was added
-
-  @@unique([userId, serviceId])
+  event               Event[]     @relation(name: "Event")
 }
 
 model Checklist {
@@ -65,6 +40,79 @@ model Checklist {
   items     Json // Store checklist items as JSON
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id               String         @id @default(uuid())
+  userId           String
+  user             User           @relation(name: "Event", fields: [userId], references: [id])
+  eventName        String
+  eventDescription String
+  eventDate        DateTime
+  eventStartTime   DateTime
+  eventEndTime     DateTime
+  eventBudget      Decimal
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  eventTask        EventTask[]
+  eventVendors     EventVendors[]
+  subEvent         SubEvent[]
+}
+
+model EventVendors {
+  id        String   @id @default(uuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  serviceId String // Refers to a Service in MongoDB
+  createdAt DateTime @default(now())
+
+  @@unique([eventId, serviceId])
+}
+
+model EventTask {
+  id        String   @id @default(uuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  items     Json // Store checklist items as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SubEvent {
+  id                  String            @id @default(uuid())
+  eventId             String
+  event               Event             @relation(fields: [eventId], references: [id])
+  subEventName        String
+  subEventDescription String
+  subEventBudget      Decimal
+  subEventDate        DateTime
+  subEventStartTime   DateTime
+  subEventEndTime     DateTime
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  subEventTask        SubEventTask[]
+  subEventVendors     SubEventVendors[]
+}
+
+model SubEventVendors {
+  id         String   @id @default(uuid())
+  subEventId String
+  userId     String
+  subEvent   SubEvent @relation(fields: [subEventId], references: [id])
+  serviceId  String // Refers to a Service in MongoDB
+  createdAt  DateTime @default(now())
+
+  @@unique([subEventId, serviceId])
+}
+
+model SubEventTask {
+  id         String   @id @default(uuid())
+  userId     String
+  subEventId String
+  subEvent   SubEvent @relation(fields: [subEventId], references: [id])
+  items      Json // Store checklist items as JSON
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Payment {
@@ -101,6 +149,32 @@ model EventSchedule {
   event_location   String
   description      String
   created_at       DateTime @default(now())
+}
+
+model Booking {
+  id               String
+  userId           User      @relation(fields: [id], references: [id])
+  booking_id       String    @id @default(uuid())
+  service_id       String // Refers to a Service in MongoDB
+  vendor_id        String // Refers to a Vendor in MongoDB
+  booking_date     DateTime
+  status           String    @default("pending")
+  negotiated_price Float? // Agreed price after negotiation
+  is_negotiable    Boolean   @default(false) // Flag for negotiation
+  totalAmount      Float // Total cost of the booking
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  payments         Payment[]
+}
+
+model Cart {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String // Refers to a Service in MongoDB
+  createdAt DateTime @default(now()) // Timestamp when the service was added
+
+  @@unique([userId, serviceId])
 }
 
 enum Role {

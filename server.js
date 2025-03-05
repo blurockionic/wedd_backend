@@ -17,10 +17,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const numCPUs = os.cpus().length;
 
+import guestRoutes from "./routes/guestRoutes.js";
+import templateRoutes from "./routes/templateRoutes.js";
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 const corsOption = {
   // allow all requests
   origin: process.env.BASE_URL,
@@ -30,6 +34,9 @@ const corsOption = {
 app.use(cors(corsOption));
 
 app.use(morganLogger);
+
+app.use("/api/guests", guestRoutes);
+app.use(templateRoutes);
 
 // Health Check Endpoint
 app.get("/health", (req, res) => {
