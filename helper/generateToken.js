@@ -6,14 +6,13 @@ class GenerateToken {
   // Method to generate the access token
   static generateAccessToken(user) {
     try {
-      const { id, email, first_name, last_name, role } = user;
+      const { id, email, user_name, role } = user;
 
       return jwt.sign(
         {
           id,
           email,
-          first_name,
-          last_name,
+          user_name,
           role,
         },
         process.env.ACCESS_TOKEN_SECRET,
