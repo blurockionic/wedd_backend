@@ -20,6 +20,13 @@ const userLogin = async (req, res, next) => {
       throw new CustomError("User not found with this email", 404);
     }
 
+    if (!validatedData.password) {
+      throw new CustomError("Password is required", 400);
+
+      
+    }
+
+
     if (!user.is_verified) {
       const emailVerificationToken =
         GenerateToken.generateEmailVerificationToken(user);
