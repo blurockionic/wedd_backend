@@ -1,6 +1,6 @@
-
-import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
 import { instance } from "./payment/payment.js";
+import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
+
 
 
 const prisma = new PostgresClient();

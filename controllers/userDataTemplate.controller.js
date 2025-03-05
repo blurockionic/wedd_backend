@@ -1,4 +1,5 @@
 
+import { log } from "console";
 import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
 
 const prisma = new PostgresClient();
@@ -68,9 +69,12 @@ export const getAllTemplates = async (req, res) => {
 export const getTemplateById = async (req, res) => {
   try {
     const { template_id } = req.params;
+    log(template_id);
 
-    const template = await prisma.UserDataTemplate.findUnique({
-      where: { template_id },
+    const userId = req.user.id;
+
+    const template = await prisma.UserDataTemplate.findMany({
+      where: { userId},
     });
 
     if (!template) {

@@ -1,3 +1,4 @@
+import { log } from "console";
 import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
 import CustomError from "../utils/CustomError.js";
 import {
@@ -22,12 +23,14 @@ export const addGuest = async (req, res) => {
 
     res
       .status(201)
-      .json({ success:true,message: "Guest added successfully", guest: newGuest });
+      .json({
+        success: true,
+        message: "Guest added successfully",
+        guest: newGuest,
+      });
   } catch (error) {
     console.error("Error adding guest:", error);
-    res
-      .status(500)
-      .json({ success:false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -49,11 +52,14 @@ export const updateGuestStatus = async (req, res) => {
   try {
     const { guestId } = req.params;
     const userId = req.user.id;
-    const { status, name, phone } = GuestUpdateSchema.parse(req.body);
+    const { guestInputDAta } = req.body;
+    const { name, phone, status } = (guestInputDAta);
+
+    console.log("guestInput",name, phone, status);
+
 
     let data = await postgresPrisma.Guest.findUnique({
       where: { id: guestId },
-      select: { userId: true },
     });
 
     if (!data || data.userId !== userId) {
@@ -61,8 +67,11 @@ export const updateGuestStatus = async (req, res) => {
     }
 
     let toUpdate = {};
+
     if (status) {
-      toUpdate.status = status;
+
+      toUpdate.status = status.startsWith("Not") ? "NOT_INVITED" : "INVITED";
+
     }
     if (name) {
       toUpdate.name = name.toLowerCase();
@@ -70,6 +79,8 @@ export const updateGuestStatus = async (req, res) => {
     if (phone) {
       toUpdate.phone = phone;
     }
+
+    console.log("toUpdate", toUpdate);
 
     const updatedGuest = await postgresPrisma.Guest.update({
       where: { id: guestId },
@@ -94,7 +105,6 @@ export const deleteGuest = async (req, res) => {
     const deletedGuest = await postgresPrisma.Guest.deleteMany({
       where: { id: guestId, userId },
     });
-
 
     res.status(200).json({ message: "Guest deleted successfully" });
   } catch (error) {
