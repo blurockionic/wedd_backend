@@ -6,7 +6,7 @@ let isRunning = false;
 
 cron.schedule("*/10 * * * *", async () => {
   if (isRunning) {
-    console.log("⚠️ Skipping duplicate cron execution...");
+    console.log(" Skipping duplicate cron execution...");
     return;
   }
 
@@ -16,7 +16,7 @@ cron.schedule("*/10 * * * *", async () => {
   try {
     await generateInvoice({});
   } catch (error) {
-    console.error("❌ Error running cron job:", error);
+    console.error(" Error running cron job:", error);
   }
 
   isRunning = false;
