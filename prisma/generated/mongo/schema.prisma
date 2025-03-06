@@ -9,36 +9,36 @@ datasource db {
 }
 
 model Vendor {
-  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
+  id                  String         @id @default(auto()) @map("_id") @db.ObjectId
   name                String
   business_name       String
   business_category   String
   license_number      String?
-  service_type        String[]     @default([]) // Ensure default value for arrays
+  service_type        String[]       @default([]) // Ensure default value for arrays
   description         String? // Detailed description of the business
   logo_url            Json?
   country             String?
   latitude            String?
   longitude           String?
   city                String?
-  email               String       @unique
+  email               String         @unique
   state               String?
   password_hash       String
   phone_number        String
   social_networks     Json?
-  services            Service[]    @relation("VendorServices") // One-to-many relation
+  services            Service[]      @relation("VendorServices") // One-to-many relation
   promotions          Promotion[] // One-to-many relation
   team_members        TeamMember[] // One-to-many relation
   faqs                Json?
-  created_at          DateTime     @default(now())
-  updated_at          DateTime     @updatedAt
-  is_verified         Boolean      @default(false)
+  created_at          DateTime       @default(now())
+  updated_at          DateTime       @updatedAt
+  is_verified         Boolean        @default(false)
   refresh_Token       String?
   resetPassword_Token String?
-  role                String       @default("vendor") @db.String
+  role                String         @default("vendor") @db.String
   payment             Payment[]
-
-  Subscription Subscription[]
+  invoices            Invoice[]
+  Subscription        Subscription[]
 }
 
 model Service {
@@ -46,7 +46,7 @@ model Service {
   vendorId       String         @db.ObjectId
   vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
   service_name   String
-  description    String
+  description    String?
   min_price      Float?
   max_price      Float?
   city           String?
@@ -200,6 +200,32 @@ model Payment {
   autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
+  bill_generated      Boolean       @default(false)
+  invoices            Invoice[]
+}
+
+model Invoice {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceNumber   String    @unique
+  vendorId        String?   @db.ObjectId
+  vendor          Vendor?   @relation(fields: [vendorId], references: [id])
+  paymentId       String?   @db.ObjectId
+  payment         Payment?  @relation(fields: [paymentId], references: [id])
+  nextBillingDate DateTime?
+  discount        Float     @default(0)
+  totalExclIGST   Float
+  igstAmount      Float
+  igstTotal       Float
+  totalAmount     Float
+  amountDue       Float     @default(0)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+}
+
+model Counter {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  value Int
 }
 
 enum SubscriptionStatus {

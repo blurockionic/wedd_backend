@@ -14,11 +14,12 @@ model User {
   id                   String     @id @default(uuid())
   email                String    @unique 
   refresh_Token        String?  
-  password_hash        String
+  password_hash        String?
+  googleUid            String? @unique
   resetPassword_Token  String?
-  profile_photo        String?
-  user_name            String
-  phone_number        String
+  profile_photo       String?
+  user_name          String
+  phone_number        String?
   role                Role
   wedding_date        DateTime?
   wedding_location    String?
@@ -26,10 +27,39 @@ model User {
   is_verified         Boolean    @default(false)
   bookings            Booking[]
   reviews             Review[]
-  cart                Cart[] 
-  updated_at          DateTime?
-  checklists          Checklist[]           @relation(name: "UserChecklists")
-  event               Event[]                @relation(name: "Event")
+  cart               Cart[] 
+  updated_at         DateTime?
+  checklists         Checklist[]           @relation(name: "UserChecklists")
+  guests             Guest[]   @relation(name: "UserGuests")
+   paymentDetails     PaymentDetails[]
+   orderDetails         OrderDetails[]
+  userDataTemplate       UserDataTemplate[]
+    event               Event[]     @relation(name: "Event")
+}
+
+model Booking {
+  id      String
+  userId     User     @relation(fields: [id], references: [id])
+  booking_id   String   @id @default(uuid())
+  service_id   String   // Refers to a Service in MongoDB
+  vendor_id    String   // Refers to a Vendor in MongoDB
+  booking_date DateTime
+  status       String    @default("pending")
+  negotiated_price Float?   // Agreed price after negotiation
+  is_negotiable    Boolean  @default(false) // Flag for negotiation
+  totalAmount   Float    // Total cost of the booking
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+}
+
+model Cart {
+  id          String   @id @default(uuid()) 
+  userId      String   
+  user        User     @relation(fields: [userId], references: [id])
+  serviceId   String   // Refers to a Service in MongoDB
+  createdAt   DateTime @default(now())      // Timestamp when the service was added
+  @@unique([userId, serviceId])   
 }
 
 model Checklist {
@@ -111,20 +141,36 @@ model SubEventTask {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+model OrderDetails {
+  id              String   @id @default(uuid())
+  orderId         String   @unique   // Razorpay Order ID
+  amount          Float    // Amount in INR
+  currency        String   @default("INR")
+  status          String   @default("created") // "created", "paid", "failed"
+  razorpayResponse Json    // Full Razorpay Order response (optional)
+  createdAt       DateTime @default(now())  
+  userId          String  
+  templateId      String? 
 
-model Payment {
-  payment_id      String   @id @default(uuid())
-  booking_id      String
-  amount          Decimal
-  payment_status  String   // e.g., "pending", "completed", "failed"
-  payment_method  String   // e.g., "credit card", "PayPal"
-  transaction_id  String
-  payment_date    DateTime
-
-  // Relations
-  booking         Booking  @relation(fields: [booking_id], references: [booking_id])
+  User              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
 
+model PaymentDetails {
+  id              String   @id @default(uuid())
+  orderId         String   @unique   // Link to OrderDetails
+  paymentId       String?   // Razorpay Payment ID
+  razorpayResponse Json     // Full Razorpay Payment response
+  status          String    @default("pending") // "pending", "success", "failed"
+  purchasedAt     DateTime? // Payment completion time
+
+ 
+  userId          String  
+  templateId      String?  
+
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+}
 model Review {
   review_id      String   @id @default(uuid())
   vendor_id      String   // Refers to a Vendor in MongoDB
@@ -132,7 +178,7 @@ model Review {
   rating         Int      // Rating 1 to 5
   review_text    String
   created_at     DateTime @default(now())
-  // Relations
+  
   user           User     @relation(fields: [id], references: [id])
 }
 
@@ -148,32 +194,66 @@ model EventSchedule {
   created_at       DateTime @default(now())
 }
 
-model Booking {
-  id      String
-  userId     User     @relation(fields: [id], references: [id])
-  booking_id   String   @id @default(uuid())
-  service_id   String   // Refers to a Service in MongoDB
-  vendor_id    String   // Refers to a Vendor in MongoDB
-  booking_date DateTime
-  status       String    @default("pending")
-  negotiated_price Float?   // Agreed price after negotiation
-  is_negotiable    Boolean  @default(false) // Flag for negotiation
-  totalAmount   Float    // Total cost of the booking
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-  payments     Payment[]
-}
 
-model Cart {
-  id          String   @id @default(uuid()) 
-  userId      String   
-  user        User     @relation(fields: [userId], references: [id])
-  serviceId   String   // Refers to a Service in MongoDB
-  createdAt   DateTime @default(now())      // Timestamp when the service was added
-  @@unique([userId, serviceId])   
-}
 
 enum Role {
   USER
   ADMIN
 }
+
+model Guest {
+  id            String           @id @default(uuid())
+  name          String      
+  phone         String      
+  status        GuestStatus      @default(NOT_INVITED) 
+  userId        String      
+  user          User             @relation(name: "UserGuests", fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now()) 
+  updatedAt     DateTime      @updatedAt
+}
+
+enum GuestStatus {
+  NOT_INVITED
+  INVITED
+}
+
+
+model InvitationTemplate {
+  id            String             @id @default(uuid())
+  name          String
+  imageUrl      Json             // URL to template image
+  price         Float?              // Template price
+  template_type template_category
+  template_category String
+  filter         String?
+  createdAt     DateTime           @default(now())
+  paymentDetails PaymentDetails[]
+  orderDetails  OrderDetails[]
+}
+
+
+enum template_category {
+ FREE
+ PREMIUM
+  
+}
+
+
+model  UserDataTemplate {
+  userId            String 
+  template_id       String   @id @default(uuid())
+  user          User             @relation( fields: [userId], references: [id], onDelete: Cascade)
+  eventHeading          String?
+  eventSubheading       String?
+  brideName       String?
+  groomName       String?
+  eventDate       DateTime
+  weddingTime     String?
+  weddingLocation String?
+  description     String?
+  createdAt       DateTime @default(now()) 
+  updatedAt       DateTime @default(now()) 
+  
+}
+
+

@@ -10,15 +10,13 @@ import os from "os";
 import routes from "./routes/routes.js";
 import morganLogger from "./middleware/log.middleware.js";
 import uploadRouter from "./routes/upload.router.js";
+import "./utils/cronJob.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const numCPUs = os.cpus().length;
-
-import guestRoutes from "./routes/guestRoutes.js";
-import templateRoutes from "./routes/templateRoutes.js";
 
 // Middleware
 app.use(express.json());
@@ -34,9 +32,6 @@ const corsOption = {
 app.use(cors(corsOption));
 
 app.use(morganLogger);
-
-app.use("/api/guests", guestRoutes);
-app.use(templateRoutes);
 
 // Health Check Endpoint
 app.get("/health", (req, res) => {

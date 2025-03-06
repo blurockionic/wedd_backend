@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container {
+            width: 80%; margin: auto;
+            margin-top:10% ;
+           
+
+         }
+        .header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .footer {
+          text-align: center;
+          padding-top:90px ;
+        }
+        .invoice-details {
+          display: flex;
+          justify-content: end;
+          align-items: center;
+        }
+        .billing-details, .items { margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+         .paymentStatus{
+           color: green;
+           font-style:bold;
+         }
+         .invoice_section{
+            padding-top: 7px;
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          <div>
+            <img src="https://res.cloudinary.com/dyq1p22xk/image/upload/v1738318157/wedding-wire-clone/assets/profile_photo-1738318154094-138572527.png" alt="Marriage Vendors Logo" style="max-width: 70px;">
+            <p>Marriage Vendors</p>
+            <p>Joshi Nagar, Ludhiana</p>
+            <p>Punjab, India</p>
+            <p>GST Reg: #23430432094ERE3423</p>
+          </div>
+          <div class="invoice_section">
+            <h1>INVOICE</h1>
+            <p>Invoice #: {{invoice.number}}</p>
+            <p>Invoice Issued: {{invoice.date}}</p>
+            <p>Invoice Amount #: {{payment.currency}} {{payment.amount}}</p>
+            <p>Next Billing Date: {{invoice.nextBillingDate}}</p>
+            <p class="paymentStatus">Payment status: {{payment.status}}</p>
+          </div>
+        </div>
+        
+        <div class="billing-details">
+            <h3>BILLED TO</h3>
+            <p  style="text-transform: capitalize;">{{customer.name}}</p>
+            <p style="text-transform: capitalize;" >{{customer.city}},{{customer.state}},{{customer.country}}</p>
+            <p>Email: {{customer.email}}</p>
+        </div>
+        
+        <div class="items">
+            <h3>Billing For</h3>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Total (Excl. IGST)</th>
+                    <th>IGST Amount</th>
+                </tr>
+                {{!-- {{#each items}} --}}
+                <tr>
+                    <td>{{subscription.plan}}</td>
+                    <td>{{payment.currency}} {{payment.amount}}</td>
+                    <td>{{cal.discount}}</td>
+                    <td>{{cal.totalExclIGST}}</td>
+                    <td>{{cal.igstAmount}}</td>
+                </tr>
+                {{!-- {{/each}} --}}
+            </table>
+        </div>
+        
+        <div class="invoice-details">
+          <div>
+            <p>Total Excl. IGST: {{cal.totalExclIGST}}</p>
+            <p>IGST @ 18%: {{payment.currency}} {{cal.igstTotal}}</p>
+            <h2>Total: {{payment.currency}} {{cal.totalAmount}}</h2>
+            <p>Amount Paid: {{payment.currency}} {{payment.amount}}</p>
+            <h3>Amount Due: {{cal.amountDue}}</h3>
+          </div>
+        </div>
+        
+        <div class="footer">
+            <p>Marriage Vendors</p>
+            <p>Joshi Nagar, Ludhiana, Punjab, India</p>
+        </div>
+    </div>
+</body>
+</html>

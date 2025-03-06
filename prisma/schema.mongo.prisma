@@ -37,7 +37,7 @@ model Vendor {
   resetPassword_Token String?
   role                String       @default("vendor") @db.String
   payment             Payment[]
-
+   invoices           Invoice[]
   Subscription Subscription[]
 }
 
@@ -46,13 +46,13 @@ model Service {
   vendorId       String         @db.ObjectId
   vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
   service_name   String
-  description    String
+  description    String?
   min_price      Float?
   max_price      Float?
   city                String?
   state               String?
   price          Float?
-  service_type   String
+  service_type   String      
   service_unit   String?
   status         String         @default("active")
   rating         Float          @default(0.0)
@@ -200,8 +200,33 @@ model Payment {
   autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
+  bill_generated      Boolean       @default(false)
+  invoices           Invoice[]     
 }
 
+model Invoice {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceNumber  String   @unique
+  vendorId       String?  @db.ObjectId
+  vendor         Vendor?  @relation(fields: [vendorId], references: [id])
+  paymentId      String?  @db.ObjectId
+  payment        Payment? @relation(fields: [paymentId], references: [id])
+  nextBillingDate DateTime? 
+  discount       Float    @default(0)
+  totalExclIGST  Float
+  igstAmount     Float
+  igstTotal      Float
+  totalAmount    Float
+  amountDue      Float    @default(0)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
+model Counter {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  value Int
+}
 
 enum SubscriptionStatus {
   PENDING

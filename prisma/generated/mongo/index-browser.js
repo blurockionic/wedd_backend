@@ -270,7 +270,30 @@ exports.Prisma.PaymentScalarFieldEnum = {
   notes: 'notes',
   autoRenew: 'autoRenew',
   created_at: 'created_at',
+  updated_at: 'updated_at',
+  bill_generated: 'bill_generated'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  invoiceNumber: 'invoiceNumber',
+  vendorId: 'vendorId',
+  paymentId: 'paymentId',
+  nextBillingDate: 'nextBillingDate',
+  discount: 'discount',
+  totalExclIGST: 'totalExclIGST',
+  igstAmount: 'igstAmount',
+  igstTotal: 'igstTotal',
+  totalAmount: 'totalAmount',
+  amountDue: 'amountDue',
+  created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CounterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value'
 };
 
 exports.Prisma.SortOrder = {
@@ -307,7 +330,9 @@ exports.Prisma.ModelName = {
   Promotion: 'Promotion',
   Plan: 'Plan',
   Subscription: 'Subscription',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Invoice: 'Invoice',
+  Counter: 'Counter'
 };
 
 /**

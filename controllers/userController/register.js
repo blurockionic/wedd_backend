@@ -1,12 +1,14 @@
 import CustomError from "../../utils/CustomError.js";
-import sendVerificationEmail from "../../service/emailService.js";
-import z from "zod";
+import sendEmail from "../../service/emailService.js";
 import bcrypt from "bcryptjs";
 import { userSchema } from "../../validation schema/user.schema.js";
-import { PrismaClient } from "../../prisma/generated/postgres/index.js";
-const prisma = new PrismaClient();
+
 import GenerateToken from "../../helper/generateToken.js";
 import { registerEmailContent } from "../../constant/static.js";
+import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";  
+
+const prisma = new PostgresClient();
+
 
 const userRegistration = async (req, res, next) => {
   try {
@@ -33,7 +35,7 @@ const userRegistration = async (req, res, next) => {
           existingUser.role
         );
 
-        await sendVerificationEmail(existingUser.email, emailContent);
+        await sendEmail(existingUser.email, emailContent);
 
         return res.status(200).json({
           message:
@@ -66,7 +68,7 @@ const userRegistration = async (req, res, next) => {
       validatedData.role
     );
 
-    await sendVerificationEmail(newUser.email, emailContent);
+    await sendEmail(newUser.email, emailContent);
 
     // Exclude sensitive fields before sending the response
     const {

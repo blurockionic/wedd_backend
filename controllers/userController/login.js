@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 import { registerEmailContent } from "../../constant/static.js";
-import sendVerificationEmail from "../../service/emailService.js";
+import sendEmail from "../../service/emailService.js";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +20,13 @@ const userLogin = async (req, res, next) => {
       throw new CustomError("User not found with this email", 404);
     }
 
+    if (!validatedData.password) {
+      throw new CustomError("Password is required", 400);
+
+      
+    }
+
+
     if (!user.is_verified) {
       const emailVerificationToken =
         GenerateToken.generateEmailVerificationToken(user);
@@ -29,7 +36,7 @@ const userLogin = async (req, res, next) => {
       );
 
       // Send the verification email
-      await sendVerificationEmail(user.email, emailContent);
+      await sendEmail(user.email, emailContent);
 
       // Throw error with a clear message about verification
       throw new CustomError(

@@ -122,6 +122,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   refresh_Token: 'refresh_Token',
   password_hash: 'password_hash',
+  googleUid: 'googleUid',
   resetPassword_Token: 'resetPassword_Token',
   profile_photo: 'profile_photo',
   user_name: 'user_name',
@@ -132,6 +133,27 @@ exports.Prisma.UserScalarFieldEnum = {
   created_at: 'created_at',
   is_verified: 'is_verified',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  booking_id: 'booking_id',
+  service_id: 'service_id',
+  vendor_id: 'vendor_id',
+  booking_date: 'booking_date',
+  status: 'status',
+  negotiated_price: 'negotiated_price',
+  is_negotiable: 'is_negotiable',
+  totalAmount: 'totalAmount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ChecklistScalarFieldEnum = {
@@ -200,14 +222,27 @@ exports.Prisma.SubEventTaskScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PaymentScalarFieldEnum = {
-  payment_id: 'payment_id',
-  booking_id: 'booking_id',
+exports.Prisma.OrderDetailsScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
   amount: 'amount',
-  payment_status: 'payment_status',
-  payment_method: 'payment_method',
-  transaction_id: 'transaction_id',
-  payment_date: 'payment_date'
+  currency: 'currency',
+  status: 'status',
+  razorpayResponse: 'razorpayResponse',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  templateId: 'templateId'
+};
+
+exports.Prisma.PaymentDetailsScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  paymentId: 'paymentId',
+  razorpayResponse: 'razorpayResponse',
+  status: 'status',
+  purchasedAt: 'purchasedAt',
+  userId: 'userId',
+  templateId: 'templateId'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
@@ -231,25 +266,40 @@ exports.Prisma.EventScheduleScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.BookingScalarFieldEnum = {
+exports.Prisma.GuestScalarFieldEnum = {
   id: 'id',
-  booking_id: 'booking_id',
-  service_id: 'service_id',
-  vendor_id: 'vendor_id',
-  booking_date: 'booking_date',
+  name: 'name',
+  phone: 'phone',
   status: 'status',
-  negotiated_price: 'negotiated_price',
-  is_negotiable: 'is_negotiable',
-  totalAmount: 'totalAmount',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CartScalarFieldEnum = {
+exports.Prisma.InvitationTemplateScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  serviceId: 'serviceId',
+  name: 'name',
+  imageUrl: 'imageUrl',
+  price: 'price',
+  template_type: 'template_type',
+  template_category: 'template_category',
+  filter: 'filter',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.UserDataTemplateScalarFieldEnum = {
+  userId: 'userId',
+  template_id: 'template_id',
+  eventHeading: 'eventHeading',
+  eventSubheading: 'eventSubheading',
+  brideName: 'brideName',
+  groomName: 'groomName',
+  eventDate: 'eventDate',
+  weddingTime: 'weddingTime',
+  weddingLocation: 'weddingLocation',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -281,8 +331,20 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.GuestStatus = exports.$Enums.GuestStatus = {
+  NOT_INVITED: 'NOT_INVITED',
+  INVITED: 'INVITED'
+};
+
+exports.template_category = exports.$Enums.template_category = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
+  Booking: 'Booking',
+  Cart: 'Cart',
   Checklist: 'Checklist',
   Event: 'Event',
   EventVendors: 'EventVendors',
@@ -290,11 +352,13 @@ exports.Prisma.ModelName = {
   SubEvent: 'SubEvent',
   SubEventVendors: 'SubEventVendors',
   SubEventTask: 'SubEventTask',
-  Payment: 'Payment',
+  OrderDetails: 'OrderDetails',
+  PaymentDetails: 'PaymentDetails',
   Review: 'Review',
   EventSchedule: 'EventSchedule',
-  Booking: 'Booking',
-  Cart: 'Cart'
+  Guest: 'Guest',
+  InvitationTemplate: 'InvitationTemplate',
+  UserDataTemplate: 'UserDataTemplate'
 };
 
 /**
