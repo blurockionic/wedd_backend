@@ -14,6 +14,7 @@ const TemplateSchema = new mongoose.Schema(
   { timestamp: true }
 );
 
+
 const Template = mongoose.model("Template", TemplateSchema);
 
 export default Template;

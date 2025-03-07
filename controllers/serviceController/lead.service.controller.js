@@ -73,8 +73,7 @@ export const leaddetails = async (req, res, next) => {
             where: {
               id: service.userId,
             },
-            select: {
-                
+            select: { 
               user_name: true,
               phone_number: true,
               email: true,

@@ -1,12 +1,14 @@
 import CustomError from "../../utils/CustomError.js";
 import sendEmail from "../../service/emailService.js";
-import z from "zod";
 import bcrypt from "bcryptjs";
 import { userSchema } from "../../validation schema/user.schema.js";
-import { PrismaClient } from "../../prisma/generated/postgres/index.js";
-const prisma = new PrismaClient();
+
 import GenerateToken from "../../helper/generateToken.js";
 import { registerEmailContent } from "../../constant/static.js";
+import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";  
+
+const prisma = new PostgresClient();
+
 
 const userRegistration = async (req, res, next) => {
   try {

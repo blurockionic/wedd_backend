@@ -1,7 +1,7 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
-import CustomError from "../../utils/CustomError.js";
+
 import { parseDuration } from "../../helper/helper.js";
 import logger from "../../config/logger.js";
 import eventEmitter from "./eventEmitter.js";
@@ -33,6 +33,7 @@ export const createOrder = async (req, res, next) => {
       });
     }
     const amount = plan.price * 100;
+
     const options = {
       amount: amount,
       currency: "INR",
@@ -234,11 +235,12 @@ export const verifyPayment = async (req, res, next) => {
       }),
     ]);
 
-    const data =  {
+    const data = {
       savedPayment,
       savedSubscription,
-    }
-    eventEmitter.emit("invoice.generate",{paymentId:payment.id});
+    };
+
+    eventEmitter.emit("invoice.generate", { paymentId: payment.id });
 
     res.status(200).json({
       success: true,

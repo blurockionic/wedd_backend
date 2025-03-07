@@ -122,6 +122,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   refresh_Token: 'refresh_Token',
   password_hash: 'password_hash',
+  googleUid: 'googleUid',
   resetPassword_Token: 'resetPassword_Token',
   profile_photo: 'profile_photo',
   user_name: 'user_name',
@@ -163,14 +164,85 @@ exports.Prisma.ChecklistScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PaymentScalarFieldEnum = {
-  payment_id: 'payment_id',
-  booking_id: 'booking_id',
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventName: 'eventName',
+  eventDescription: 'eventDescription',
+  eventDate: 'eventDate',
+  eventStartTime: 'eventStartTime',
+  eventEndTime: 'eventEndTime',
+  eventBudget: 'eventBudget',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventVendorsScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EventTaskScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  items: 'items',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubEventScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  subEventName: 'subEventName',
+  subEventDescription: 'subEventDescription',
+  subEventBudget: 'subEventBudget',
+  subEventDate: 'subEventDate',
+  subEventStartTime: 'subEventStartTime',
+  subEventEndTime: 'subEventEndTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubEventVendorsScalarFieldEnum = {
+  id: 'id',
+  subEventId: 'subEventId',
+  userId: 'userId',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SubEventTaskScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subEventId: 'subEventId',
+  items: 'items',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderDetailsScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
   amount: 'amount',
-  payment_status: 'payment_status',
-  payment_method: 'payment_method',
-  transaction_id: 'transaction_id',
-  payment_date: 'payment_date'
+  currency: 'currency',
+  status: 'status',
+  razorpayResponse: 'razorpayResponse',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  templateId: 'templateId'
+};
+
+exports.Prisma.PaymentDetailsScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  paymentId: 'paymentId',
+  razorpayResponse: 'razorpayResponse',
+  status: 'status',
+  purchasedAt: 'purchasedAt',
+  userId: 'userId',
+  templateId: 'templateId'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
@@ -192,6 +264,42 @@ exports.Prisma.EventScheduleScalarFieldEnum = {
   event_location: 'event_location',
   description: 'description',
   created_at: 'created_at'
+};
+
+exports.Prisma.GuestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InvitationTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  imageUrl: 'imageUrl',
+  price: 'price',
+  template_type: 'template_type',
+  template_category: 'template_category',
+  filter: 'filter',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserDataTemplateScalarFieldEnum = {
+  userId: 'userId',
+  template_id: 'template_id',
+  eventHeading: 'eventHeading',
+  eventSubheading: 'eventSubheading',
+  brideName: 'brideName',
+  groomName: 'groomName',
+  eventDate: 'eventDate',
+  weddingTime: 'weddingTime',
+  weddingLocation: 'weddingLocation',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -224,14 +332,34 @@ exports.Role = exports.$Enums.Role = {
   SUPER_ADMIN: 'SUPER_ADMIN'
 };
 
+exports.GuestStatus = exports.$Enums.GuestStatus = {
+  NOT_INVITED: 'NOT_INVITED',
+  INVITED: 'INVITED'
+};
+
+exports.template_category = exports.$Enums.template_category = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
   Cart: 'Cart',
   Checklist: 'Checklist',
-  Payment: 'Payment',
+  Event: 'Event',
+  EventVendors: 'EventVendors',
+  EventTask: 'EventTask',
+  SubEvent: 'SubEvent',
+  SubEventVendors: 'SubEventVendors',
+  SubEventTask: 'SubEventTask',
+  OrderDetails: 'OrderDetails',
+  PaymentDetails: 'PaymentDetails',
   Review: 'Review',
-  EventSchedule: 'EventSchedule'
+  EventSchedule: 'EventSchedule',
+  Guest: 'Guest',
+  InvitationTemplate: 'InvitationTemplate',
+  UserDataTemplate: 'UserDataTemplate'
 };
 
 /**
