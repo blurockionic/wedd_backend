@@ -2,6 +2,7 @@ import express from "express";
 
 
 
+
 import UserRouter from "./user.route.js";
 import vendorRouter from "./vendor.route.js";
 import serviceRouter from "./services.route.js";
@@ -17,7 +18,7 @@ import inviteRouter from "./inviteTemplate.route.js";
 import templatePaymentRouter from "./templatePayment.route.js";
 import templateRouter from "./userDataTemplate.route.js";
 import eventRouter from "./event.route.js"
-
+import AdminRouter from './admin.route.js';
 
 const routes = express.Router();
 
@@ -25,6 +26,9 @@ routes.use("/users", UserRouter);
 routes.use("/vendors", vendorRouter);
 routes.use("/services", serviceRouter);
 routes.use("/booking", bookingRouter);
+
+routes.use("/admin", AdminRouter);
+
 routes.use("/cart", cartRouter);
 routes.use("/analytics", AnalyticsRouter);
 routes.use("/plan", planRouter);
@@ -37,6 +41,7 @@ routes.use("/inviteTemplate",inviteRouter);
 routes.use("/template",templatePaymentRouter);
 routes.use("/userDataTemplate",templateRouter)
 routes.use("/event", eventRouter)
+
 
 
 
