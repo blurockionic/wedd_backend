@@ -316,7 +316,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\priya\\OneDrive\\Documents\\GitHub\\wedd_backend\\prisma\\generated\\mongo",
+      "value": "/Users/b.biruly/Desktop/wedd_backend/prisma/generated/mongo",
       "fromEnvVar": null
     },
     "config": {
@@ -325,12 +325,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\priya\\OneDrive\\Documents\\GitHub\\wedd_backend\\prisma\\schema.mongo.prisma",
+    "sourceFilePath": "/Users/b.biruly/Desktop/wedd_backend/prisma/schema.mongo.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
