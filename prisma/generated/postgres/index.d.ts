@@ -103,7 +103,26 @@ export type UserDataTemplate = $Result.DefaultSelection<Prisma.$UserDataTemplate
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const TaskPriority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+export type TaskPriority = (typeof TaskPriority)[keyof typeof TaskPriority]
+
+
+export const TaskStatus: {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
+
+
+export const Role: {
   USER: 'USER',
   ADMIN: 'ADMIN'
 };
@@ -127,6 +146,14 @@ export const template_category: {
 export type template_category = (typeof template_category)[keyof typeof template_category]
 
 }
+
+export type TaskPriority = $Enums.TaskPriority
+
+export const TaskPriority: typeof $Enums.TaskPriority
+
+export type TaskStatus = $Enums.TaskStatus
+
+export const TaskStatus: typeof $Enums.TaskStatus
 
 export type Role = $Enums.Role
 
@@ -9520,6 +9547,10 @@ export namespace Prisma {
   export type EventTaskMinAggregateOutputType = {
     id: string | null
     eventId: string | null
+    name: string | null
+    priority: string | null
+    done: boolean | null
+    scheduleDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9527,6 +9558,10 @@ export namespace Prisma {
   export type EventTaskMaxAggregateOutputType = {
     id: string | null
     eventId: string | null
+    name: string | null
+    priority: string | null
+    done: boolean | null
+    scheduleDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9534,7 +9569,10 @@ export namespace Prisma {
   export type EventTaskCountAggregateOutputType = {
     id: number
     eventId: number
-    items: number
+    name: number
+    priority: number
+    done: number
+    scheduleDate: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9544,6 +9582,10 @@ export namespace Prisma {
   export type EventTaskMinAggregateInputType = {
     id?: true
     eventId?: true
+    name?: true
+    priority?: true
+    done?: true
+    scheduleDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9551,6 +9593,10 @@ export namespace Prisma {
   export type EventTaskMaxAggregateInputType = {
     id?: true
     eventId?: true
+    name?: true
+    priority?: true
+    done?: true
+    scheduleDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9558,7 +9604,10 @@ export namespace Prisma {
   export type EventTaskCountAggregateInputType = {
     id?: true
     eventId?: true
-    items?: true
+    name?: true
+    priority?: true
+    done?: true
+    scheduleDate?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9639,7 +9688,10 @@ export namespace Prisma {
   export type EventTaskGroupByOutputType = {
     id: string
     eventId: string
-    items: JsonValue
+    name: string
+    priority: string
+    done: boolean
+    scheduleDate: Date | null
     createdAt: Date
     updatedAt: Date
     _count: EventTaskCountAggregateOutputType | null
@@ -9664,7 +9716,10 @@ export namespace Prisma {
   export type EventTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventId?: boolean
-    items?: boolean
+    name?: boolean
+    priority?: boolean
+    done?: boolean
+    scheduleDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
@@ -9673,7 +9728,10 @@ export namespace Prisma {
   export type EventTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventId?: boolean
-    items?: boolean
+    name?: boolean
+    priority?: boolean
+    done?: boolean
+    scheduleDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
@@ -9682,7 +9740,10 @@ export namespace Prisma {
   export type EventTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventId?: boolean
-    items?: boolean
+    name?: boolean
+    priority?: boolean
+    done?: boolean
+    scheduleDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
@@ -9691,12 +9752,15 @@ export namespace Prisma {
   export type EventTaskSelectScalar = {
     id?: boolean
     eventId?: boolean
-    items?: boolean
+    name?: boolean
+    priority?: boolean
+    done?: boolean
+    scheduleDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EventTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "items" | "createdAt" | "updatedAt", ExtArgs["result"]["eventTask"]>
+  export type EventTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "name" | "priority" | "done" | "scheduleDate" | "createdAt" | "updatedAt", ExtArgs["result"]["eventTask"]>
   export type EventTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     event?: boolean | EventDefaultArgs<ExtArgs>
   }
@@ -9715,7 +9779,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       eventId: string
-      items: Prisma.JsonValue
+      name: string
+      priority: string
+      done: boolean
+      scheduleDate: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["eventTask"]>
@@ -10144,7 +10211,10 @@ export namespace Prisma {
   interface EventTaskFieldRefs {
     readonly id: FieldRef<"EventTask", 'String'>
     readonly eventId: FieldRef<"EventTask", 'String'>
-    readonly items: FieldRef<"EventTask", 'Json'>
+    readonly name: FieldRef<"EventTask", 'String'>
+    readonly priority: FieldRef<"EventTask", 'String'>
+    readonly done: FieldRef<"EventTask", 'Boolean'>
+    readonly scheduleDate: FieldRef<"EventTask", 'DateTime'>
     readonly createdAt: FieldRef<"EventTask", 'DateTime'>
     readonly updatedAt: FieldRef<"EventTask", 'DateTime'>
   }
@@ -21710,7 +21780,10 @@ export namespace Prisma {
   export const EventTaskScalarFieldEnum: {
     id: 'id',
     eventId: 'eventId',
-    items: 'items',
+    name: 'name',
+    priority: 'priority',
+    done: 'done',
+    scheduleDate: 'scheduleDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -22502,7 +22575,10 @@ export namespace Prisma {
     NOT?: EventTaskWhereInput | EventTaskWhereInput[]
     id?: StringFilter<"EventTask"> | string
     eventId?: StringFilter<"EventTask"> | string
-    items?: JsonFilter<"EventTask">
+    name?: StringFilter<"EventTask"> | string
+    priority?: StringFilter<"EventTask"> | string
+    done?: BoolFilter<"EventTask"> | boolean
+    scheduleDate?: DateTimeNullableFilter<"EventTask"> | Date | string | null
     createdAt?: DateTimeFilter<"EventTask"> | Date | string
     updatedAt?: DateTimeFilter<"EventTask"> | Date | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
@@ -22511,7 +22587,10 @@ export namespace Prisma {
   export type EventTaskOrderByWithRelationInput = {
     id?: SortOrder
     eventId?: SortOrder
-    items?: SortOrder
+    name?: SortOrder
+    priority?: SortOrder
+    done?: SortOrder
+    scheduleDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     event?: EventOrderByWithRelationInput
@@ -22523,7 +22602,10 @@ export namespace Prisma {
     OR?: EventTaskWhereInput[]
     NOT?: EventTaskWhereInput | EventTaskWhereInput[]
     eventId?: StringFilter<"EventTask"> | string
-    items?: JsonFilter<"EventTask">
+    name?: StringFilter<"EventTask"> | string
+    priority?: StringFilter<"EventTask"> | string
+    done?: BoolFilter<"EventTask"> | boolean
+    scheduleDate?: DateTimeNullableFilter<"EventTask"> | Date | string | null
     createdAt?: DateTimeFilter<"EventTask"> | Date | string
     updatedAt?: DateTimeFilter<"EventTask"> | Date | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
@@ -22532,7 +22614,10 @@ export namespace Prisma {
   export type EventTaskOrderByWithAggregationInput = {
     id?: SortOrder
     eventId?: SortOrder
-    items?: SortOrder
+    name?: SortOrder
+    priority?: SortOrder
+    done?: SortOrder
+    scheduleDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EventTaskCountOrderByAggregateInput
@@ -22546,7 +22631,10 @@ export namespace Prisma {
     NOT?: EventTaskScalarWhereWithAggregatesInput | EventTaskScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"EventTask"> | string
     eventId?: StringWithAggregatesFilter<"EventTask"> | string
-    items?: JsonWithAggregatesFilter<"EventTask">
+    name?: StringWithAggregatesFilter<"EventTask"> | string
+    priority?: StringWithAggregatesFilter<"EventTask"> | string
+    done?: BoolWithAggregatesFilter<"EventTask"> | boolean
+    scheduleDate?: DateTimeNullableWithAggregatesFilter<"EventTask"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"EventTask"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EventTask"> | Date | string
   }
@@ -23786,7 +23874,10 @@ export namespace Prisma {
 
   export type EventTaskCreateInput = {
     id?: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     event: EventCreateNestedOneWithoutEventTaskInput
@@ -23795,14 +23886,20 @@ export namespace Prisma {
   export type EventTaskUncheckedCreateInput = {
     id?: string
     eventId: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type EventTaskUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: EventUpdateOneRequiredWithoutEventTaskNestedInput
@@ -23811,7 +23908,10 @@ export namespace Prisma {
   export type EventTaskUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23819,14 +23919,20 @@ export namespace Prisma {
   export type EventTaskCreateManyInput = {
     id?: string
     eventId: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type EventTaskUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23834,7 +23940,10 @@ export namespace Prisma {
   export type EventTaskUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25254,7 +25363,10 @@ export namespace Prisma {
   export type EventTaskCountOrderByAggregateInput = {
     id?: SortOrder
     eventId?: SortOrder
-    items?: SortOrder
+    name?: SortOrder
+    priority?: SortOrder
+    done?: SortOrder
+    scheduleDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25262,6 +25374,10 @@ export namespace Prisma {
   export type EventTaskMaxOrderByAggregateInput = {
     id?: SortOrder
     eventId?: SortOrder
+    name?: SortOrder
+    priority?: SortOrder
+    done?: SortOrder
+    scheduleDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25269,6 +25385,10 @@ export namespace Prisma {
   export type EventTaskMinOrderByAggregateInput = {
     id?: SortOrder
     eventId?: SortOrder
+    name?: SortOrder
+    priority?: SortOrder
+    done?: SortOrder
+    scheduleDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -27969,14 +28089,20 @@ export namespace Prisma {
 
   export type EventTaskCreateWithoutEventInput = {
     id?: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type EventTaskUncheckedCreateWithoutEventInput = {
     id?: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28136,7 +28262,10 @@ export namespace Prisma {
     NOT?: EventTaskScalarWhereInput | EventTaskScalarWhereInput[]
     id?: StringFilter<"EventTask"> | string
     eventId?: StringFilter<"EventTask"> | string
-    items?: JsonFilter<"EventTask">
+    name?: StringFilter<"EventTask"> | string
+    priority?: StringFilter<"EventTask"> | string
+    done?: BoolFilter<"EventTask"> | boolean
+    scheduleDate?: DateTimeNullableFilter<"EventTask"> | Date | string | null
     createdAt?: DateTimeFilter<"EventTask"> | Date | string
     updatedAt?: DateTimeFilter<"EventTask"> | Date | string
   }
@@ -29866,7 +29995,10 @@ export namespace Prisma {
 
   export type EventTaskCreateManyEventInput = {
     id?: string
-    items: JsonNullValueInput | InputJsonValue
+    name: string
+    priority?: string
+    done?: boolean
+    scheduleDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29891,21 +30023,30 @@ export namespace Prisma {
 
   export type EventTaskUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EventTaskUncheckedUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EventTaskUncheckedUpdateManyWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    items?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    done?: BoolFieldUpdateOperationsInput | boolean
+    scheduleDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

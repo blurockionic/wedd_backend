@@ -187,7 +187,10 @@ exports.Prisma.EventVendorsScalarFieldEnum = {
 exports.Prisma.EventTaskScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
-  items: 'items',
+  name: 'name',
+  priority: 'priority',
+  done: 'done',
+  scheduleDate: 'scheduleDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
