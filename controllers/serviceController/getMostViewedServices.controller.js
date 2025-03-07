@@ -23,7 +23,11 @@ const getMostViewedServices = async (req, res, next) => {
     const services = await mongoPrisma.Service.findMany({
       where: {
         id: { in: serviceIds },
+       
       },
+      include:{
+        media:true
+      }
     });
 
     // Merge service details with view count
@@ -42,6 +46,7 @@ const getMostViewedServices = async (req, res, next) => {
     res.status(200).json({
       message: "Most viewed services fetched successfully.",
       ServiceResult:services,
+      mostViewed
     });
   } catch (error) {
     console.error(`Error Type: ${error.constructor.name}, Message: ${error.message}`);

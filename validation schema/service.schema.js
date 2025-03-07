@@ -29,7 +29,7 @@ export const querySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1), // Coerce to number for page
   limit: z.coerce.number().int().positive().optional().default(10), // Coerce to number for limit
   service_type: z.string().optional(),
-  status: z.string().optional(),
+  status: z.string().optional().default("active"),
   minPrice: z.coerce.number().optional(), // Coerce string to number for minPrice
   rating: z.coerce.number().optional(), // Coerce string to number for rating
   sort_by: z
@@ -41,6 +41,7 @@ export const querySchema = z.object({
   state:z.string().optional(),
   vendorId: z.string().optional(),
   vendor_name: z.string().optional(),
+  most_views:z.boolean().optional()
 });
 
 export const updateServiceSchema = serviceCreateSchema.partial();

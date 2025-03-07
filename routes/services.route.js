@@ -14,12 +14,14 @@ import { deleteFaq, upsertFaq } from '../controllers/faq controller/faq.controll
 import feedback from '../controllers/serviceController/feedback.controller.js';
 import serviceArchive from '../controllers/serviceController/archive.service.controller.js';
 import getMostViewedServices from '../controllers/serviceController/getMostViewedServices.controller.js';
+import getServiceLocations from '../controllers/serviceController/getAllLocation.controller.js';
 
 
 
 const serviceRouter = express.Router();
 
 serviceRouter.route("/").get(getAllServices)
+serviceRouter.get("/get-location",getServiceLocations)
 serviceRouter.route("/getMostViewedServices").get(getMostViewedServices)
 serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
@@ -36,6 +38,7 @@ serviceRouter.route("/serviceArchive/:id").put(serviceArchive)
 // add faq
 serviceRouter.post("/:serviceId/faq/:faqId?", upsertFaq);
 serviceRouter.delete("/:serviceId/faq/:faqId", deleteFaq);
+
 
 
 

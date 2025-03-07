@@ -3,6 +3,7 @@ import CustomError from "../../utils/CustomError.js";
 import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 import { querySchema } from "../../validation schema/service.schema.js"; // Assuming schema is defined here
 
+
 const prisma = new PrismaClient();
 
 // Controller to get all services
@@ -44,26 +45,7 @@ const getAllServices = async (req, res, next) => {
 
     if (status && status !== null) where.status = status;
 
-    let vendorIds = []; // To hold vendor IDs matching city or name
-
-    // // If city is provided, filter vendors by city
-    // if (city) {
-    //   const vendorsInLocation = await prisma.Vendor.findMany({
-    //     where: {
-    //       city: {
-    //         contains: city.trim().toLowerCase(),
-    //         mode: "insensitive",
-    //       },
-    //     },
-    //     select: { id: true },
-    //   });
-
-    //   if (vendorsInLocation.length > 0) {
-    //     vendorIds = vendorsInLocation.map((vendor) => vendor.id);
-    //   } else {
-    //     throw new CustomError("No vendors found for the specified location", 404);
-    //   }
-    // }
+    let vendorIds = []; 
 
     // If vendor_name is provided, filter by vendor name
     if (vendor_name && vendor_name.trim() !== "") {
@@ -95,6 +77,8 @@ const getAllServices = async (req, res, next) => {
     if (vendorIds.length > 0) {
       where.vendorId = { in: vendorIds };
     }
+
+    
 
     // Get the total count of services matching the filters
     const totalServices = await prisma.Service.count({ where });
