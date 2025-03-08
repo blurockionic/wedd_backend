@@ -5,6 +5,8 @@ const roleMiddleware = (roles) => (req, _, next) => {
 
   const lowerCaseRoles = roles.map((role) => role.toLowerCase());
 
+  console.log(lowerCaseRoles);
+
   // Check if the user's role matches the required role
   if (!lowerCaseRoles.includes(roleFromUserObject)) {
     return next(
