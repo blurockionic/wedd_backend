@@ -98,12 +98,28 @@ model EventVendors {
 }
 
 model EventTask {
-  id         String   @id @default(uuid())
-  eventId    String
-  event      Event    @relation(fields: [eventId], references: [id])
-  items      Json     // Store checklist items as JSON
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           String    @id @default(uuid())
+  eventId      String
+  name         String
+  priority     String    @default("Medium") // Keep as String if you don't want to migrate
+  done         Boolean   @default(false)
+  scheduleDate DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  event        Event     @relation(fields: [eventId], references: [id])
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 model SubEvent {
