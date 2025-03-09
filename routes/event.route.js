@@ -13,6 +13,9 @@ import deleteSubEventTask  from "../controllers/eventController/delete.task.sube
 import deleteSubEventVendor from "../controllers/eventController/delete.vendor.subevent.event.controller.js"
 import deleteEventTask from "../controllers/eventController/delete.task.event.controller.js"
 import deleteEventVendor from "../controllers/eventController/delete.vendor.event.controller.js"
+import getTasksForEvent from "../controllers/eventController/get.tasks.event.controller.js"
+import updateTaskStatus from "../controllers/eventController/update.status.task.controller.js"
+import updateTask from "../controllers/eventController/update.task.event.controller.js"
 
 
 const EventRouter =  express.Router();
@@ -21,8 +24,17 @@ const EventRouter =  express.Router();
 EventRouter.route("/newevent").post(jwtAuthentication, createEvent);
 EventRouter.route("/getevents").get(jwtAuthentication, getAllEvent);
 // endpoint for event task 
+
 EventRouter.route("/task/:id").post(jwtAuthentication, createTaskOnEvent);
-//endpoint for sub-event task
+// Get all tasks for an event
+EventRouter.route("/tasks/:id").get(jwtAuthentication, getTasksForEvent);
+
+// Update task status
+EventRouter.route("/task/status/:taskId").patch(jwtAuthentication, updateTaskStatus);
+
+// Update task
+EventRouter.route("/task/:taskId").put(jwtAuthentication, updateTask);
+
 EventRouter.route("/task/:id/:subEventId").post(jwtAuthentication, createTaskOnSubEvent);
 //endpoint for adding vendor on sub event
 EventRouter.route("/subevent/vendor/:id/:subEventId").post(jwtAuthentication, createTaskOnSubEvent);
