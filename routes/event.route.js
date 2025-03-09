@@ -37,7 +37,7 @@ EventRouter.route("/task/:taskId").put(jwtAuthentication, updateTask);
 
 EventRouter.route("/task/:id/:subEventId").post(jwtAuthentication, createTaskOnSubEvent);
 //endpoint for adding vendor on sub event
-EventRouter.route("/subevent/vendor/:id/:subEventId").post(jwtAuthentication, createTaskOnSubEvent);
+EventRouter.route("/subevent/vendor/:id/:subEventId").post(jwtAuthentication, addVendorsOnSubEvent);
 
 EventRouter.route("/:id/subevent").post(jwtAuthentication, createSubEvent);
 EventRouter.route("/:id/vendors").post(jwtAuthentication, addVendors)
