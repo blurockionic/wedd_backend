@@ -13,6 +13,7 @@ import planRouter from './plan.route.js';
 import subscribeRouter from './subscribe.route.js';
 import checklistRouter from './checklist.route.js';
 import generateDescription from '../controllers/AIDescription.controller.js';
+import blogRouter from '../routes/blog.route.js';
 
 
 routes.use("/users", UserRouter);
@@ -25,6 +26,7 @@ routes.use("/plan",planRouter)
 routes.use("/subscribe",subscribeRouter)
 routes.use("/checklist", checklistRouter)
 routes.use("/generateAIDescription",generateDescription)
+routes.use("/blog",blogRouter)
 
 
 

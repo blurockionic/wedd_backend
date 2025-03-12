@@ -1,12 +1,13 @@
 generator client_postgres {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
-  output   = "./generated/postgres"
-  datasources = [db_postgres]
+  output        = "./generated/postgres"
+  datasources   = [db_postgres]
 }
+
 datasource db_postgres {
-  provider = "postgresql"
-  url      = env("POST_GRE_DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("POST_GRE_DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL_PG")
 }
 
@@ -29,78 +30,111 @@ model User {
   cart               Cart[] 
   updated_at         DateTime?
   checklists         Checklist[]           @relation(name: "UserChecklists")
+  likedBlogs          LikedBlog[] 
 }
 
 model Booking {
-  id      String
-  userId     User     @relation(fields: [id], references: [id])
-  booking_id   String   @id @default(uuid())
-  service_id   String   // Refers to a Service in MongoDB
-  vendor_id    String   // Refers to a Vendor in MongoDB
-  booking_date DateTime
-  status       String    @default("pending")
-  negotiated_price Float?   // Agreed price after negotiation
-  is_negotiable    Boolean  @default(false) // Flag for negotiation
-  totalAmount   Float    // Total cost of the booking
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-  payments     Payment[]
+  id               String
+  userId           User      @relation(fields: [id], references: [id])
+  booking_id       String    @id @default(uuid())
+  service_id       String // Refers to a Service in MongoDB
+  vendor_id        String // Refers to a Vendor in MongoDB
+  booking_date     DateTime
+  status           String    @default("pending")
+  negotiated_price Float? // Agreed price after negotiation
+  is_negotiable    Boolean   @default(false) // Flag for negotiation
+  totalAmount      Float // Total cost of the booking
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  payments         Payment[]
 }
 
 model Cart {
-  id          String   @id @default(uuid()) 
-  userId      String   
-  user        User     @relation(fields: [userId], references: [id])
-  serviceId   String   // Refers to a Service in MongoDB
-  createdAt   DateTime @default(now())      // Timestamp when the service was added
-  @@unique([userId, serviceId])   
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String // Refers to a Service in MongoDB
+  createdAt DateTime @default(now()) // Timestamp when the service was added
+
+  @@unique([userId, serviceId])
 }
 
 model Checklist {
-  id         String   @id @default(uuid())
-  userId     String
-  user       User     @relation(name: "UserChecklists", fields: [userId], references: [id])
-  items      Json     // Store checklist items as JSON
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(name: "UserChecklists", fields: [userId], references: [id])
+  items     Json // Store checklist items as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-
-
 model Payment {
-  payment_id      String   @id @default(uuid())
-  booking_id      String
-  amount          Decimal
-  payment_status  String   // e.g., "pending", "completed", "failed"
-  payment_method  String   // e.g., "credit card", "PayPal"
-  transaction_id  String
-  payment_date    DateTime
+  payment_id     String   @id @default(uuid())
+  booking_id     String
+  amount         Decimal
+  payment_status String // e.g., "pending", "completed", "failed"
+  payment_method String // e.g., "credit card", "PayPal"
+  transaction_id String
+  payment_date   DateTime
 
   // Relations
-  booking         Booking  @relation(fields: [booking_id], references: [booking_id])
+  booking Booking @relation(fields: [booking_id], references: [booking_id])
 }
 
 model Review {
-  review_id      String   @id @default(uuid())
-  vendor_id      String   // Refers to a Vendor in MongoDB
-  id        String
-  rating         Int      // Rating 1 to 5
-  review_text    String
-  created_at     DateTime @default(now())
+  review_id   String   @id @default(uuid())
+  vendor_id   String // Refers to a Vendor in MongoDB
+  id          String
+  rating      Int // Rating 1 to 5
+  review_text String
+  created_at  DateTime @default(now())
   // Relations
-  user           User     @relation(fields: [id], references: [id])
+  user        User     @relation(fields: [id], references: [id])
 }
 
 model EventSchedule {
   event_id         String   @id @default(uuid())
-  vendor_id        String   // Refers to a Vendor in MongoDB
-  media_id         String   // Refers to a Media in MongoDB
+  vendor_id        String // Refers to a Vendor in MongoDB
+  media_id         String // Refers to a Media in MongoDB
   event_name       String
   event_start_date DateTime
   event_end_date   DateTime
   event_location   String
   description      String
   created_at       DateTime @default(now())
+}
+
+model Blog {
+  id        String      @id @default(cuid())
+  title     String      @unique
+  tags      String[]
+  content   String
+  comments  Comment[]
+  viewCount Int         @default(0)
+  likes     Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  likedBy   LikedBlog[]
+  authorId  String
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
+  authorId  String
+}
+
+model LikedBlog {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
+
+  @@unique([userId, blogId])
 }
 
 enum Role {

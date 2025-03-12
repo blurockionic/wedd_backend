@@ -17,11 +17,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.1
+ * Prisma Client JS version: 6.5.0
  * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
  */
 Prisma.prismaVersion = {
-  client: "6.2.1",
+  client: "6.5.0",
   engine: "4123509d24aa4dede1e864b46351bf2790323b69"
 }
 
@@ -194,6 +194,32 @@ exports.Prisma.EventScheduleScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  tags: 'tags',
+  content: 'content',
+  viewCount: 'viewCount',
+  likes: 'likes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  authorId: 'authorId'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  blogId: 'blogId',
+  authorId: 'authorId'
+};
+
+exports.Prisma.LikedBlogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  blogId: 'blogId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -230,7 +256,10 @@ exports.Prisma.ModelName = {
   Checklist: 'Checklist',
   Payment: 'Payment',
   Review: 'Review',
-  EventSchedule: 'EventSchedule'
+  EventSchedule: 'EventSchedule',
+  Blog: 'Blog',
+  Comment: 'Comment',
+  LikedBlog: 'LikedBlog'
 };
 
 /**
