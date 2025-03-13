@@ -17,11 +17,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.1
+ * Prisma Client JS version: 6.5.0
  * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
  */
 Prisma.prismaVersion = {
-  client: "6.2.1",
+  client: "6.5.0",
   engine: "4123509d24aa4dede1e864b46351bf2790323b69"
 }
 
@@ -120,11 +120,11 @@ exports.Prisma.VendorScalarFieldEnum = {
   description: 'description',
   logo_url: 'logo_url',
   country: 'country',
-  state: 'state',
   latitude: 'latitude',
   longitude: 'longitude',
   city: 'city',
   email: 'email',
+  state: 'state',
   password_hash: 'password_hash',
   phone_number: 'phone_number',
   social_networks: 'social_networks',
@@ -144,8 +144,12 @@ exports.Prisma.ServiceScalarFieldEnum = {
   description: 'description',
   min_price: 'min_price',
   max_price: 'max_price',
+  city: 'city',
+  state: 'state',
   price: 'price',
   service_type: 'service_type',
+  service_unit: 'service_unit',
+  status: 'status',
   rating: 'rating',
   faqs: 'faqs',
   created_at: 'created_at',
@@ -233,7 +237,6 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   status: 'status',
   order_id: 'order_id',
   payment_id: 'payment_id',
-  razorpay_subscription_id: 'razorpay_subscription_id',
   start_date: 'start_date',
   end_date: 'end_date',
   auto_renew: 'auto_renew',
@@ -251,12 +254,46 @@ exports.Prisma.PaymentScalarFieldEnum = {
   currency: 'currency',
   status: 'status',
   payment_method: 'payment_method',
+  razorpay_order_id: 'razorpay_order_id',
   razorpay_payment_id: 'razorpay_payment_id',
   refund_id: 'refund_id',
   is_refunded: 'is_refunded',
   failure_reason: 'failure_reason',
+  vpa: 'vpa',
+  fee: 'fee',
+  tax: 'tax',
+  rrn: 'rrn',
+  upi_transaction_id: 'upi_transaction_id',
+  email: 'email',
+  contact: 'contact',
+  acquirer_data: 'acquirer_data',
+  notes: 'notes',
+  autoRenew: 'autoRenew',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  bill_generated: 'bill_generated'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  invoiceNumber: 'invoiceNumber',
+  vendorId: 'vendorId',
+  paymentId: 'paymentId',
+  nextBillingDate: 'nextBillingDate',
+  discount: 'discount',
+  totalExclIGST: 'totalExclIGST',
+  igstAmount: 'igstAmount',
+  igstTotal: 'igstTotal',
+  totalAmount: 'totalAmount',
+  amountDue: 'amountDue',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.CounterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value'
 };
 
 exports.Prisma.SortOrder = {
@@ -293,7 +330,9 @@ exports.Prisma.ModelName = {
   Promotion: 'Promotion',
   Plan: 'Plan',
   Subscription: 'Subscription',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Invoice: 'Invoice',
+  Counter: 'Counter'
 };
 
 /**

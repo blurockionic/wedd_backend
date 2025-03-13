@@ -12,25 +12,26 @@ datasource db_postgres {
 }
 
 model User {
-  id             String     @id @default(uuid())
-  email               String    @unique 
-  refresh_Token        String?  
-  password_hash        String
-  resetPassword_Token  String?
+  id                  String      @id @default(uuid())
+  email               String      @unique
+  refresh_Token       String?
+  password_hash       String
+  googleUid           String?     @unique
+  resetPassword_Token String?
   profile_photo       String?
-  user_name          String
+  user_name           String
   phone_number        String
   role                Role
   wedding_date        DateTime?
   wedding_location    String?
-  created_at          DateTime   @default(now())
-  is_verified          Boolean    @default(false)
+  created_at          DateTime    @default(now())
+  is_verified         Boolean     @default(false)
   bookings            Booking[]
   reviews             Review[]
-  cart               Cart[] 
-  updated_at         DateTime?
-  checklists         Checklist[]           @relation(name: "UserChecklists")
-  likedBlogs          LikedBlog[] 
+  cart                Cart[]
+  updated_at          DateTime?
+  checklists          Checklist[] @relation(name: "UserChecklists")
+  likedBlogs          LikedBlog[]
 }
 
 model Booking {

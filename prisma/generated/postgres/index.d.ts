@@ -1857,6 +1857,7 @@ export namespace Prisma {
     email: string | null
     refresh_Token: string | null
     password_hash: string | null
+    googleUid: string | null
     resetPassword_Token: string | null
     profile_photo: string | null
     user_name: string | null
@@ -1874,6 +1875,7 @@ export namespace Prisma {
     email: string | null
     refresh_Token: string | null
     password_hash: string | null
+    googleUid: string | null
     resetPassword_Token: string | null
     profile_photo: string | null
     user_name: string | null
@@ -1891,6 +1893,7 @@ export namespace Prisma {
     email: number
     refresh_Token: number
     password_hash: number
+    googleUid: number
     resetPassword_Token: number
     profile_photo: number
     user_name: number
@@ -1910,6 +1913,7 @@ export namespace Prisma {
     email?: true
     refresh_Token?: true
     password_hash?: true
+    googleUid?: true
     resetPassword_Token?: true
     profile_photo?: true
     user_name?: true
@@ -1927,6 +1931,7 @@ export namespace Prisma {
     email?: true
     refresh_Token?: true
     password_hash?: true
+    googleUid?: true
     resetPassword_Token?: true
     profile_photo?: true
     user_name?: true
@@ -1944,6 +1949,7 @@ export namespace Prisma {
     email?: true
     refresh_Token?: true
     password_hash?: true
+    googleUid?: true
     resetPassword_Token?: true
     profile_photo?: true
     user_name?: true
@@ -2034,6 +2040,7 @@ export namespace Prisma {
     email: string
     refresh_Token: string | null
     password_hash: string
+    googleUid: string | null
     resetPassword_Token: string | null
     profile_photo: string | null
     user_name: string
@@ -2068,6 +2075,7 @@ export namespace Prisma {
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
+    googleUid?: boolean
     resetPassword_Token?: boolean
     profile_photo?: boolean
     user_name?: boolean
@@ -2091,6 +2099,7 @@ export namespace Prisma {
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
+    googleUid?: boolean
     resetPassword_Token?: boolean
     profile_photo?: boolean
     user_name?: boolean
@@ -2108,6 +2117,7 @@ export namespace Prisma {
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
+    googleUid?: boolean
     resetPassword_Token?: boolean
     profile_photo?: boolean
     user_name?: boolean
@@ -2125,6 +2135,7 @@ export namespace Prisma {
     email?: boolean
     refresh_Token?: boolean
     password_hash?: boolean
+    googleUid?: boolean
     resetPassword_Token?: boolean
     profile_photo?: boolean
     user_name?: boolean
@@ -2137,7 +2148,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "refresh_Token" | "password_hash" | "resetPassword_Token" | "profile_photo" | "user_name" | "phone_number" | "role" | "wedding_date" | "wedding_location" | "created_at" | "is_verified" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "refresh_Token" | "password_hash" | "googleUid" | "resetPassword_Token" | "profile_photo" | "user_name" | "phone_number" | "role" | "wedding_date" | "wedding_location" | "created_at" | "is_verified" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2163,6 +2174,7 @@ export namespace Prisma {
       email: string
       refresh_Token: string | null
       password_hash: string
+      googleUid: string | null
       resetPassword_Token: string | null
       profile_photo: string | null
       user_name: string
@@ -2605,6 +2617,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly refresh_Token: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
+    readonly googleUid: FieldRef<"User", 'String'>
     readonly resetPassword_Token: FieldRef<"User", 'String'>
     readonly profile_photo: FieldRef<"User", 'String'>
     readonly user_name: FieldRef<"User", 'String'>
@@ -12895,6 +12908,7 @@ export namespace Prisma {
     email: 'email',
     refresh_Token: 'refresh_Token',
     password_hash: 'password_hash',
+    googleUid: 'googleUid',
     resetPassword_Token: 'resetPassword_Token',
     profile_photo: 'profile_photo',
     user_name: 'user_name',
@@ -13177,6 +13191,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     refresh_Token?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
+    googleUid?: StringNullableFilter<"User"> | string | null
     resetPassword_Token?: StringNullableFilter<"User"> | string | null
     profile_photo?: StringNullableFilter<"User"> | string | null
     user_name?: StringFilter<"User"> | string
@@ -13199,6 +13214,7 @@ export namespace Prisma {
     email?: SortOrder
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
+    googleUid?: SortOrderInput | SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
     profile_photo?: SortOrderInput | SortOrder
     user_name?: SortOrder
@@ -13219,6 +13235,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    googleUid?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -13239,13 +13256,14 @@ export namespace Prisma {
     cart?: CartListRelationFilter
     checklists?: ChecklistListRelationFilter
     likedBlogs?: LikedBlogListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "googleUid">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     refresh_Token?: SortOrderInput | SortOrder
     password_hash?: SortOrder
+    googleUid?: SortOrderInput | SortOrder
     resetPassword_Token?: SortOrderInput | SortOrder
     profile_photo?: SortOrderInput | SortOrder
     user_name?: SortOrder
@@ -13269,6 +13287,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     refresh_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
+    googleUid?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetPassword_Token?: StringNullableWithAggregatesFilter<"User"> | string | null
     profile_photo?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_name?: StringWithAggregatesFilter<"User"> | string
@@ -13867,6 +13886,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -13889,6 +13909,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -13911,6 +13932,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -13933,6 +13955,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -13955,6 +13978,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -13972,6 +13996,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -13989,6 +14014,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -14731,6 +14757,7 @@ export namespace Prisma {
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
+    googleUid?: SortOrder
     resetPassword_Token?: SortOrder
     profile_photo?: SortOrder
     user_name?: SortOrder
@@ -14748,6 +14775,7 @@ export namespace Prisma {
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
+    googleUid?: SortOrder
     resetPassword_Token?: SortOrder
     profile_photo?: SortOrder
     user_name?: SortOrder
@@ -14765,6 +14793,7 @@ export namespace Prisma {
     email?: SortOrder
     refresh_Token?: SortOrder
     password_hash?: SortOrder
+    googleUid?: SortOrder
     resetPassword_Token?: SortOrder
     profile_photo?: SortOrder
     user_name?: SortOrder
@@ -16427,6 +16456,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16448,6 +16478,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16513,6 +16544,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16534,6 +16566,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16584,6 +16617,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16605,6 +16639,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16642,6 +16677,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16663,6 +16699,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16684,6 +16721,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16705,6 +16743,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16742,6 +16781,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16763,6 +16803,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16856,6 +16897,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16877,6 +16919,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -16914,6 +16957,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -16935,6 +16979,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -17111,6 +17156,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -17132,6 +17178,7 @@ export namespace Prisma {
     email: string
     refresh_Token?: string | null
     password_hash: string
+    googleUid?: string | null
     resetPassword_Token?: string | null
     profile_photo?: string | null
     user_name: string
@@ -17200,6 +17247,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string
@@ -17221,6 +17269,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
     resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
     profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
     user_name?: StringFieldUpdateOperationsInput | string

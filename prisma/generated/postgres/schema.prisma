@@ -16,6 +16,7 @@ model User {
   email               String      @unique
   refresh_Token       String?
   password_hash       String
+  googleUid           String?     @unique
   resetPassword_Token String?
   profile_photo       String?
   user_name           String
