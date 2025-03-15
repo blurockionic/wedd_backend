@@ -16,6 +16,7 @@ import deleteEventVendor from "../controllers/eventController/delete.vendor.even
 import getTasksForEvent from "../controllers/eventController/get.tasks.event.controller.js"
 import updateTaskStatus from "../controllers/eventController/update.status.task.controller.js"
 import updateTask from "../controllers/eventController/update.task.event.controller.js"
+import updateEvent from "../controllers/eventController/update.event.controller.js";
 
 
 const EventRouter =  express.Router();
@@ -23,6 +24,7 @@ const EventRouter =  express.Router();
 //endpoint for create new event
 EventRouter.route("/newevent").post(jwtAuthentication, createEvent);
 EventRouter.route("/getevents").get(jwtAuthentication, getAllEvent);
+EventRouter.route("/:id").put(jwtAuthentication, updateEvent);
 // endpoint for event task 
 
 EventRouter.route("/task/:id").post(jwtAuthentication, createTaskOnEvent);
