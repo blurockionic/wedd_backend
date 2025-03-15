@@ -20,6 +20,10 @@ export const serviceCreateSchema = z.object({
     .string()
     .min(3, "Service type must be at least 3 characters.")
     .transform((val) => val.toLowerCase()),
+   service_category: z
+    .string()
+    .min(3, "Service category must be at least 3 characters.")
+    .transform((val) => val.toLowerCase()),
   service_unit: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
