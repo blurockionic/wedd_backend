@@ -3538,6 +3538,7 @@ export namespace Prisma {
     state: string | null
     price: number | null
     service_type: string | null
+    service_category: string | null
     service_unit: string | null
     status: string | null
     rating: number | null
@@ -3556,6 +3557,7 @@ export namespace Prisma {
     state: string | null
     price: number | null
     service_type: string | null
+    service_category: string | null
     service_unit: string | null
     status: string | null
     rating: number | null
@@ -3574,6 +3576,7 @@ export namespace Prisma {
     state: number
     price: number
     service_type: number
+    service_category: number
     service_unit: number
     status: number
     rating: number
@@ -3609,6 +3612,7 @@ export namespace Prisma {
     state?: true
     price?: true
     service_type?: true
+    service_category?: true
     service_unit?: true
     status?: true
     rating?: true
@@ -3627,6 +3631,7 @@ export namespace Prisma {
     state?: true
     price?: true
     service_type?: true
+    service_category?: true
     service_unit?: true
     status?: true
     rating?: true
@@ -3645,6 +3650,7 @@ export namespace Prisma {
     state?: true
     price?: true
     service_type?: true
+    service_category?: true
     service_unit?: true
     status?: true
     rating?: true
@@ -3751,6 +3757,7 @@ export namespace Prisma {
     state: string | null
     price: number | null
     service_type: string
+    service_category: string | null
     service_unit: string | null
     status: string
     rating: number
@@ -3789,6 +3796,7 @@ export namespace Prisma {
     state?: boolean
     price?: boolean
     service_type?: boolean
+    service_category?: boolean
     service_unit?: boolean
     status?: boolean
     rating?: boolean
@@ -3816,6 +3824,7 @@ export namespace Prisma {
     state?: boolean
     price?: boolean
     service_type?: boolean
+    service_category?: boolean
     service_unit?: boolean
     status?: boolean
     rating?: boolean
@@ -3824,7 +3833,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "city" | "state" | "price" | "service_type" | "service_unit" | "status" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vendorId" | "service_name" | "description" | "min_price" | "max_price" | "city" | "state" | "price" | "service_type" | "service_category" | "service_unit" | "status" | "rating" | "faqs" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vendor?: boolean | VendorDefaultArgs<ExtArgs>
     availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
@@ -3854,6 +3863,7 @@ export namespace Prisma {
       state: string | null
       price: number | null
       service_type: string
+      service_category: string | null
       service_unit: string | null
       status: string
       rating: number
@@ -4267,6 +4277,7 @@ export namespace Prisma {
     readonly state: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'Float'>
     readonly service_type: FieldRef<"Service", 'String'>
+    readonly service_category: FieldRef<"Service", 'String'>
     readonly service_unit: FieldRef<"Service", 'String'>
     readonly status: FieldRef<"Service", 'String'>
     readonly rating: FieldRef<"Service", 'Float'>
@@ -16439,6 +16450,7 @@ export namespace Prisma {
     state: 'state',
     price: 'price',
     service_type: 'service_type',
+    service_category: 'service_category',
     service_unit: 'service_unit',
     status: 'status',
     rating: 'rating',
@@ -16924,6 +16936,7 @@ export namespace Prisma {
     state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_category?: StringNullableFilter<"Service"> | string | null
     service_unit?: StringNullableFilter<"Service"> | string | null
     status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
@@ -16948,6 +16961,7 @@ export namespace Prisma {
     state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_category?: SortOrder
     service_unit?: SortOrder
     status?: SortOrder
     rating?: SortOrder
@@ -16975,6 +16989,7 @@ export namespace Prisma {
     state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_category?: StringNullableFilter<"Service"> | string | null
     service_unit?: StringNullableFilter<"Service"> | string | null
     status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
@@ -16999,6 +17014,7 @@ export namespace Prisma {
     state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_category?: SortOrder
     service_unit?: SortOrder
     status?: SortOrder
     rating?: SortOrder
@@ -17026,6 +17042,7 @@ export namespace Prisma {
     state?: StringNullableWithAggregatesFilter<"Service"> | string | null
     price?: FloatNullableWithAggregatesFilter<"Service"> | number | null
     service_type?: StringWithAggregatesFilter<"Service"> | string
+    service_category?: StringNullableWithAggregatesFilter<"Service"> | string | null
     service_unit?: StringNullableWithAggregatesFilter<"Service"> | string | null
     status?: StringWithAggregatesFilter<"Service"> | string
     rating?: FloatWithAggregatesFilter<"Service"> | number
@@ -18146,6 +18163,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -18170,6 +18188,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -18191,6 +18210,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -18214,6 +18234,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -18237,6 +18258,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -18254,6 +18276,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -18272,6 +18295,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -19569,6 +19593,7 @@ export namespace Prisma {
     state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_category?: SortOrder
     service_unit?: SortOrder
     status?: SortOrder
     rating?: SortOrder
@@ -19595,6 +19620,7 @@ export namespace Prisma {
     state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_category?: SortOrder
     service_unit?: SortOrder
     status?: SortOrder
     rating?: SortOrder
@@ -19613,6 +19639,7 @@ export namespace Prisma {
     state?: SortOrder
     price?: SortOrder
     service_type?: SortOrder
+    service_category?: SortOrder
     service_unit?: SortOrder
     status?: SortOrder
     rating?: SortOrder
@@ -21436,6 +21463,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -21458,6 +21486,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -21714,6 +21743,7 @@ export namespace Prisma {
     state?: StringNullableFilter<"Service"> | string | null
     price?: FloatNullableFilter<"Service"> | number | null
     service_type?: StringFilter<"Service"> | string
+    service_category?: StringNullableFilter<"Service"> | string | null
     service_unit?: StringNullableFilter<"Service"> | string | null
     status?: StringFilter<"Service"> | string
     rating?: FloatFilter<"Service"> | number
@@ -22270,6 +22300,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22293,6 +22324,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22329,6 +22361,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22351,6 +22384,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22372,6 +22406,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22395,6 +22430,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22431,6 +22467,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22453,6 +22490,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22474,6 +22512,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22497,6 +22536,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22533,6 +22573,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22555,6 +22596,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22576,6 +22618,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22599,6 +22642,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -22635,6 +22679,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -22657,6 +22702,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -23851,6 +23897,7 @@ export namespace Prisma {
     state?: string | null
     price?: number | null
     service_type: string
+    service_category?: string | null
     service_unit?: string | null
     status?: string
     rating?: number
@@ -23946,6 +23993,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -23967,6 +24015,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
@@ -23988,6 +24037,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     service_type?: StringFieldUpdateOperationsInput | string
+    service_category?: NullableStringFieldUpdateOperationsInput | string | null
     service_unit?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
