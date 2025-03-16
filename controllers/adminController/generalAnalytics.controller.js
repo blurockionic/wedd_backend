@@ -92,15 +92,42 @@ const getMostViewedServicesData = async () => {
       });  
 };
 
-const getTotalSubscribers = async () => {
-  return await prismaMongo.subscription.count({
-    where: {
-      status: "ACTIVE"
-    }
-  })
+const getTotalRevenue = async () => {
+  return await prismaMongo.subscription.aggregateRaw({
+    pipeline: [
+      {
+        $lookup: {
+          from: "Plan",
+          localField: "planId",
+          foreignField: "_id",
+          as: "planDetails",
+        },
+      },
+      { $unwind: "$planDetails" },
+      {
+        $match: {
+          status: "ACTIVE"
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalSubscribers: { $sum: 1 },
+          totalRevenue: { $sum: "$planDetails.price" },
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          totalSubscribers: 1,
+          totalRevenue: 1
+        }
+      }
+    ]
+  });
 };
 
-const getTotalRevenue = async () => {
+const getRevenuebyPlans = async () => {
   return await prismaMongo.subscription.aggregateRaw({
     pipeline: [
       {
@@ -141,7 +168,7 @@ const generalAnalytics = async (req, res) => {
         response.TotalServicesbyType = await getTotalServicesbyType();
         response.ServicesData = await getServicesData();
         response.MostViewedServicesData = await getMostViewedServicesData();
-        response.TotalSubscribers = await getTotalSubscribers();
+        response.RevenuebyPlans = await getRevenuebyPlans();
         response.TotalRevenue = await getTotalRevenue();
     
         return res.status(200).json({ success: true, data: response });

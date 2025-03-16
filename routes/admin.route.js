@@ -18,9 +18,9 @@ AdminRouter.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
 // Route to convert user to admin (Only accessible to existing admins)
 AdminRouter.route("/give-admin/:id").patch(jwtAuthentication, roleMiddleware(["SUPER_ADMIN"]), giveAdmin);
 AdminRouter.route("/general-analytics").get(generalAnalytics);
-AdminRouter.route("/vendor-search").get(vendorSearch);
-AdminRouter.route("/service-search").get(serviceSearch);
-AdminRouter.route("/user-search").get(userSearch);
+AdminRouter.route("/vendor-search").post(vendorSearch);
+AdminRouter.route("/service-search").post(serviceSearch);
+AdminRouter.route("/user-search").post(userSearch);
 AdminRouter.route("/transactions").get(transactions);
 
 export default AdminRouter;

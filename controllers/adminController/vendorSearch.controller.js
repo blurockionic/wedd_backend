@@ -45,9 +45,10 @@ const vendorSearch = async (req, res) => {
                     _id: '$_id',
                     name: { $first: '$name' },
                     business_name: { $first: '$business_name' },
+                    location: { $first: { $concat: ['$city', ', ', '$state', ', ', '$country'] } },
                     service_type: { $first: '$service_type' },
                     totalViews: { $sum: '$services.views.viewCount' },
-                    services: { $push: '$services' }
+                    services: { $push: '$services' },
                 }},
                 { $sort: { totalViews: -1 } }
             ]
