@@ -29,7 +29,7 @@ export const makeLead = async (req, res, next) => {
       },
     });
 
-    // Respond with the service details
+
     res.status(200).json({
       success: true,
     });
