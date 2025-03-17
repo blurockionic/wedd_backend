@@ -4,6 +4,7 @@ generator client_postgres {
   output   = "./generated/postgres"
   datasources = [db_postgres]
 }
+
 datasource db_postgres {
   provider = "postgresql"
   url      = env("POST_GRE_DATABASE_URL")
@@ -31,10 +32,11 @@ model User {
   updated_at         DateTime?
   checklists         Checklist[]           @relation(name: "UserChecklists")
   guests             Guest[]   @relation(name: "UserGuests")
-   paymentDetails     PaymentDetails[]
-   orderDetails         OrderDetails[]
+  paymentDetails     PaymentDetails[]
+  orderDetails         OrderDetails[]
   userDataTemplate       UserDataTemplate[]
-    event               Event[]     @relation(name: "Event")
+  event               Event[]     @relation(name: "Event")
+  likedBlogs          LikedBlog[]  // Added relation to LikedBlog
 }
 
 model Booking {
@@ -50,7 +52,6 @@ model Booking {
   totalAmount   Float    // Total cost of the booking
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
-
 }
 
 model Cart {
@@ -157,6 +158,7 @@ model SubEventTask {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
 model OrderDetails {
   id              String   @id @default(uuid())
   orderId         String   @unique   // Razorpay Order ID
@@ -180,13 +182,13 @@ model PaymentDetails {
   status          String    @default("pending") // "pending", "success", "failed"
   purchasedAt     DateTime? // Payment completion time
 
- 
   userId          String  
   templateId      String?  
 
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
+
 model Review {
   review_id      String   @id @default(uuid())
   vendor_id      String   // Refers to a Vendor in MongoDB
@@ -210,8 +212,6 @@ model EventSchedule {
   created_at       DateTime @default(now())
 }
 
-
-
 enum Role {
   USER
   ADMIN
@@ -231,9 +231,8 @@ model Guest {
 
 enum GuestStatus {
   NOT_INVITED
-  INVITED
+  INVITED
 }
-
 
 model InvitationTemplate {
   id            String             @id @default(uuid())
@@ -248,13 +247,10 @@ model InvitationTemplate {
   orderDetails  OrderDetails[]
 }
 
-
 enum template_category {
  FREE
  PREMIUM
-  
 }
-
 
 model  UserDataTemplate {
   userId            String 
@@ -270,7 +266,38 @@ model  UserDataTemplate {
   description     String?
   createdAt       DateTime @default(now()) 
   updatedAt       DateTime @default(now()) 
-  
 }
 
+// Blog-related models from your schema
+model Blog {
+  id        String      @id @default(cuid())
+  title     String      @unique
+  tags      String[]
+  content   String
+  comments  Comment[]
+  viewCount Int         @default(0)
+  likes     Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  likedBy   LikedBlog[]
+  authorId  String
+}
 
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
+  authorId  String
+}
+
+model LikedBlog {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
+
+  @@unique([userId, blogId])
+}
