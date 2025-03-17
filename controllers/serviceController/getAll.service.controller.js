@@ -42,30 +42,9 @@ const getAllServices = async (req, res, next) => {
     // Add filters for vendorId if provided
     if (vendorId && vendorId !== null) where.vendorId = vendorId;
 
-    if (status && status !== null) where.status = status;
+  where.status = status ?? "active";
 
-    let vendorIds = []; // To hold vendor IDs matching city or name
-
-    // // If city is provided, filter vendors by city
-    // if (city) {
-    //   const vendorsInLocation = await prisma.Vendor.findMany({
-    //     where: {
-    //       city: {
-    //         contains: city.trim().toLowerCase(),
-    //         mode: "insensitive",
-    //       },
-    //     },
-    //     select: { id: true },
-    //   });
-
-    //   if (vendorsInLocation.length > 0) {
-    //     vendorIds = vendorsInLocation.map((vendor) => vendor.id);
-    //   } else {
-    //     throw new CustomError("No vendors found for the specified location", 404);
-    //   }
-    // }
-
-    // If vendor_name is provided, filter by vendor name
+    let vendorIds = []; 
     if (vendor_name && vendor_name.trim() !== "") {
       const vendorsWithName = await prisma.Vendor.findMany({
         where: {
