@@ -36,6 +36,7 @@ model User {
   orderDetails        OrderDetails[]
   userDataTemplate    UserDataTemplate[]
   event               Event[]            @relation(name: "Event")
+  likedBlogs          LikedBlog[] // Added relation to LikedBlog
 }
 
 model Booking {
@@ -268,4 +269,38 @@ model UserDataTemplate {
   description     String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now())
+}
+
+// Blog-related models from your schema
+model Blog {
+  id        String      @id @default(cuid())
+  title     String      @unique
+  tags      String[]
+  content   String
+  comments  Comment[]
+  viewCount Int         @default(0)
+  likes     Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  likedBy   LikedBlog[]
+  authorId  String
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
+  authorId  String
+}
+
+model LikedBlog {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
+
+  @@unique([userId, blogId])
 }

@@ -305,6 +305,32 @@ exports.Prisma.UserDataTemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  tags: 'tags',
+  content: 'content',
+  viewCount: 'viewCount',
+  likes: 'likes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  authorId: 'authorId'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  blogId: 'blogId',
+  authorId: 'authorId'
+};
+
+exports.Prisma.LikedBlogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  blogId: 'blogId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -362,7 +388,10 @@ exports.Prisma.ModelName = {
   EventSchedule: 'EventSchedule',
   Guest: 'Guest',
   InvitationTemplate: 'InvitationTemplate',
-  UserDataTemplate: 'UserDataTemplate'
+  UserDataTemplate: 'UserDataTemplate',
+  Blog: 'Blog',
+  Comment: 'Comment',
+  LikedBlog: 'LikedBlog'
 };
 
 /**
