@@ -1,22 +1,44 @@
-import express from "express"
+import express from "express";
 import jwtAuthentication from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
-import { testBlog, addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, likeBlog, unlikeBlog, addComment, deleteComment } from "../controllers/blog controller/blog.controller.js";
+import {
+  addBlog,
+  getBlogs,
+  getBlogById,
+  updateBlog,
+  deleteBlog,
+  likeBlog,
+  unlikeBlog,
+  addComment,
+  deleteComment,
+  getBlogCommentsById
+} from "../controllers/blog controller/blog.controller.js";
 
-const blogRoute = express.Router();
+const blogRouteAdmin = express.Router();
+const blogRouteUser = express.Router();
+const blogRoutePublic = express.Router();  
 
-blogRoute.use(jwtAuthentication, roleMiddleware(["ADMIN"]));
+// 🚀 Public Routes 
+blogRoutePublic.get("/", getBlogs);  
+blogRoutePublic.get("/:id", getBlogById);
+blogRoutePublic.get("/:id/comments", getBlogCommentsById);  
 
-blogRoute.get('/test', testBlog);
-blogRoute.post('/add', addBlog);
-blogRoute.get('/', getBlogs);
-blogRoute.get('/:id', getBlogById);
-blogRoute.put('/:id', updateBlog);
-blogRoute.delete('/:id', deleteBlog);
+// 🔒 Admin Routes 
+blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN"]));
 
-blogRoute.post('/:id/like', likeBlog);
-blogRoute.post('/:id/unlike', unlikeBlog);
-blogRoute.post('/:id/comment', addComment);
-blogRoute.delete('/:id/comment/:commentId', deleteComment);
+blogRouteAdmin.post("/add", addBlog);  
+blogRouteAdmin.get("/", getBlogs);  
+blogRouteAdmin.get("/:id", getBlogById);  
+blogRouteAdmin.put("/:id", updateBlog);
+blogRouteAdmin.delete("/:id", deleteBlog);
+blogRouteAdmin.delete("/:id/comment/:commentId", deleteComment);
 
-export default blogRoute;
+// 🔑 User Routes 
+blogRouteUser.use(jwtAuthentication);
+
+blogRouteUser.post("/:id/like", likeBlog);  
+blogRouteUser.post("/:id/unlike", unlikeBlog);  
+blogRouteUser.post("/:id/comment", addComment);  
+blogRouteUser.delete("/:id/comment/:commentId", deleteComment);
+
+export { blogRouteAdmin, blogRouteUser, blogRoutePublic };
