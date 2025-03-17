@@ -1,244 +1,303 @@
-generator client {
+generator client_postgres {
   provider = "prisma-client-js"
-  output   = "./generated/mongo"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "windows"]
+  output   = "./generated/postgres"
+  datasources = [db_postgres]
 }
 
-datasource db {
-  provider = "mongodb"
-  url      = env("MONGO_DB_DATABASE_URL")
+datasource db_postgres {
+  provider = "postgresql"
+  url      = env("POST_GRE_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL_PG")
 }
 
-model Vendor {
-  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
-  name                String
-  business_name       String
-  business_category   String
-  license_number      String?
-  service_type        String[]     @default([]) // Ensure default value for arrays
-  description         String? // Detailed description of the business
-  logo_url             Json?
-  country             String?
-  latitude            String?
-  longitude           String?
-  city                String?
-  email               String       @unique
-  state               String?
-  password_hash       String
-  phone_number        String
-  social_networks     Json?
-  services            Service[]    @relation("VendorServices") // One-to-many relation
-  promotions          Promotion[] // One-to-many relation
-  team_members        TeamMember[] // One-to-many relation
-  faqs                Json?
-  created_at          DateTime     @default(now())
-  updated_at          DateTime     @updatedAt
-  is_verified         Boolean      @default(false)
-  refresh_Token       String?
-  resetPassword_Token String?
-  role                String       @default("vendor") @db.String
-  payment             Payment[]
-   invoices           Invoice[]
-  Subscription Subscription[]
+model User {
+  id                   String     @id @default(uuid())
+  email                String    @unique 
+  refresh_Token        String?  
+  password_hash        String?
+  googleUid            String? @unique
+  resetPassword_Token  String?
+  profile_photo       String?
+  user_name          String
+  phone_number        String?
+  role                Role
+  wedding_date        DateTime?
+  wedding_location    String?
+  created_at          DateTime   @default(now())
+  is_verified         Boolean    @default(false)
+  bookings            Booking[]
+  reviews             Review[]
+  cart               Cart[] 
+  updated_at         DateTime?
+  checklists         Checklist[]           @relation(name: "UserChecklists")
+  guests             Guest[]   @relation(name: "UserGuests")
+  paymentDetails     PaymentDetails[]
+  orderDetails         OrderDetails[]
+  userDataTemplate       UserDataTemplate[]
+  event               Event[]     @relation(name: "Event")
+  likedBlogs          LikedBlog[]  // Added relation to LikedBlog
 }
 
-model Service {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId       String         @db.ObjectId
-  vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
-  service_name   String
-  description    String?
-  min_price      Float?
-  max_price      Float?
-  city                String?
-  state               String?
-  price          Float?
-  service_type   String  
- service_category  String?  
-  service_unit   String?
-  status         String         @default("active")
-  rating         Float          @default(0.0)
-  availabilities Availability[]
-  feedback       Feedback[]
-  media          Media[]        @relation("ServiceToMedia")
-  views          Views[]
-  faqs           Json?
-  created_at     DateTime       @default(now())
-  updated_at     DateTime       @updatedAt
-
-  @@index([service_type], map: "idx_service_type")
+model Booking {
+  id      String
+  userId     User     @relation(fields: [id], references: [id])
+  booking_id   String   @id @default(uuid())
+  service_id   String   // Refers to a Service in MongoDB
+  vendor_id    String   // Refers to a Vendor in MongoDB
+  booking_date DateTime
+  status       String    @default("pending")
+  negotiated_price Float?   // Agreed price after negotiation
+  is_negotiable    Boolean  @default(false) // Flag for negotiation
+  totalAmount   Float    // Total cost of the booking
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 }
 
-model Views {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  serviceId  String   @db.ObjectId
+model Cart {
+  id          String   @id @default(uuid()) 
+  userId      String   
+  user        User     @relation(fields: [userId], references: [id])
+  serviceId   String   // Refers to a Service in MongoDB
+  createdAt   DateTime @default(now())      // Timestamp when the service was added
+  @@unique([userId, serviceId])   
+}
+
+model Checklist {
+  id         String   @id @default(uuid())
   userId     String
-  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  viewCount  Int      @default(1)
-  lead       Boolean  @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@unique([serviceId, userId])
-  @@index([serviceId])
+  user       User     @relation(name: "UserChecklists", fields: [userId], references: [id])
+  items      Json     // Store checklist items as JSON
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-model Feedback {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String   @unique
-  serviceId  String   @db.ObjectId
-  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  comment    String
-  rating     Float
-  user_name  String   @default("")
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@unique([serviceId, userId])
-  @@index([serviceId]) //index for lookup
+model Event {
+  id                String       @id @default(uuid())
+  userId            String
+  user              User         @relation(name: "Event",fields: [userId], references: [id])
+  eventName         String 
+  eventDescription  String
+  eventDate         DateTime
+  eventStartTime    DateTime
+  eventEndTime      DateTime
+  eventBudget       Decimal
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  eventTask         EventTask[] 
+  eventVendors      EventVendors[] 
+  subEvent          SubEvent[]  
 }
 
-model Availability {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  serviceId      String   @unique @db.ObjectId
-  service        Service  @relation(fields: [serviceId], references: [id])
-  available_date DateTime
-  wedding_date   DateTime
-  is_available   Boolean
-  created_at     DateTime @default(now())
+model EventVendors {
+  id          String   @id @default(uuid()) 
+  eventId     String   
+  event       Event    @relation(fields: [eventId], references: [id])
+  serviceId   String   // Refers to a Service in MongoDB
+  createdAt   DateTime @default(now())
+  @@unique([eventId, serviceId])  
 }
 
-model Media {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  serviceId   String   @unique
-  service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia",onDelete: Cascade)
-  image_urls  Json
-  video_urls  Json
-  uploaded_at DateTime @default(now())
-}
-
-model TeamMember {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId     String   @db.ObjectId
-  vendor       Vendor   @relation(fields: [vendorId], references: [id])
+model EventTask {
+  id           String    @id @default(uuid())
+  eventId      String
   name         String
-  position     String
-  bio          String
-  email        String
-  photo_url    String?
-  social_links Json?
-  created_at   DateTime @default(now())
+  priority     String    @default("Medium") // Keep as String if you don't want to migrate
+  done         Boolean   @default(false)
+  scheduleDate DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  event        Event     @relation(fields: [eventId], references: [id])
 }
 
-model Promotion {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId            String   @db.ObjectId
-  vendor              Vendor   @relation(fields: [vendorId], references: [id])
-  promotion_title     String
-  description         String
-  discount_percentage Float    @default(0)
-  start_date          DateTime
-  end_date            DateTime
-  created_at          DateTime @default(now())
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
 }
 
-model Plan {
-  id            String         @id @default(auto()) @map("_id") @db.ObjectId
-  name          String // Name of the plan (e.g., "Basic", "Premium")
-  price         Float // Monthly or yearly cost
-  duration      String 
-  description   String // Description of the plan
-  features      Json?
-  trial_period  Int?
-  is_active     Boolean        @default(true)
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @updatedAt
-  subscriptions Subscription[]
-}
-
-model Subscription {
-  id                       String             @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId                 String?            @db.ObjectId
-  vendor                   Vendor?            @relation(fields: [vendorId], references: [id])
-  planId                   String             @db.ObjectId
-  plan                     Plan               @relation(fields: [planId], references: [id])
-  status                   SubscriptionStatus @default(PENDING)
-  order_id                 String
-  payment_id               String?
-  payments                 Payment[]
-  start_date               DateTime           @default(now())
-  end_date                 DateTime?
-  auto_renew               Boolean            @default(true)
-  is_trial                 Boolean            @default(false) // Indicates if this subscription is a trial
-  trial_end_date           DateTime? // End date for the trial period
-  created_at               DateTime           @default(now())
-  updated_at               DateTime           @updatedAt
-}
-
-model Payment {
-  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId            String?       @db.ObjectId
-  vendor              Vendor?       @relation(fields: [vendorId], references: [id])
-  subscriptionId      String?       @db.ObjectId
-  subscription        Subscription? @relation(fields: [subscriptionId], references: [id])
-  amount              Float         // Amount paid
-  currency            String        // Currency: "INR", "USD", etc.
-  status              PaymentStatus @default(PENDING) // "SUCCESS", "FAILED", etc.
-  payment_method      String?       // "UPI", "card", etc.
-  razorpay_order_id   String?       // Razorpay Order ID
-  razorpay_payment_id String?       // Razorpay Payment ID
-  refund_id           String?       // Razorpay refund ID (if applicable)
-  is_refunded         Boolean       @default(false)
-  failure_reason      String?       // If payment failed
-  vpa                   String?
-  fee                 Float?        // Razorpay's fee (converted to the base currency)
-  tax                 Float?        // Tax on the transaction (converted to the base currency)
-  rrn                 String?       // Reference Retrieval Number (for banking transactions)
-  upi_transaction_id  String?       // UPI transaction ID if applicable
-  email               String?       // Payer's email
-  contact             String?       // Payer's contact number
-  acquirer_data       Json?         // Acquirer data from Razorpay (e.g., bank details, UPI data)
-  notes               Json?         // Additional notes or metadata
-  autoRenew           Boolean       @default(false) // Whether this payment is for an auto-renewing subscription
-  created_at          DateTime      @default(now())
-  updated_at          DateTime      @updatedAt
-  bill_generated      Boolean       @default(false)
-  invoices           Invoice[]     
-}
-
-model Invoice {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoiceNumber  String   @unique
-  vendorId       String?  @db.ObjectId
-  vendor         Vendor?  @relation(fields: [vendorId], references: [id])
-  paymentId      String?  @db.ObjectId
-  payment        Payment? @relation(fields: [paymentId], references: [id])
-  nextBillingDate DateTime? 
-  discount       Float    @default(0)
-  totalExclIGST  Float
-  igstAmount     Float
-  igstTotal      Float
-  totalAmount    Float
-  amountDue      Float    @default(0)
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-}
-
-model Counter {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String @unique
-  value Int
-}
-
-enum SubscriptionStatus {
-  PENDING
-  ACTIVE
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
   CANCELLED
-  EXPIRED
 }
 
-enum PaymentStatus {
-  PENDING
-  SUCCESS
-  FAILED
-  REFUNDED
+model SubEvent {
+  id                  String    @id @default(uuid())
+  eventId             String
+  event               Event     @relation(fields: [eventId], references: [id])
+  subEventName        String 
+  subEventDescription String
+  subEventBudget      Decimal
+  subEventDate        DateTime
+  subEventStartTime   DateTime
+  subEventEndTime     DateTime
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  subEventTask        SubEventTask[]  
+  subEventVendors     SubEventVendors[] 
+}
+
+model SubEventVendors {
+  id          String   @id @default(uuid()) 
+  subEventId  String
+  userId      String    
+  subEvent    SubEvent @relation(fields: [subEventId], references: [id])
+  serviceId   String   // Refers to a Service in MongoDB
+  createdAt   DateTime @default(now())      
+  @@unique([subEventId, serviceId])  
+}
+
+model SubEventTask {
+  id          String   @id @default(uuid())
+  userId      String
+  subEventId  String
+  subEvent    SubEvent @relation(fields: [subEventId], references: [id])
+  items       Json     // Store checklist items as JSON
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OrderDetails {
+  id              String   @id @default(uuid())
+  orderId         String   @unique   // Razorpay Order ID
+  amount          Float    // Amount in INR
+  currency        String   @default("INR")
+  status          String   @default("created") // "created", "paid", "failed"
+  razorpayResponse Json    // Full Razorpay Order response (optional)
+  createdAt       DateTime @default(now())  
+  userId          String  
+  templateId      String? 
+
+  User              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+}
+
+model PaymentDetails {
+  id              String   @id @default(uuid())
+  orderId         String   @unique   // Link to OrderDetails
+  paymentId       String?   // Razorpay Payment ID
+  razorpayResponse Json     // Full Razorpay Payment response
+  status          String    @default("pending") // "pending", "success", "failed"
+  purchasedAt     DateTime? // Payment completion time
+
+  userId          String  
+  templateId      String?  
+
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  review_id      String   @id @default(uuid())
+  vendor_id      String   // Refers to a Vendor in MongoDB
+  id        String
+  rating         Int      // Rating 1 to 5
+  review_text    String
+  created_at     DateTime @default(now())
+  
+  user           User     @relation(fields: [id], references: [id])
+}
+
+model EventSchedule {
+  event_id         String   @id @default(uuid())
+  vendor_id        String   // Refers to a Vendor in MongoDB
+  media_id         String   // Refers to a Media in MongoDB
+  event_name       String
+  event_start_date DateTime
+  event_end_date   DateTime
+  event_location   String
+  description      String
+  created_at       DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model Guest {
+  id            String           @id @default(uuid())
+  name          String      
+  phone         String      
+  status        GuestStatus      @default(NOT_INVITED) 
+  userId        String      
+  user          User             @relation(name: "UserGuests", fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now()) 
+  updatedAt     DateTime      @updatedAt
+}
+
+enum GuestStatus {
+  NOT_INVITED
+  INVITED
+}
+
+model InvitationTemplate {
+  id            String             @id @default(uuid())
+  name          String
+  imageUrl      Json             // URL to template image
+  price         Float?              // Template price
+  template_type template_category
+  template_category String
+  filter         String?
+  createdAt     DateTime           @default(now())
+  paymentDetails PaymentDetails[]
+  orderDetails  OrderDetails[]
+}
+
+enum template_category {
+ FREE
+ PREMIUM
+}
+
+model  UserDataTemplate {
+  userId            String 
+  template_id       String   @id @default(uuid())
+  user          User             @relation( fields: [userId], references: [id], onDelete: Cascade)
+  eventHeading          String?
+  eventSubheading       String?
+  brideName       String?
+  groomName       String?
+  eventDate       DateTime
+  weddingTime     String?
+  weddingLocation String?
+  description     String?
+  createdAt       DateTime @default(now()) 
+  updatedAt       DateTime @default(now()) 
+}
+
+// Blog-related models from your schema
+model Blog {
+  id        String      @id @default(cuid())
+  title     String      @unique
+  tags      String[]
+  content   String
+  comments  Comment[]
+  viewCount Int         @default(0)
+  likes     Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  likedBy   LikedBlog[]
+  authorId  String
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
+  authorId  String
+}
+
+model LikedBlog {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
+
+  @@unique([userId, blogId])
 }
