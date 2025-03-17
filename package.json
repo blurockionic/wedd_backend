@@ -1,0 +1,53 @@
+{
+  "name": "weddingwire_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "prisma-generate": "prisma generate --schema=prisma/schema.postgre.prisma",
+    "prisma:generate-mongo": "prisma generate --schema=prisma/schema.mongo.prisma",
+    "prisma:generate-all": "npm run prisma-generate && npm run prisma:generate-mongo",
+    "prisma:dbpush-postgres": "npx prisma db push --schema=./prisma/schema.postgre.prisma",
+    "prisma:dbpush-mongo": "npx prisma db push --schema=prisma/schema.mongo.prisma",
+    "prisma:dbpush-all": "npm run prisma:dbpush-postgres && npm run prisma:dbpush-mongo",
+    "prisma:migrate": "prisma migrate dev --schema=prisma/schema.postgre.prisma",
+    "prisma:migrate-mongo": "prisma migrate dev --schema=prisma/schema.mongo.prisma",
+    "prisma:migrate-all": "npm run prisma:migrate && npm run prisma:migrate-mongo",
+    "tunnel": "ngrok http 4000"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@prisma/client": "^6.2.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cloudinary": "^1.41.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "firebase-admin": "^13.1.0",
+    "handlebars": "^4.7.8",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16",
+    "puppeteer-html-pdf": "^4.0.8",
+    "razorpay": "^2.9.5",
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "prisma": "^6.2.0-dev.9"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
