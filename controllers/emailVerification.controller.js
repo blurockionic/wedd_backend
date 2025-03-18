@@ -67,7 +67,15 @@ const verifyEmail = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: `${entityLower} email verified successfully.` });
+      .send(`
+        <html>
+          <head><title>Email Verification</title></head>
+          <body style="text-align: center;">
+            <h2>Email Verified Successfully</h2>
+            <p>Your email has been verified.</p>
+          </body>
+        </html>
+      `);
   } catch (error) {
     console.error("Error during email verification:", error.message);
     return next(new CustomError(`Verification failed: ${error.message}`, 400));
