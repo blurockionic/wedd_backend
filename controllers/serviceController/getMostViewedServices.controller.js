@@ -22,6 +22,7 @@ const getMostViewedServices = async (req, res, next) => {
     const services = await mongoPrisma.Service.findMany({
       where: {
         id: { in: serviceIds },
+         status:"active"
        
       },
       include:{
