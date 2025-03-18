@@ -78,7 +78,7 @@ const userLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       path: "/",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      // maxAge: 24 * 60 * 60 * 1000, 
     };
 
     return res
