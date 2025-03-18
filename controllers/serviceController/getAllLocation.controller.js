@@ -9,6 +9,10 @@ async function getServiceLocations(req, res) {
         state: true,
         city: true,
       },
+       where:{
+        status:"active"
+      },
+      distinct: ["state", "city"],
     });
 
     // Format the data as needed
