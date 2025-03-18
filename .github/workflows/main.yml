@@ -15,14 +15,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensures full tag history is available
 
       - name: Fetch all tags
-        run: git fetch --tags
+        run: git fetch --tags --force
 
       - name: Get latest tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          latest_tag=$(git tag --sort=-v:refname | head -n 1)
+          if [[ -z "$latest_tag" ]]; then
+            latest_tag="v0.0.0"
+          fi
           echo "Latest tag: $latest_tag"
           echo "latest_tag=$latest_tag" >> $GITHUB_ENV
 
@@ -38,14 +43,16 @@ jobs:
           minor=$((minor))
           patch=$((patch))
 
-          # Custom logic for version bumping
-          if [ "$patch" -ge 9 ]; then  # Change 10 to 9 for correct versioning
+          # Increment patch version
+          patch=$((patch + 1))
+
+          # Reset and increment minor version if needed
+          if [ "$patch" -ge 10 ]; then
             patch=0
             minor=$((minor + 1))
-          else
-            patch=$((patch + 1))
           fi
 
+          # Reset and increment major version if needed
           if [ "$minor" -ge 10 ]; then
             minor=0
             major=$((major + 1))
