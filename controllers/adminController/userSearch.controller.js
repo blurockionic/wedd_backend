@@ -4,7 +4,7 @@ const prismaPost = new PrismaClientPostgre();
 
 const userSearch = async (req, res) => {
     try {
-        const { name, email, phoneNumber, location } = req.body;
+        const { name, email, phoneNumber, location, role } = req.body;
         const where = {};
         console.log(req.body);
 
@@ -35,7 +35,8 @@ const userSearch = async (req, res) => {
                 phone_number: true,
                 wedding_location: true,
                 created_at: true,
-                is_verified: true
+                is_verified: true,
+                role: true
             }
         });
 
