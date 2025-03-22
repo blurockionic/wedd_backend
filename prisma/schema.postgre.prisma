@@ -106,17 +106,20 @@ model EventSchedule {
 }
 
 model Blog {
-  id        String      @id @default(cuid())
-  title     String      @unique
-  tags      String[]
-  content   String
-  comments  Comment[]
-  viewCount Int         @default(0)
-  likes     Int         @default(0)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  likedBy   LikedBlog[]
-  authorId  String
+  id          String      @id @default(cuid())
+  title       String      @unique
+  urlTitle    String
+  coverImage  String?
+  tags        String[]
+  content     String
+  comments    Comment[]
+  viewCount   Int         @default(0)
+  likes       Int         @default(0)
+  draftStatus Boolean
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  likedBy     LikedBlog[]
+  authorId    String
 }
 
 model Comment {
