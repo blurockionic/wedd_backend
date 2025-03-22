@@ -5,7 +5,7 @@ const postgresPrisma = new PostgresClient();
 
 const updateEvent = async (req, res, next) => {
   const { id } = req.params;
-  const { eventName, eventDescription, eventDate, eventBudget } = req.body;
+  const { eventName, eventDescription, eventDate, eventBudget, eventStartTime, eventEndTime } = req.body;
 
   try {
     // ✅ Validate Request
@@ -14,6 +14,8 @@ const updateEvent = async (req, res, next) => {
     if (!eventDescription) return next(new CustomError("Event description is required", 400));
     if (!eventDate || isNaN(new Date(eventDate))) return next(new CustomError("Valid event date is required", 400));
     if (!eventBudget || isNaN(eventBudget)) return next(new CustomError("Valid event budget is required", 400));
+    if (!eventStartTime) return next(new CustomError("Event start time is required", 400));
+    if (!eventEndTime) return next(new CustomError("Event end time is required", 400));
 
     // ✅ Check if Event Exists
     const existingEvent = await postgresPrisma.Event.findUnique({
@@ -30,6 +32,8 @@ const updateEvent = async (req, res, next) => {
         eventDescription,
         eventDate: new Date(eventDate),
         eventBudget: Number(eventBudget), // Ensure eventBudget is stored as a number
+        eventStartTime: eventStartTime,
+        eventEndTime: eventEndTime,
         updatedAt: new Date(),
       },
     });

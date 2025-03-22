@@ -11,25 +11,9 @@ const verifyEmail = async (req, res, next) => {
   try {
     // Extract token and entity type from query params
     const { token, entityType } = req.query;
-
-    // if (!token) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Token is required in query parameters." });
-    // }
-
-    // if (!entityType) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Entity type is required in query parameters." });
-    // }
-
+    
     const entityLower = entityType.toLowerCase();
-
-    // if (!["user", "vendor"].includes(entityLower)) {
-    //   return res.status(400).json({ message: "Invalid entity type provided." });
-    // }
-
+    
     // // Verify the token
     const decoded = jwt.verify(token, process.env.EMAIL_TOKEN_SECRET);
 
@@ -67,7 +51,15 @@ const verifyEmail = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: `${entityLower} email verified successfully.` });
+      .send(`
+        <html>
+          <head><title>Email Verification</title></head>
+          <body style="text-align: center;">
+            <h2>Email Verified Successfully</h2>
+            <p>Your email has been verified.</p>
+          </body>
+        </html>
+      `);
   } catch (error) {
     console.error("Error during email verification:", error.message);
     return next(new CustomError(`Verification failed: ${error.message}`, 400));

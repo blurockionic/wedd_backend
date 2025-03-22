@@ -81,7 +81,16 @@ const getAllEvent = async (req, res, next) => {
       });
     });
 
-    res.status(200).json({ events });
+    res.status(200).json({ 
+      events, 
+      event_summary: {
+        total_event_count: events.length,
+        total_task_count: events.reduce((sum, event) => sum + event.eventTask.length, 0),
+        total_service_count: events.reduce((sum, event) => sum + event.eventVendors.length, 0),
+        grand_total: events.reduce((sum, event)=> sum + parseFloat(event.eventBudget), 0)
+      }
+    });
+    
 
   } catch (error) {
     console.error(

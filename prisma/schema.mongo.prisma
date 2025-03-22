@@ -52,7 +52,8 @@ model Service {
   city                String?
   state               String?
   price          Float?
-  service_type   String      
+  service_type   String  
+ service_category  String?  
   service_unit   String?
   status         String         @default("active")
   rating         Float          @default(0.0)

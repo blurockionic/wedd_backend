@@ -42,27 +42,28 @@ model Vendor {
 }
 
 model Service {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId       String         @db.ObjectId
-  vendor         Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
-  service_name   String
-  description    String?
-  min_price      Float?
-  max_price      Float?
-  city           String?
-  state          String?
-  price          Float?
-  service_type   String
-  service_unit   String?
-  status         String         @default("active")
-  rating         Float          @default(0.0)
-  availabilities Availability[]
-  feedback       Feedback[]
-  media          Media[]        @relation("ServiceToMedia")
-  views          Views[]
-  faqs           Json?
-  created_at     DateTime       @default(now())
-  updated_at     DateTime       @updatedAt
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId         String         @db.ObjectId
+  vendor           Vendor         @relation("VendorServices", fields: [vendorId], references: [id], onDelete: Cascade)
+  service_name     String
+  description      String?
+  min_price        Float?
+  max_price        Float?
+  city             String?
+  state            String?
+  price            Float?
+  service_type     String
+  service_category String?
+  service_unit     String?
+  status           String         @default("active")
+  rating           Float          @default(0.0)
+  availabilities   Availability[]
+  feedback         Feedback[]
+  media            Media[]        @relation("ServiceToMedia")
+  views            Views[]
+  faqs             Json?
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
 
   @@index([service_type], map: "idx_service_type")
 }

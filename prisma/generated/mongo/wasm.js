@@ -148,6 +148,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   state: 'state',
   price: 'price',
   service_type: 'service_type',
+  service_category: 'service_category',
   service_unit: 'service_unit',
   status: 'status',
   rating: 'rating',
