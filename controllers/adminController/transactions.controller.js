@@ -17,7 +17,8 @@ const transactions = async (req, res) => {
         const response = {};
 
         response.vendorTransactions = await getVendorTransactions();
-        response.userTransactions = await getUserTransactions();
+        // uncomment when user payments added
+        // response.userTransactions = await getUserTransactions();
     
         return res.status(200).json({ success: true, data: response });
       } catch (error) {
