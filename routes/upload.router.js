@@ -3,7 +3,6 @@ import upload from "../middleware/multer.middleware.js";
 import { PrismaClient } from "../prisma/generated/mongo/index.js";
 import CustomError from "../utils/CustomError.js";
 import { v2 as cloudinary } from "cloudinary";
-import e from "express";
 
 const prisma = new PrismaClient();
 const uploadRouter = express.Router();
@@ -60,19 +59,19 @@ uploadRouter.post(
         }
       }
 
-      console.log(serviceExists);
-
-      const existingImageUrl = serviceExists.media?.[0]?.image_urls || [];
-
-      const existingVideoUrl = serviceExists.media?.[0]?.video_urls || [];
-
-      // Check for existing media and update/create accordingly
+      const mediaEntry = serviceExists.media?.[0] || {}; // Ensure mediaEntry is an object
+      const existingImageUrl = Array.isArray(mediaEntry.image_urls)
+        ? mediaEntry.image_urls
+        : [];
+      const existingVideoUrl = Array.isArray(mediaEntry.video_urls)
+        ? mediaEntry.video_urls
+        : [];
 
       const media = await prisma.Media.upsert({
         where: { serviceId: serviceId },
         update: {
-          image_urls: [...imageUrls, ...existingImageUrl],
-          video_urls: [...videoUrls, ...existingVideoUrl],
+          image_urls: [...existingImageUrl, ...imageUrls],
+          video_urls: [...existingVideoUrl, ...videoUrls],
         },
         create: {
           serviceId: serviceId,
@@ -104,7 +103,6 @@ uploadRouter.post(
 
     console.log(file);
 
-    // Validate the input
     if (!file) {
       return next(new CustomError("No file uploaded", 400));
     }
@@ -122,7 +120,7 @@ uploadRouter.post(
 
 uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   const { serviceId } = req.params;
-  const publicId = req.body.publicId;
+  const publicId = req.body.publicId?.trim();
 
   if (!serviceId || !publicId) {
     return next(
@@ -131,50 +129,45 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   }
 
   try {
-    // Check if the service exists
-    const serviceExists = await prisma.Service.findUnique({
-      where: { id: serviceId },
+    
+    const cloudinaryResponse = await cloudinary.uploader.destroy(publicId, {
+      resource_type: "image",
     });
-
-    if (!serviceExists) {
-      return next(new CustomError("Service not found", 404));
-    }
-
-    // Delete the media from Cloudinary
-    const cloudinaryResponse = await cloudinary.uploader.destroy(publicId);
 
     if (cloudinaryResponse.result !== "ok") {
-      throw new CustomError("Failed to delete media from Cloudinary", 500);
+      return next(
+        new CustomError("Failed to delete media from Cloudinary", 500)
+      );
     }
-
-    // Delete the media record from the database
-    const deletedMedia = await prisma.Media.updateMany({
-      where: {
-        serviceId: serviceId,
-        OR: [
-          {
-            image_urls: {
-              has: publicId, // Use `has` to check if `public_id` exists in the array
-            },
-          },
-          {
-            video_urls: {
-              has: publicId, // Use `has` to check if `public_id` exists in the array
-            },
-          },
-        ],
-      },
-      data: {
-        image_urls: {
-          deleteMany: { public_id: publicId }, // Deletes any entry with that `public_id` from image_urls
-        },
-        video_urls: {
-          deleteMany: { public_id: publicId }, // Deletes any entry with that `public_id` from video_urls
-        },
+    const existingMedia = await prisma.Media.findUnique({
+      where: { serviceId },
+      select: {
+        image_urls: true,
+        video_urls: true,
       },
     });
 
-    // If no media was found with that public_id
+    if (!existingMedia) {
+      return next(new CustomError("Media not found for this service", 404));
+    }
+
+    // Ensure arrays before filtering
+    const updatedImages = (existingMedia.image_urls || []).filter(
+      (file) => file.public_id !== publicId
+    );
+    const updatedVideos = (existingMedia.video_urls || []).filter(
+      (file) => file.public_id !== publicId
+    );
+
+    // Update database
+    const deletedMedia = await prisma.Media.update({
+      where: { serviceId },
+      data: {
+        image_urls: updatedImages,
+        video_urls: updatedVideos,
+      },
+    });
+
     if (deletedMedia.count === 0) {
       return next(
         new CustomError("Media not found in the database for this service", 404)
@@ -185,7 +178,9 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
       message: "Media deleted successfully from Cloudinary and the database.",
     });
   } catch (error) {
-    next(error); // Pass errors to error-handling middleware
+    console.log(error);
+
+    next(error?.message);
   }
 });
 
