@@ -2,7 +2,7 @@ import { PrismaClient } from "../../prisma/generated/postgres/index.js";
 
 const prisma = new PrismaClient();
 
-const giveAdmin = async (req, res) => {
+const giveSuperAdmin = async (req, res) => {
     try {
         const { email } = req.params;
 
@@ -24,18 +24,18 @@ const giveAdmin = async (req, res) => {
             return res.status(404).json({ message: "User not found." });
         }
 
-        if (user.role === "ADMIN") {
-            return res.status(400).json({ message: "User is already an admin." });
+        if (user.role === "SUPER_ADMIN") {
+            return res.status(400).json({ message: "User is already an SUPER admin." });
         }
 
         // Update the user's role to ADMIN
         const updatedUser = await prisma.user.update({
             where: { email },
-            data: { role: "ADMIN" },
+            data: {role: "SUPER_ADMIN" },
         });
 
         res.status(200).json({
-            message: "User successfully converted to admin.",
+            message: "User successfully converted to SUPER admin.",
             user: updatedUser,
         });
 
@@ -44,4 +44,4 @@ const giveAdmin = async (req, res) => {
     }
 };
 
-export default giveAdmin;
+export default giveSuperAdmin;
