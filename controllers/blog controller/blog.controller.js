@@ -1,5 +1,6 @@
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
+// import slugify from "slugify";
 
 const postgresPrisma = new PostgresClient();
 
@@ -52,9 +53,24 @@ export const getBlogById = async (req, res, next) => {
 /**
  * Add a new blog
  */
+// export const addBlog = async (req, res, next) => {
+//     const { title, tags, content, coverImage } = req.body;
+//     const authorId = req.user.id; 
+//     const slug = slugify(title, { lower: true, strict: true });
+
+//     try {
+//         const newBlog = await postgresPrisma.blog.create({
+//             data: { title, tags, content, authorId, slug, coverImage }
+//         });
+//         res.status(201).json({ success: true, data: newBlog });
+//     } catch (error) {
+//         next(new CustomError("Failed to add new blog", 500));
+//     }
+// };
 export const addBlog = async (req, res, next) => {
     const { title, tags, content } = req.body;
-    const authorId = req.user.id; 
+    // const authorId = req.user.id; 
+    const authorId = "344"; 
 
     try {
         const newBlog = await postgresPrisma.blog.create({
@@ -62,6 +78,7 @@ export const addBlog = async (req, res, next) => {
         });
         res.status(201).json({ success: true, data: newBlog });
     } catch (error) {
+        console.log(error);
         next(new CustomError("Failed to add new blog", 500));
     }
 };
