@@ -47,7 +47,7 @@ const googleLogin = async (req, res, next) => {
     }
     const verifiedGoogleUid = decodedToken.uid;
 
-
+  //verify user gamil exist or not
     let user = await prisma.User.findUnique({
       where: { email },
     });
@@ -88,12 +88,26 @@ const googleLogin = async (req, res, next) => {
     const accessToken = await GenerateToken.generateAccessToken(user);
     const refreshToken = await GenerateToken.generateRefreshToken(user);
 
-    // ⬇️ Store Refresh Token in DB
-    await prisma.User.update({
-      where: { googleUid: user.googleUid },
-      data: { refresh_Token: refreshToken },
-    });
+    const {
+      password_hash,
 
+      resetPassword_Token,
+      updated_at,
+      created_at,
+      ...sanitizedUser
+    } = user;
+
+    // update refersh data
+    
+    await prisma.User.update({
+        where: { googleUid: user.googleUid },
+        data: {
+            refresh_Token : refreshToken,
+        },
+      });
+      
+
+    
     const cookieOptions = {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
