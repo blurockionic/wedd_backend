@@ -388,7 +388,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/saiatama1784/blurock/wedd_backend/prisma/generated/postgres",
+      "value": "/Users/b.biruly/Desktop/wedd_backend/prisma/generated/postgres",
       "fromEnvVar": null
     },
     "config": {
@@ -400,7 +400,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -413,7 +413,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/saiatama1784/blurock/wedd_backend/prisma/schema.postgre.prisma",
+    "sourceFilePath": "/Users/b.biruly/Desktop/wedd_backend/prisma/schema.postgre.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -427,6 +427,7 @@ const config = {
     "db_postgres"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db_postgres": {
       "url": {

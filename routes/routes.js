@@ -1,8 +1,4 @@
 import express from "express";
-
-
-
-
 import UserRouter from "./user.route.js";
 import vendorRouter from "./vendor.route.js";
 import serviceRouter from "./services.route.js";
@@ -19,6 +15,7 @@ import templatePaymentRouter from "./templatePayment.route.js";
 import templateRouter from "./userDataTemplate.route.js";
 import eventRouter from "./event.route.js"
 import AdminRouter from './admin.route.js';
+import { blogRouteAdmin, blogRouteUser, blogRoutePublic } from '../routes/blog.route.js';
 
 const routes = express.Router();
 
@@ -41,10 +38,8 @@ routes.use("/inviteTemplate",inviteRouter);
 routes.use("/template",templatePaymentRouter);
 routes.use("/userDataTemplate",templateRouter)
 routes.use("/event", eventRouter)
-
-
-
-
-
+routes.use("/blog/admin", blogRouteAdmin);
+routes.use("/blog/user", blogRouteUser);
+routes.use("/blog/public", blogRoutePublic);
 
 export default routes;

@@ -317,7 +317,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/saiatama1784/blurock/wedd_backend/prisma/generated/mongo",
+      "value": "/Users/b.biruly/Desktop/wedd_backend/prisma/generated/mongo",
       "fromEnvVar": null
     },
     "config": {
@@ -326,12 +326,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/saiatama1784/blurock/wedd_backend/prisma/schema.mongo.prisma",
+    "sourceFilePath": "/Users/b.biruly/Desktop/wedd_backend/prisma/schema.mongo.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
