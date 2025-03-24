@@ -134,7 +134,7 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
       resource_type: "image",
     });
 
-    if (cloudinaryResponse.result !== "ok") {
+   if (cloudinaryResponse.result !== "ok" && cloudinaryResponse.result !== "not found") {
       return next(
         new CustomError("Failed to delete media from Cloudinary", 500)
       );
