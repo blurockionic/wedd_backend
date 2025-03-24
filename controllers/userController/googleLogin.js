@@ -47,60 +47,53 @@ const googleLogin = async (req, res, next) => {
     }
     const verifiedGoogleUid = decodedToken.uid;
 
+
     let user = await prisma.User.findUnique({
-      where: { googleUid: verifiedGoogleUid },
+      where: { email },
     });
 
-    let isNewUser = false; // Flag to indicate if it's a new user
+    let isNewUser = false;
 
-   
-
-    if (!user) {
-      isNewUser = true; // Set flag to true for new users
-
+    if (user) {
+      if (!user.googleUid) {
+       
+        user = await prisma.User.update({
+          where: { email },
+          data: { googleUid: verifiedGoogleUid },
+        });
+      } else if (user.googleUid !== verifiedGoogleUid) {
+      
+        throw new CustomError("This email is already associated with another Google account.", 400);
+      }
+    } else {
+     
+      isNewUser = true;
       user = await prisma.User.create({
         data: {
           googleUid: verifiedGoogleUid,
-          email: email,
-          user_name: displayName || "Google User", // Use displayName as user_name initially (or customize)
+          email,
+          user_name: displayName || "Google User",
           profile_photo: photoURL, 
           is_verified: true,
-          phone_number: "", // Leave phone_number empty initially
-          role: "USER", // Set a default role (e.g., 'USER'), you might need to adjust this based on your roles
-          wedding_date: null, // Leave wedding_date empty
+          phone_number: "",
+          role: "USER",
+          wedding_date: null,
           wedding_location: "",
           password_hash: null, 
-         
         },
       });
     }
 
+    // ⬇️ Generate Tokens
     const accessToken = await GenerateToken.generateAccessToken(user);
     const refreshToken = await GenerateToken.generateRefreshToken(user);
 
-
-
-    const {
-      password_hash,
-
-      resetPassword_Token,
-      updated_at,
-      created_at,
-      ...sanitizedUser
-    } = user;
-
-    // update refersh data
-    
+    // ⬇️ Store Refresh Token in DB
     await prisma.User.update({
-        where: { googleUid: user.googleUid },
-        data: {
-            refresh_Token : refreshToken,
-         
-        },
-      });
-      
+      where: { googleUid: user.googleUid },
+      data: { refresh_Token: refreshToken },
+    });
 
-    
     const cookieOptions = {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
@@ -114,9 +107,9 @@ const googleLogin = async (req, res, next) => {
       .status(200)
       .json({
         success: true,
-        message: "Google Login successful",
+        message: isNewUser ? "Google Signup successful" : "Google Login successful",
         accessToken,
-        user: sanitizedUser,
+        user: { ...user, password_hash: undefined },
       });
   } catch (error) {
     next(error);
