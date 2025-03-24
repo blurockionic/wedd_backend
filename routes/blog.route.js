@@ -24,6 +24,7 @@ blogRoutePublic.get("/allBlog/:id", getBlogById);
 blogRoutePublic.get("/blog_count", getBlogCount);
 blogRoutePublic.get("/view_count", getTotalViewCount);
 
+
 // // sample test route
 // blogRoutePublic.post("/add", addBlog);
 

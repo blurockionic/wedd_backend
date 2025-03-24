@@ -9,7 +9,7 @@ const postgresPrisma = new PostgresClient();
  */
 export const getBlogs = async (req, res, next) => {
     try {
-        const blogs = await postgresPrisma.blog.findMany();
+        const blogs = await postgresPrisma.Blog.findMany();
         res.status(200).json({ success: true, data: blogs });
     } catch (error) {
         console.log("error: ", error);
