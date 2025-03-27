@@ -11,6 +11,10 @@ const updateUser = async (req, res, next) => {
   try {
     // Validate user update input using Zod schema
     const validatedData = updateUserSchema.parse(req.body);
+    
+   if (!validatedData.wedding_date) {
+      delete validatedData.wedding_date; 
+    }
 
     // Extract user email from the authenticated request
     const userEmail = req.user.email ; // Assuming authentication middleware sets user.email
@@ -37,14 +41,14 @@ const updateUser = async (req, res, next) => {
       ...userResponse
     } = updatedUser;
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "User updated successfully.",
       user: userResponse,
       success:true
     });
   } catch (error) {
     
-    next();
+    next(error);
   }
 };
 
