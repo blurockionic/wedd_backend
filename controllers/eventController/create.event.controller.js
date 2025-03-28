@@ -14,7 +14,7 @@ const createEvent = async (req, res, next) => {
     if (!userId) {
       throw new CustomError("User id is required but not found", 404);
     }
-    if (!eventBudget || !eventName || !eventDate || !eventDescription || !eventStartTime || !eventEndTime) {
+    if (!eventBudget || !eventName || !eventDate) {
       throw new CustomError("Event all field required");
     }
 

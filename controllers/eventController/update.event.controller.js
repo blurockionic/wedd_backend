@@ -11,11 +11,11 @@ const updateEvent = async (req, res, next) => {
     // ✅ Validate Request
     if (!id) return next(new CustomError("Event ID is required", 400));
     if (!eventName) return next(new CustomError("Event name is required", 400));
-    if (!eventDescription) return next(new CustomError("Event description is required", 400));
+    // if (!eventDescription) return next(new CustomError("Event description is required", 400));
     if (!eventDate || isNaN(new Date(eventDate))) return next(new CustomError("Valid event date is required", 400));
     if (!eventBudget || isNaN(eventBudget)) return next(new CustomError("Valid event budget is required", 400));
-    if (!eventStartTime) return next(new CustomError("Event start time is required", 400));
-    if (!eventEndTime) return next(new CustomError("Event end time is required", 400));
+    // if (!eventStartTime) return next(new CustomError("Event start time is required", 400));
+    // if (!eventEndTime) return next(new CustomError("Event end time is required", 400));
 
     // ✅ Check if Event Exists
     const existingEvent = await postgresPrisma.Event.findUnique({
