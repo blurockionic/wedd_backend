@@ -4,16 +4,8 @@ import { z } from "zod";
 export const passwordValidation = z
   .string()
   .min(6, { message: "Password must be at least 6 characters long" })
-  .regex(/[a-z]/, {
-    message: "Password must include at least one lowercase letter",
-  })
-  .regex(/[A-Z]/, {
-    message: "Password must include at least one uppercase letter",
-  })
+  .regex(/[a-zA-Z]/, { message: "Password must include at least one letter" })
   .regex(/\d/, { message: "Password must include at least one number" })
-  .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, {
-    message: "Password must include at least one special character",
-  })
   .max(128, { message: "Password must not exceed 128 characters" });
 
   export const vendorSchema = z.object({
