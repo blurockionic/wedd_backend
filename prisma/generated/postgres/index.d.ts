@@ -7820,10 +7820,10 @@ export namespace Prisma {
     id: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription: string | null
     eventDate: Date
-    eventStartTime: Date
-    eventEndTime: Date
+    eventStartTime: Date | null
+    eventEndTime: Date | null
     eventBudget: Decimal
     createdAt: Date
     updatedAt: Date
@@ -7934,10 +7934,10 @@ export namespace Prisma {
       id: string
       userId: string
       eventName: string
-      eventDescription: string
+      eventDescription: string | null
       eventDate: Date
-      eventStartTime: Date
-      eventEndTime: Date
+      eventStartTime: Date | null
+      eventEndTime: Date | null
       eventBudget: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
@@ -26069,10 +26069,10 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     userId?: StringFilter<"Event"> | string
     eventName?: StringFilter<"Event"> | string
-    eventDescription?: StringFilter<"Event"> | string
+    eventDescription?: StringNullableFilter<"Event"> | string | null
     eventDate?: DateTimeFilter<"Event"> | Date | string
-    eventStartTime?: DateTimeFilter<"Event"> | Date | string
-    eventEndTime?: DateTimeFilter<"Event"> | Date | string
+    eventStartTime?: DateTimeNullableFilter<"Event"> | Date | string | null
+    eventEndTime?: DateTimeNullableFilter<"Event"> | Date | string | null
     eventBudget?: DecimalFilter<"Event"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
@@ -26086,10 +26086,10 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventName?: SortOrder
-    eventDescription?: SortOrder
+    eventDescription?: SortOrderInput | SortOrder
     eventDate?: SortOrder
-    eventStartTime?: SortOrder
-    eventEndTime?: SortOrder
+    eventStartTime?: SortOrderInput | SortOrder
+    eventEndTime?: SortOrderInput | SortOrder
     eventBudget?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26106,10 +26106,10 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     userId?: StringFilter<"Event"> | string
     eventName?: StringFilter<"Event"> | string
-    eventDescription?: StringFilter<"Event"> | string
+    eventDescription?: StringNullableFilter<"Event"> | string | null
     eventDate?: DateTimeFilter<"Event"> | Date | string
-    eventStartTime?: DateTimeFilter<"Event"> | Date | string
-    eventEndTime?: DateTimeFilter<"Event"> | Date | string
+    eventStartTime?: DateTimeNullableFilter<"Event"> | Date | string | null
+    eventEndTime?: DateTimeNullableFilter<"Event"> | Date | string | null
     eventBudget?: DecimalFilter<"Event"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
@@ -26123,10 +26123,10 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventName?: SortOrder
-    eventDescription?: SortOrder
+    eventDescription?: SortOrderInput | SortOrder
     eventDate?: SortOrder
-    eventStartTime?: SortOrder
-    eventEndTime?: SortOrder
+    eventStartTime?: SortOrderInput | SortOrder
+    eventEndTime?: SortOrderInput | SortOrder
     eventBudget?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26144,10 +26144,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Event"> | string
     userId?: StringWithAggregatesFilter<"Event"> | string
     eventName?: StringWithAggregatesFilter<"Event"> | string
-    eventDescription?: StringWithAggregatesFilter<"Event"> | string
+    eventDescription?: StringNullableWithAggregatesFilter<"Event"> | string | null
     eventDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
-    eventStartTime?: DateTimeWithAggregatesFilter<"Event"> | Date | string
-    eventEndTime?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    eventStartTime?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+    eventEndTime?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
     eventBudget?: DecimalWithAggregatesFilter<"Event"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
@@ -27548,10 +27548,10 @@ export namespace Prisma {
   export type EventCreateInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27565,10 +27565,10 @@ export namespace Prisma {
     id?: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27580,10 +27580,10 @@ export namespace Prisma {
   export type EventUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27597,10 +27597,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27613,10 +27613,10 @@ export namespace Prisma {
     id?: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27625,10 +27625,10 @@ export namespace Prisma {
   export type EventUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27638,10 +27638,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31674,10 +31674,10 @@ export namespace Prisma {
   export type EventCreateWithoutUserInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31689,10 +31689,10 @@ export namespace Prisma {
   export type EventUncheckedCreateWithoutUserInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31992,10 +31992,10 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     userId?: StringFilter<"Event"> | string
     eventName?: StringFilter<"Event"> | string
-    eventDescription?: StringFilter<"Event"> | string
+    eventDescription?: StringNullableFilter<"Event"> | string | null
     eventDate?: DateTimeFilter<"Event"> | Date | string
-    eventStartTime?: DateTimeFilter<"Event"> | Date | string
-    eventEndTime?: DateTimeFilter<"Event"> | Date | string
+    eventStartTime?: DateTimeNullableFilter<"Event"> | Date | string | null
+    eventEndTime?: DateTimeNullableFilter<"Event"> | Date | string | null
     eventBudget?: DecimalFilter<"Event"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
@@ -32703,10 +32703,10 @@ export namespace Prisma {
   export type EventCreateWithoutEventVendorsInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32719,10 +32719,10 @@ export namespace Prisma {
     id?: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32749,10 +32749,10 @@ export namespace Prisma {
   export type EventUpdateWithoutEventVendorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32765,10 +32765,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32779,10 +32779,10 @@ export namespace Prisma {
   export type EventCreateWithoutEventTaskInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32795,10 +32795,10 @@ export namespace Prisma {
     id?: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32825,10 +32825,10 @@ export namespace Prisma {
   export type EventUpdateWithoutEventTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32841,10 +32841,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32855,10 +32855,10 @@ export namespace Prisma {
   export type EventCreateWithoutSubEventInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32871,10 +32871,10 @@ export namespace Prisma {
     id?: string
     userId: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32951,10 +32951,10 @@ export namespace Prisma {
   export type EventUpdateWithoutSubEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32967,10 +32967,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34447,10 +34447,10 @@ export namespace Prisma {
   export type EventCreateManyUserInput = {
     id?: string
     eventName: string
-    eventDescription: string
+    eventDescription?: string | null
     eventDate: Date | string
-    eventStartTime: Date | string
-    eventEndTime: Date | string
+    eventStartTime?: Date | string | null
+    eventEndTime?: Date | string | null
     eventBudget: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -34698,10 +34698,10 @@ export namespace Prisma {
   export type EventUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34713,10 +34713,10 @@ export namespace Prisma {
   export type EventUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34728,10 +34728,10 @@ export namespace Prisma {
   export type EventUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    eventDescription?: StringFieldUpdateOperationsInput | string
+    eventDescription?: NullableStringFieldUpdateOperationsInput | string | null
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventStartTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    eventEndTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     eventBudget?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
