@@ -78,10 +78,10 @@ model Event {
   userId           String
   user             User           @relation(name: "Event", fields: [userId], references: [id])
   eventName        String
-  eventDescription String
+  eventDescription String?
   eventDate        DateTime
-  eventStartTime   DateTime
-  eventEndTime     DateTime
+  eventStartTime   DateTime?
+  eventEndTime     DateTime?
   eventBudget      Decimal
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
