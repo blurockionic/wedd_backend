@@ -36,7 +36,8 @@ model User {
   orderDetails         OrderDetails[]
   userDataTemplate       UserDataTemplate[]
   event               Event[]     @relation(name: "Event")
-  likedBlogs          LikedBlog[]  // Added relation to LikedBlog
+  likedBlogs          LikedBlog[]  
+  invitationTemplate  InvitationTemplate[]  @relation(name: "InvitationTemplate")
 }
 
 model Booking {
@@ -169,7 +170,6 @@ model OrderDetails {
   createdAt       DateTime @default(now())  
   userId          String  
   templateId      String? 
-
   User              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
@@ -181,10 +181,8 @@ model PaymentDetails {
   razorpayResponse Json     // Full Razorpay Payment response
   status          String    @default("pending") // "pending", "success", "failed"
   purchasedAt     DateTime? // Payment completion time
-
   userId          String  
   templateId      String?  
-
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
@@ -235,22 +233,55 @@ enum GuestStatus {
 }
 
 model InvitationTemplate {
-  id            String             @id @default(uuid())
-  name          String
-  imageUrl      Json             // URL to template image
-  price         Float?              // Template price
-  template_type template_category
-  template_category String
-  filter         String?
-  createdAt     DateTime           @default(now())
-  paymentDetails PaymentDetails[]
-  orderDetails  OrderDetails[]
+  id                   String               @id @default(uuid())
+  name                 String
+  description          String?               // Optional description
+  userId               String
+  user                 User                 @relation(name: "InvitationTemplate", fields: [userId], references: [id], onDelete: Cascade)
+  jsonData             Json                 // Fabric.js JSON data
+  price                Float?                // Template price
+  categoryByAmount     CategoryByAmount        @default(FREE)
+  categoryByMood       CategoryByMood          @default(WEDDING)
+  categoryByRequirement CategoryByRequirement   @default(LATEST)
+  additionalTags       String[]              // Array of tags for searchability
+  designedBy           String?               // Optional designer name
+  thumbnailUrl         String?               // Optional preview image URL
+  rating               Float?                @default(0.0) // User rating out of 5
+  status               TemplateStatus        @default(DRAFT) // PUBLISHED, DRAFT, ARCHIVED
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt // Auto-update timestamp
+  paymentDetails       PaymentDetails[]
+  orderDetails         OrderDetails[]
 }
 
-enum template_category {
- FREE
- PREMIUM
+// Enum for Template Status
+enum TemplateStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
+//Enum form template category by amount
+enum CategoryByAmount {
+ FREE
+ PAID
+}
+//Enum form template category by mood
+enum CategoryByMood {
+  BIRTHDAY      // Birthday celebration templates
+  ROMANCE       // Romantic designs (love, couple themes)
+  WEDDING       // Wedding invitation and celebration templates
+  ANNIVERSARY   // Anniversary celebration templates
+  CORPORATE     // Business and professional templates
+  LOVE 
+  COUPLE 
+}
+
+enum CategoryByRequirement {
+  HOT 
+  POPULAR 
+  LATEST 
+}
+
 
 model  UserDataTemplate {
   userId            String 
