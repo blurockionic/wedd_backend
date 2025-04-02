@@ -184,4 +184,21 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   }
 });
 
+uploadRouter.post("/generate-signature", async (req, res, next) => {
+  try {
+    const { folder } = req.body;
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const paramsToSign = { timestamp, folder };
+
+    const signature = cloudinary.utils.api_sign_request(
+      paramsToSign,
+      process.env.CLOUDINARY_API_SECRET
+    );
+
+    res.json({ signature, timestamp });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default uploadRouter;
