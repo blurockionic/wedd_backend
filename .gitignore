@@ -2,3 +2,4 @@ node_modules
 # Keep environment variables out of version control
 .env
 logs/application-2025-01-02.log
+logs/.7c62c680883a1634a4ffd9656e3d06c15d835184-audit.json
