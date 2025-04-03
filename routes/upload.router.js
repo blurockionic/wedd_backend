@@ -129,12 +129,14 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   }
 
   try {
-    
     const cloudinaryResponse = await cloudinary.uploader.destroy(publicId, {
       resource_type: "image",
     });
 
-   if (cloudinaryResponse.result !== "ok" && cloudinaryResponse.result !== "not found") {
+    if (
+      cloudinaryResponse.result !== "ok" &&
+      cloudinaryResponse.result !== "not found"
+    ) {
       return next(
         new CustomError("Failed to delete media from Cloudinary", 500)
       );
@@ -184,16 +186,19 @@ uploadRouter.post("/delete/:serviceId", async (req, res, next) => {
   }
 });
 
-uploadRouter.post("/generate-signature", async (req, res, next) => {
+uploadRouter.post("/generateSignature", async (req, res, next) => {
   try {
     const { folder } = req.body;
-    const timestamp = Math.round(new Date().getTime() / 1000);
+    const timestamp = Math.floor(Date.now() / 1000).toString();
     const paramsToSign = { timestamp, folder };
 
     const signature = cloudinary.utils.api_sign_request(
       paramsToSign,
-      process.env.CLOUDINARY_API_SECRET
+      process.env.CLOUDINARY_SECREAT_KEY
     );
+    
+    console.log(  process.env.CLOUDINARY_SECREAT_KEY);
+    
 
     res.json({ signature, timestamp });
   } catch (error) {

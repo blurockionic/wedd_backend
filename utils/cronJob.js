@@ -1,25 +1,27 @@
+// cronJobs.js
 import cron from "node-cron";
 import generateInvoice from "../controllers/payment/invoice.js";
 
-// Flag to prevent duplicate execution
 let isRunning = false;
+let isCronScheduled = false; // Prevent multiple schedules
 
-cron.schedule("*/10 * * * *", async () => {
-  if (isRunning) {
-    console.log(" Skipping duplicate cron execution...");
-    return;
-  }
+function startInvoiceCron() {
+  if (isCronScheduled) return; // If already scheduled, exit
+  isCronScheduled = true;
 
+  cron.schedule("*/10 * * * *", async () => {
+    if (isRunning) return;
 
-  isRunning = true; // Lock execution
+    isRunning = true;
+    try {
+      await generateInvoice({});
+    } catch (error) {
+      console.error("Error in cron job:", error);
+    }
+    isRunning = false;
+  });
 
-  try {
-    await generateInvoice({});
-  } catch (error) {
-    console.error(" Error running cron job:", error);
-  }
+  console.log("Invoice cron job scheduled.");
+}
 
-  isRunning = false;
-});
-
-console.log(" Cron job scheduled: Running every 10 minute...");
+export default startInvoiceCron;

@@ -10,7 +10,8 @@ import os from "os";
 import routes from "./routes/routes.js";
 import morganLogger from "./middleware/log.middleware.js";
 import uploadRouter from "./routes/upload.router.js";
-import "./utils/cronJob.js";
+import startInvoiceCron from "./utils/cronJob.js";
+
 
 dotenv.config();
 
@@ -32,6 +33,8 @@ const corsOption = {
 app.use(cors(corsOption));
 
 app.use(morganLogger);
+
+startInvoiceCron();
 
 // Health Check Endpoint
 app.get("/health", (req, res) => {

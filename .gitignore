@@ -1,4 +1,8 @@
 node_modules
 # Keep environment variables out of version control
 .env
-logs/application-2025-01-02.log
+logs/*.log
+
+# If you want to ignore the entire logs folder
+logs/
+prisma/generated/
