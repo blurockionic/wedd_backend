@@ -197,7 +197,7 @@ uploadRouter.post("/generateSignature", async (req, res, next) => {
       process.env.CLOUDINARY_SECREAT_KEY
     );
     
-    console.log(  process.env.CLOUDINARY_SECREAT_KEY);
+
     
 
     res.json({ signature, timestamp });
