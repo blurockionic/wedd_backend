@@ -28,9 +28,10 @@ const revokeAdmin = async (req, res) => {
             return res.status(400).json({ message: "User is not an admin." });
         }
 
-        if (user.role === "SUPER_ADMIN") {
-            return res.status(400).json({ message: "User is SUPER admin!" });
-        }
+        // Uncomment if you want to prevent SUPER_ADMIN from being revoked
+        // if (user.role === "SUPER_ADMIN") {
+        //     return res.status(400).json({ message: "User is SUPER admin!" });
+        // }
 
         // Update the user's role to ADMIN
         const updatedUser = await prisma.user.update({
