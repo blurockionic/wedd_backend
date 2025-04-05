@@ -4,7 +4,7 @@ const prismaMongo = new PrismaClientMongo();
 
 const serviceSearch = async (req, res) => {
     try {
-        const { serviceName, serviceType, location, sortBy } = req.body;
+        const { serviceName, serviceType, vendorId, location, sortBy } = req.body;
         const match = {};
         console.log(req.body);
 
@@ -14,6 +14,15 @@ const serviceSearch = async (req, res) => {
 
         if (serviceType) {
             match.service_type = { $regex: serviceType, $options: 'i' };
+        }
+
+        if (vendorId) {
+            try {
+                // Convert vendorId to ObjectId for matching
+                match.vendorId = { $oid: vendorId };
+            } catch (error) {
+                return res.status(400).json({ message: "Invalid vendorId format" });
+            }
         }
 
         if (location) {
@@ -52,6 +61,7 @@ const serviceSearch = async (req, res) => {
                     _id: '$_id',
                     service_name: { $first: '$service_name' },
                     service_type: { $first: '$service_type' },
+                    vendorId: { $first: '$vendorId' },
                     city: { $first: '$city' },
                     state: { $first: '$state' },
                     country: { $first: '$country' },
