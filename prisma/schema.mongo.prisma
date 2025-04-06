@@ -125,7 +125,8 @@ model EditorAsset {
   public_id   String   @unique 
   url         String  
   preview_url String?  
-  tags        String[] 
+  tags        String[]
+  asset_folder String? 
   etag        String   
   createdAt   DateTime @default(now())
   name        String?
