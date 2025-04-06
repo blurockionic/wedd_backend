@@ -93,112 +93,7 @@ export const getPublishedBlogs = async (req, res, next) => {
         next(new CustomError("Failed to fetch published blogs", 500));
     }
 };
-/** * Fetch a single blog by ID with tags and related data*/
-export const getBlogById = async (req, res, next) => {
-    const { id } = req.params;
 
-    try {
-        // Fetch and update the blog (increment view count)
-        const blog = await postgresPrisma.blog.update({
-            where: { id },
-            data: { viewCount: { increment: 1 } },
-            include: { 
-                tags: {
-                    select: {
-                        id: true,
-                        tagName: true
-                    }
-                },
-                comments: { 
-                    orderBy: { createdAt: "desc" },
-                    include: {
-                        author: {
-                            select: {
-                                id: true,
-                                user_name: true,
-                                profile_photo: true
-                            }
-                        }
-                    }
-                },
-                _count: {
-                    select: {
-                        likedBy: true
-                    }
-                }
-            }
-        });
-
-        if (!blog) {
-            return next(new CustomError("Blog not found", 404));
-        }
-
-        res.status(200).json({ success: true, data: blog });
-
-    } catch (error) {
-        console.error("Error fetching blog:", error);
-        next(new CustomError("Failed to fetch blog", 500));
-    }
-};
-/** * Search blogs by title or content */
-export const searchBlogs = async (req, res, next) => {
-    const { query, s = 0, t = 10 } = req.query; // Pagination parameters
-
-    if (!query) {
-        return next(new CustomError("Search query is required", 400));
-    }
-
-    try {
-        const blogs = await postgresPrisma.blog.findMany({
-            skip: parseInt(s),
-            take: parseInt(t),
-            where: {
-                status: "PUBLISHED",
-                OR: [
-                    {
-                        title: {
-                            contains: query,
-                            mode: 'insensitive'
-                        }
-                    },
-                    {
-                        content: {
-                            contains: query,
-                            mode: 'insensitive'
-                        }
-                    }
-                ]
-            },
-            include: {
-                tags: {
-                    select: {
-                        id: true,
-                        tagName: true
-                    }
-                },
-                _count: {
-                    select: {
-                        comments: true,
-                        likedBy: true
-                    }
-                }
-            },
-            orderBy: {
-                createdAt: "desc"
-            }
-        });
-
-        res.status(200).json({
-            success: true,
-            data: blogs,
-            count: blogs.length,
-            query
-        });
-    } catch (error) {
-        console.error("Error searching blogs:", error);
-        next(new CustomError("Failed to search blogs", 500));
-    }
-};
 /** * Add a new blog with tags*/
 export const addBlog = async (req, res, next) => {
     const { title, tags = [], content, coverImage, status = "DRAFT" } = req.body;
@@ -266,7 +161,6 @@ export const addBlog = async (req, res, next) => {
         next(new CustomError("Failed to add new blog", 500));
     }
 };
-
 /** * Update a blog and its tags*/
 export const updateBlog = async (req, res, next) => {
     const { id } = req.params;
@@ -361,7 +255,6 @@ export const updateBlog = async (req, res, next) => {
         next(new CustomError("Failed to update blog", 500));
     }
 };
-
 /** * Delete a blog and its associated tags (disconnect only, don't delete tags)*/
 export const deleteBlog = async (req, res, next) => {
     const { id } = req.params;
@@ -407,48 +300,71 @@ export const deleteBlog = async (req, res, next) => {
         next(new CustomError("Failed to delete blog", 500));
     }
 };
-
 /** * Find a blog by its name */
-export const getBlogByName = async (req, res, next) => {
-    const { name } = req.params;
-
+export const getBlogByUrlTitle = async (req, res, next) => {
+    const { urlTitle } = req.params;
+    
     try {
-        const blog = await postgresPrisma.blog.findFirst({
-            where: {
-                title: {
-                    equals: name,
-                    mode: 'insensitive'
-                }
-            },
+        // First find the blog without incrementing to check if it exists
+        const existingBlog = await postgresPrisma.blog.findUnique({
+            where: { 
+                urlTitle: urlTitle,
+            }
+        });
+
+        if (!existingBlog) {
+            return next(new CustomError("Blog not found", 404));
+        }
+
+        // Then update the view count and get the full blog data
+        const blog = await postgresPrisma.blog.update({
+            where: { id: existingBlog.id },
+            data: { viewCount: { increment: 1 } },
             include: {
+                author: {
+                    select: {
+                        id: true,
+                        user_name: true,
+                        profile_photo: true
+                    }
+                },
                 tags: {
                     select: {
                         id: true,
                         tagName: true
                     }
                 },
+                comments: {
+                    orderBy: { createdAt: "desc" },
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                user_name: true,
+                                profile_photo: true
+                            }
+                        }
+                    }
+                },
                 _count: {
                     select: {
-                        comments: true,
                         likedBy: true
                     }
                 }
             }
         });
 
-        if (!blog) {
-            return next(new CustomError("Blog not found", 404));
-        }
-
         res.status(200).json({
             success: true,
             data: blog
         });
+
     } catch (error) {
-        console.error("Error fetching blog by name:", error);
-        next(new CustomError("Failed to fetch blog by name", 500));
+        console.error("Error fetching blog by urlTitle:", error);
+        next(new CustomError("Failed to fetch blog", 500));
     }
-};
+}
+
 export const getBlogsByTag = async (req, res, next) => {
     const { tagName } = req.params;
     const { s = 0, t = 10 } = req.query; // Pagination parameters
@@ -498,3 +414,92 @@ export const getBlogsByTag = async (req, res, next) => {
         next(new CustomError("Failed to fetch blogs by tag", 500));
     }
 };
+
+/** * Search blogs by title or content */
+export const searchBlogs = async (req, res, next) => {
+    const { query, s = 0, t = 10 } = req.query; // Pagination parameters
+
+    if (!query) {
+        return next(new CustomError("Search query is required", 400));
+    }
+
+    try {
+        const blogs = await postgresPrisma.blog.findMany({
+            skip: parseInt(s),
+            take: parseInt(t),
+            where: {
+                status: "PUBLISHED",
+                OR: [
+                    {
+                        title: {
+                            contains: query,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        content: {
+                            contains: query,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            },
+            include: {
+                tags: {
+                    select: {
+                        id: true,
+                        tagName: true
+                    }
+                },
+                _count: {
+                    select: {
+                        comments: true,
+                        likedBy: true
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: "desc"
+            }
+        });
+
+        res.status(200).json({
+            success: true,
+            data: blogs,
+            count: blogs.length,
+            query
+        });
+    } catch (error) {
+        console.error("Error searching blogs:", error);
+        next(new CustomError("Failed to search blogs", 500));
+    }
+};
+
+// get blogs by id
+export const getBlogById = async (req, res, next) => {
+    const { id } = req.params;
+    console.log(id);
+    try {
+        const blog = await postgresPrisma.blog.findFirst({
+            where: { id: id },
+            include: {
+                tags: true,      
+                comments: true  
+            }
+        });
+
+        if (!blog) {
+            return next(new CustomError("Blog not found", 404));
+        }
+
+        res.status(200).json({
+            success: true,       
+            data: {             
+                ...blog,       
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching blog by ID:", error);
+        next(new CustomError("Failed to fetch blog by ID", 500));
+    }
+}

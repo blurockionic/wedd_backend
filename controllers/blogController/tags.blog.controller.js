@@ -30,7 +30,7 @@ export const addTag = async (req, res, next) => {
 
 export const deleteTag = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
 
     const tag = await prisma.tags.findUnique({
       where: { id },

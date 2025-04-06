@@ -5,9 +5,7 @@ import slugify from "slugify";
 const postgresPrisma = new PostgresClient();
 
 
-/**
- * Add a comment to a blog
- */
+/** * Add a comment to a blog */
 export const addComment = async (req, res, next) => {
     const { id } = req.params;
     const { content } = req.body;
@@ -32,9 +30,7 @@ export const addComment = async (req, res, next) => {
     }
 };
 
-/**
- * Delete a comment
- */
+/** * Delete a comment */
 export const deleteComment = async (req, res, next) => {
     const { commentId } = req.params;
     const userId = req.user.id;
@@ -58,9 +54,7 @@ export const deleteComment = async (req, res, next) => {
     }
 };
 
-/**
- * Toggle Like on a Blog
- */
+/** * Toggle Like on a Blog */
 export const toggleLikeBlog = async (req, res, next) => {
     const { id } = req.params;
     const userId = req.user.id;
@@ -111,9 +105,7 @@ export const toggleLikeBlog = async (req, res, next) => {
     }
 };
 
-/**
- * Get blog count
- */
+/** * Get blog count */
 export const getBlogCount = async (req, res, next) => {
     try {
         const blogCount = await postgresPrisma.blog.count();
@@ -124,9 +116,7 @@ export const getBlogCount = async (req, res, next) => {
     }
 };
 
-/**
- * Get total view count
- */
+/** * Get total view count */
 export const getTotalViewCount = async (req, res, next) => {
     try {
         const totalViewCount = await postgresPrisma.blog.aggregate({
@@ -144,7 +134,3 @@ export const getTotalViewCount = async (req, res, next) => {
         next(new CustomError("Failed to fetch total view count", 500));
     }
 };
-
-export const testRoute = async(req, res, next) => {
-    return res.status(200).json({ success: true, message: "Blog unliked" });
-}
