@@ -1,52 +1,50 @@
 import express from "express";
 import jwtAuthentication from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
-import {
-  addBlog,
-  getBlogs,
-  getBlogById,
-  updateBlog,
-  deleteBlog,
-  toggleLikeBlog,
-  addComment,
-  deleteComment,
-  getBlogCount,
-  getTotalViewCount,
-} from "../controllers/blogController/blog.controller.js";
+import { addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, getBlogsByTag,getBlogByName, searchBlogs,getPublishedBlogs } from "../controllers/blogController/blog.controller.js";
+import { addTag, getAllTagsWithBlogs, getTagByName, deleteTag, updateTag} from "../controllers/blogController/tags.blog.controller.js";
+import { toggleLikeBlog, addComment, deleteComment, getBlogCount, getTotalViewCount } from "../controllers/blogController/comment.blog.controller.js";
 
 const blogRouteAdmin = express.Router();
 const blogRouteUser = express.Router();
 const blogRoutePublic = express.Router();
 
 // 🚀 **Public Routes** (Accessible without authentication)
-blogRoutePublic.get("/allBlog", getBlogs);
-blogRoutePublic.get("/allBlog/:id", getBlogById);
-blogRoutePublic.get("/blog_count", getBlogCount);
-blogRoutePublic.get("/view_count", getTotalViewCount);
-
-
-// // sample test route
-// blogRoutePublic.post("/add", addBlog);
+blogRoutePublic.get("/allBlog", getBlogs); // Fetch all blogs
+blogRoutePublic.get("/allBlog/:id", getBlogById); // Fetch a single blog by ID
+blogRoutePublic.get("/blog_count", getBlogCount); // Get total blog count
+blogRoutePublic.get("/view_count", getTotalViewCount); // Get total view count
+blogRoutePublic.get("/publishedBlogs", getPublishedBlogs); // Get published blogs
 
 // 🔒 **Admin Routes** (Only accessible by authenticated ADMIN users)
-blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN"]));
-blogRouteAdmin.post("/add", addBlog);
-blogRouteAdmin.get("/allBlog", getBlogs);
-blogRouteAdmin.get("/allBlog/:id", getBlogById);
-blogRouteAdmin.put("/allBlog/:id", updateBlog);
-blogRouteAdmin.delete("/allBlog/:id", deleteBlog);
-blogRouteAdmin.post("/allBlog/:id/comment", addComment);
-blogRouteAdmin.post("/allBlog/:id/togglelike", toggleLikeBlog);
-blogRouteAdmin.delete("/allBlog/:id/comment/:commentId", deleteComment);
-blogRouteAdmin.get("/blog_count", getBlogCount);
-blogRouteAdmin.get("/view_count", getTotalViewCount);
+blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
+blogRouteAdmin.post("/add", addBlog); // Add a new blog
+blogRouteAdmin.get("/allBlog", getBlogs); // Fetch all blogs
+blogRouteAdmin.get("/allBlog/:id", getBlogById); // Fetch a single blog by ID
+blogRouteAdmin.get("/allBlog/:name", getBlogByName); // Fetch a blog by name
+blogRouteAdmin.get("/publishedBlogs", getPublishedBlogs); // Get published blogs
+blogRouteAdmin.delete("/allBlog/:id", deleteBlog); // Delete a blog
+blogRouteAdmin.get("/searchBlog", searchBlogs); // Search blogs
+blogRouteAdmin.post("/allBlog/:id/comment", addComment); // Add a comment to a blog
+blogRouteAdmin.post("/allBlog/:id/togglelike", toggleLikeBlog); // Toggle like on a blog
+blogRouteAdmin.delete("/allBlog/:id/comment/:commentId", deleteComment); // Delete a comment
+blogRouteAdmin.get("/blog_count", getBlogCount); // Get total blog count
+blogRouteAdmin.get("/view_count", getTotalViewCount); // Get total view count
+
+// Blog-tags routes
+blogRouteAdmin.get('/allTags', getAllTagsWithBlogs); // Get all tags with blogs
+blogRouteAdmin.post('/addtag', addTag); // Add a new tag
+blogRouteAdmin.post('/searchTag', getTagByName); // Search for a tag by name
+blogRouteAdmin.put('/updateTag/:id', updateTag); // Update a tag
+blogRouteAdmin.delete('/deleteTag/:id', deleteTag); // Delete a tag
+blogRouteAdmin.get('/getBlogsByTag/:tagName', getBlogsByTag); // Get blogs by tag
 
 // 🔑 **User Routes** (Only authenticated users can interact)
 blogRouteUser.use(jwtAuthentication);
-blogRouteUser.get("/allBlog", getBlogs);
-blogRouteUser.get("/allBlog/:id", getBlogById);
-blogRouteUser.post("/allBlog/:id/togglelike", toggleLikeBlog);
-blogRouteUser.post("/allBlog/:id/comment", addComment);
-blogRouteUser.delete("/allBlog/:id/comment/:commentId", deleteComment);
+blogRouteUser.get("/publishedBlogs", getPublishedBlogs); // Get published blogs
+blogRouteUser.get("/allBlog/:id", getBlogById); // Fetch a single blog by ID
+blogRouteUser.post("/allBlog/:id/togglelike", toggleLikeBlog); // Toggle like on a blog
+blogRouteUser.post("/allBlog/:id/comment", addComment); // Add a comment to a blog
+blogRouteUser.delete("/allBlog/:id/comment/:commentId", deleteComment); // Delete a comment
 
 export { blogRouteAdmin, blogRouteUser, blogRoutePublic };

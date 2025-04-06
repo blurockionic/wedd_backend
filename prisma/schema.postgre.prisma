@@ -33,11 +33,12 @@ model User {
   checklists         Checklist[]           @relation(name: "UserChecklists")
   guests             Guest[]   @relation(name: "UserGuests")
   paymentDetails     PaymentDetails[]
-  orderDetails         OrderDetails[]
   userDataTemplate       UserDataTemplate[]
   event               Event[]     @relation(name: "Event")
   likedBlogs          LikedBlog[]  
   invitationTemplate  InvitationTemplate[]  @relation(name: "InvitationTemplate")
+  watchHistory         TemplateWatchHistory[]
+
 }
 
 model Booking {
@@ -160,32 +161,28 @@ model SubEventTask {
   updatedAt   DateTime @updatedAt
 }
 
-model OrderDetails {
-  id              String   @id @default(uuid())
-  orderId         String   @unique   // Razorpay Order ID
-  amount          Float    // Amount in INR
-  currency        String   @default("INR")
-  status          String   @default("created") // "created", "paid", "failed"
-  razorpayResponse Json    // Full Razorpay Order response (optional)
-  createdAt       DateTime @default(now())  
-  userId          String  
-  templateId      String? 
-  User              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
-}
+
 
 model PaymentDetails {
-  id              String   @id @default(uuid())
-  orderId         String   @unique   // Link to OrderDetails
-  paymentId       String?   // Razorpay Payment ID
-  razorpayResponse Json     // Full Razorpay Payment response
-  status          String    @default("pending") // "pending", "success", "failed"
-  purchasedAt     DateTime? // Payment completion time
-  userId          String  
-  templateId      String?  
+  id               String   @id @default(uuid())
+  orderId          String   @unique  // Unique order identifier
+  paymentId        String?  // Razorpay Payment ID (NULL until paid)
+  razorpayResponse Json?    // Store only essential details
+  orderStatus      String   @default("pending")  // "pending", "failed", "completed"
+  paymentStatus    String?  // "initiated", "failed", "successful"
+  amount           Decimal  // Store order amount
+  currency         String   @default("INR") 
+  purchasedAt      DateTime? // Payment completion time
+  createdAt        DateTime  @default(now()) 
+  updatedAt        DateTime  @updatedAt
+  
+  userId           String  
+  templateId       String?  
+
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
+
 
 model Review {
   review_id      String   @id @default(uuid())
@@ -251,8 +248,25 @@ model InvitationTemplate {
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt // Auto-update timestamp
   paymentDetails       PaymentDetails[]
-  orderDetails         OrderDetails[]
+  watchHistory         TemplateWatchHistory[]
 }
+
+
+
+model TemplateWatchHistory {
+  id          String   @id @default(uuid())
+  userId      String
+  templateId  String
+  watchedAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template    InvitationTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId]) // Prevent duplicate history
+}
+
+
+
+
 
 // Enum for Template Status
 enum TemplateStatus {
@@ -301,17 +315,31 @@ model  UserDataTemplate {
 
 // Blog-related models from your schema
 model Blog {
-  id        String      @id @default(cuid())
-  title     String      @unique
-  tags      String[]
-  content   String
-  comments  Comment[]
-  viewCount Int         @default(0)
-  likes     Int         @default(0)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  likedBy   LikedBlog[]
-  authorId  String
+  id         String      @id @default(cuid())
+  title      String      @unique
+  status     Status
+  urlTitle   String
+  coverImage String?
+  tags       Tags[]
+  content    String
+  comments   Comment[]
+  viewCount  Int         @default(0)
+  likes      Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  likedBy    LikedBlog[]
+  authorId   String
+}
+
+model Tags {
+  id      String @id @default(cuid())
+  tagName String @unique
+  blogs   Blog[]
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
 }
 
 model Comment {
