@@ -1,9 +1,9 @@
 import express from "express";
 import jwtAuthentication from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
-import { addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, getBlogsByTag, getBlogByUrlTitle, searchBlogs,getPublishedBlogs, uploadCoverImageMiddleware, getPublishedBlogCount, getDraftBlogCount } from "../controllers/blogController/blog.controller.js";
+import { addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, getBlogsByTag, getBlogByUrlTitle, searchBlogs,getPublishedBlogs, uploadCoverImageMiddleware, getPublishedBlogCount, getDraftBlogCount, toggleBlogStatus } from "../controllers/blogController/blog.controller.js";
 import { addTag, getAllTagsWithBlogs, getTagByName, deleteTag, updateTag} from "../controllers/blogController/tags.blog.controller.js";
-import { toggleLikeBlog, addComment, deleteComment, getBlogCount, getTotalViewCount, toggleBlogStatus } from "../controllers/blogController/utils.blog.controller.js";
+import { toggleLikeBlog, addComment, deleteComment, getBlogCount, getTotalViewCount } from "../controllers/blogController/utils.blog.controller.js";
 
 const blogRouteAdmin = express.Router();
 const blogRouteUser = express.Router();
