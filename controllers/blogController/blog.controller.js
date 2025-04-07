@@ -549,6 +549,39 @@ export const toggleBlogStatus = async (req, res, next) => {
   }
 };
 
+export const getPublishedBlogCount = async (req, res, next) => {
+  try {
+    const count = await postgresPrisma.blog.count({
+      where: { status: "PUBLISHED" },
+    });
+
+    res.status(200).json({
+      success: true,
+      count,
+      message: "Count of published blogs retrieved successfully.",
+    });
+  } catch (error) {
+    console.error("Error fetching published blog count:", error);
+    next(new CustomError("Failed to fetch published blog count", 500));
+  }
+};
+
+export const getDraftBlogCount = async (req, res, next) => {
+  try {
+    const count = await postgresPrisma.blog.count({
+      where: { status: "DRAFT" },
+    });
+
+    res.status(200).json({
+      success: true,
+      count,
+      message: "Count of draft blogs retrieved successfully.",
+    });
+  } catch (error) {
+    console.error("Error fetching draft blog count:", error);
+    next(new CustomError("Failed to fetch draft blog count", 500));
+  }
+};
 
 // Middleware for handling single file upload for cover image
 export const uploadCoverImageMiddleware = upload.single("cover_image");

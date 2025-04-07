@@ -1,7 +1,7 @@
 import express from "express";
 import jwtAuthentication from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
-import { addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, getBlogsByTag, getBlogByUrlTitle, searchBlogs,getPublishedBlogs, uploadCoverImageMiddleware } from "../controllers/blogController/blog.controller.js";
+import { addBlog, getBlogs, getBlogById, updateBlog, deleteBlog, getBlogsByTag, getBlogByUrlTitle, searchBlogs,getPublishedBlogs, uploadCoverImageMiddleware, getPublishedBlogCount, getDraftBlogCount } from "../controllers/blogController/blog.controller.js";
 import { addTag, getAllTagsWithBlogs, getTagByName, deleteTag, updateTag} from "../controllers/blogController/tags.blog.controller.js";
 import { toggleLikeBlog, addComment, deleteComment, getBlogCount, getTotalViewCount, toggleBlogStatus } from "../controllers/blogController/utils.blog.controller.js";
 
@@ -27,6 +27,8 @@ blogRoutePublic.get("/publishedBlogs", getPublishedBlogs); // Get published blog
     blogRouteAdmin.post("/allBlog/:id", getBlogById); // Fetch a single blog by ID
     blogRouteAdmin.get("/allBlog/:urlTitle", getBlogByUrlTitle); // Fetch a blog by url title
     blogRouteAdmin.get("/publishedBlogs", getPublishedBlogs); // Get published blogs
+    blogRouteAdmin.get("/publishedBlogCount", getPublishedBlogCount); // Get count of published blogs
+    blogRouteAdmin.get("/draftBlogCount", getDraftBlogCount); // Get count of draft blogs
 
     blogRouteAdmin.delete("/allBlog/:id", deleteBlog); // Delete a blog
     blogRouteAdmin.put("/allBlog/:id", uploadCoverImageMiddleware, updateBlog); // Update a blog with cover image
