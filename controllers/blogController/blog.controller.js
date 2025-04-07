@@ -1,6 +1,7 @@
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
 import slugify from "slugify";
+import upload from "../../middleware/multer.middleware.js";
 
 const postgresPrisma = new PostgresClient();
 
@@ -106,6 +107,12 @@ export const addBlog = async (req, res, next) => {
     const urlTitle = slugify(title, { lower: true, strict: true });
 
     try {
+        // Handle cover image upload
+        if (req.file) {
+            const coverImage = req.file.path; // Multer saves the file and provides the path
+            req.body.coverImage = coverImage;
+        }
+
         // Handle tags - create new ones or connect to existing ones
         const tagConnections = await Promise.all(
             tags.map(async (tagName) => {
@@ -190,6 +197,12 @@ export const updateBlog = async (req, res, next) => {
         // Update urlTitle if title is being changed
         const urlTitle = title ? slugify(title, { lower: true, strict: true }) : undefined;
         
+        // Handle cover image upload
+        if (req.file) {
+            const coverImage = req.file.path; // Multer saves the file and provides the path
+            req.body.coverImage = coverImage;
+        }
+
         // Handle tags - create new ones or connect to existing ones
         const tagConnections = await Promise.all(
             tags.map(async (tagName) => {
@@ -299,7 +312,7 @@ export const deleteBlog = async (req, res, next) => {
         console.error("Error deleting blog:", error);
         next(new CustomError("Failed to delete blog", 500));
     }
-};
+}; 
 /** * Find a blog by its name */
 export const getBlogByUrlTitle = async (req, res, next) => {
     const { urlTitle } = req.params;
@@ -503,3 +516,39 @@ export const getBlogById = async (req, res, next) => {
         next(new CustomError("Failed to fetch blog by ID", 500));
     }
 }
+
+export const toggleBlogStatus = async (req, res, next) => {
+  try {
+    const blogId = req.params.id;
+
+    // Fetch the blog by ID
+    const blog = await prisma.Blog.findUnique({
+      where: { id: blogId },
+    });
+
+    if (!blog) {
+      return res.status(404).json({
+        message: "Blog not found.",
+        success: false,
+      });
+    }
+
+    // Toggle the status
+    const updatedBlog = await prisma.Blog.update({
+      where: { id: blogId },
+      data: { status: blog.status === "published" ? "draft" : "published" },
+    });
+
+    return res.status(200).json({
+      message: `Blog status updated to ${updatedBlog.status}.`,
+      blog: updatedBlog,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// Middleware for handling single file upload for cover image
+export const uploadCoverImageMiddleware = upload.single("cover_image");
