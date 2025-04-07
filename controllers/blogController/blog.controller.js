@@ -10,7 +10,7 @@ export const getBlogs = async (req, res, next) => {
         const { tag } = req.query; // Optional tag filter
         
         const whereClause = {
-            status: "PUBLISHED", // Only show published blogs by default
+            // status: "PUBLISHED", // Only show published blogs by default
             ...(tag && {
                 tags: {
                     some: {
@@ -96,7 +96,7 @@ export const getPublishedBlogs = async (req, res, next) => {
 
 /** * Add a new blog with tags*/
 export const addBlog = async (req, res, next) => {
-    const { title, tags = [], content, coverImage, status = "DRAFT" } = req.body;
+    const { title, tags = [], content, coverImage, status = "PUBLISHED" } = req.body;
     const authorId = req.user.id;
     
     if (!title || !content) {
