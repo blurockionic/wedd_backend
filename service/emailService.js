@@ -8,7 +8,9 @@ const sendEmail = async (email, emailContent) => {
     // smtp server creation for this
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtpout.secureserver.net",
+      secure: true,
+      port: 465,
       auth: {
         user: process.env.EMAIL_ADDRESS,
         pass: process.env.EMAIL_PASSWORD,
