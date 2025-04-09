@@ -360,5 +360,3 @@ model LikedBlog {
 
   @@unique([userId, blogId])
 }
-
-

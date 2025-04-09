@@ -65,7 +65,7 @@ export const deleteTag = async (req, res, next) => {
   }
 };
 
-export const getAllTagsWithBlogs = async (req, res, next) => {
+export const getAllTagsWithBlogInfo = async (req, res, next) => {
     try {
         const { s = 0, t = 10 } = req.query; // Pagination parameters
         const tags = await prisma.tags.findMany({
@@ -108,7 +108,7 @@ export const getAllTagsWithBlogs = async (req, res, next) => {
 export const getTagByName = async (req, res, next) => {
     try {
       // Extract tagName from URL parameters
-      const { tagName } = req.body;
+      const { tagName } = req.params;
   
       // Validate tagName exists and is not empty
       if (!tagName || typeof tagName !== 'string' || tagName.trim() === '') {
@@ -204,5 +204,55 @@ export const updateTag = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const getBlogsByTag = async (req, res, next) => {
+  const { tagName } = req.params;
+  const { s = 0, t = 10 } = req.query; // Pagination parameters
+  
+  try {
+      const blogs = await postgresPrisma.blog.findMany({
+          skip: parseInt(s),
+          take: parseInt(t),
+          where: {
+              status: "PUBLISHED",
+              tags: {
+                  some: {
+                      tagName: {
+                          equals: tagName,
+                          mode: 'insensitive'
+                      }
+                  }
+              }
+          },
+          include: {
+              tags: {
+                  select: {
+                      id: true,
+                      tagName: true
+                  }
+              },
+              _count: {
+                  select: {
+                      comments: true,
+                      likedBy: true
+                  }
+              }
+          },
+          orderBy: {
+              createdAt: "desc"
+          }
+      });
+
+      res.status(200).json({
+          success: true,
+          data: blogs,
+          count: blogs.length,
+          tag: tagName
+      });
+  } catch (error) {
+      console.error("Error fetching blogs by tag:", error);
+      next(new CustomError("Failed to fetch blogs by tag", 500));
   }
 };
