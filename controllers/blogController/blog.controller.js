@@ -208,31 +208,31 @@ export const getBlogByUrlTitle = async (req, res, next) => {
             where: { id: existingBlog.id },
             data: { viewCount: { increment: 1 } },
             include: {
-                author: {
-                    select: {
-                        id: true,
-                        user_name: true,
-                        profile_photo: true
-                    }
-                },
-                tags: {
-                    select: {
-                        id: true,
-                        tagName: true
-                    }
-                },
-                comments: {
-                    orderBy: { createdAt: "desc" },
-                    include: {
-                        author: {
-                            select: {
-                                id: true,
-                                user_name: true,
-                                profile_photo: true
-                            }
-                        }
-                    }
-                },
+                // author: {
+                //     select: {
+                //         id: true,
+                //         user_name: true,
+                //         profile_photo: true
+                //     }
+                // },
+                // tags: {
+                //     select: {
+                //         id: true,
+                //         tagName: true
+                //     }
+                // },
+                // comments: {
+                //     orderBy: { createdAt: "desc" },
+                //     include: {
+                //         author: {
+                //             select: {
+                //                 id: true,
+                //                 user_name: true,
+                //                 profile_photo: true
+                //             }
+                //         }
+                //     }
+                // },
                 _count: {
                     select: {
                         likedBy: true

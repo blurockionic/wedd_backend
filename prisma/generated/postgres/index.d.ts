@@ -28571,11 +28571,11 @@ export namespace Prisma {
   export type BlogWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     title?: string
+    urlTitle?: string
     AND?: BlogWhereInput | BlogWhereInput[]
     OR?: BlogWhereInput[]
     NOT?: BlogWhereInput | BlogWhereInput[]
     status?: EnumStatusFilter<"Blog"> | $Enums.Status
-    urlTitle?: StringFilter<"Blog"> | string
     coverImage?: StringNullableFilter<"Blog"> | string | null
     content?: StringFilter<"Blog"> | string
     viewCount?: IntFilter<"Blog"> | number
@@ -28586,7 +28586,7 @@ export namespace Prisma {
     tags?: TagsListRelationFilter
     comments?: CommentListRelationFilter
     likedBy?: LikedBlogListRelationFilter
-  }, "id" | "title">
+  }, "id" | "title" | "urlTitle">
 
   export type BlogOrderByWithAggregationInput = {
     id?: SortOrder

@@ -44,6 +44,11 @@ export type Availability = $Result.DefaultSelection<Prisma.$AvailabilityPayload>
  */
 export type Media = $Result.DefaultSelection<Prisma.$MediaPayload>
 /**
+ * Model EditorAsset
+ * 
+ */
+export type EditorAsset = $Result.DefaultSelection<Prisma.$EditorAssetPayload>
+/**
  * Model TeamMember
  * 
  */
@@ -263,6 +268,16 @@ export class PrismaClient<
     * ```
     */
   get media(): Prisma.MediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.editorAsset`: Exposes CRUD operations for the **EditorAsset** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EditorAssets
+    * const editorAssets = await prisma.editorAsset.findMany()
+    * ```
+    */
+  get editorAsset(): Prisma.EditorAssetDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.teamMember`: Exposes CRUD operations for the **TeamMember** model.
@@ -779,6 +794,7 @@ export namespace Prisma {
     Feedback: 'Feedback',
     Availability: 'Availability',
     Media: 'Media',
+    EditorAsset: 'EditorAsset',
     TeamMember: 'TeamMember',
     Promotion: 'Promotion',
     Plan: 'Plan',
@@ -801,7 +817,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "vendor" | "service" | "views" | "feedback" | "availability" | "media" | "teamMember" | "promotion" | "plan" | "subscription" | "payment" | "invoice" | "counter"
+      modelProps: "vendor" | "service" | "views" | "feedback" | "availability" | "media" | "editorAsset" | "teamMember" | "promotion" | "plan" | "subscription" | "payment" | "invoice" | "counter"
       txIsolationLevel: never
     }
     model: {
@@ -1246,6 +1262,80 @@ export namespace Prisma {
           count: {
             args: Prisma.MediaCountArgs<ExtArgs>
             result: $Utils.Optional<MediaCountAggregateOutputType> | number
+          }
+        }
+      }
+      EditorAsset: {
+        payload: Prisma.$EditorAssetPayload<ExtArgs>
+        fields: Prisma.EditorAssetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EditorAssetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EditorAssetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          findFirst: {
+            args: Prisma.EditorAssetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EditorAssetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          findMany: {
+            args: Prisma.EditorAssetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>[]
+          }
+          create: {
+            args: Prisma.EditorAssetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          createMany: {
+            args: Prisma.EditorAssetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.EditorAssetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          update: {
+            args: Prisma.EditorAssetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          deleteMany: {
+            args: Prisma.EditorAssetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EditorAssetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EditorAssetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditorAssetPayload>
+          }
+          aggregate: {
+            args: Prisma.EditorAssetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEditorAsset>
+          }
+          groupBy: {
+            args: Prisma.EditorAssetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EditorAssetGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.EditorAssetFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.EditorAssetAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.EditorAssetCountArgs<ExtArgs>
+            result: $Utils.Optional<EditorAssetCountAggregateOutputType> | number
           }
         }
       }
@@ -1844,6 +1934,7 @@ export namespace Prisma {
     feedback?: FeedbackOmit
     availability?: AvailabilityOmit
     media?: MediaOmit
+    editorAsset?: EditorAssetOmit
     teamMember?: TeamMemberOmit
     promotion?: PromotionOmit
     plan?: PlanOmit
@@ -8767,6 +8858,1003 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MediaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EditorAsset
+   */
+
+  export type AggregateEditorAsset = {
+    _count: EditorAssetCountAggregateOutputType | null
+    _min: EditorAssetMinAggregateOutputType | null
+    _max: EditorAssetMaxAggregateOutputType | null
+  }
+
+  export type EditorAssetMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    uploadedBy: string | null
+    type: string | null
+    public_id: string | null
+    url: string | null
+    preview_url: string | null
+    asset_folder: string | null
+    etag: string | null
+    createdAt: Date | null
+    name: string | null
+  }
+
+  export type EditorAssetMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    uploadedBy: string | null
+    type: string | null
+    public_id: string | null
+    url: string | null
+    preview_url: string | null
+    asset_folder: string | null
+    etag: string | null
+    createdAt: Date | null
+    name: string | null
+  }
+
+  export type EditorAssetCountAggregateOutputType = {
+    id: number
+    userId: number
+    uploadedBy: number
+    type: number
+    public_id: number
+    url: number
+    preview_url: number
+    tags: number
+    asset_folder: number
+    etag: number
+    createdAt: number
+    name: number
+    _all: number
+  }
+
+
+  export type EditorAssetMinAggregateInputType = {
+    id?: true
+    userId?: true
+    uploadedBy?: true
+    type?: true
+    public_id?: true
+    url?: true
+    preview_url?: true
+    asset_folder?: true
+    etag?: true
+    createdAt?: true
+    name?: true
+  }
+
+  export type EditorAssetMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    uploadedBy?: true
+    type?: true
+    public_id?: true
+    url?: true
+    preview_url?: true
+    asset_folder?: true
+    etag?: true
+    createdAt?: true
+    name?: true
+  }
+
+  export type EditorAssetCountAggregateInputType = {
+    id?: true
+    userId?: true
+    uploadedBy?: true
+    type?: true
+    public_id?: true
+    url?: true
+    preview_url?: true
+    tags?: true
+    asset_folder?: true
+    etag?: true
+    createdAt?: true
+    name?: true
+    _all?: true
+  }
+
+  export type EditorAssetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EditorAsset to aggregate.
+     */
+    where?: EditorAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditorAssets to fetch.
+     */
+    orderBy?: EditorAssetOrderByWithRelationInput | EditorAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EditorAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditorAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditorAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EditorAssets
+    **/
+    _count?: true | EditorAssetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EditorAssetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EditorAssetMaxAggregateInputType
+  }
+
+  export type GetEditorAssetAggregateType<T extends EditorAssetAggregateArgs> = {
+        [P in keyof T & keyof AggregateEditorAsset]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEditorAsset[P]>
+      : GetScalarType<T[P], AggregateEditorAsset[P]>
+  }
+
+
+
+
+  export type EditorAssetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EditorAssetWhereInput
+    orderBy?: EditorAssetOrderByWithAggregationInput | EditorAssetOrderByWithAggregationInput[]
+    by: EditorAssetScalarFieldEnum[] | EditorAssetScalarFieldEnum
+    having?: EditorAssetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EditorAssetCountAggregateInputType | true
+    _min?: EditorAssetMinAggregateInputType
+    _max?: EditorAssetMaxAggregateInputType
+  }
+
+  export type EditorAssetGroupByOutputType = {
+    id: string
+    userId: string | null
+    uploadedBy: string
+    type: string
+    public_id: string
+    url: string
+    preview_url: string | null
+    tags: string[]
+    asset_folder: string | null
+    etag: string
+    createdAt: Date
+    name: string | null
+    _count: EditorAssetCountAggregateOutputType | null
+    _min: EditorAssetMinAggregateOutputType | null
+    _max: EditorAssetMaxAggregateOutputType | null
+  }
+
+  type GetEditorAssetGroupByPayload<T extends EditorAssetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EditorAssetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EditorAssetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EditorAssetGroupByOutputType[P]>
+            : GetScalarType<T[P], EditorAssetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EditorAssetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    uploadedBy?: boolean
+    type?: boolean
+    public_id?: boolean
+    url?: boolean
+    preview_url?: boolean
+    tags?: boolean
+    asset_folder?: boolean
+    etag?: boolean
+    createdAt?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["editorAsset"]>
+
+
+
+  export type EditorAssetSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    uploadedBy?: boolean
+    type?: boolean
+    public_id?: boolean
+    url?: boolean
+    preview_url?: boolean
+    tags?: boolean
+    asset_folder?: boolean
+    etag?: boolean
+    createdAt?: boolean
+    name?: boolean
+  }
+
+  export type EditorAssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "uploadedBy" | "type" | "public_id" | "url" | "preview_url" | "tags" | "asset_folder" | "etag" | "createdAt" | "name", ExtArgs["result"]["editorAsset"]>
+
+  export type $EditorAssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EditorAsset"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string | null
+      uploadedBy: string
+      type: string
+      public_id: string
+      url: string
+      preview_url: string | null
+      tags: string[]
+      asset_folder: string | null
+      etag: string
+      createdAt: Date
+      name: string | null
+    }, ExtArgs["result"]["editorAsset"]>
+    composites: {}
+  }
+
+  type EditorAssetGetPayload<S extends boolean | null | undefined | EditorAssetDefaultArgs> = $Result.GetResult<Prisma.$EditorAssetPayload, S>
+
+  type EditorAssetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EditorAssetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EditorAssetCountAggregateInputType | true
+    }
+
+  export interface EditorAssetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EditorAsset'], meta: { name: 'EditorAsset' } }
+    /**
+     * Find zero or one EditorAsset that matches the filter.
+     * @param {EditorAssetFindUniqueArgs} args - Arguments to find a EditorAsset
+     * @example
+     * // Get one EditorAsset
+     * const editorAsset = await prisma.editorAsset.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EditorAssetFindUniqueArgs>(args: SelectSubset<T, EditorAssetFindUniqueArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one EditorAsset that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EditorAssetFindUniqueOrThrowArgs} args - Arguments to find a EditorAsset
+     * @example
+     * // Get one EditorAsset
+     * const editorAsset = await prisma.editorAsset.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EditorAssetFindUniqueOrThrowArgs>(args: SelectSubset<T, EditorAssetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first EditorAsset that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetFindFirstArgs} args - Arguments to find a EditorAsset
+     * @example
+     * // Get one EditorAsset
+     * const editorAsset = await prisma.editorAsset.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EditorAssetFindFirstArgs>(args?: SelectSubset<T, EditorAssetFindFirstArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first EditorAsset that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetFindFirstOrThrowArgs} args - Arguments to find a EditorAsset
+     * @example
+     * // Get one EditorAsset
+     * const editorAsset = await prisma.editorAsset.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EditorAssetFindFirstOrThrowArgs>(args?: SelectSubset<T, EditorAssetFindFirstOrThrowArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more EditorAssets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EditorAssets
+     * const editorAssets = await prisma.editorAsset.findMany()
+     * 
+     * // Get first 10 EditorAssets
+     * const editorAssets = await prisma.editorAsset.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const editorAssetWithIdOnly = await prisma.editorAsset.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EditorAssetFindManyArgs>(args?: SelectSubset<T, EditorAssetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a EditorAsset.
+     * @param {EditorAssetCreateArgs} args - Arguments to create a EditorAsset.
+     * @example
+     * // Create one EditorAsset
+     * const EditorAsset = await prisma.editorAsset.create({
+     *   data: {
+     *     // ... data to create a EditorAsset
+     *   }
+     * })
+     * 
+     */
+    create<T extends EditorAssetCreateArgs>(args: SelectSubset<T, EditorAssetCreateArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many EditorAssets.
+     * @param {EditorAssetCreateManyArgs} args - Arguments to create many EditorAssets.
+     * @example
+     * // Create many EditorAssets
+     * const editorAsset = await prisma.editorAsset.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EditorAssetCreateManyArgs>(args?: SelectSubset<T, EditorAssetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a EditorAsset.
+     * @param {EditorAssetDeleteArgs} args - Arguments to delete one EditorAsset.
+     * @example
+     * // Delete one EditorAsset
+     * const EditorAsset = await prisma.editorAsset.delete({
+     *   where: {
+     *     // ... filter to delete one EditorAsset
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EditorAssetDeleteArgs>(args: SelectSubset<T, EditorAssetDeleteArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one EditorAsset.
+     * @param {EditorAssetUpdateArgs} args - Arguments to update one EditorAsset.
+     * @example
+     * // Update one EditorAsset
+     * const editorAsset = await prisma.editorAsset.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EditorAssetUpdateArgs>(args: SelectSubset<T, EditorAssetUpdateArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more EditorAssets.
+     * @param {EditorAssetDeleteManyArgs} args - Arguments to filter EditorAssets to delete.
+     * @example
+     * // Delete a few EditorAssets
+     * const { count } = await prisma.editorAsset.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EditorAssetDeleteManyArgs>(args?: SelectSubset<T, EditorAssetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EditorAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EditorAssets
+     * const editorAsset = await prisma.editorAsset.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EditorAssetUpdateManyArgs>(args: SelectSubset<T, EditorAssetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EditorAsset.
+     * @param {EditorAssetUpsertArgs} args - Arguments to update or create a EditorAsset.
+     * @example
+     * // Update or create a EditorAsset
+     * const editorAsset = await prisma.editorAsset.upsert({
+     *   create: {
+     *     // ... data to create a EditorAsset
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EditorAsset we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EditorAssetUpsertArgs>(args: SelectSubset<T, EditorAssetUpsertArgs<ExtArgs>>): Prisma__EditorAssetClient<$Result.GetResult<Prisma.$EditorAssetPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more EditorAssets that matches the filter.
+     * @param {EditorAssetFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const editorAsset = await prisma.editorAsset.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: EditorAssetFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a EditorAsset.
+     * @param {EditorAssetAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const editorAsset = await prisma.editorAsset.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: EditorAssetAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of EditorAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetCountArgs} args - Arguments to filter EditorAssets to count.
+     * @example
+     * // Count the number of EditorAssets
+     * const count = await prisma.editorAsset.count({
+     *   where: {
+     *     // ... the filter for the EditorAssets we want to count
+     *   }
+     * })
+    **/
+    count<T extends EditorAssetCountArgs>(
+      args?: Subset<T, EditorAssetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EditorAssetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EditorAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EditorAssetAggregateArgs>(args: Subset<T, EditorAssetAggregateArgs>): Prisma.PrismaPromise<GetEditorAssetAggregateType<T>>
+
+    /**
+     * Group by EditorAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditorAssetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EditorAssetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EditorAssetGroupByArgs['orderBy'] }
+        : { orderBy?: EditorAssetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EditorAssetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEditorAssetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EditorAsset model
+   */
+  readonly fields: EditorAssetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EditorAsset.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EditorAssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EditorAsset model
+   */ 
+  interface EditorAssetFieldRefs {
+    readonly id: FieldRef<"EditorAsset", 'String'>
+    readonly userId: FieldRef<"EditorAsset", 'String'>
+    readonly uploadedBy: FieldRef<"EditorAsset", 'String'>
+    readonly type: FieldRef<"EditorAsset", 'String'>
+    readonly public_id: FieldRef<"EditorAsset", 'String'>
+    readonly url: FieldRef<"EditorAsset", 'String'>
+    readonly preview_url: FieldRef<"EditorAsset", 'String'>
+    readonly tags: FieldRef<"EditorAsset", 'String[]'>
+    readonly asset_folder: FieldRef<"EditorAsset", 'String'>
+    readonly etag: FieldRef<"EditorAsset", 'String'>
+    readonly createdAt: FieldRef<"EditorAsset", 'DateTime'>
+    readonly name: FieldRef<"EditorAsset", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EditorAsset findUnique
+   */
+  export type EditorAssetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter, which EditorAsset to fetch.
+     */
+    where: EditorAssetWhereUniqueInput
+  }
+
+  /**
+   * EditorAsset findUniqueOrThrow
+   */
+  export type EditorAssetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter, which EditorAsset to fetch.
+     */
+    where: EditorAssetWhereUniqueInput
+  }
+
+  /**
+   * EditorAsset findFirst
+   */
+  export type EditorAssetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter, which EditorAsset to fetch.
+     */
+    where?: EditorAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditorAssets to fetch.
+     */
+    orderBy?: EditorAssetOrderByWithRelationInput | EditorAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EditorAssets.
+     */
+    cursor?: EditorAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditorAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditorAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EditorAssets.
+     */
+    distinct?: EditorAssetScalarFieldEnum | EditorAssetScalarFieldEnum[]
+  }
+
+  /**
+   * EditorAsset findFirstOrThrow
+   */
+  export type EditorAssetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter, which EditorAsset to fetch.
+     */
+    where?: EditorAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditorAssets to fetch.
+     */
+    orderBy?: EditorAssetOrderByWithRelationInput | EditorAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EditorAssets.
+     */
+    cursor?: EditorAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditorAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditorAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EditorAssets.
+     */
+    distinct?: EditorAssetScalarFieldEnum | EditorAssetScalarFieldEnum[]
+  }
+
+  /**
+   * EditorAsset findMany
+   */
+  export type EditorAssetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter, which EditorAssets to fetch.
+     */
+    where?: EditorAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditorAssets to fetch.
+     */
+    orderBy?: EditorAssetOrderByWithRelationInput | EditorAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EditorAssets.
+     */
+    cursor?: EditorAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditorAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditorAssets.
+     */
+    skip?: number
+    distinct?: EditorAssetScalarFieldEnum | EditorAssetScalarFieldEnum[]
+  }
+
+  /**
+   * EditorAsset create
+   */
+  export type EditorAssetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * The data needed to create a EditorAsset.
+     */
+    data: XOR<EditorAssetCreateInput, EditorAssetUncheckedCreateInput>
+  }
+
+  /**
+   * EditorAsset createMany
+   */
+  export type EditorAssetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EditorAssets.
+     */
+    data: EditorAssetCreateManyInput | EditorAssetCreateManyInput[]
+  }
+
+  /**
+   * EditorAsset update
+   */
+  export type EditorAssetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * The data needed to update a EditorAsset.
+     */
+    data: XOR<EditorAssetUpdateInput, EditorAssetUncheckedUpdateInput>
+    /**
+     * Choose, which EditorAsset to update.
+     */
+    where: EditorAssetWhereUniqueInput
+  }
+
+  /**
+   * EditorAsset updateMany
+   */
+  export type EditorAssetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EditorAssets.
+     */
+    data: XOR<EditorAssetUpdateManyMutationInput, EditorAssetUncheckedUpdateManyInput>
+    /**
+     * Filter which EditorAssets to update
+     */
+    where?: EditorAssetWhereInput
+  }
+
+  /**
+   * EditorAsset upsert
+   */
+  export type EditorAssetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * The filter to search for the EditorAsset to update in case it exists.
+     */
+    where: EditorAssetWhereUniqueInput
+    /**
+     * In case the EditorAsset found by the `where` argument doesn't exist, create a new EditorAsset with this data.
+     */
+    create: XOR<EditorAssetCreateInput, EditorAssetUncheckedCreateInput>
+    /**
+     * In case the EditorAsset was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EditorAssetUpdateInput, EditorAssetUncheckedUpdateInput>
+  }
+
+  /**
+   * EditorAsset delete
+   */
+  export type EditorAssetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
+    /**
+     * Filter which EditorAsset to delete.
+     */
+    where: EditorAssetWhereUniqueInput
+  }
+
+  /**
+   * EditorAsset deleteMany
+   */
+  export type EditorAssetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EditorAssets to delete
+     */
+    where?: EditorAssetWhereInput
+  }
+
+  /**
+   * EditorAsset findRaw
+   */
+  export type EditorAssetFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * EditorAsset aggregateRaw
+   */
+  export type EditorAssetAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * EditorAsset without action
+   */
+  export type EditorAssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditorAsset
+     */
+    select?: EditorAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditorAsset
+     */
+    omit?: EditorAssetOmit<ExtArgs> | null
   }
 
 
@@ -16512,6 +17600,24 @@ export namespace Prisma {
   export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
 
 
+  export const EditorAssetScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    uploadedBy: 'uploadedBy',
+    type: 'type',
+    public_id: 'public_id',
+    url: 'url',
+    preview_url: 'preview_url',
+    tags: 'tags',
+    asset_folder: 'asset_folder',
+    etag: 'etag',
+    createdAt: 'createdAt',
+    name: 'name'
+  };
+
+  export type EditorAssetScalarFieldEnum = (typeof EditorAssetScalarFieldEnum)[keyof typeof EditorAssetScalarFieldEnum]
+
+
   export const TeamMemberScalarFieldEnum: {
     id: 'id',
     vendorId: 'vendorId',
@@ -17305,6 +18411,94 @@ export namespace Prisma {
     image_urls?: JsonWithAggregatesFilter<"Media">
     video_urls?: JsonWithAggregatesFilter<"Media">
     uploaded_at?: DateTimeWithAggregatesFilter<"Media"> | Date | string
+  }
+
+  export type EditorAssetWhereInput = {
+    AND?: EditorAssetWhereInput | EditorAssetWhereInput[]
+    OR?: EditorAssetWhereInput[]
+    NOT?: EditorAssetWhereInput | EditorAssetWhereInput[]
+    id?: StringFilter<"EditorAsset"> | string
+    userId?: StringNullableFilter<"EditorAsset"> | string | null
+    uploadedBy?: StringFilter<"EditorAsset"> | string
+    type?: StringFilter<"EditorAsset"> | string
+    public_id?: StringFilter<"EditorAsset"> | string
+    url?: StringFilter<"EditorAsset"> | string
+    preview_url?: StringNullableFilter<"EditorAsset"> | string | null
+    tags?: StringNullableListFilter<"EditorAsset">
+    asset_folder?: StringNullableFilter<"EditorAsset"> | string | null
+    etag?: StringFilter<"EditorAsset"> | string
+    createdAt?: DateTimeFilter<"EditorAsset"> | Date | string
+    name?: StringNullableFilter<"EditorAsset"> | string | null
+  }
+
+  export type EditorAssetOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    uploadedBy?: SortOrder
+    type?: SortOrder
+    public_id?: SortOrder
+    url?: SortOrder
+    preview_url?: SortOrder
+    tags?: SortOrder
+    asset_folder?: SortOrder
+    etag?: SortOrder
+    createdAt?: SortOrder
+    name?: SortOrder
+  }
+
+  export type EditorAssetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    public_id?: string
+    userId_etag?: EditorAssetUserIdEtagCompoundUniqueInput
+    AND?: EditorAssetWhereInput | EditorAssetWhereInput[]
+    OR?: EditorAssetWhereInput[]
+    NOT?: EditorAssetWhereInput | EditorAssetWhereInput[]
+    userId?: StringNullableFilter<"EditorAsset"> | string | null
+    uploadedBy?: StringFilter<"EditorAsset"> | string
+    type?: StringFilter<"EditorAsset"> | string
+    url?: StringFilter<"EditorAsset"> | string
+    preview_url?: StringNullableFilter<"EditorAsset"> | string | null
+    tags?: StringNullableListFilter<"EditorAsset">
+    asset_folder?: StringNullableFilter<"EditorAsset"> | string | null
+    etag?: StringFilter<"EditorAsset"> | string
+    createdAt?: DateTimeFilter<"EditorAsset"> | Date | string
+    name?: StringNullableFilter<"EditorAsset"> | string | null
+  }, "id" | "public_id" | "userId_etag">
+
+  export type EditorAssetOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    uploadedBy?: SortOrder
+    type?: SortOrder
+    public_id?: SortOrder
+    url?: SortOrder
+    preview_url?: SortOrder
+    tags?: SortOrder
+    asset_folder?: SortOrder
+    etag?: SortOrder
+    createdAt?: SortOrder
+    name?: SortOrder
+    _count?: EditorAssetCountOrderByAggregateInput
+    _max?: EditorAssetMaxOrderByAggregateInput
+    _min?: EditorAssetMinOrderByAggregateInput
+  }
+
+  export type EditorAssetScalarWhereWithAggregatesInput = {
+    AND?: EditorAssetScalarWhereWithAggregatesInput | EditorAssetScalarWhereWithAggregatesInput[]
+    OR?: EditorAssetScalarWhereWithAggregatesInput[]
+    NOT?: EditorAssetScalarWhereWithAggregatesInput | EditorAssetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EditorAsset"> | string
+    userId?: StringNullableWithAggregatesFilter<"EditorAsset"> | string | null
+    uploadedBy?: StringWithAggregatesFilter<"EditorAsset"> | string
+    type?: StringWithAggregatesFilter<"EditorAsset"> | string
+    public_id?: StringWithAggregatesFilter<"EditorAsset"> | string
+    url?: StringWithAggregatesFilter<"EditorAsset"> | string
+    preview_url?: StringNullableWithAggregatesFilter<"EditorAsset"> | string | null
+    tags?: StringNullableListFilter<"EditorAsset">
+    asset_folder?: StringNullableWithAggregatesFilter<"EditorAsset"> | string | null
+    etag?: StringWithAggregatesFilter<"EditorAsset"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EditorAsset"> | Date | string
+    name?: StringNullableWithAggregatesFilter<"EditorAsset"> | string | null
   }
 
   export type TeamMemberWhereInput = {
@@ -18548,6 +19742,107 @@ export namespace Prisma {
     image_urls?: InputJsonValue | InputJsonValue
     video_urls?: InputJsonValue | InputJsonValue
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EditorAssetCreateInput = {
+    id?: string
+    userId?: string | null
+    uploadedBy: string
+    type: string
+    public_id: string
+    url: string
+    preview_url?: string | null
+    tags?: EditorAssetCreatetagsInput | string[]
+    asset_folder?: string | null
+    etag: string
+    createdAt?: Date | string
+    name?: string | null
+  }
+
+  export type EditorAssetUncheckedCreateInput = {
+    id?: string
+    userId?: string | null
+    uploadedBy: string
+    type: string
+    public_id: string
+    url: string
+    preview_url?: string | null
+    tags?: EditorAssetCreatetagsInput | string[]
+    asset_folder?: string | null
+    etag: string
+    createdAt?: Date | string
+    name?: string | null
+  }
+
+  export type EditorAssetUpdateInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    public_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    preview_url?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: EditorAssetUpdatetagsInput | string[]
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EditorAssetUncheckedUpdateInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    public_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    preview_url?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: EditorAssetUpdatetagsInput | string[]
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EditorAssetCreateManyInput = {
+    id?: string
+    userId?: string | null
+    uploadedBy: string
+    type: string
+    public_id: string
+    url: string
+    preview_url?: string | null
+    tags?: EditorAssetCreatetagsInput | string[]
+    asset_folder?: string | null
+    etag: string
+    createdAt?: Date | string
+    name?: string | null
+  }
+
+  export type EditorAssetUpdateManyMutationInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    public_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    preview_url?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: EditorAssetUpdatetagsInput | string[]
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EditorAssetUncheckedUpdateManyInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    public_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    preview_url?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: EditorAssetUpdatetagsInput | string[]
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TeamMemberCreateInput = {
@@ -19880,6 +21175,54 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type EditorAssetUserIdEtagCompoundUniqueInput = {
+    userId: string
+    etag: string
+  }
+
+  export type EditorAssetCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    uploadedBy?: SortOrder
+    type?: SortOrder
+    public_id?: SortOrder
+    url?: SortOrder
+    preview_url?: SortOrder
+    tags?: SortOrder
+    asset_folder?: SortOrder
+    etag?: SortOrder
+    createdAt?: SortOrder
+    name?: SortOrder
+  }
+
+  export type EditorAssetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    uploadedBy?: SortOrder
+    type?: SortOrder
+    public_id?: SortOrder
+    url?: SortOrder
+    preview_url?: SortOrder
+    asset_folder?: SortOrder
+    etag?: SortOrder
+    createdAt?: SortOrder
+    name?: SortOrder
+  }
+
+  export type EditorAssetMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    uploadedBy?: SortOrder
+    type?: SortOrder
+    public_id?: SortOrder
+    url?: SortOrder
+    preview_url?: SortOrder
+    asset_folder?: SortOrder
+    etag?: SortOrder
+    createdAt?: SortOrder
+    name?: SortOrder
+  }
+
   export type TeamMemberCountOrderByAggregateInput = {
     id?: SortOrder
     vendorId?: SortOrder
@@ -20883,6 +22226,15 @@ export namespace Prisma {
     upsert?: ServiceUpsertWithoutMediaInput
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutMediaInput, ServiceUpdateWithoutMediaInput>, ServiceUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type EditorAssetCreatetagsInput = {
+    set: string[]
+  }
+
+  export type EditorAssetUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type VendorCreateNestedOneWithoutTeam_membersInput = {

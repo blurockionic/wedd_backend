@@ -312,7 +312,7 @@ model Blog {
   id         String      @id @default(cuid())
   title      String      @unique
   status     Status
-  urlTitle   String
+  urlTitle   String      @unique
   coverImage String?
   tags       Tags[]
   content    String
