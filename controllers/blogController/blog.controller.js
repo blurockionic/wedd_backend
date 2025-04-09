@@ -71,7 +71,7 @@ export const getBlogs = async (req, res, next) => {
 };
 // Add a new blog with tags
 export const addBlog = async (req, res, next) => {
-    const { title, tags = [], content, coverImage, status = "DRAFT" } = req.body;
+    const { title, tags = [], content, coverImage, status = "PUBLISHED" } = req.body;
     const authorId = req.user.id;
     
     if (!title || !content) {
