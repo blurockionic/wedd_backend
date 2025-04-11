@@ -33,6 +33,7 @@ export const getBlogs = async (req, res, next) => {
         select: {
           id: true,
           title: true,
+          coverImage: true,
           urlTitle: true,
           status: true,
           createdAt: true,
@@ -488,4 +489,4 @@ export const searchBlogs = async (req, res, next) => {
 
 
 // Middleware for handling single file upload for cover image
-export const uploadCoverImageMiddleware = upload.single("cover_image");
+export const uploadCoverImageMiddleware = upload.single("coverImage");

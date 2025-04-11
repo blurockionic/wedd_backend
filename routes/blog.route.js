@@ -24,7 +24,7 @@ const blogRoutePublic = express.Router();
     blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
     blogRouteAdmin.get("/blogs", bc.getBlogs);
     blogRouteAdmin.post("/blogs", bc.addBlog);
-    blogRouteAdmin.put("/blogs/:id", bc.updateBlog);
+    blogRouteAdmin.patch("/blogs/:id",bc.uploadCoverImageMiddleware , bc.updateBlog);
     blogRouteAdmin.delete("/blogs/:id", bc.deleteBlog);
     blogRouteAdmin.get("/blogs/:urlTitle", bc.getBlogByUrlTitle);
     // Blog-tags routes
