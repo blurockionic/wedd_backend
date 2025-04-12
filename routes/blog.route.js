@@ -9,40 +9,68 @@ const blogRouteAdmin = express.Router();
 const blogRouteUser = express.Router();
 const blogRoutePublic = express.Router();
 
-// 🚀 **Public Routes** (Accessible without authentication)
+
+// 🚀 **Public Routes** (No authentication required)
 {
-    blogRoutePublic.get("/blogs", bc.getBlogs);
-    blogRoutePublic.get("/blogs/:urlTitle", bc.getBlogByUrlTitle);
+    blogRoutePublic.get("/", bc.getBlogs);
+    blogRoutePublic.get("/:urlTitle", bc.getBlogByUrlTitle);
+
+    // Tags-related
     blogRoutePublic.get("/tags", btc.getAllTagsWithBlogInfo);
     blogRoutePublic.get("/tags/:tagName", btc.getTagByName);
-    blogRoutePublic.get("/blogs/tag/:tagName", btc.getBlogsByTag);
-    blogRoutePublic.get("/blog-count", buc.getBlogCount);
+    blogRoutePublic.get("/tag/:tagName", btc.getBlogsByTag);
+
+    // Stats
+    blogRoutePublic.get("/blog-count", buc.getBlogCount); // All, draft, published
 }
 
-// 🔒 **Admin Routes** (Only accessible by authenticated ADMIN users)
+
+// 🔒 **Admin Routes** (Authenticated ADMIN / SUPER_ADMIN only)
 {
     blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
-    blogRouteAdmin.get("/blogs", bc.getBlogs);
-    blogRouteAdmin.post("/blogs", bc.uploadCoverImageMiddleware, bc.addBlog);
-    blogRouteAdmin.patch("/blogs/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
-    blogRouteAdmin.delete("/blogs/:id", bc.deleteBlog);
-    blogRouteAdmin.get("/blogs/:urlTitle", bc.getBlogByUrlTitle);
-    // Blog-tags routes
-    blogRouteUser.get("/tags/:tagName", btc.getTagByName);
-    blogRouteUser.get("/tags", btc.getAllTagsWithBlogInfo);
-    blogRouteUser.get("/blogs/tag/:tagName", btc.getBlogsByTag);
-    blogRouteAdmin.post("/tags", btc.addTag);
+    
+    // Blog CRUD
+    blogRouteAdmin.get("/", bc.getBlogs);
+    blogRouteAdmin.post("/", bc.uploadCoverImageMiddleware, bc.addBlog);
+    blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
+    blogRouteAdmin.delete("/:id", bc.deleteBlog);
+    blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle);
+    
+    // Blog-tag management
+    blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
+    blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
+    blogRouteAdmin.get("/tag/:tagName", btc.getBlogsByTag); //✅
+    blogRouteAdmin.post("/tags", btc.addTag); 
     blogRouteAdmin.delete("/tags", btc.deleteTag);
     blogRouteAdmin.put("/tags/:id", btc.updateTag);
+    
+    // Blog comments
+    blogRouteAdmin.post("/:id/comments", buc.addComment); //✅
+    blogRouteAdmin.delete("/comments/:commentId", buc.deleteComment); //✅
+    
+    //sample-test 
+    blogRouteAdmin.get("/sample/:id/like", buc.sample); //✅
+    
+    // Likes
+    blogRouteAdmin.post("/:id/like", buc.toggleLikeBlog); //✅
+    
+    // Stats
+    blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
+    blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
 }
 
-// 🔑 **User Routes** (Only authenticated users can interact)
+
+// 🔑 **User Routes** (Any authenticated user)
 {
     blogRouteUser.use(jwtAuthentication);
-    blogRouteUser.post("/blogs/:id/comments", buc.addComment);
-    blogRouteUser.delete("/blogs/comments/:commentId", buc.deleteComment);
-    blogRouteUser.post("/blogs/:id/like", buc.toggleLikeBlog);
-    blogRouteUser.get("/blogs/search", bc.searchBlogs);
+    blogRouteUser.get("/:urlTitle", bc.getBlogByUrlTitle);
+    // Interact with blog
+    blogRouteUser.post("/:blogId/comments", buc.addComment);
+    blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
+    blogRouteUser.post("/:blogId/like", buc.toggleLikeBlog);
+
+    // Search
+    blogRouteUser.get("/search", bc.searchBlogs);
 }
 
 export { blogRouteAdmin, blogRouteUser, blogRoutePublic };
