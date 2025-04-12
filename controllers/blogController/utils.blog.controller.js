@@ -1,136 +1,140 @@
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
-import slugify from "slugify";
 
-const postgresPrisma = new PostgresClient();
+const prisma = new PostgresClient();
 
+//sample test route
+export async function sample(req, res){
+  const { id } = req.params;
+  res.status(200).json({ message: 'Sample endpoint', id });
+}
 
-/** * Add a comment to a blog */
-export const addComment = async (req, res, next) => {
-    const { id } = req.params;
-    const { content } = req.body;
-    const authorId = req.user.id;
+// Add a comment to a blog
+export async function addComment(req, res) {
+  const { id } = req.params; console.log(id);
+  const { content } = req.body;
+  const userId = req.user.id;
 
-    try {
-        const blog = await postgresPrisma.blog.findUnique({ where: { id } });
-        if (!blog) return next(new CustomError("Blog not found", 404));
+  if (!id) {
+    return res.status(400).json({ error: 'Blog ID is required' });
+  }
 
-        const comment = await postgresPrisma.comment.create({
-            data: { 
-                content, 
-                authorId, 
-                blogId: id 
-            }
-        });
+  try {
+    const blogExists = await prisma.blog.findUnique({ where: { id } });
 
-        res.status(201).json({ success: true, data: comment });
-    } catch (error) {
-        console.error(error);
-        next(new CustomError("Failed to add comment", 500));
+    if (!blogExists) {
+      return res.status(404).json({ error: 'Blog not found' });
     }
-};
 
-/** * Delete a comment */
-export const deleteComment = async (req, res, next) => {
-    const { commentId } = req.params;
-    const userId = req.user.id;
-
-    try {
-        const comment = await postgresPrisma.comment.findUnique({ 
-            where: { id: commentId } 
-        });
-        
-        if (!comment) return next(new CustomError("Comment not found", 404));
-
-        if (comment.authorId !== userId && req.user.role !== "ADMIN") {
-            return next(new CustomError("Unauthorized to delete this comment", 403));
+    const comment = await prisma.comment.create({
+      data: {
+        content,
+        authorId: userId, // Use only authorId
+        blog: {
+          connect: { id }
         }
+      },
+    });
+    res.status(201).json(comment);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to add comment', details: err.message });
+  }
+}
 
-        await postgresPrisma.comment.delete({ where: { id: commentId } });
-        res.status(204).json({ success: true, message: "Comment deleted", data: null });
-    } catch (error) {
-        console.error(error);
-        next(new CustomError("Failed to delete comment", 500));
+// Delete a comment
+export async function deleteComment(req, res) {
+  const { commentId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const comment = await prisma.comment.findUnique({ where: { id: commentId } });
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
     }
-};
-
-/** * Toggle Like on a Blog */
-export const toggleLikeBlog = async (req, res, next) => {
-    const { id } = req.params;
-    const userId = req.user.id;
-
-    try {
-        const blog = await postgresPrisma.blog.findUnique({ where: { id } });
-        if (!blog) return next(new CustomError("Blog not found", 404));
-      
-        // Check if user already liked the blog
-        const existingLike = await postgresPrisma.likedBlog.findFirst({
-            where: { 
-                userId,
-                blogId: id 
-            }
-        });
-
-        if (existingLike) {
-            // Unlike the blog
-            await postgresPrisma.likedBlog.delete({
-                where: { id: existingLike.id }
-            });
-            
-            await postgresPrisma.blog.update({
-                where: { id },
-                data: { likes: { decrement: 1 } }
-            });
-
-            return res.status(200).json({ success: true, message: "Blog unliked", liked: false });
-        }
-
-        // Like the blog
-        await postgresPrisma.likedBlog.create({ 
-            data: { 
-                userId, 
-                blogId: id 
-            } 
-        });
-
-        await postgresPrisma.blog.update({
-            where: { id },
-            data: { likes: { increment: 1 } }
-        });
-
-        res.status(200).json({ success: true, message: "Blog liked", liked: true });
-    } catch (error) {
-        console.error(error);
-        next(new CustomError("Failed to toggle like on blog", 500));
+    
+    if (comment.authorId !== userId && !req.user.isAdmin) {
+      return res.status(403).json({ error: 'Not authorized to delete this comment' });
     }
-};
 
-/** * Get blog count */
-export const getBlogCount = async (req, res, next) => {
-    try {
-        const blogCount = await postgresPrisma.blog.count();
-        res.status(200).json({ success: true, data: { blogCount } });
-    } catch (error) {
-        console.error(error);
-        next(new CustomError("Failed to fetch blog count", 500));
+    await prisma.comment.delete({ where: { id: commentId } });
+    res.json({ message: 'Comment deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete comment', details: err.message });
+  }
+}
+
+// Toggle like on a blog
+export async function toggleLikeBlog(req, res) {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const existingLike = await prisma.likedBlog.findUnique({
+      where: {
+        userId_blogId: {
+          userId,
+          blogId: id,
+        },
+      },
+    });
+
+    if (existingLike) {
+      await prisma.likedBlog.delete({ 
+        where: { 
+          userId_blogId: { 
+            userId, 
+            blogId: id 
+          } 
+        } 
+      });
+      await prisma.blog.update({
+        where: { id: id },
+        data: { likes: { decrement: 1 } },
+      });
+      return res.json({ message: 'Unliked' });
+    } else {
+      await prisma.likedBlog.create({
+        data: {
+          userId,
+          blogId: id,
+        },
+      });
+      await prisma.blog.update({
+        where: { id: id },
+        data: { likes: { increment: 1 } },
+      });
+      return res.json({ message: 'Liked' });
     }
-};
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to toggle like', details: err.message });
+  }
+}
 
-/** * Get total view count */
-export const getTotalViewCount = async (req, res, next) => {
-    try {
-        const totalViewCount = await postgresPrisma.blog.aggregate({
-            _sum: {
-                viewCount: true
-            }
-        });
+// Get count of blogs (all, draft, published)
+export async function getBlogCount(req, res) {
+  try {
+    const [all, draft, published] = await Promise.all([
+      prisma.blog.count(),
+      prisma.blog.count({ where: { status: 'DRAFT' } }),
+      prisma.blog.count({ where: { status: 'PUBLISHED' } }),
+    ]);
+    res.json({ all, draft, published });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch blog counts', details: err.message });
+  }
+}
 
-        res.status(200).json({
-            success: true,
-            data: { totalViewCount: totalViewCount._sum.viewCount || 0 }
-        });
-    } catch (error) {
-        console.error(error);
-        next(new CustomError("Failed to fetch total view count", 500));
-    }
-};
+// Get total view count of all blogs
+export async function getTotalViewCount(req, res) {
+  console.log("sample");
+  try {
+    const result = await prisma.blog.aggregate({
+      _sum: {
+        viewCount: true,
+      },
+    });
+    res.json({ totalViews: result._sum.viewCount || 0 });
+  } catch (err) {
+  res.status(500).json({ error: 'Failed to fetch total views', details: err.message });
+  }
+}
