@@ -330,7 +330,8 @@ export const getBlogCounts = async (req, res, next) => {
 /** * Update a blog and its tags*/
 export const updateBlog = async (req, res, next) => {
     const { id } = req.params;
-    const { title, tags = [], content, status, coverImage, toggleStatus } = req.body;
+    const { title, content, status, coverImage, toggleStatus } = req.body;
+    const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
     const userId = req.user.id;
   
     try {

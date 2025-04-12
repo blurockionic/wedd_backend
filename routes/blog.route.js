@@ -29,6 +29,10 @@ const blogRoutePublic = express.Router();
 {
     blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
     
+    // Stats
+    blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
+    blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
+
     // Blog CRUD
     blogRouteAdmin.get("/", bc.getBlogs);
     blogRouteAdmin.post("/", bc.uploadCoverImageMiddleware, bc.addBlog);
@@ -53,10 +57,7 @@ const blogRoutePublic = express.Router();
     
     // Likes
     blogRouteAdmin.post("/:id/like", buc.toggleLikeBlog); //✅
-    
-    // Stats
-    blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
-    blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
+      
 }
 
 
