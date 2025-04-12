@@ -131,3 +131,35 @@ const googleLogin = async (req, res, next) => {
 };
 
 export default googleLogin;
+
+
+
+export const checkUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const user = await prisma.User.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        phone_number: true,
+        wedding_location: true,
+        googleUid: true,
+        is_verified: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error checking user:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
