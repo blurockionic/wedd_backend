@@ -11,16 +11,17 @@ export async function sample(req, res){
 
 // Add a comment to a blog
 export async function addComment(req, res) {
-  const { id } = req.params; console.log(id);
+  const { blogId } = req.params; console.log(blogId);
   const { content } = req.body;
   const userId = req.user.id;
+  const userName = req.user.user_name;
 
-  if (!id) {
+  if (!blogId) {
     return res.status(400).json({ error: 'Blog ID is required' });
   }
 
   try {
-    const blogExists = await prisma.blog.findUnique({ where: { id } });
+    const blogExists = await prisma.blog.findUnique({ where: { id: blogId } });
 
     if (!blogExists) {
       return res.status(404).json({ error: 'Blog not found' });
@@ -30,13 +31,15 @@ export async function addComment(req, res) {
       data: {
         content,
         authorId: userId, // Use only authorId
+        // authorName: userName,
         blog: {
-          connect: { id }
+          connect: { id: blogId }
         }
       },
     });
     res.status(201).json(comment);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Failed to add comment', details: err.message });
   }
 }
@@ -65,8 +68,10 @@ export async function deleteComment(req, res) {
 
 // Toggle like on a blog
 export async function toggleLikeBlog(req, res) {
-  const { id } = req.params;
+  const { blogId } = req.params;
+  const id = blogId;
   const userId = req.user.id;
+
 
   try {
     const existingLike = await prisma.likedBlog.findUnique({

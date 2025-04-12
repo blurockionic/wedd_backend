@@ -69,6 +69,7 @@ const blogRoutePublic = express.Router();
     blogRouteUser.post("/:blogId/comments", buc.addComment);
     blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
     blogRouteUser.post("/:blogId/like", buc.toggleLikeBlog);
+    blogRouteUser.get("/", bc.getBlogs);
 
     // Search
     blogRouteUser.get("/search", bc.searchBlogs);
