@@ -28,7 +28,8 @@ const getServiceById = async (req, res, next) => {
             id: true,
             name: true,
             email: true,
-            phone_number: true
+            phone_number: true,
+            business_name: true
           },
         },
         media: {
