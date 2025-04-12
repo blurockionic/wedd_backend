@@ -63,7 +63,7 @@ const blogRoutePublic = express.Router();
 // 🔑 **User Routes** (Any authenticated user)
 {
     blogRouteUser.use(jwtAuthentication);
-
+    blogRouteUser.get("/:urlTitle", bc.getBlogByUrlTitle);
     // Interact with blog
     blogRouteUser.post("/:blogId/comments", buc.addComment);
     blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
