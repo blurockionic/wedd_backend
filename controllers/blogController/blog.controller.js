@@ -53,7 +53,7 @@ export const getBlogs = async (req, res, next) => {
               likedBy: true,
             },
           },
-          // ⚠️ Excludes: content, coverImage
+          // ⚠️ Excludes: content
         },
         orderBy: {
           createdAt: "desc",
@@ -72,7 +72,8 @@ export const getBlogs = async (req, res, next) => {
 };
 // Add a new blog with tags
 export const addBlog = async (req, res, next) => {
-    const { title, tags = [], content, coverImage, status = "PUBLISHED" } = req.body;
+    const { title, content, status = "PUBLISHED" } = req.body;
+    const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
     const authorId = req.user.id;
     
     if (!title || !content) {
@@ -83,9 +84,11 @@ export const addBlog = async (req, res, next) => {
 
     try {
         // Handle cover image upload
+        let coverImage;
         if (req.file) {
-            const coverImage = req.file.path; // Multer saves the file and provides the path
-            req.body.coverImage = coverImage;
+          coverImage = req.file.path; // Multer saves the file and provides the path
+        } else {
+          coverImage = req.body.coverImage;
         }
 
         // Handle tags - create new ones or connect to existing ones
