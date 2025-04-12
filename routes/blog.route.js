@@ -12,13 +12,13 @@ const blogRoutePublic = express.Router();
 
 // 🚀 **Public Routes** (No authentication required)
 {
-    blogRoutePublic.get("/blogs", bc.getBlogs);
-    blogRoutePublic.get("/blogs/:urlTitle", bc.getBlogByUrlTitle);
+    blogRoutePublic.get("/", bc.getBlogs);
+    blogRoutePublic.get("/:urlTitle", bc.getBlogByUrlTitle);
 
     // Tags-related
     blogRoutePublic.get("/tags", btc.getAllTagsWithBlogInfo);
     blogRoutePublic.get("/tags/:tagName", btc.getTagByName);
-    blogRoutePublic.get("/blogs/tag/:tagName", btc.getBlogsByTag);
+    blogRoutePublic.get("/tag/:tagName", btc.getBlogsByTag);
 
     // Stats
     blogRoutePublic.get("/blog-count", buc.getBlogCount); // All, draft, published
@@ -31,28 +31,28 @@ const blogRoutePublic = express.Router();
     
     // Blog CRUD
     blogRouteAdmin.get("/", bc.getBlogs);
-    blogRouteAdmin.post("/blogs", bc.addBlog);
-    blogRouteAdmin.patch("/blogs/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
-    blogRouteAdmin.delete("/blogs/:id", bc.deleteBlog);
-    blogRouteAdmin.get("/blogs/:urlTitle", bc.getBlogByUrlTitle);
+    blogRouteAdmin.post("/", bc.addBlog);
+    blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
+    blogRouteAdmin.delete("/:id", bc.deleteBlog);
+    blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle);
     
     // Blog-tag management
     blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
     blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
-    blogRouteAdmin.get("/blogs/tag/:tagName", btc.getBlogsByTag); //✅
+    blogRouteAdmin.get("/tag/:tagName", btc.getBlogsByTag); //✅
     blogRouteAdmin.post("/tags", btc.addTag); 
     blogRouteAdmin.delete("/tags", btc.deleteTag);
     blogRouteAdmin.put("/tags/:id", btc.updateTag);
     
     // Blog comments
-    blogRouteAdmin.post("/blogs/:id/comments", buc.addComment); //✅
-    blogRouteAdmin.delete("/blogs/comments/:commentId", buc.deleteComment); //✅
+    blogRouteAdmin.post("/:id/comments", buc.addComment); //✅
+    blogRouteAdmin.delete("/comments/:commentId", buc.deleteComment); //✅
     
     //sample-test 
     blogRouteAdmin.get("/sample/:id/like", buc.sample); //✅
     
     // Likes
-    blogRouteAdmin.post("/blogs/:id/like", buc.toggleLikeBlog); //✅
+    blogRouteAdmin.post("/:id/like", buc.toggleLikeBlog); //✅
     
     // Stats
     blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
@@ -65,12 +65,12 @@ const blogRoutePublic = express.Router();
     blogRouteUser.use(jwtAuthentication);
 
     // Interact with blog
-    blogRouteUser.post("/blogs/:blogId/comments", buc.addComment);
-    blogRouteUser.delete("/blogs/comments/:commentId", buc.deleteComment);
-    blogRouteUser.post("/blogs/:blogId/like", buc.toggleLikeBlog);
+    blogRouteUser.post("/:blogId/comments", buc.addComment);
+    blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
+    blogRouteUser.post("/:blogId/like", buc.toggleLikeBlog);
 
     // Search
-    blogRouteUser.get("/blogs/search", bc.searchBlogs);
+    blogRouteUser.get("/search", bc.searchBlogs);
 }
 
 export { blogRouteAdmin, blogRouteUser, blogRoutePublic };
