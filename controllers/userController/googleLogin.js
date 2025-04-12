@@ -26,7 +26,7 @@ const firebaseAuth = getAuth(firebaseApp);
 
 const googleLogin = async (req, res, next) => {
   try {
-    const { googleUid, email, displayName, photoURL, googleIdToken } = req.body;
+    const { googleUid, email, displayName, photoURL, googleIdToken,phone_number,wedding_location } = req.body;
     
     if (!googleIdToken) {
       throw new CustomError("Google ID Token is missing.", 400);
@@ -61,7 +61,13 @@ const googleLogin = async (req, res, next) => {
           where: { email },
           data: { googleUid: verifiedGoogleUid },
         });
+
+
+
       } else if (user.googleUid !== verifiedGoogleUid) {
+
+
+        console.log("Google UID mismatch:", user.googleUid, verifiedGoogleUid);
       
         throw new CustomError("This email is already associated with another Google account.", 400);
       }
@@ -75,10 +81,10 @@ const googleLogin = async (req, res, next) => {
           user_name: displayName || "Google User",
           profile_photo: photoURL, 
           is_verified: true,
-          phone_number: "",
+          phone_number: phone_number||"",
           role: "USER",
           wedding_date: null,
-          wedding_location: "",
+          wedding_location: wedding_location||"",
           password_hash: null, 
         },
       });
