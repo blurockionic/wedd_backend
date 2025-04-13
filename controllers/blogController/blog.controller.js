@@ -26,6 +26,12 @@ export const getBlogs = async (req, res, next) => {
         }),
       };
   
+      // First, get the total count of blogs matching the criteria
+      const totalCount = await postgresPrisma.blog.count({
+        where: whereClause
+      });
+      
+      // Then get the paginated blogs
       const blogs = await postgresPrisma.blog.findMany({
         skip: parseInt(s),
         take: parseInt(t),
@@ -64,6 +70,7 @@ export const getBlogs = async (req, res, next) => {
         success: true,
         data: blogs,
         count: blogs.length,
+        totalCount: totalCount
       });
     } catch (error) {
       console.error("Error fetching blogs:", error);

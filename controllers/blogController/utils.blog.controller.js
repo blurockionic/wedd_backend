@@ -143,3 +143,38 @@ export async function getTotalViewCount(req, res) {
   res.status(500).json({ error: 'Failed to fetch total views', details: err.message });
   }
 }
+
+// Get all comments for a specific blog
+export async function getAllCommentsForBlog(req, res) {
+  const { id } = req.params; // Blog ID
+
+  if (!id) {
+    return res.status(400).json({ error: 'Blog ID is required' });
+  }
+
+  try {
+    const blogExists = await prisma.blog.findUnique({ where: { id } });
+
+    if (!blogExists) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    const comments = await prisma.comment.findMany({
+      where: { blogId: id },
+      include: {
+        author: {
+          select: {
+            id: true,
+            user_name: true,
+            profile_photo: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    res.status(200).json({ success: true, data: comments });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch comments', details: err.message });
+  }
+}
