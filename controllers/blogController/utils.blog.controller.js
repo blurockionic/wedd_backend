@@ -48,14 +48,14 @@ export async function addComment(req, res) {
 export async function deleteComment(req, res) {
   const { commentId } = req.params;
   const userId = req.user.id;
-
+  console.log(req.user.role);
   try {
     const comment = await prisma.comment.findUnique({ where: { id: commentId } });
     if (!comment) {
       return res.status(404).json({ error: 'Comment not found' });
     }
     
-    if (comment.authorId !== userId && !req.user.isAdmin) {
+    if (comment.authorId !== userId && (req.user.role.search(/admin/gi) === -1)) {
       return res.status(403).json({ error: 'Not authorized to delete this comment' });
     }
 
@@ -93,7 +93,7 @@ export async function toggleLikeBlog(req, res) {
         } 
       });
       await prisma.blog.update({
-        where: { id: id },
+        where: { id: blogId },
         data: { likes: { decrement: 1 } },
       });
       return res.json({ message: 'Unliked' });
@@ -101,11 +101,11 @@ export async function toggleLikeBlog(req, res) {
       await prisma.likedBlog.create({
         data: {
           userId,
-          blogId: id,
+          blogId,
         },
       });
       await prisma.blog.update({
-        where: { id: id },
+        where: { id: blogId },
         data: { likes: { increment: 1 } },
       });
       return res.json({ message: 'Liked' });

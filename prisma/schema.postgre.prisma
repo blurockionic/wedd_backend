@@ -343,12 +343,12 @@ enum Status {
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  content   String
-  createdAt DateTime @default(now())
-  blog      Blog     @relation(fields: [blogId], references: [id])
-  blogId    String
-  authorId  String
+  id          String   @id @default(cuid())
+  content     String
+  createdAt   DateTime @default(now())
+  blog        Blog     @relation(fields: [blogId], references: [id])
+  blogId      String
+  authorId    String
 }
 
 model LikedBlog {

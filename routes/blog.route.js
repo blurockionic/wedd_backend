@@ -56,7 +56,7 @@ const blogRoutePublic = express.Router();
     blogRouteAdmin.get("/sample/:id/like", buc.sample); //✅
     
     // Likes
-    blogRouteAdmin.post("/:id/like", buc.toggleLikeBlog); //✅
+    blogRouteAdmin.post("/:blogId/like", buc.toggleLikeBlog); //✅
       
 }
 

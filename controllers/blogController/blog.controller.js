@@ -42,6 +42,7 @@ export const getBlogs = async (req, res, next) => {
           coverImage: true,
           urlTitle: true,
           status: true,
+          content: true,
           createdAt: true,
           updatedAt: true,
           viewCount: true,
@@ -198,12 +199,13 @@ export const deleteBlog = async (req, res, next) => {
         next(new CustomError("Failed to delete blog", 500));
     }
 }; 
-/** * Find a blog by its name */
+
+//get blog by url title!
 export const getBlogByUrlTitle = async (req, res, next) => {
   const { urlTitle } = req.params;
 
   try {
-    // First check if the blog exists
+    // Find blog by urlTitle
     const existingBlog = await postgresPrisma.blog.findUnique({
       where: { urlTitle },
     });
@@ -212,7 +214,7 @@ export const getBlogByUrlTitle = async (req, res, next) => {
       return next(new CustomError("Blog not found", 404));
     }
 
-    // Increment view count and fetch full blog details
+    // Increment view count and fetch blog details
     const blog = await postgresPrisma.blog.update({
       where: { id: existingBlog.id },
       data: {
@@ -220,22 +222,40 @@ export const getBlogByUrlTitle = async (req, res, next) => {
       },
       include: {
         comments: {
-          orderBy: { createdAt: 'desc' }, // Optional: latest comments first
+          orderBy: { createdAt: 'desc' },
         },
         tags: true,
         likedBy: {
           select: {
-            userId: true, // or `id: true` if needed
-          }
+            userId: true,
+          },
         },
-      }
+      },
     });
 
-    // Return enriched response
+    // Fetch user details for each comment based on authorId
+    const enrichedComments = await Promise.all(
+      blog.comments.map(async (comment) => {
+        const author = await postgresPrisma.user.findUnique({
+          where: { id: comment.authorId },
+          select: {
+            user_name: true,
+            profile_photo: true,
+          },
+        });
+
+        return {
+          ...comment,
+          author,
+        };
+      })
+    );
+
     res.status(200).json({
       success: true,
       data: {
         ...blog,
+        comments: enrichedComments,
         likeCount: blog.likedBy.length,
         commentCount: blog.comments.length,
       },
@@ -247,45 +267,7 @@ export const getBlogByUrlTitle = async (req, res, next) => {
   }
 };
 
-// export const getBlogByUrlTitle = async (req, res, next) => {
-//     const { urlTitle } = req.params;
-    
-//     try {
-//         // First find the blog without incrementing to check if it exists
-//         const existingBlog = await postgresPrisma.blog.findUnique({
-//             where: { 
-//                 urlTitle: urlTitle,
-//             }
-//         });
-
-//         if (!existingBlog) {
-//             return next(new CustomError("Blog not found", 404));
-//         }
-
-//         // Then update the view count and get the full blog data
-//         const blog = await postgresPrisma.blog.update({
-//             where: { id: existingBlog.id },
-//             data: { viewCount: { increment: 1 } },
-//             include: {
-//                 _count: {
-//                     select: {
-//                         likedBy: true
-//                     }
-//                 }
-//             }
-//         });
-
-//         res.status(200).json({
-//             success: true,
-//             data: blog
-//         });
-
-//     } catch (error) {
-//         console.error("Error fetching blog by urlTitle:", error);
-//         next(new CustomError("Failed to fetch blog", 500));
-//     }
-// }
-// get blogs by id
+// get blog by id
 export const getBlogById = async (req, res, next) => {
     const { id } = req.params;
     console.log(id);
@@ -313,6 +295,7 @@ export const getBlogById = async (req, res, next) => {
         next(new CustomError("Failed to fetch blog by ID", 500));
     }
 }
+
 // get count of blog - all, published, draft
 export const getBlogCounts = async (req, res, next) => {
     try {
