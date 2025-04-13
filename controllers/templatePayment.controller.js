@@ -1,10 +1,52 @@
 import { log } from "console";
 import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
 import { instance } from "./payment/payment.js";
-
 const prisma = new PostgresClient();
 
 import crypto from "crypto";
+
+export const templatePaymentStatus = async (req, res) => {
+  try {
+    const { templateId } = req.params;
+    const { id: userId } = req.user;
+
+    if (!templateId || !userId) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid request parameters",
+        paymentStatus: "unpaid",
+        paymentDetail: null,
+      });
+    }
+
+    const payment = await prisma.PaymentDetails.findFirst({
+      where: {
+        templateId,
+        userId,
+        paymentStatus: "successful",
+      },
+      orderBy: {
+        purchasedAt: "desc",
+      },
+    });
+
+    const isPaid = payment && payment.paymentStatus === "successful";
+    return res.status(200).json({
+      success: true,
+      message: isPaid ? "Payment found" : "No successful payment found",
+      paymentStatus: isPaid ? "paid" : "unpaid",
+      paymentDetail: payment || null,
+    });
+  } catch (error) {
+    console.error("Error fetching payment status:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      paymentStatus: "unpaid",
+      paymentDetail: null,
+    });
+  }
+};
 
 export const createPayment = async (req, res) => {
   try {
@@ -104,11 +146,11 @@ export const verifyPayment = async (req, res) => {
     console.log("Razorpay Response:", razorpayRes);
 
     try {
-      const [ updatedPayment] = await prisma.$transaction([
+      const [updatedPayment] = await prisma.$transaction([
         prisma.PaymentDetails.update({
-          where: {orderId: order_id },
+          where: { orderId: order_id },
           data: {
-            paymentId:payment_id,
+            paymentId: payment_id,
             razorpayResponse: razorpayRes || {},
             paymentStatus: "successful",
             orderStatus: "completed",

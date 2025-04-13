@@ -100,11 +100,7 @@ export const getPlan = async (req, res, next) => {
     
 
     const plan = await mongoPrisma.Plan.findMany({
-      where: {
-        OR: [
-          { trial_period: 0 },        
-        ],
-      },
+      where: { trial_period: 0 },      
     });
 
     if (!plan) {

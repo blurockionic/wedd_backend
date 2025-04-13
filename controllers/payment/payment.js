@@ -92,7 +92,7 @@ export const createOrder = async (req, res, next) => {
         start_date: startDate,
         end_date: endDate,
         trial_end_date: trialEndDate,
-        is_trial: isTrial,
+        is_trial: !!isTrial,
         auto_renew: true,
       },
     });

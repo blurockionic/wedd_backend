@@ -27,16 +27,11 @@ const verifyEmail = async (req, res, next) => {
     });
 
     if (!entity) {
-      return res
-        .status(400)
-        .json({ message: `${entityLower} not found or invalid token.` });
+      return res.status(400).send(renderHtmlPage("Verification Failed", "User not found or invalid token."));
     }
 
-    // Check if already verified
     if (entity.is_verified) {
-      return res
-        .status(200)
-        .json({ message: `${entityLower} email is already verified.` });
+      return res.status(200).send(renderHtmlPage("Already Verified", `Your ${entityLower} email is already verified.`));
     }
 
     // Update verification status
@@ -49,20 +44,10 @@ const verifyEmail = async (req, res, next) => {
       await activateTrialSubscription(entity.id);
     }
 
-    res
-      .status(200)
-      .send(`
-        <html>
-          <head><title>Email Verification</title></head>
-          <body style="text-align: center;">
-            <h2>Email Verified Successfully</h2>
-            <p>Your email has been verified.</p>
-          </body>
-        </html>
-      `);
+    return res.status(200).send(renderHtmlPage("Email Verified", "Your email has been successfully verified."));
   } catch (error) {
     console.error("Error during email verification:", error.message);
-    return next(new CustomError(`Verification failed: ${error.message}`, 400));
+    return res.status(400).send(renderHtmlPage("Verification Failed", error.message));
   }
 };
 
@@ -108,10 +93,46 @@ const activateTrialSubscription = async (vendorId) => {
       order_id: `TRIAL-${vendorId}`,
     },
   });
-
-
-
   console.log("Trial subscription activated for vendor:",trialEndDate);
 };
 
 export default verifyEmail;
+
+const renderHtmlPage = (title, message) => {
+  return `
+    <html>
+      <head>
+        <title>${title}</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+          }
+          .container {
+            max-width: 600px;
+            margin: 100px auto;
+            background: #fff;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          }
+          h2 {
+            color: #4CAF50;
+          }
+          p {
+            font-size: 18px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h2>${title}</h2>
+          <p>${message}</p>
+        </div>
+      </body>
+    </html>
+  `;
+};

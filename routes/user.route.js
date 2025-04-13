@@ -9,7 +9,7 @@ import requestPasswordReset from '../controllers/userController/requestPasswordR
 import { resetPassword } from '../controllers/userController/resetPassword.js';
 import deleteUserAccount from '../controllers/userController/deleteAccount.js';
 import updateUser, { uploadMiddleware } from '../controllers/userController/update.js';
-import googleLogin from '../controllers/userController/googleLogin.js';
+import googleLogin, { checkUserByEmail } from '../controllers/userController/googleLogin.js';
 
 const UserRouter = express.Router();
 
@@ -24,5 +24,6 @@ UserRouter.route("/request-password-reset").post(requestPasswordReset)
 UserRouter.route("/reset-password").post(resetPassword)
 UserRouter.route("/delete-user").delete(jwtAuthentication,deleteUserAccount)
 UserRouter.route("/").patch(jwtAuthentication,uploadMiddleware, updateUser)
+UserRouter.route("/check-for-phone").get(checkUserByEmail)
 
 export default UserRouter;

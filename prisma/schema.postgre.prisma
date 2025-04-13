@@ -181,6 +181,9 @@ model PaymentDetails {
 
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+
+    @@unique([templateId, userId])  
 }
 
 

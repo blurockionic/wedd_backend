@@ -26,8 +26,16 @@ const firebaseAuth = getAuth(firebaseApp);
 
 const googleLogin = async (req, res, next) => {
   try {
-    const { googleUid, email, displayName, photoURL, googleIdToken } = req.body;
-    
+    const {
+      googleUid,
+      email,
+      displayName,
+      photoURL,
+      googleIdToken,
+      phone_number,
+      wedding_location,
+    } = req.body;
+
     if (!googleIdToken) {
       throw new CustomError("Google ID Token is missing.", 400);
     }
@@ -47,7 +55,7 @@ const googleLogin = async (req, res, next) => {
     }
     const verifiedGoogleUid = decodedToken.uid;
 
-  //verify user gamil exist or not
+    //verify user gamil exist or not
     let user = await prisma.User.findUnique({
       where: { email },
     });
@@ -56,30 +64,32 @@ const googleLogin = async (req, res, next) => {
 
     if (user) {
       if (!user.googleUid) {
-       
         user = await prisma.User.update({
           where: { email },
           data: { googleUid: verifiedGoogleUid },
         });
       } else if (user.googleUid !== verifiedGoogleUid) {
-      
-        throw new CustomError("This email is already associated with another Google account.", 400);
+        console.log("Google UID mismatch:", user.googleUid, verifiedGoogleUid);
+
+        throw new CustomError(
+          "This email is already associated with another Google account.",
+          400
+        );
       }
     } else {
-     
       isNewUser = true;
       user = await prisma.User.create({
         data: {
           googleUid: verifiedGoogleUid,
           email,
           user_name: displayName || "Google User",
-          profile_photo: photoURL, 
+          profile_photo: photoURL,
           is_verified: true,
-          phone_number: "",
+          phone_number: phone_number || "",
           role: "USER",
           wedding_date: null,
-          wedding_location: "",
-          password_hash: null, 
+          wedding_location: wedding_location || "",
+          password_hash: null,
         },
       });
     }
@@ -97,17 +107,23 @@ const googleLogin = async (req, res, next) => {
       ...sanitizedUser
     } = user;
 
-    // update refersh data
-    
-    await prisma.User.update({
-        where: { googleUid: user.googleUid },
-        data: {
-            refresh_Token : refreshToken,
-        },
-      });
-      
+    const updateData = {
+      refresh_Token: refreshToken, // always update
+    };
 
+    if (!user.phone_number && phone_number?.trim()) {
+      updateData.phone_number = phone_number.trim();
+    }
     
+    if (!user.wedding_location && wedding_location?.trim()) {
+      updateData.wedding_location = wedding_location.trim();
+    }
+  
+      await prisma.User.update({
+        where: { googleUid: user.googleUid },
+        data: updateData,
+      });
+
     const cookieOptions = {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
@@ -121,7 +137,9 @@ const googleLogin = async (req, res, next) => {
       .status(200)
       .json({
         success: true,
-        message: isNewUser ? "Google Signup successful" : "Google Login successful",
+        message: isNewUser
+          ? "Google Signup successful"
+          : "Google Login successful",
         accessToken,
         user: { ...user, password_hash: undefined },
       });
@@ -131,3 +149,33 @@ const googleLogin = async (req, res, next) => {
 };
 
 export default googleLogin;
+
+export const checkUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const user = await prisma.User.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        phone_number: true,
+        wedding_location: true,
+        googleUid: true,
+        is_verified: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error checking user:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
