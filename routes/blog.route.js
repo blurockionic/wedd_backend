@@ -49,7 +49,7 @@ const blogRoutePublic = express.Router();
     blogRouteAdmin.put("/tags/:id", btc.updateTag);
     
     // Blog comments
-    blogRouteAdmin.post("/:id/comments", buc.addComment); //✅
+    blogRouteAdmin.post("/:blogId/comments", buc.addComment); //✅
     blogRouteAdmin.delete("/comments/:commentId", buc.deleteComment); //✅
     
     //sample-test 

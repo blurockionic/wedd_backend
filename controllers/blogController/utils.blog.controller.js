@@ -11,7 +11,8 @@ export async function sample(req, res){
 
 // Add a comment to a blog
 export async function addComment(req, res) {
-  const { id } = req.params;
+  const { blogId } = req.params;
+  const id = blogId;
   const { content } = req.body;
   const userId = req.user.id;
   const userName = req.user.user_name;
@@ -29,7 +30,7 @@ export async function addComment(req, res) {
 
     const comment = await prisma.comment.create({
       data: {
-        content,
+        content: content,
         authorId: userId, // Use only authorId
         // authorName: userName,
         blog: {
