@@ -11,17 +11,17 @@ export async function sample(req, res){
 
 // Add a comment to a blog
 export async function addComment(req, res) {
-  const { blogId } = req.params; console.log(blogId);
+  const { id } = req.params;
   const { content } = req.body;
   const userId = req.user.id;
   const userName = req.user.user_name;
 
-  if (!blogId) {
+  if (!id) {
     return res.status(400).json({ error: 'Blog ID is required' });
   }
 
   try {
-    const blogExists = await prisma.blog.findUnique({ where: { id: blogId } });
+    const blogExists = await prisma.blog.findUnique({ where: { id } });
 
     if (!blogExists) {
       return res.status(404).json({ error: 'Blog not found' });
@@ -33,7 +33,7 @@ export async function addComment(req, res) {
         authorId: userId, // Use only authorId
         // authorName: userName,
         blog: {
-          connect: { id: blogId }
+          connect: { id: id }
         }
       },
     });
