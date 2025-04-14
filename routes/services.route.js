@@ -25,7 +25,7 @@ const serviceRouter = express.Router();
 serviceRouter.route("/").get(getAllServices)
 serviceRouter.get("/get-location",getServiceLocations)
 serviceRouter.route("/getMostViewedServices").get(getMostViewedServices)
-serviceRouter.route("/:id").get(jwtAuthentication,getServiceById);
+serviceRouter.route("/:id").get(getServiceById);
 serviceRouter.route("/service_by_VendorId/:id").get(getAllServicesByVendorId)
 serviceRouter.route("/makeLead/:id").put(jwtAuthentication,roleMiddleware(["user"]),makeLead)
 serviceRouter.route("/feedback/:id/").post(jwtAuthentication,roleMiddleware(["user"]),feedback)
