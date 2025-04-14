@@ -116,6 +116,24 @@ model Media {
   uploaded_at DateTime @default(now())
 }
 
+model EditorAsset {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String?
+  uploadedBy   String // 'user' or 'admin'
+  type         String
+  public_id    String   @unique
+  url          String
+  preview_url  String?
+  tags         String[]
+  asset_folder String?
+  etag         String
+  createdAt    DateTime @default(now())
+  name         String?
+
+  @@unique([userId, etag])
+  @@index([createdAt])
+}
+
 model TeamMember {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   vendorId     String   @db.ObjectId

@@ -64,11 +64,6 @@ export type SubEventVendors = $Result.DefaultSelection<Prisma.$SubEventVendorsPa
  */
 export type SubEventTask = $Result.DefaultSelection<Prisma.$SubEventTaskPayload>
 /**
- * Model OrderDetails
- * 
- */
-export type OrderDetails = $Result.DefaultSelection<Prisma.$OrderDetailsPayload>
-/**
  * Model PaymentDetails
  * 
  */
@@ -94,6 +89,11 @@ export type Guest = $Result.DefaultSelection<Prisma.$GuestPayload>
  */
 export type InvitationTemplate = $Result.DefaultSelection<Prisma.$InvitationTemplatePayload>
 /**
+ * Model TemplateWatchHistory
+ * 
+ */
+export type TemplateWatchHistory = $Result.DefaultSelection<Prisma.$TemplateWatchHistoryPayload>
+/**
  * Model UserDataTemplate
  * 
  */
@@ -103,6 +103,11 @@ export type UserDataTemplate = $Result.DefaultSelection<Prisma.$UserDataTemplate
  * 
  */
 export type Blog = $Result.DefaultSelection<Prisma.$BlogPayload>
+/**
+ * Model Tags
+ * 
+ */
+export type Tags = $Result.DefaultSelection<Prisma.$TagsPayload>
 /**
  * Model Comment
  * 
@@ -154,12 +159,51 @@ export const GuestStatus: {
 export type GuestStatus = (typeof GuestStatus)[keyof typeof GuestStatus]
 
 
-export const template_category: {
-  FREE: 'FREE',
-  PREMIUM: 'PREMIUM'
+export const TemplateStatus: {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
 };
 
-export type template_category = (typeof template_category)[keyof typeof template_category]
+export type TemplateStatus = (typeof TemplateStatus)[keyof typeof TemplateStatus]
+
+
+export const CategoryByAmount: {
+  FREE: 'FREE',
+  PAID: 'PAID'
+};
+
+export type CategoryByAmount = (typeof CategoryByAmount)[keyof typeof CategoryByAmount]
+
+
+export const CategoryByMood: {
+  BIRTHDAY: 'BIRTHDAY',
+  ROMANCE: 'ROMANCE',
+  WEDDING: 'WEDDING',
+  ANNIVERSARY: 'ANNIVERSARY',
+  CORPORATE: 'CORPORATE',
+  LOVE: 'LOVE',
+  COUPLE: 'COUPLE'
+};
+
+export type CategoryByMood = (typeof CategoryByMood)[keyof typeof CategoryByMood]
+
+
+export const CategoryByRequirement: {
+  HOT: 'HOT',
+  POPULAR: 'POPULAR',
+  LATEST: 'LATEST'
+};
+
+export type CategoryByRequirement = (typeof CategoryByRequirement)[keyof typeof CategoryByRequirement]
+
+
+export const Status: {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
 
 }
 
@@ -179,9 +223,25 @@ export type GuestStatus = $Enums.GuestStatus
 
 export const GuestStatus: typeof $Enums.GuestStatus
 
-export type template_category = $Enums.template_category
+export type TemplateStatus = $Enums.TemplateStatus
 
-export const template_category: typeof $Enums.template_category
+export const TemplateStatus: typeof $Enums.TemplateStatus
+
+export type CategoryByAmount = $Enums.CategoryByAmount
+
+export const CategoryByAmount: typeof $Enums.CategoryByAmount
+
+export type CategoryByMood = $Enums.CategoryByMood
+
+export const CategoryByMood: typeof $Enums.CategoryByMood
+
+export type CategoryByRequirement = $Enums.CategoryByRequirement
+
+export const CategoryByRequirement: typeof $Enums.CategoryByRequirement
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -409,16 +469,6 @@ export class PrismaClient<
   get subEventTask(): Prisma.SubEventTaskDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.orderDetails`: Exposes CRUD operations for the **OrderDetails** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more OrderDetails
-    * const orderDetails = await prisma.orderDetails.findMany()
-    * ```
-    */
-  get orderDetails(): Prisma.OrderDetailsDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.paymentDetails`: Exposes CRUD operations for the **PaymentDetails** model.
     * Example usage:
     * ```ts
@@ -469,6 +519,16 @@ export class PrismaClient<
   get invitationTemplate(): Prisma.InvitationTemplateDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.templateWatchHistory`: Exposes CRUD operations for the **TemplateWatchHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TemplateWatchHistories
+    * const templateWatchHistories = await prisma.templateWatchHistory.findMany()
+    * ```
+    */
+  get templateWatchHistory(): Prisma.TemplateWatchHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.userDataTemplate`: Exposes CRUD operations for the **UserDataTemplate** model.
     * Example usage:
     * ```ts
@@ -487,6 +547,16 @@ export class PrismaClient<
     * ```
     */
   get blog(): Prisma.BlogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tags`: Exposes CRUD operations for the **Tags** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tags
+    * const tags = await prisma.tags.findMany()
+    * ```
+    */
+  get tags(): Prisma.TagsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
@@ -957,14 +1027,15 @@ export namespace Prisma {
     SubEvent: 'SubEvent',
     SubEventVendors: 'SubEventVendors',
     SubEventTask: 'SubEventTask',
-    OrderDetails: 'OrderDetails',
     PaymentDetails: 'PaymentDetails',
     Review: 'Review',
     EventSchedule: 'EventSchedule',
     Guest: 'Guest',
     InvitationTemplate: 'InvitationTemplate',
+    TemplateWatchHistory: 'TemplateWatchHistory',
     UserDataTemplate: 'UserDataTemplate',
     Blog: 'Blog',
+    Tags: 'Tags',
     Comment: 'Comment',
     LikedBlog: 'LikedBlog'
   };
@@ -982,7 +1053,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "booking" | "cart" | "checklist" | "event" | "eventVendors" | "eventTask" | "subEvent" | "subEventVendors" | "subEventTask" | "orderDetails" | "paymentDetails" | "review" | "eventSchedule" | "guest" | "invitationTemplate" | "userDataTemplate" | "blog" | "comment" | "likedBlog"
+      modelProps: "user" | "booking" | "cart" | "checklist" | "event" | "eventVendors" | "eventTask" | "subEvent" | "subEventVendors" | "subEventTask" | "paymentDetails" | "review" | "eventSchedule" | "guest" | "invitationTemplate" | "templateWatchHistory" | "userDataTemplate" | "blog" | "tags" | "comment" | "likedBlog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1726,80 +1797,6 @@ export namespace Prisma {
           }
         }
       }
-      OrderDetails: {
-        payload: Prisma.$OrderDetailsPayload<ExtArgs>
-        fields: Prisma.OrderDetailsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.OrderDetailsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.OrderDetailsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          findFirst: {
-            args: Prisma.OrderDetailsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.OrderDetailsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          findMany: {
-            args: Prisma.OrderDetailsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>[]
-          }
-          create: {
-            args: Prisma.OrderDetailsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          createMany: {
-            args: Prisma.OrderDetailsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.OrderDetailsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>[]
-          }
-          delete: {
-            args: Prisma.OrderDetailsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          update: {
-            args: Prisma.OrderDetailsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          deleteMany: {
-            args: Prisma.OrderDetailsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.OrderDetailsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.OrderDetailsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>[]
-          }
-          upsert: {
-            args: Prisma.OrderDetailsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$OrderDetailsPayload>
-          }
-          aggregate: {
-            args: Prisma.OrderDetailsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateOrderDetails>
-          }
-          groupBy: {
-            args: Prisma.OrderDetailsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<OrderDetailsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.OrderDetailsCountArgs<ExtArgs>
-            result: $Utils.Optional<OrderDetailsCountAggregateOutputType> | number
-          }
-        }
-      }
       PaymentDetails: {
         payload: Prisma.$PaymentDetailsPayload<ExtArgs>
         fields: Prisma.PaymentDetailsFieldRefs
@@ -2170,6 +2167,80 @@ export namespace Prisma {
           }
         }
       }
+      TemplateWatchHistory: {
+        payload: Prisma.$TemplateWatchHistoryPayload<ExtArgs>
+        fields: Prisma.TemplateWatchHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TemplateWatchHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TemplateWatchHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.TemplateWatchHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TemplateWatchHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.TemplateWatchHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.TemplateWatchHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.TemplateWatchHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TemplateWatchHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.TemplateWatchHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          update: {
+            args: Prisma.TemplateWatchHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.TemplateWatchHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TemplateWatchHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TemplateWatchHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.TemplateWatchHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateWatchHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.TemplateWatchHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTemplateWatchHistory>
+          }
+          groupBy: {
+            args: Prisma.TemplateWatchHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TemplateWatchHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TemplateWatchHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<TemplateWatchHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
       UserDataTemplate: {
         payload: Prisma.$UserDataTemplatePayload<ExtArgs>
         fields: Prisma.UserDataTemplateFieldRefs
@@ -2315,6 +2386,80 @@ export namespace Prisma {
           count: {
             args: Prisma.BlogCountArgs<ExtArgs>
             result: $Utils.Optional<BlogCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tags: {
+        payload: Prisma.$TagsPayload<ExtArgs>
+        fields: Prisma.TagsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TagsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TagsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          findFirst: {
+            args: Prisma.TagsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TagsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          findMany: {
+            args: Prisma.TagsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>[]
+          }
+          create: {
+            args: Prisma.TagsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          createMany: {
+            args: Prisma.TagsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TagsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>[]
+          }
+          delete: {
+            args: Prisma.TagsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          update: {
+            args: Prisma.TagsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          deleteMany: {
+            args: Prisma.TagsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TagsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TagsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>[]
+          }
+          upsert: {
+            args: Prisma.TagsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagsPayload>
+          }
+          aggregate: {
+            args: Prisma.TagsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTags>
+          }
+          groupBy: {
+            args: Prisma.TagsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TagsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TagsCountArgs<ExtArgs>
+            result: $Utils.Optional<TagsCountAggregateOutputType> | number
           }
         }
       }
@@ -2560,14 +2705,15 @@ export namespace Prisma {
     subEvent?: SubEventOmit
     subEventVendors?: SubEventVendorsOmit
     subEventTask?: SubEventTaskOmit
-    orderDetails?: OrderDetailsOmit
     paymentDetails?: PaymentDetailsOmit
     review?: ReviewOmit
     eventSchedule?: EventScheduleOmit
     guest?: GuestOmit
     invitationTemplate?: InvitationTemplateOmit
+    templateWatchHistory?: TemplateWatchHistoryOmit
     userDataTemplate?: UserDataTemplateOmit
     blog?: BlogOmit
+    tags?: TagsOmit
     comment?: CommentOmit
     likedBlog?: LikedBlogOmit
   }
@@ -2670,10 +2816,11 @@ export namespace Prisma {
     checklists: number
     guests: number
     paymentDetails: number
-    orderDetails: number
     userDataTemplate: number
     event: number
     likedBlogs: number
+    invitationTemplate: number
+    watchHistory: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2683,10 +2830,11 @@ export namespace Prisma {
     checklists?: boolean | UserCountOutputTypeCountChecklistsArgs
     guests?: boolean | UserCountOutputTypeCountGuestsArgs
     paymentDetails?: boolean | UserCountOutputTypeCountPaymentDetailsArgs
-    orderDetails?: boolean | UserCountOutputTypeCountOrderDetailsArgs
     userDataTemplate?: boolean | UserCountOutputTypeCountUserDataTemplateArgs
     event?: boolean | UserCountOutputTypeCountEventArgs
     likedBlogs?: boolean | UserCountOutputTypeCountLikedBlogsArgs
+    invitationTemplate?: boolean | UserCountOutputTypeCountInvitationTemplateArgs
+    watchHistory?: boolean | UserCountOutputTypeCountWatchHistoryArgs
   }
 
   // Custom InputTypes
@@ -2745,13 +2893,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountOrderDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderDetailsWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountUserDataTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserDataTemplateWhereInput
   }
@@ -2768,6 +2909,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLikedBlogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LikedBlogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountInvitationTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationTemplateWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWatchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateWatchHistoryWhereInput
   }
 
 
@@ -2866,12 +3021,12 @@ export namespace Prisma {
 
   export type InvitationTemplateCountOutputType = {
     paymentDetails: number
-    orderDetails: number
+    watchHistory: number
   }
 
   export type InvitationTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paymentDetails?: boolean | InvitationTemplateCountOutputTypeCountPaymentDetailsArgs
-    orderDetails?: boolean | InvitationTemplateCountOutputTypeCountOrderDetailsArgs
+    watchHistory?: boolean | InvitationTemplateCountOutputTypeCountWatchHistoryArgs
   }
 
   // Custom InputTypes
@@ -2895,8 +3050,8 @@ export namespace Prisma {
   /**
    * InvitationTemplateCountOutputType without action
    */
-  export type InvitationTemplateCountOutputTypeCountOrderDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderDetailsWhereInput
+  export type InvitationTemplateCountOutputTypeCountWatchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateWatchHistoryWhereInput
   }
 
 
@@ -2905,11 +3060,13 @@ export namespace Prisma {
    */
 
   export type BlogCountOutputType = {
+    tags: number
     comments: number
     likedBy: number
   }
 
   export type BlogCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tags?: boolean | BlogCountOutputTypeCountTagsArgs
     comments?: boolean | BlogCountOutputTypeCountCommentsArgs
     likedBy?: boolean | BlogCountOutputTypeCountLikedByArgs
   }
@@ -2928,6 +3085,13 @@ export namespace Prisma {
   /**
    * BlogCountOutputType without action
    */
+  export type BlogCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TagsWhereInput
+  }
+
+  /**
+   * BlogCountOutputType without action
+   */
   export type BlogCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommentWhereInput
   }
@@ -2937,6 +3101,37 @@ export namespace Prisma {
    */
   export type BlogCountOutputTypeCountLikedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LikedBlogWhereInput
+  }
+
+
+  /**
+   * Count Type TagsCountOutputType
+   */
+
+  export type TagsCountOutputType = {
+    blogs: number
+  }
+
+  export type TagsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blogs?: boolean | TagsCountOutputTypeCountBlogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TagsCountOutputType without action
+   */
+  export type TagsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TagsCountOutputType
+     */
+    select?: TagsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TagsCountOutputType without action
+   */
+  export type TagsCountOutputTypeCountBlogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlogWhereInput
   }
 
 
@@ -3194,10 +3389,11 @@ export namespace Prisma {
     checklists?: boolean | User$checklistsArgs<ExtArgs>
     guests?: boolean | User$guestsArgs<ExtArgs>
     paymentDetails?: boolean | User$paymentDetailsArgs<ExtArgs>
-    orderDetails?: boolean | User$orderDetailsArgs<ExtArgs>
     userDataTemplate?: boolean | User$userDataTemplateArgs<ExtArgs>
     event?: boolean | User$eventArgs<ExtArgs>
     likedBlogs?: boolean | User$likedBlogsArgs<ExtArgs>
+    invitationTemplate?: boolean | User$invitationTemplateArgs<ExtArgs>
+    watchHistory?: boolean | User$watchHistoryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3263,10 +3459,11 @@ export namespace Prisma {
     checklists?: boolean | User$checklistsArgs<ExtArgs>
     guests?: boolean | User$guestsArgs<ExtArgs>
     paymentDetails?: boolean | User$paymentDetailsArgs<ExtArgs>
-    orderDetails?: boolean | User$orderDetailsArgs<ExtArgs>
     userDataTemplate?: boolean | User$userDataTemplateArgs<ExtArgs>
     event?: boolean | User$eventArgs<ExtArgs>
     likedBlogs?: boolean | User$likedBlogsArgs<ExtArgs>
+    invitationTemplate?: boolean | User$invitationTemplateArgs<ExtArgs>
+    watchHistory?: boolean | User$watchHistoryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3281,10 +3478,11 @@ export namespace Prisma {
       checklists: Prisma.$ChecklistPayload<ExtArgs>[]
       guests: Prisma.$GuestPayload<ExtArgs>[]
       paymentDetails: Prisma.$PaymentDetailsPayload<ExtArgs>[]
-      orderDetails: Prisma.$OrderDetailsPayload<ExtArgs>[]
       userDataTemplate: Prisma.$UserDataTemplatePayload<ExtArgs>[]
       event: Prisma.$EventPayload<ExtArgs>[]
       likedBlogs: Prisma.$LikedBlogPayload<ExtArgs>[]
+      invitationTemplate: Prisma.$InvitationTemplatePayload<ExtArgs>[]
+      watchHistory: Prisma.$TemplateWatchHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3702,10 +3900,11 @@ export namespace Prisma {
     checklists<T extends User$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, User$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     guests<T extends User$guestsArgs<ExtArgs> = {}>(args?: Subset<T, User$guestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GuestPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     paymentDetails<T extends User$paymentDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentDetailsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    orderDetails<T extends User$orderDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$orderDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     userDataTemplate<T extends User$userDataTemplateArgs<ExtArgs> = {}>(args?: Subset<T, User$userDataTemplateArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDataTemplatePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     event<T extends User$eventArgs<ExtArgs> = {}>(args?: Subset<T, User$eventArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     likedBlogs<T extends User$likedBlogsArgs<ExtArgs> = {}>(args?: Subset<T, User$likedBlogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikedBlogPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    invitationTemplate<T extends User$invitationTemplateArgs<ExtArgs> = {}>(args?: Subset<T, User$invitationTemplateArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationTemplatePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    watchHistory<T extends User$watchHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$watchHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4270,30 +4469,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.orderDetails
-   */
-  export type User$orderDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    where?: OrderDetailsWhereInput
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    cursor?: OrderDetailsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrderDetailsScalarFieldEnum | OrderDetailsScalarFieldEnum[]
-  }
-
-  /**
    * User.userDataTemplate
    */
   export type User$userDataTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4363,6 +4538,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LikedBlogScalarFieldEnum | LikedBlogScalarFieldEnum[]
+  }
+
+  /**
+   * User.invitationTemplate
+   */
+  export type User$invitationTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvitationTemplate
+     */
+    select?: InvitationTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvitationTemplate
+     */
+    omit?: InvitationTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationTemplateInclude<ExtArgs> | null
+    where?: InvitationTemplateWhereInput
+    orderBy?: InvitationTemplateOrderByWithRelationInput | InvitationTemplateOrderByWithRelationInput[]
+    cursor?: InvitationTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvitationTemplateScalarFieldEnum | InvitationTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * User.watchHistory
+   */
+  export type User$watchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    where?: TemplateWatchHistoryWhereInput
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    cursor?: TemplateWatchHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TemplateWatchHistoryScalarFieldEnum | TemplateWatchHistoryScalarFieldEnum[]
   }
 
   /**
@@ -14275,1176 +14498,36 @@ export namespace Prisma {
 
 
   /**
-   * Model OrderDetails
-   */
-
-  export type AggregateOrderDetails = {
-    _count: OrderDetailsCountAggregateOutputType | null
-    _avg: OrderDetailsAvgAggregateOutputType | null
-    _sum: OrderDetailsSumAggregateOutputType | null
-    _min: OrderDetailsMinAggregateOutputType | null
-    _max: OrderDetailsMaxAggregateOutputType | null
-  }
-
-  export type OrderDetailsAvgAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type OrderDetailsSumAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type OrderDetailsMinAggregateOutputType = {
-    id: string | null
-    orderId: string | null
-    amount: number | null
-    currency: string | null
-    status: string | null
-    createdAt: Date | null
-    userId: string | null
-    templateId: string | null
-  }
-
-  export type OrderDetailsMaxAggregateOutputType = {
-    id: string | null
-    orderId: string | null
-    amount: number | null
-    currency: string | null
-    status: string | null
-    createdAt: Date | null
-    userId: string | null
-    templateId: string | null
-  }
-
-  export type OrderDetailsCountAggregateOutputType = {
-    id: number
-    orderId: number
-    amount: number
-    currency: number
-    status: number
-    razorpayResponse: number
-    createdAt: number
-    userId: number
-    templateId: number
-    _all: number
-  }
-
-
-  export type OrderDetailsAvgAggregateInputType = {
-    amount?: true
-  }
-
-  export type OrderDetailsSumAggregateInputType = {
-    amount?: true
-  }
-
-  export type OrderDetailsMinAggregateInputType = {
-    id?: true
-    orderId?: true
-    amount?: true
-    currency?: true
-    status?: true
-    createdAt?: true
-    userId?: true
-    templateId?: true
-  }
-
-  export type OrderDetailsMaxAggregateInputType = {
-    id?: true
-    orderId?: true
-    amount?: true
-    currency?: true
-    status?: true
-    createdAt?: true
-    userId?: true
-    templateId?: true
-  }
-
-  export type OrderDetailsCountAggregateInputType = {
-    id?: true
-    orderId?: true
-    amount?: true
-    currency?: true
-    status?: true
-    razorpayResponse?: true
-    createdAt?: true
-    userId?: true
-    templateId?: true
-    _all?: true
-  }
-
-  export type OrderDetailsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which OrderDetails to aggregate.
-     */
-    where?: OrderDetailsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of OrderDetails to fetch.
-     */
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: OrderDetailsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` OrderDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` OrderDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned OrderDetails
-    **/
-    _count?: true | OrderDetailsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: OrderDetailsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: OrderDetailsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: OrderDetailsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: OrderDetailsMaxAggregateInputType
-  }
-
-  export type GetOrderDetailsAggregateType<T extends OrderDetailsAggregateArgs> = {
-        [P in keyof T & keyof AggregateOrderDetails]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateOrderDetails[P]>
-      : GetScalarType<T[P], AggregateOrderDetails[P]>
-  }
-
-
-
-
-  export type OrderDetailsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderDetailsWhereInput
-    orderBy?: OrderDetailsOrderByWithAggregationInput | OrderDetailsOrderByWithAggregationInput[]
-    by: OrderDetailsScalarFieldEnum[] | OrderDetailsScalarFieldEnum
-    having?: OrderDetailsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: OrderDetailsCountAggregateInputType | true
-    _avg?: OrderDetailsAvgAggregateInputType
-    _sum?: OrderDetailsSumAggregateInputType
-    _min?: OrderDetailsMinAggregateInputType
-    _max?: OrderDetailsMaxAggregateInputType
-  }
-
-  export type OrderDetailsGroupByOutputType = {
-    id: string
-    orderId: string
-    amount: number
-    currency: string
-    status: string
-    razorpayResponse: JsonValue
-    createdAt: Date
-    userId: string
-    templateId: string | null
-    _count: OrderDetailsCountAggregateOutputType | null
-    _avg: OrderDetailsAvgAggregateOutputType | null
-    _sum: OrderDetailsSumAggregateOutputType | null
-    _min: OrderDetailsMinAggregateOutputType | null
-    _max: OrderDetailsMaxAggregateOutputType | null
-  }
-
-  type GetOrderDetailsGroupByPayload<T extends OrderDetailsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<OrderDetailsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof OrderDetailsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], OrderDetailsGroupByOutputType[P]>
-            : GetScalarType<T[P], OrderDetailsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type OrderDetailsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    orderId?: boolean
-    amount?: boolean
-    currency?: boolean
-    status?: boolean
-    razorpayResponse?: boolean
-    createdAt?: boolean
-    userId?: boolean
-    templateId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }, ExtArgs["result"]["orderDetails"]>
-
-  export type OrderDetailsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    orderId?: boolean
-    amount?: boolean
-    currency?: boolean
-    status?: boolean
-    razorpayResponse?: boolean
-    createdAt?: boolean
-    userId?: boolean
-    templateId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }, ExtArgs["result"]["orderDetails"]>
-
-  export type OrderDetailsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    orderId?: boolean
-    amount?: boolean
-    currency?: boolean
-    status?: boolean
-    razorpayResponse?: boolean
-    createdAt?: boolean
-    userId?: boolean
-    templateId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }, ExtArgs["result"]["orderDetails"]>
-
-  export type OrderDetailsSelectScalar = {
-    id?: boolean
-    orderId?: boolean
-    amount?: boolean
-    currency?: boolean
-    status?: boolean
-    razorpayResponse?: boolean
-    createdAt?: boolean
-    userId?: boolean
-    templateId?: boolean
-  }
-
-  export type OrderDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "amount" | "currency" | "status" | "razorpayResponse" | "createdAt" | "userId" | "templateId", ExtArgs["result"]["orderDetails"]>
-  export type OrderDetailsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }
-  export type OrderDetailsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }
-  export type OrderDetailsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    InvitationTemplate?: boolean | OrderDetails$InvitationTemplateArgs<ExtArgs>
-  }
-
-  export type $OrderDetailsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "OrderDetails"
-    objects: {
-      User: Prisma.$UserPayload<ExtArgs>
-      InvitationTemplate: Prisma.$InvitationTemplatePayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      orderId: string
-      amount: number
-      currency: string
-      status: string
-      razorpayResponse: Prisma.JsonValue
-      createdAt: Date
-      userId: string
-      templateId: string | null
-    }, ExtArgs["result"]["orderDetails"]>
-    composites: {}
-  }
-
-  type OrderDetailsGetPayload<S extends boolean | null | undefined | OrderDetailsDefaultArgs> = $Result.GetResult<Prisma.$OrderDetailsPayload, S>
-
-  type OrderDetailsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<OrderDetailsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: OrderDetailsCountAggregateInputType | true
-    }
-
-  export interface OrderDetailsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrderDetails'], meta: { name: 'OrderDetails' } }
-    /**
-     * Find zero or one OrderDetails that matches the filter.
-     * @param {OrderDetailsFindUniqueArgs} args - Arguments to find a OrderDetails
-     * @example
-     * // Get one OrderDetails
-     * const orderDetails = await prisma.orderDetails.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends OrderDetailsFindUniqueArgs>(args: SelectSubset<T, OrderDetailsFindUniqueArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find one OrderDetails that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {OrderDetailsFindUniqueOrThrowArgs} args - Arguments to find a OrderDetails
-     * @example
-     * // Get one OrderDetails
-     * const orderDetails = await prisma.orderDetails.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends OrderDetailsFindUniqueOrThrowArgs>(args: SelectSubset<T, OrderDetailsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first OrderDetails that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsFindFirstArgs} args - Arguments to find a OrderDetails
-     * @example
-     * // Get one OrderDetails
-     * const orderDetails = await prisma.orderDetails.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends OrderDetailsFindFirstArgs>(args?: SelectSubset<T, OrderDetailsFindFirstArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first OrderDetails that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsFindFirstOrThrowArgs} args - Arguments to find a OrderDetails
-     * @example
-     * // Get one OrderDetails
-     * const orderDetails = await prisma.orderDetails.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends OrderDetailsFindFirstOrThrowArgs>(args?: SelectSubset<T, OrderDetailsFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find zero or more OrderDetails that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all OrderDetails
-     * const orderDetails = await prisma.orderDetails.findMany()
-     * 
-     * // Get first 10 OrderDetails
-     * const orderDetails = await prisma.orderDetails.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const orderDetailsWithIdOnly = await prisma.orderDetails.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends OrderDetailsFindManyArgs>(args?: SelectSubset<T, OrderDetailsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findMany", ClientOptions>>
-
-    /**
-     * Create a OrderDetails.
-     * @param {OrderDetailsCreateArgs} args - Arguments to create a OrderDetails.
-     * @example
-     * // Create one OrderDetails
-     * const OrderDetails = await prisma.orderDetails.create({
-     *   data: {
-     *     // ... data to create a OrderDetails
-     *   }
-     * })
-     * 
-     */
-    create<T extends OrderDetailsCreateArgs>(args: SelectSubset<T, OrderDetailsCreateArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Create many OrderDetails.
-     * @param {OrderDetailsCreateManyArgs} args - Arguments to create many OrderDetails.
-     * @example
-     * // Create many OrderDetails
-     * const orderDetails = await prisma.orderDetails.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends OrderDetailsCreateManyArgs>(args?: SelectSubset<T, OrderDetailsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many OrderDetails and returns the data saved in the database.
-     * @param {OrderDetailsCreateManyAndReturnArgs} args - Arguments to create many OrderDetails.
-     * @example
-     * // Create many OrderDetails
-     * const orderDetails = await prisma.orderDetails.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many OrderDetails and only return the `id`
-     * const orderDetailsWithIdOnly = await prisma.orderDetails.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends OrderDetailsCreateManyAndReturnArgs>(args?: SelectSubset<T, OrderDetailsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
-
-    /**
-     * Delete a OrderDetails.
-     * @param {OrderDetailsDeleteArgs} args - Arguments to delete one OrderDetails.
-     * @example
-     * // Delete one OrderDetails
-     * const OrderDetails = await prisma.orderDetails.delete({
-     *   where: {
-     *     // ... filter to delete one OrderDetails
-     *   }
-     * })
-     * 
-     */
-    delete<T extends OrderDetailsDeleteArgs>(args: SelectSubset<T, OrderDetailsDeleteArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Update one OrderDetails.
-     * @param {OrderDetailsUpdateArgs} args - Arguments to update one OrderDetails.
-     * @example
-     * // Update one OrderDetails
-     * const orderDetails = await prisma.orderDetails.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends OrderDetailsUpdateArgs>(args: SelectSubset<T, OrderDetailsUpdateArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Delete zero or more OrderDetails.
-     * @param {OrderDetailsDeleteManyArgs} args - Arguments to filter OrderDetails to delete.
-     * @example
-     * // Delete a few OrderDetails
-     * const { count } = await prisma.orderDetails.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends OrderDetailsDeleteManyArgs>(args?: SelectSubset<T, OrderDetailsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more OrderDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many OrderDetails
-     * const orderDetails = await prisma.orderDetails.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends OrderDetailsUpdateManyArgs>(args: SelectSubset<T, OrderDetailsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more OrderDetails and returns the data updated in the database.
-     * @param {OrderDetailsUpdateManyAndReturnArgs} args - Arguments to update many OrderDetails.
-     * @example
-     * // Update many OrderDetails
-     * const orderDetails = await prisma.orderDetails.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more OrderDetails and only return the `id`
-     * const orderDetailsWithIdOnly = await prisma.orderDetails.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends OrderDetailsUpdateManyAndReturnArgs>(args: SelectSubset<T, OrderDetailsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
-
-    /**
-     * Create or update one OrderDetails.
-     * @param {OrderDetailsUpsertArgs} args - Arguments to update or create a OrderDetails.
-     * @example
-     * // Update or create a OrderDetails
-     * const orderDetails = await prisma.orderDetails.upsert({
-     *   create: {
-     *     // ... data to create a OrderDetails
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the OrderDetails we want to update
-     *   }
-     * })
-     */
-    upsert<T extends OrderDetailsUpsertArgs>(args: SelectSubset<T, OrderDetailsUpsertArgs<ExtArgs>>): Prisma__OrderDetailsClient<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
-
-
-    /**
-     * Count the number of OrderDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsCountArgs} args - Arguments to filter OrderDetails to count.
-     * @example
-     * // Count the number of OrderDetails
-     * const count = await prisma.orderDetails.count({
-     *   where: {
-     *     // ... the filter for the OrderDetails we want to count
-     *   }
-     * })
-    **/
-    count<T extends OrderDetailsCountArgs>(
-      args?: Subset<T, OrderDetailsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], OrderDetailsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a OrderDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends OrderDetailsAggregateArgs>(args: Subset<T, OrderDetailsAggregateArgs>): Prisma.PrismaPromise<GetOrderDetailsAggregateType<T>>
-
-    /**
-     * Group by OrderDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {OrderDetailsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends OrderDetailsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: OrderDetailsGroupByArgs['orderBy'] }
-        : { orderBy?: OrderDetailsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, OrderDetailsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrderDetailsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the OrderDetails model
-   */
-  readonly fields: OrderDetailsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for OrderDetails.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__OrderDetailsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    InvitationTemplate<T extends OrderDetails$InvitationTemplateArgs<ExtArgs> = {}>(args?: Subset<T, OrderDetails$InvitationTemplateArgs<ExtArgs>>): Prisma__InvitationTemplateClient<$Result.GetResult<Prisma.$InvitationTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the OrderDetails model
-   */ 
-  interface OrderDetailsFieldRefs {
-    readonly id: FieldRef<"OrderDetails", 'String'>
-    readonly orderId: FieldRef<"OrderDetails", 'String'>
-    readonly amount: FieldRef<"OrderDetails", 'Float'>
-    readonly currency: FieldRef<"OrderDetails", 'String'>
-    readonly status: FieldRef<"OrderDetails", 'String'>
-    readonly razorpayResponse: FieldRef<"OrderDetails", 'Json'>
-    readonly createdAt: FieldRef<"OrderDetails", 'DateTime'>
-    readonly userId: FieldRef<"OrderDetails", 'String'>
-    readonly templateId: FieldRef<"OrderDetails", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * OrderDetails findUnique
-   */
-  export type OrderDetailsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter, which OrderDetails to fetch.
-     */
-    where: OrderDetailsWhereUniqueInput
-  }
-
-  /**
-   * OrderDetails findUniqueOrThrow
-   */
-  export type OrderDetailsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter, which OrderDetails to fetch.
-     */
-    where: OrderDetailsWhereUniqueInput
-  }
-
-  /**
-   * OrderDetails findFirst
-   */
-  export type OrderDetailsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter, which OrderDetails to fetch.
-     */
-    where?: OrderDetailsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of OrderDetails to fetch.
-     */
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for OrderDetails.
-     */
-    cursor?: OrderDetailsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` OrderDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` OrderDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of OrderDetails.
-     */
-    distinct?: OrderDetailsScalarFieldEnum | OrderDetailsScalarFieldEnum[]
-  }
-
-  /**
-   * OrderDetails findFirstOrThrow
-   */
-  export type OrderDetailsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter, which OrderDetails to fetch.
-     */
-    where?: OrderDetailsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of OrderDetails to fetch.
-     */
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for OrderDetails.
-     */
-    cursor?: OrderDetailsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` OrderDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` OrderDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of OrderDetails.
-     */
-    distinct?: OrderDetailsScalarFieldEnum | OrderDetailsScalarFieldEnum[]
-  }
-
-  /**
-   * OrderDetails findMany
-   */
-  export type OrderDetailsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter, which OrderDetails to fetch.
-     */
-    where?: OrderDetailsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of OrderDetails to fetch.
-     */
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing OrderDetails.
-     */
-    cursor?: OrderDetailsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` OrderDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` OrderDetails.
-     */
-    skip?: number
-    distinct?: OrderDetailsScalarFieldEnum | OrderDetailsScalarFieldEnum[]
-  }
-
-  /**
-   * OrderDetails create
-   */
-  export type OrderDetailsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a OrderDetails.
-     */
-    data: XOR<OrderDetailsCreateInput, OrderDetailsUncheckedCreateInput>
-  }
-
-  /**
-   * OrderDetails createMany
-   */
-  export type OrderDetailsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many OrderDetails.
-     */
-    data: OrderDetailsCreateManyInput | OrderDetailsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * OrderDetails createManyAndReturn
-   */
-  export type OrderDetailsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * The data used to create many OrderDetails.
-     */
-    data: OrderDetailsCreateManyInput | OrderDetailsCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * OrderDetails update
-   */
-  export type OrderDetailsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a OrderDetails.
-     */
-    data: XOR<OrderDetailsUpdateInput, OrderDetailsUncheckedUpdateInput>
-    /**
-     * Choose, which OrderDetails to update.
-     */
-    where: OrderDetailsWhereUniqueInput
-  }
-
-  /**
-   * OrderDetails updateMany
-   */
-  export type OrderDetailsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update OrderDetails.
-     */
-    data: XOR<OrderDetailsUpdateManyMutationInput, OrderDetailsUncheckedUpdateManyInput>
-    /**
-     * Filter which OrderDetails to update
-     */
-    where?: OrderDetailsWhereInput
-  }
-
-  /**
-   * OrderDetails updateManyAndReturn
-   */
-  export type OrderDetailsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * The data used to update OrderDetails.
-     */
-    data: XOR<OrderDetailsUpdateManyMutationInput, OrderDetailsUncheckedUpdateManyInput>
-    /**
-     * Filter which OrderDetails to update
-     */
-    where?: OrderDetailsWhereInput
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * OrderDetails upsert
-   */
-  export type OrderDetailsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the OrderDetails to update in case it exists.
-     */
-    where: OrderDetailsWhereUniqueInput
-    /**
-     * In case the OrderDetails found by the `where` argument doesn't exist, create a new OrderDetails with this data.
-     */
-    create: XOR<OrderDetailsCreateInput, OrderDetailsUncheckedCreateInput>
-    /**
-     * In case the OrderDetails was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<OrderDetailsUpdateInput, OrderDetailsUncheckedUpdateInput>
-  }
-
-  /**
-   * OrderDetails delete
-   */
-  export type OrderDetailsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    /**
-     * Filter which OrderDetails to delete.
-     */
-    where: OrderDetailsWhereUniqueInput
-  }
-
-  /**
-   * OrderDetails deleteMany
-   */
-  export type OrderDetailsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which OrderDetails to delete
-     */
-    where?: OrderDetailsWhereInput
-  }
-
-  /**
-   * OrderDetails.InvitationTemplate
-   */
-  export type OrderDetails$InvitationTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the InvitationTemplate
-     */
-    select?: InvitationTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the InvitationTemplate
-     */
-    omit?: InvitationTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InvitationTemplateInclude<ExtArgs> | null
-    where?: InvitationTemplateWhereInput
-  }
-
-  /**
-   * OrderDetails without action
-   */
-  export type OrderDetailsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderDetails
-     */
-    select?: OrderDetailsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderDetails
-     */
-    omit?: OrderDetailsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderDetailsInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model PaymentDetails
    */
 
   export type AggregatePaymentDetails = {
     _count: PaymentDetailsCountAggregateOutputType | null
+    _avg: PaymentDetailsAvgAggregateOutputType | null
+    _sum: PaymentDetailsSumAggregateOutputType | null
     _min: PaymentDetailsMinAggregateOutputType | null
     _max: PaymentDetailsMaxAggregateOutputType | null
+  }
+
+  export type PaymentDetailsAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PaymentDetailsSumAggregateOutputType = {
+    amount: Decimal | null
   }
 
   export type PaymentDetailsMinAggregateOutputType = {
     id: string | null
     orderId: string | null
     paymentId: string | null
-    status: string | null
+    orderStatus: string | null
+    paymentStatus: string | null
+    amount: Decimal | null
+    currency: string | null
     purchasedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
     userId: string | null
     templateId: string | null
   }
@@ -15453,8 +14536,13 @@ export namespace Prisma {
     id: string | null
     orderId: string | null
     paymentId: string | null
-    status: string | null
+    orderStatus: string | null
+    paymentStatus: string | null
+    amount: Decimal | null
+    currency: string | null
     purchasedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
     userId: string | null
     templateId: string | null
   }
@@ -15464,20 +14552,38 @@ export namespace Prisma {
     orderId: number
     paymentId: number
     razorpayResponse: number
-    status: number
+    orderStatus: number
+    paymentStatus: number
+    amount: number
+    currency: number
     purchasedAt: number
+    createdAt: number
+    updatedAt: number
     userId: number
     templateId: number
     _all: number
   }
 
 
+  export type PaymentDetailsAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type PaymentDetailsSumAggregateInputType = {
+    amount?: true
+  }
+
   export type PaymentDetailsMinAggregateInputType = {
     id?: true
     orderId?: true
     paymentId?: true
-    status?: true
+    orderStatus?: true
+    paymentStatus?: true
+    amount?: true
+    currency?: true
     purchasedAt?: true
+    createdAt?: true
+    updatedAt?: true
     userId?: true
     templateId?: true
   }
@@ -15486,8 +14592,13 @@ export namespace Prisma {
     id?: true
     orderId?: true
     paymentId?: true
-    status?: true
+    orderStatus?: true
+    paymentStatus?: true
+    amount?: true
+    currency?: true
     purchasedAt?: true
+    createdAt?: true
+    updatedAt?: true
     userId?: true
     templateId?: true
   }
@@ -15497,8 +14608,13 @@ export namespace Prisma {
     orderId?: true
     paymentId?: true
     razorpayResponse?: true
-    status?: true
+    orderStatus?: true
+    paymentStatus?: true
+    amount?: true
+    currency?: true
     purchasedAt?: true
+    createdAt?: true
+    updatedAt?: true
     userId?: true
     templateId?: true
     _all?: true
@@ -15542,6 +14658,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentDetailsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentDetailsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PaymentDetailsMinAggregateInputType
@@ -15572,6 +14700,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PaymentDetailsCountAggregateInputType | true
+    _avg?: PaymentDetailsAvgAggregateInputType
+    _sum?: PaymentDetailsSumAggregateInputType
     _min?: PaymentDetailsMinAggregateInputType
     _max?: PaymentDetailsMaxAggregateInputType
   }
@@ -15580,12 +14710,19 @@ export namespace Prisma {
     id: string
     orderId: string
     paymentId: string | null
-    razorpayResponse: JsonValue
-    status: string
+    razorpayResponse: JsonValue | null
+    orderStatus: string
+    paymentStatus: string | null
+    amount: Decimal
+    currency: string
     purchasedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
     userId: string
     templateId: string | null
     _count: PaymentDetailsCountAggregateOutputType | null
+    _avg: PaymentDetailsAvgAggregateOutputType | null
+    _sum: PaymentDetailsSumAggregateOutputType | null
     _min: PaymentDetailsMinAggregateOutputType | null
     _max: PaymentDetailsMaxAggregateOutputType | null
   }
@@ -15609,8 +14746,13 @@ export namespace Prisma {
     orderId?: boolean
     paymentId?: boolean
     razorpayResponse?: boolean
-    status?: boolean
+    orderStatus?: boolean
+    paymentStatus?: boolean
+    amount?: boolean
+    currency?: boolean
     purchasedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     userId?: boolean
     templateId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -15622,8 +14764,13 @@ export namespace Prisma {
     orderId?: boolean
     paymentId?: boolean
     razorpayResponse?: boolean
-    status?: boolean
+    orderStatus?: boolean
+    paymentStatus?: boolean
+    amount?: boolean
+    currency?: boolean
     purchasedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     userId?: boolean
     templateId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -15635,8 +14782,13 @@ export namespace Prisma {
     orderId?: boolean
     paymentId?: boolean
     razorpayResponse?: boolean
-    status?: boolean
+    orderStatus?: boolean
+    paymentStatus?: boolean
+    amount?: boolean
+    currency?: boolean
     purchasedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     userId?: boolean
     templateId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -15648,13 +14800,18 @@ export namespace Prisma {
     orderId?: boolean
     paymentId?: boolean
     razorpayResponse?: boolean
-    status?: boolean
+    orderStatus?: boolean
+    paymentStatus?: boolean
+    amount?: boolean
+    currency?: boolean
     purchasedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     userId?: boolean
     templateId?: boolean
   }
 
-  export type PaymentDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "paymentId" | "razorpayResponse" | "status" | "purchasedAt" | "userId" | "templateId", ExtArgs["result"]["paymentDetails"]>
+  export type PaymentDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "paymentId" | "razorpayResponse" | "orderStatus" | "paymentStatus" | "amount" | "currency" | "purchasedAt" | "createdAt" | "updatedAt" | "userId" | "templateId", ExtArgs["result"]["paymentDetails"]>
   export type PaymentDetailsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     InvitationTemplate?: boolean | PaymentDetails$InvitationTemplateArgs<ExtArgs>
@@ -15678,9 +14835,14 @@ export namespace Prisma {
       id: string
       orderId: string
       paymentId: string | null
-      razorpayResponse: Prisma.JsonValue
-      status: string
+      razorpayResponse: Prisma.JsonValue | null
+      orderStatus: string
+      paymentStatus: string | null
+      amount: Prisma.Decimal
+      currency: string
       purchasedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
       userId: string
       templateId: string | null
     }, ExtArgs["result"]["paymentDetails"]>
@@ -16112,8 +15274,13 @@ export namespace Prisma {
     readonly orderId: FieldRef<"PaymentDetails", 'String'>
     readonly paymentId: FieldRef<"PaymentDetails", 'String'>
     readonly razorpayResponse: FieldRef<"PaymentDetails", 'Json'>
-    readonly status: FieldRef<"PaymentDetails", 'String'>
+    readonly orderStatus: FieldRef<"PaymentDetails", 'String'>
+    readonly paymentStatus: FieldRef<"PaymentDetails", 'String'>
+    readonly amount: FieldRef<"PaymentDetails", 'Decimal'>
+    readonly currency: FieldRef<"PaymentDetails", 'String'>
     readonly purchasedAt: FieldRef<"PaymentDetails", 'DateTime'>
+    readonly createdAt: FieldRef<"PaymentDetails", 'DateTime'>
+    readonly updatedAt: FieldRef<"PaymentDetails", 'DateTime'>
     readonly userId: FieldRef<"PaymentDetails", 'String'>
     readonly templateId: FieldRef<"PaymentDetails", 'String'>
   }
@@ -19751,82 +18918,130 @@ export namespace Prisma {
 
   export type InvitationTemplateAvgAggregateOutputType = {
     price: number | null
+    rating: number | null
   }
 
   export type InvitationTemplateSumAggregateOutputType = {
     price: number | null
+    rating: number | null
   }
 
   export type InvitationTemplateMinAggregateOutputType = {
     id: string | null
     name: string | null
+    description: string | null
+    userId: string | null
     price: number | null
-    template_type: $Enums.template_category | null
-    template_category: string | null
-    filter: string | null
+    categoryByAmount: $Enums.CategoryByAmount | null
+    categoryByMood: $Enums.CategoryByMood | null
+    categoryByRequirement: $Enums.CategoryByRequirement | null
+    designedBy: string | null
+    thumbnailUrl: string | null
+    rating: number | null
+    status: $Enums.TemplateStatus | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type InvitationTemplateMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    description: string | null
+    userId: string | null
     price: number | null
-    template_type: $Enums.template_category | null
-    template_category: string | null
-    filter: string | null
+    categoryByAmount: $Enums.CategoryByAmount | null
+    categoryByMood: $Enums.CategoryByMood | null
+    categoryByRequirement: $Enums.CategoryByRequirement | null
+    designedBy: string | null
+    thumbnailUrl: string | null
+    rating: number | null
+    status: $Enums.TemplateStatus | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type InvitationTemplateCountAggregateOutputType = {
     id: number
     name: number
-    imageUrl: number
+    description: number
+    userId: number
+    jsonData: number
     price: number
-    template_type: number
-    template_category: number
-    filter: number
+    categoryByAmount: number
+    categoryByMood: number
+    categoryByRequirement: number
+    additionalTags: number
+    designedBy: number
+    thumbnailUrl: number
+    rating: number
+    status: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type InvitationTemplateAvgAggregateInputType = {
     price?: true
+    rating?: true
   }
 
   export type InvitationTemplateSumAggregateInputType = {
     price?: true
+    rating?: true
   }
 
   export type InvitationTemplateMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    userId?: true
     price?: true
-    template_type?: true
-    template_category?: true
-    filter?: true
+    categoryByAmount?: true
+    categoryByMood?: true
+    categoryByRequirement?: true
+    designedBy?: true
+    thumbnailUrl?: true
+    rating?: true
+    status?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type InvitationTemplateMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    userId?: true
     price?: true
-    template_type?: true
-    template_category?: true
-    filter?: true
+    categoryByAmount?: true
+    categoryByMood?: true
+    categoryByRequirement?: true
+    designedBy?: true
+    thumbnailUrl?: true
+    rating?: true
+    status?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type InvitationTemplateCountAggregateInputType = {
     id?: true
     name?: true
-    imageUrl?: true
+    description?: true
+    userId?: true
+    jsonData?: true
     price?: true
-    template_type?: true
-    template_category?: true
-    filter?: true
+    categoryByAmount?: true
+    categoryByMood?: true
+    categoryByRequirement?: true
+    additionalTags?: true
+    designedBy?: true
+    thumbnailUrl?: true
+    rating?: true
+    status?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -19919,12 +19134,20 @@ export namespace Prisma {
   export type InvitationTemplateGroupByOutputType = {
     id: string
     name: string
-    imageUrl: JsonValue
+    description: string | null
+    userId: string
+    jsonData: JsonValue
     price: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter: string | null
+    categoryByAmount: $Enums.CategoryByAmount
+    categoryByMood: $Enums.CategoryByMood
+    categoryByRequirement: $Enums.CategoryByRequirement
+    additionalTags: string[]
+    designedBy: string | null
+    thumbnailUrl: string | null
+    rating: number | null
+    status: $Enums.TemplateStatus
     createdAt: Date
+    updatedAt: Date
     _count: InvitationTemplateCountAggregateOutputType | null
     _avg: InvitationTemplateAvgAggregateOutputType | null
     _sum: InvitationTemplateSumAggregateOutputType | null
@@ -19949,74 +19172,123 @@ export namespace Prisma {
   export type InvitationTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    imageUrl?: boolean
+    description?: boolean
+    userId?: boolean
+    jsonData?: boolean
     price?: boolean
-    template_type?: boolean
-    template_category?: boolean
-    filter?: boolean
+    categoryByAmount?: boolean
+    categoryByMood?: boolean
+    categoryByRequirement?: boolean
+    additionalTags?: boolean
+    designedBy?: boolean
+    thumbnailUrl?: boolean
+    rating?: boolean
+    status?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     paymentDetails?: boolean | InvitationTemplate$paymentDetailsArgs<ExtArgs>
-    orderDetails?: boolean | InvitationTemplate$orderDetailsArgs<ExtArgs>
+    watchHistory?: boolean | InvitationTemplate$watchHistoryArgs<ExtArgs>
     _count?: boolean | InvitationTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invitationTemplate"]>
 
   export type InvitationTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    imageUrl?: boolean
+    description?: boolean
+    userId?: boolean
+    jsonData?: boolean
     price?: boolean
-    template_type?: boolean
-    template_category?: boolean
-    filter?: boolean
+    categoryByAmount?: boolean
+    categoryByMood?: boolean
+    categoryByRequirement?: boolean
+    additionalTags?: boolean
+    designedBy?: boolean
+    thumbnailUrl?: boolean
+    rating?: boolean
+    status?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invitationTemplate"]>
 
   export type InvitationTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    imageUrl?: boolean
+    description?: boolean
+    userId?: boolean
+    jsonData?: boolean
     price?: boolean
-    template_type?: boolean
-    template_category?: boolean
-    filter?: boolean
+    categoryByAmount?: boolean
+    categoryByMood?: boolean
+    categoryByRequirement?: boolean
+    additionalTags?: boolean
+    designedBy?: boolean
+    thumbnailUrl?: boolean
+    rating?: boolean
+    status?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invitationTemplate"]>
 
   export type InvitationTemplateSelectScalar = {
     id?: boolean
     name?: boolean
-    imageUrl?: boolean
+    description?: boolean
+    userId?: boolean
+    jsonData?: boolean
     price?: boolean
-    template_type?: boolean
-    template_category?: boolean
-    filter?: boolean
+    categoryByAmount?: boolean
+    categoryByMood?: boolean
+    categoryByRequirement?: boolean
+    additionalTags?: boolean
+    designedBy?: boolean
+    thumbnailUrl?: boolean
+    rating?: boolean
+    status?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type InvitationTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "imageUrl" | "price" | "template_type" | "template_category" | "filter" | "createdAt", ExtArgs["result"]["invitationTemplate"]>
+  export type InvitationTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "jsonData" | "price" | "categoryByAmount" | "categoryByMood" | "categoryByRequirement" | "additionalTags" | "designedBy" | "thumbnailUrl" | "rating" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["invitationTemplate"]>
   export type InvitationTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     paymentDetails?: boolean | InvitationTemplate$paymentDetailsArgs<ExtArgs>
-    orderDetails?: boolean | InvitationTemplate$orderDetailsArgs<ExtArgs>
+    watchHistory?: boolean | InvitationTemplate$watchHistoryArgs<ExtArgs>
     _count?: boolean | InvitationTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type InvitationTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type InvitationTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InvitationTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type InvitationTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $InvitationTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "InvitationTemplate"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs>
       paymentDetails: Prisma.$PaymentDetailsPayload<ExtArgs>[]
-      orderDetails: Prisma.$OrderDetailsPayload<ExtArgs>[]
+      watchHistory: Prisma.$TemplateWatchHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      imageUrl: Prisma.JsonValue
+      description: string | null
+      userId: string
+      jsonData: Prisma.JsonValue
       price: number | null
-      template_type: $Enums.template_category
-      template_category: string
-      filter: string | null
+      categoryByAmount: $Enums.CategoryByAmount
+      categoryByMood: $Enums.CategoryByMood
+      categoryByRequirement: $Enums.CategoryByRequirement
+      additionalTags: string[]
+      designedBy: string | null
+      thumbnailUrl: string | null
+      rating: number | null
+      status: $Enums.TemplateStatus
       createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["invitationTemplate"]>
     composites: {}
   }
@@ -20411,8 +19683,9 @@ export namespace Prisma {
    */
   export interface Prisma__InvitationTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     paymentDetails<T extends InvitationTemplate$paymentDetailsArgs<ExtArgs> = {}>(args?: Subset<T, InvitationTemplate$paymentDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentDetailsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    orderDetails<T extends InvitationTemplate$orderDetailsArgs<ExtArgs> = {}>(args?: Subset<T, InvitationTemplate$orderDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderDetailsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    watchHistory<T extends InvitationTemplate$watchHistoryArgs<ExtArgs> = {}>(args?: Subset<T, InvitationTemplate$watchHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20444,12 +19717,20 @@ export namespace Prisma {
   interface InvitationTemplateFieldRefs {
     readonly id: FieldRef<"InvitationTemplate", 'String'>
     readonly name: FieldRef<"InvitationTemplate", 'String'>
-    readonly imageUrl: FieldRef<"InvitationTemplate", 'Json'>
+    readonly description: FieldRef<"InvitationTemplate", 'String'>
+    readonly userId: FieldRef<"InvitationTemplate", 'String'>
+    readonly jsonData: FieldRef<"InvitationTemplate", 'Json'>
     readonly price: FieldRef<"InvitationTemplate", 'Float'>
-    readonly template_type: FieldRef<"InvitationTemplate", 'template_category'>
-    readonly template_category: FieldRef<"InvitationTemplate", 'String'>
-    readonly filter: FieldRef<"InvitationTemplate", 'String'>
+    readonly categoryByAmount: FieldRef<"InvitationTemplate", 'CategoryByAmount'>
+    readonly categoryByMood: FieldRef<"InvitationTemplate", 'CategoryByMood'>
+    readonly categoryByRequirement: FieldRef<"InvitationTemplate", 'CategoryByRequirement'>
+    readonly additionalTags: FieldRef<"InvitationTemplate", 'String[]'>
+    readonly designedBy: FieldRef<"InvitationTemplate", 'String'>
+    readonly thumbnailUrl: FieldRef<"InvitationTemplate", 'String'>
+    readonly rating: FieldRef<"InvitationTemplate", 'Float'>
+    readonly status: FieldRef<"InvitationTemplate", 'TemplateStatus'>
     readonly createdAt: FieldRef<"InvitationTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"InvitationTemplate", 'DateTime'>
   }
     
 
@@ -20699,6 +19980,10 @@ export namespace Prisma {
      */
     data: InvitationTemplateCreateManyInput | InvitationTemplateCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationTemplateIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -20761,6 +20046,10 @@ export namespace Prisma {
      * Filter which InvitationTemplates to update
      */
     where?: InvitationTemplateWhereInput
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -20850,27 +20139,27 @@ export namespace Prisma {
   }
 
   /**
-   * InvitationTemplate.orderDetails
+   * InvitationTemplate.watchHistory
    */
-  export type InvitationTemplate$orderDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationTemplate$watchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the OrderDetails
+     * Select specific fields to fetch from the TemplateWatchHistory
      */
-    select?: OrderDetailsSelect<ExtArgs> | null
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the OrderDetails
+     * Omit specific fields from the TemplateWatchHistory
      */
-    omit?: OrderDetailsOmit<ExtArgs> | null
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: OrderDetailsInclude<ExtArgs> | null
-    where?: OrderDetailsWhereInput
-    orderBy?: OrderDetailsOrderByWithRelationInput | OrderDetailsOrderByWithRelationInput[]
-    cursor?: OrderDetailsWhereUniqueInput
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    where?: TemplateWatchHistoryWhereInput
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    cursor?: TemplateWatchHistoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: OrderDetailsScalarFieldEnum | OrderDetailsScalarFieldEnum[]
+    distinct?: TemplateWatchHistoryScalarFieldEnum | TemplateWatchHistoryScalarFieldEnum[]
   }
 
   /**
@@ -20889,6 +20178,1047 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: InvitationTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TemplateWatchHistory
+   */
+
+  export type AggregateTemplateWatchHistory = {
+    _count: TemplateWatchHistoryCountAggregateOutputType | null
+    _min: TemplateWatchHistoryMinAggregateOutputType | null
+    _max: TemplateWatchHistoryMaxAggregateOutputType | null
+  }
+
+  export type TemplateWatchHistoryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    watchedAt: Date | null
+  }
+
+  export type TemplateWatchHistoryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    watchedAt: Date | null
+  }
+
+  export type TemplateWatchHistoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    templateId: number
+    watchedAt: number
+    _all: number
+  }
+
+
+  export type TemplateWatchHistoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    watchedAt?: true
+  }
+
+  export type TemplateWatchHistoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    watchedAt?: true
+  }
+
+  export type TemplateWatchHistoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    watchedAt?: true
+    _all?: true
+  }
+
+  export type TemplateWatchHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateWatchHistory to aggregate.
+     */
+    where?: TemplateWatchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateWatchHistories to fetch.
+     */
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TemplateWatchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateWatchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateWatchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TemplateWatchHistories
+    **/
+    _count?: true | TemplateWatchHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TemplateWatchHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TemplateWatchHistoryMaxAggregateInputType
+  }
+
+  export type GetTemplateWatchHistoryAggregateType<T extends TemplateWatchHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateTemplateWatchHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTemplateWatchHistory[P]>
+      : GetScalarType<T[P], AggregateTemplateWatchHistory[P]>
+  }
+
+
+
+
+  export type TemplateWatchHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateWatchHistoryWhereInput
+    orderBy?: TemplateWatchHistoryOrderByWithAggregationInput | TemplateWatchHistoryOrderByWithAggregationInput[]
+    by: TemplateWatchHistoryScalarFieldEnum[] | TemplateWatchHistoryScalarFieldEnum
+    having?: TemplateWatchHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TemplateWatchHistoryCountAggregateInputType | true
+    _min?: TemplateWatchHistoryMinAggregateInputType
+    _max?: TemplateWatchHistoryMaxAggregateInputType
+  }
+
+  export type TemplateWatchHistoryGroupByOutputType = {
+    id: string
+    userId: string
+    templateId: string
+    watchedAt: Date
+    _count: TemplateWatchHistoryCountAggregateOutputType | null
+    _min: TemplateWatchHistoryMinAggregateOutputType | null
+    _max: TemplateWatchHistoryMaxAggregateOutputType | null
+  }
+
+  type GetTemplateWatchHistoryGroupByPayload<T extends TemplateWatchHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TemplateWatchHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TemplateWatchHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TemplateWatchHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], TemplateWatchHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TemplateWatchHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    watchedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["templateWatchHistory"]>
+
+  export type TemplateWatchHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    watchedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["templateWatchHistory"]>
+
+  export type TemplateWatchHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    watchedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["templateWatchHistory"]>
+
+  export type TemplateWatchHistorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    watchedAt?: boolean
+  }
+
+  export type TemplateWatchHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "templateId" | "watchedAt", ExtArgs["result"]["templateWatchHistory"]>
+  export type TemplateWatchHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }
+  export type TemplateWatchHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }
+  export type TemplateWatchHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | InvitationTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $TemplateWatchHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TemplateWatchHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      template: Prisma.$InvitationTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      templateId: string
+      watchedAt: Date
+    }, ExtArgs["result"]["templateWatchHistory"]>
+    composites: {}
+  }
+
+  type TemplateWatchHistoryGetPayload<S extends boolean | null | undefined | TemplateWatchHistoryDefaultArgs> = $Result.GetResult<Prisma.$TemplateWatchHistoryPayload, S>
+
+  type TemplateWatchHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TemplateWatchHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TemplateWatchHistoryCountAggregateInputType | true
+    }
+
+  export interface TemplateWatchHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TemplateWatchHistory'], meta: { name: 'TemplateWatchHistory' } }
+    /**
+     * Find zero or one TemplateWatchHistory that matches the filter.
+     * @param {TemplateWatchHistoryFindUniqueArgs} args - Arguments to find a TemplateWatchHistory
+     * @example
+     * // Get one TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TemplateWatchHistoryFindUniqueArgs>(args: SelectSubset<T, TemplateWatchHistoryFindUniqueArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one TemplateWatchHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TemplateWatchHistoryFindUniqueOrThrowArgs} args - Arguments to find a TemplateWatchHistory
+     * @example
+     * // Get one TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TemplateWatchHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, TemplateWatchHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first TemplateWatchHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryFindFirstArgs} args - Arguments to find a TemplateWatchHistory
+     * @example
+     * // Get one TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TemplateWatchHistoryFindFirstArgs>(args?: SelectSubset<T, TemplateWatchHistoryFindFirstArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first TemplateWatchHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryFindFirstOrThrowArgs} args - Arguments to find a TemplateWatchHistory
+     * @example
+     * // Get one TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TemplateWatchHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, TemplateWatchHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more TemplateWatchHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TemplateWatchHistories
+     * const templateWatchHistories = await prisma.templateWatchHistory.findMany()
+     * 
+     * // Get first 10 TemplateWatchHistories
+     * const templateWatchHistories = await prisma.templateWatchHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const templateWatchHistoryWithIdOnly = await prisma.templateWatchHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TemplateWatchHistoryFindManyArgs>(args?: SelectSubset<T, TemplateWatchHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a TemplateWatchHistory.
+     * @param {TemplateWatchHistoryCreateArgs} args - Arguments to create a TemplateWatchHistory.
+     * @example
+     * // Create one TemplateWatchHistory
+     * const TemplateWatchHistory = await prisma.templateWatchHistory.create({
+     *   data: {
+     *     // ... data to create a TemplateWatchHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends TemplateWatchHistoryCreateArgs>(args: SelectSubset<T, TemplateWatchHistoryCreateArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many TemplateWatchHistories.
+     * @param {TemplateWatchHistoryCreateManyArgs} args - Arguments to create many TemplateWatchHistories.
+     * @example
+     * // Create many TemplateWatchHistories
+     * const templateWatchHistory = await prisma.templateWatchHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TemplateWatchHistoryCreateManyArgs>(args?: SelectSubset<T, TemplateWatchHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TemplateWatchHistories and returns the data saved in the database.
+     * @param {TemplateWatchHistoryCreateManyAndReturnArgs} args - Arguments to create many TemplateWatchHistories.
+     * @example
+     * // Create many TemplateWatchHistories
+     * const templateWatchHistory = await prisma.templateWatchHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TemplateWatchHistories and only return the `id`
+     * const templateWatchHistoryWithIdOnly = await prisma.templateWatchHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TemplateWatchHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, TemplateWatchHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a TemplateWatchHistory.
+     * @param {TemplateWatchHistoryDeleteArgs} args - Arguments to delete one TemplateWatchHistory.
+     * @example
+     * // Delete one TemplateWatchHistory
+     * const TemplateWatchHistory = await prisma.templateWatchHistory.delete({
+     *   where: {
+     *     // ... filter to delete one TemplateWatchHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TemplateWatchHistoryDeleteArgs>(args: SelectSubset<T, TemplateWatchHistoryDeleteArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one TemplateWatchHistory.
+     * @param {TemplateWatchHistoryUpdateArgs} args - Arguments to update one TemplateWatchHistory.
+     * @example
+     * // Update one TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TemplateWatchHistoryUpdateArgs>(args: SelectSubset<T, TemplateWatchHistoryUpdateArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more TemplateWatchHistories.
+     * @param {TemplateWatchHistoryDeleteManyArgs} args - Arguments to filter TemplateWatchHistories to delete.
+     * @example
+     * // Delete a few TemplateWatchHistories
+     * const { count } = await prisma.templateWatchHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TemplateWatchHistoryDeleteManyArgs>(args?: SelectSubset<T, TemplateWatchHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TemplateWatchHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TemplateWatchHistories
+     * const templateWatchHistory = await prisma.templateWatchHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TemplateWatchHistoryUpdateManyArgs>(args: SelectSubset<T, TemplateWatchHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TemplateWatchHistories and returns the data updated in the database.
+     * @param {TemplateWatchHistoryUpdateManyAndReturnArgs} args - Arguments to update many TemplateWatchHistories.
+     * @example
+     * // Update many TemplateWatchHistories
+     * const templateWatchHistory = await prisma.templateWatchHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TemplateWatchHistories and only return the `id`
+     * const templateWatchHistoryWithIdOnly = await prisma.templateWatchHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TemplateWatchHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, TemplateWatchHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one TemplateWatchHistory.
+     * @param {TemplateWatchHistoryUpsertArgs} args - Arguments to update or create a TemplateWatchHistory.
+     * @example
+     * // Update or create a TemplateWatchHistory
+     * const templateWatchHistory = await prisma.templateWatchHistory.upsert({
+     *   create: {
+     *     // ... data to create a TemplateWatchHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TemplateWatchHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TemplateWatchHistoryUpsertArgs>(args: SelectSubset<T, TemplateWatchHistoryUpsertArgs<ExtArgs>>): Prisma__TemplateWatchHistoryClient<$Result.GetResult<Prisma.$TemplateWatchHistoryPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of TemplateWatchHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryCountArgs} args - Arguments to filter TemplateWatchHistories to count.
+     * @example
+     * // Count the number of TemplateWatchHistories
+     * const count = await prisma.templateWatchHistory.count({
+     *   where: {
+     *     // ... the filter for the TemplateWatchHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends TemplateWatchHistoryCountArgs>(
+      args?: Subset<T, TemplateWatchHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TemplateWatchHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TemplateWatchHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TemplateWatchHistoryAggregateArgs>(args: Subset<T, TemplateWatchHistoryAggregateArgs>): Prisma.PrismaPromise<GetTemplateWatchHistoryAggregateType<T>>
+
+    /**
+     * Group by TemplateWatchHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateWatchHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TemplateWatchHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TemplateWatchHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: TemplateWatchHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TemplateWatchHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTemplateWatchHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TemplateWatchHistory model
+   */
+  readonly fields: TemplateWatchHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TemplateWatchHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TemplateWatchHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    template<T extends InvitationTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InvitationTemplateDefaultArgs<ExtArgs>>): Prisma__InvitationTemplateClient<$Result.GetResult<Prisma.$InvitationTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TemplateWatchHistory model
+   */ 
+  interface TemplateWatchHistoryFieldRefs {
+    readonly id: FieldRef<"TemplateWatchHistory", 'String'>
+    readonly userId: FieldRef<"TemplateWatchHistory", 'String'>
+    readonly templateId: FieldRef<"TemplateWatchHistory", 'String'>
+    readonly watchedAt: FieldRef<"TemplateWatchHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TemplateWatchHistory findUnique
+   */
+  export type TemplateWatchHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateWatchHistory to fetch.
+     */
+    where: TemplateWatchHistoryWhereUniqueInput
+  }
+
+  /**
+   * TemplateWatchHistory findUniqueOrThrow
+   */
+  export type TemplateWatchHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateWatchHistory to fetch.
+     */
+    where: TemplateWatchHistoryWhereUniqueInput
+  }
+
+  /**
+   * TemplateWatchHistory findFirst
+   */
+  export type TemplateWatchHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateWatchHistory to fetch.
+     */
+    where?: TemplateWatchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateWatchHistories to fetch.
+     */
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateWatchHistories.
+     */
+    cursor?: TemplateWatchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateWatchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateWatchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateWatchHistories.
+     */
+    distinct?: TemplateWatchHistoryScalarFieldEnum | TemplateWatchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateWatchHistory findFirstOrThrow
+   */
+  export type TemplateWatchHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateWatchHistory to fetch.
+     */
+    where?: TemplateWatchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateWatchHistories to fetch.
+     */
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateWatchHistories.
+     */
+    cursor?: TemplateWatchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateWatchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateWatchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateWatchHistories.
+     */
+    distinct?: TemplateWatchHistoryScalarFieldEnum | TemplateWatchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateWatchHistory findMany
+   */
+  export type TemplateWatchHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateWatchHistories to fetch.
+     */
+    where?: TemplateWatchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateWatchHistories to fetch.
+     */
+    orderBy?: TemplateWatchHistoryOrderByWithRelationInput | TemplateWatchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TemplateWatchHistories.
+     */
+    cursor?: TemplateWatchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateWatchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateWatchHistories.
+     */
+    skip?: number
+    distinct?: TemplateWatchHistoryScalarFieldEnum | TemplateWatchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateWatchHistory create
+   */
+  export type TemplateWatchHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TemplateWatchHistory.
+     */
+    data: XOR<TemplateWatchHistoryCreateInput, TemplateWatchHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * TemplateWatchHistory createMany
+   */
+  export type TemplateWatchHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TemplateWatchHistories.
+     */
+    data: TemplateWatchHistoryCreateManyInput | TemplateWatchHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TemplateWatchHistory createManyAndReturn
+   */
+  export type TemplateWatchHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many TemplateWatchHistories.
+     */
+    data: TemplateWatchHistoryCreateManyInput | TemplateWatchHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TemplateWatchHistory update
+   */
+  export type TemplateWatchHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TemplateWatchHistory.
+     */
+    data: XOR<TemplateWatchHistoryUpdateInput, TemplateWatchHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which TemplateWatchHistory to update.
+     */
+    where: TemplateWatchHistoryWhereUniqueInput
+  }
+
+  /**
+   * TemplateWatchHistory updateMany
+   */
+  export type TemplateWatchHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TemplateWatchHistories.
+     */
+    data: XOR<TemplateWatchHistoryUpdateManyMutationInput, TemplateWatchHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which TemplateWatchHistories to update
+     */
+    where?: TemplateWatchHistoryWhereInput
+  }
+
+  /**
+   * TemplateWatchHistory updateManyAndReturn
+   */
+  export type TemplateWatchHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update TemplateWatchHistories.
+     */
+    data: XOR<TemplateWatchHistoryUpdateManyMutationInput, TemplateWatchHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which TemplateWatchHistories to update
+     */
+    where?: TemplateWatchHistoryWhereInput
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TemplateWatchHistory upsert
+   */
+  export type TemplateWatchHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TemplateWatchHistory to update in case it exists.
+     */
+    where: TemplateWatchHistoryWhereUniqueInput
+    /**
+     * In case the TemplateWatchHistory found by the `where` argument doesn't exist, create a new TemplateWatchHistory with this data.
+     */
+    create: XOR<TemplateWatchHistoryCreateInput, TemplateWatchHistoryUncheckedCreateInput>
+    /**
+     * In case the TemplateWatchHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TemplateWatchHistoryUpdateInput, TemplateWatchHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * TemplateWatchHistory delete
+   */
+  export type TemplateWatchHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which TemplateWatchHistory to delete.
+     */
+    where: TemplateWatchHistoryWhereUniqueInput
+  }
+
+  /**
+   * TemplateWatchHistory deleteMany
+   */
+  export type TemplateWatchHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateWatchHistories to delete
+     */
+    where?: TemplateWatchHistoryWhereInput
+  }
+
+  /**
+   * TemplateWatchHistory without action
+   */
+  export type TemplateWatchHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateWatchHistory
+     */
+    select?: TemplateWatchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateWatchHistory
+     */
+    omit?: TemplateWatchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateWatchHistoryInclude<ExtArgs> | null
   }
 
 
@@ -22054,6 +22384,9 @@ export namespace Prisma {
   export type BlogMinAggregateOutputType = {
     id: string | null
     title: string | null
+    status: $Enums.Status | null
+    urlTitle: string | null
+    coverImage: string | null
     content: string | null
     viewCount: number | null
     likes: number | null
@@ -22065,6 +22398,9 @@ export namespace Prisma {
   export type BlogMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    status: $Enums.Status | null
+    urlTitle: string | null
+    coverImage: string | null
     content: string | null
     viewCount: number | null
     likes: number | null
@@ -22076,7 +22412,9 @@ export namespace Prisma {
   export type BlogCountAggregateOutputType = {
     id: number
     title: number
-    tags: number
+    status: number
+    urlTitle: number
+    coverImage: number
     content: number
     viewCount: number
     likes: number
@@ -22100,6 +22438,9 @@ export namespace Prisma {
   export type BlogMinAggregateInputType = {
     id?: true
     title?: true
+    status?: true
+    urlTitle?: true
+    coverImage?: true
     content?: true
     viewCount?: true
     likes?: true
@@ -22111,6 +22452,9 @@ export namespace Prisma {
   export type BlogMaxAggregateInputType = {
     id?: true
     title?: true
+    status?: true
+    urlTitle?: true
+    coverImage?: true
     content?: true
     viewCount?: true
     likes?: true
@@ -22122,7 +22466,9 @@ export namespace Prisma {
   export type BlogCountAggregateInputType = {
     id?: true
     title?: true
-    tags?: true
+    status?: true
+    urlTitle?: true
+    coverImage?: true
     content?: true
     viewCount?: true
     likes?: true
@@ -22221,7 +22567,9 @@ export namespace Prisma {
   export type BlogGroupByOutputType = {
     id: string
     title: string
-    tags: string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage: string | null
     content: string
     viewCount: number
     likes: number
@@ -22252,13 +22600,16 @@ export namespace Prisma {
   export type BlogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    tags?: boolean
+    status?: boolean
+    urlTitle?: boolean
+    coverImage?: boolean
     content?: boolean
     viewCount?: boolean
     likes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     authorId?: boolean
+    tags?: boolean | Blog$tagsArgs<ExtArgs>
     comments?: boolean | Blog$commentsArgs<ExtArgs>
     likedBy?: boolean | Blog$likedByArgs<ExtArgs>
     _count?: boolean | BlogCountOutputTypeDefaultArgs<ExtArgs>
@@ -22267,7 +22618,9 @@ export namespace Prisma {
   export type BlogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    tags?: boolean
+    status?: boolean
+    urlTitle?: boolean
+    coverImage?: boolean
     content?: boolean
     viewCount?: boolean
     likes?: boolean
@@ -22279,7 +22632,9 @@ export namespace Prisma {
   export type BlogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    tags?: boolean
+    status?: boolean
+    urlTitle?: boolean
+    coverImage?: boolean
     content?: boolean
     viewCount?: boolean
     likes?: boolean
@@ -22291,7 +22646,9 @@ export namespace Prisma {
   export type BlogSelectScalar = {
     id?: boolean
     title?: boolean
-    tags?: boolean
+    status?: boolean
+    urlTitle?: boolean
+    coverImage?: boolean
     content?: boolean
     viewCount?: boolean
     likes?: boolean
@@ -22300,8 +22657,9 @@ export namespace Prisma {
     authorId?: boolean
   }
 
-  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "tags" | "content" | "viewCount" | "likes" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["blog"]>
+  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "status" | "urlTitle" | "coverImage" | "content" | "viewCount" | "likes" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["blog"]>
   export type BlogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tags?: boolean | Blog$tagsArgs<ExtArgs>
     comments?: boolean | Blog$commentsArgs<ExtArgs>
     likedBy?: boolean | Blog$likedByArgs<ExtArgs>
     _count?: boolean | BlogCountOutputTypeDefaultArgs<ExtArgs>
@@ -22312,13 +22670,16 @@ export namespace Prisma {
   export type $BlogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Blog"
     objects: {
+      tags: Prisma.$TagsPayload<ExtArgs>[]
       comments: Prisma.$CommentPayload<ExtArgs>[]
       likedBy: Prisma.$LikedBlogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      tags: string[]
+      status: $Enums.Status
+      urlTitle: string
+      coverImage: string | null
       content: string
       viewCount: number
       likes: number
@@ -22719,6 +23080,7 @@ export namespace Prisma {
    */
   export interface Prisma__BlogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tags<T extends Blog$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Blog$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     comments<T extends Blog$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Blog$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     likedBy<T extends Blog$likedByArgs<ExtArgs> = {}>(args?: Subset<T, Blog$likedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikedBlogPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
@@ -22752,7 +23114,9 @@ export namespace Prisma {
   interface BlogFieldRefs {
     readonly id: FieldRef<"Blog", 'String'>
     readonly title: FieldRef<"Blog", 'String'>
-    readonly tags: FieldRef<"Blog", 'String[]'>
+    readonly status: FieldRef<"Blog", 'Status'>
+    readonly urlTitle: FieldRef<"Blog", 'String'>
+    readonly coverImage: FieldRef<"Blog", 'String'>
     readonly content: FieldRef<"Blog", 'String'>
     readonly viewCount: FieldRef<"Blog", 'Int'>
     readonly likes: FieldRef<"Blog", 'Int'>
@@ -23135,6 +23499,30 @@ export namespace Prisma {
   }
 
   /**
+   * Blog.tags
+   */
+  export type Blog$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    where?: TagsWhereInput
+    orderBy?: TagsOrderByWithRelationInput | TagsOrderByWithRelationInput[]
+    cursor?: TagsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
+  }
+
+  /**
    * Blog.comments
    */
   export type Blog$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23198,6 +23586,1025 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BlogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tags
+   */
+
+  export type AggregateTags = {
+    _count: TagsCountAggregateOutputType | null
+    _min: TagsMinAggregateOutputType | null
+    _max: TagsMaxAggregateOutputType | null
+  }
+
+  export type TagsMinAggregateOutputType = {
+    id: string | null
+    tagName: string | null
+  }
+
+  export type TagsMaxAggregateOutputType = {
+    id: string | null
+    tagName: string | null
+  }
+
+  export type TagsCountAggregateOutputType = {
+    id: number
+    tagName: number
+    _all: number
+  }
+
+
+  export type TagsMinAggregateInputType = {
+    id?: true
+    tagName?: true
+  }
+
+  export type TagsMaxAggregateInputType = {
+    id?: true
+    tagName?: true
+  }
+
+  export type TagsCountAggregateInputType = {
+    id?: true
+    tagName?: true
+    _all?: true
+  }
+
+  export type TagsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tags to aggregate.
+     */
+    where?: TagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagsOrderByWithRelationInput | TagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tags
+    **/
+    _count?: true | TagsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TagsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TagsMaxAggregateInputType
+  }
+
+  export type GetTagsAggregateType<T extends TagsAggregateArgs> = {
+        [P in keyof T & keyof AggregateTags]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTags[P]>
+      : GetScalarType<T[P], AggregateTags[P]>
+  }
+
+
+
+
+  export type TagsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TagsWhereInput
+    orderBy?: TagsOrderByWithAggregationInput | TagsOrderByWithAggregationInput[]
+    by: TagsScalarFieldEnum[] | TagsScalarFieldEnum
+    having?: TagsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TagsCountAggregateInputType | true
+    _min?: TagsMinAggregateInputType
+    _max?: TagsMaxAggregateInputType
+  }
+
+  export type TagsGroupByOutputType = {
+    id: string
+    tagName: string
+    _count: TagsCountAggregateOutputType | null
+    _min: TagsMinAggregateOutputType | null
+    _max: TagsMaxAggregateOutputType | null
+  }
+
+  type GetTagsGroupByPayload<T extends TagsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TagsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TagsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TagsGroupByOutputType[P]>
+            : GetScalarType<T[P], TagsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TagsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tagName?: boolean
+    blogs?: boolean | Tags$blogsArgs<ExtArgs>
+    _count?: boolean | TagsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tags"]>
+
+  export type TagsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tagName?: boolean
+  }, ExtArgs["result"]["tags"]>
+
+  export type TagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tagName?: boolean
+  }, ExtArgs["result"]["tags"]>
+
+  export type TagsSelectScalar = {
+    id?: boolean
+    tagName?: boolean
+  }
+
+  export type TagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tagName", ExtArgs["result"]["tags"]>
+  export type TagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blogs?: boolean | Tags$blogsArgs<ExtArgs>
+    _count?: boolean | TagsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TagsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TagsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $TagsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tags"
+    objects: {
+      blogs: Prisma.$BlogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tagName: string
+    }, ExtArgs["result"]["tags"]>
+    composites: {}
+  }
+
+  type TagsGetPayload<S extends boolean | null | undefined | TagsDefaultArgs> = $Result.GetResult<Prisma.$TagsPayload, S>
+
+  type TagsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TagsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TagsCountAggregateInputType | true
+    }
+
+  export interface TagsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tags'], meta: { name: 'Tags' } }
+    /**
+     * Find zero or one Tags that matches the filter.
+     * @param {TagsFindUniqueArgs} args - Arguments to find a Tags
+     * @example
+     * // Get one Tags
+     * const tags = await prisma.tags.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TagsFindUniqueArgs>(args: SelectSubset<T, TagsFindUniqueArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Tags that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TagsFindUniqueOrThrowArgs} args - Arguments to find a Tags
+     * @example
+     * // Get one Tags
+     * const tags = await prisma.tags.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TagsFindUniqueOrThrowArgs>(args: SelectSubset<T, TagsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsFindFirstArgs} args - Arguments to find a Tags
+     * @example
+     * // Get one Tags
+     * const tags = await prisma.tags.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TagsFindFirstArgs>(args?: SelectSubset<T, TagsFindFirstArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Tags that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsFindFirstOrThrowArgs} args - Arguments to find a Tags
+     * @example
+     * // Get one Tags
+     * const tags = await prisma.tags.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TagsFindFirstOrThrowArgs>(args?: SelectSubset<T, TagsFindFirstOrThrowArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tags
+     * const tags = await prisma.tags.findMany()
+     * 
+     * // Get first 10 Tags
+     * const tags = await prisma.tags.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tagsWithIdOnly = await prisma.tags.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TagsFindManyArgs>(args?: SelectSubset<T, TagsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Tags.
+     * @param {TagsCreateArgs} args - Arguments to create a Tags.
+     * @example
+     * // Create one Tags
+     * const Tags = await prisma.tags.create({
+     *   data: {
+     *     // ... data to create a Tags
+     *   }
+     * })
+     * 
+     */
+    create<T extends TagsCreateArgs>(args: SelectSubset<T, TagsCreateArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Tags.
+     * @param {TagsCreateManyArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tags = await prisma.tags.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TagsCreateManyArgs>(args?: SelectSubset<T, TagsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tags and returns the data saved in the database.
+     * @param {TagsCreateManyAndReturnArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tags = await prisma.tags.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tags and only return the `id`
+     * const tagsWithIdOnly = await prisma.tags.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TagsCreateManyAndReturnArgs>(args?: SelectSubset<T, TagsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Tags.
+     * @param {TagsDeleteArgs} args - Arguments to delete one Tags.
+     * @example
+     * // Delete one Tags
+     * const Tags = await prisma.tags.delete({
+     *   where: {
+     *     // ... filter to delete one Tags
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TagsDeleteArgs>(args: SelectSubset<T, TagsDeleteArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Tags.
+     * @param {TagsUpdateArgs} args - Arguments to update one Tags.
+     * @example
+     * // Update one Tags
+     * const tags = await prisma.tags.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TagsUpdateArgs>(args: SelectSubset<T, TagsUpdateArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Tags.
+     * @param {TagsDeleteManyArgs} args - Arguments to filter Tags to delete.
+     * @example
+     * // Delete a few Tags
+     * const { count } = await prisma.tags.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TagsDeleteManyArgs>(args?: SelectSubset<T, TagsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tags
+     * const tags = await prisma.tags.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TagsUpdateManyArgs>(args: SelectSubset<T, TagsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tags and returns the data updated in the database.
+     * @param {TagsUpdateManyAndReturnArgs} args - Arguments to update many Tags.
+     * @example
+     * // Update many Tags
+     * const tags = await prisma.tags.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tags and only return the `id`
+     * const tagsWithIdOnly = await prisma.tags.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TagsUpdateManyAndReturnArgs>(args: SelectSubset<T, TagsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Tags.
+     * @param {TagsUpsertArgs} args - Arguments to update or create a Tags.
+     * @example
+     * // Update or create a Tags
+     * const tags = await prisma.tags.upsert({
+     *   create: {
+     *     // ... data to create a Tags
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tags we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TagsUpsertArgs>(args: SelectSubset<T, TagsUpsertArgs<ExtArgs>>): Prisma__TagsClient<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsCountArgs} args - Arguments to filter Tags to count.
+     * @example
+     * // Count the number of Tags
+     * const count = await prisma.tags.count({
+     *   where: {
+     *     // ... the filter for the Tags we want to count
+     *   }
+     * })
+    **/
+    count<T extends TagsCountArgs>(
+      args?: Subset<T, TagsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TagsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TagsAggregateArgs>(args: Subset<T, TagsAggregateArgs>): Prisma.PrismaPromise<GetTagsAggregateType<T>>
+
+    /**
+     * Group by Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TagsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TagsGroupByArgs['orderBy'] }
+        : { orderBy?: TagsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TagsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTagsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tags model
+   */
+  readonly fields: TagsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tags.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TagsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    blogs<T extends Tags$blogsArgs<ExtArgs> = {}>(args?: Subset<T, Tags$blogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tags model
+   */ 
+  interface TagsFieldRefs {
+    readonly id: FieldRef<"Tags", 'String'>
+    readonly tagName: FieldRef<"Tags", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tags findUnique
+   */
+  export type TagsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where: TagsWhereUniqueInput
+  }
+
+  /**
+   * Tags findUniqueOrThrow
+   */
+  export type TagsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where: TagsWhereUniqueInput
+  }
+
+  /**
+   * Tags findFirst
+   */
+  export type TagsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where?: TagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagsOrderByWithRelationInput | TagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tags.
+     */
+    cursor?: TagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tags.
+     */
+    distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
+  }
+
+  /**
+   * Tags findFirstOrThrow
+   */
+  export type TagsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where?: TagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagsOrderByWithRelationInput | TagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tags.
+     */
+    cursor?: TagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tags.
+     */
+    distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
+  }
+
+  /**
+   * Tags findMany
+   */
+  export type TagsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where?: TagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagsOrderByWithRelationInput | TagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tags.
+     */
+    cursor?: TagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
+  }
+
+  /**
+   * Tags create
+   */
+  export type TagsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tags.
+     */
+    data: XOR<TagsCreateInput, TagsUncheckedCreateInput>
+  }
+
+  /**
+   * Tags createMany
+   */
+  export type TagsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tags.
+     */
+    data: TagsCreateManyInput | TagsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tags createManyAndReturn
+   */
+  export type TagsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tags.
+     */
+    data: TagsCreateManyInput | TagsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tags update
+   */
+  export type TagsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tags.
+     */
+    data: XOR<TagsUpdateInput, TagsUncheckedUpdateInput>
+    /**
+     * Choose, which Tags to update.
+     */
+    where: TagsWhereUniqueInput
+  }
+
+  /**
+   * Tags updateMany
+   */
+  export type TagsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tags.
+     */
+    data: XOR<TagsUpdateManyMutationInput, TagsUncheckedUpdateManyInput>
+    /**
+     * Filter which Tags to update
+     */
+    where?: TagsWhereInput
+  }
+
+  /**
+   * Tags updateManyAndReturn
+   */
+  export type TagsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * The data used to update Tags.
+     */
+    data: XOR<TagsUpdateManyMutationInput, TagsUncheckedUpdateManyInput>
+    /**
+     * Filter which Tags to update
+     */
+    where?: TagsWhereInput
+  }
+
+  /**
+   * Tags upsert
+   */
+  export type TagsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tags to update in case it exists.
+     */
+    where: TagsWhereUniqueInput
+    /**
+     * In case the Tags found by the `where` argument doesn't exist, create a new Tags with this data.
+     */
+    create: XOR<TagsCreateInput, TagsUncheckedCreateInput>
+    /**
+     * In case the Tags was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TagsUpdateInput, TagsUncheckedUpdateInput>
+  }
+
+  /**
+   * Tags delete
+   */
+  export type TagsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
+    /**
+     * Filter which Tags to delete.
+     */
+    where: TagsWhereUniqueInput
+  }
+
+  /**
+   * Tags deleteMany
+   */
+  export type TagsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tags to delete
+     */
+    where?: TagsWhereInput
+  }
+
+  /**
+   * Tags.blogs
+   */
+  export type Tags$blogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Blog
+     */
+    select?: BlogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Blog
+     */
+    omit?: BlogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    where?: BlogWhereInput
+    orderBy?: BlogOrderByWithRelationInput | BlogOrderByWithRelationInput[]
+    cursor?: BlogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlogScalarFieldEnum | BlogScalarFieldEnum[]
+  }
+
+  /**
+   * Tags without action
+   */
+  export type TagsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tags
+     */
+    select?: TagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tags
+     */
+    omit?: TagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagsInclude<ExtArgs> | null
   }
 
 
@@ -25427,28 +26834,18 @@ export namespace Prisma {
   export type SubEventTaskScalarFieldEnum = (typeof SubEventTaskScalarFieldEnum)[keyof typeof SubEventTaskScalarFieldEnum]
 
 
-  export const OrderDetailsScalarFieldEnum: {
-    id: 'id',
-    orderId: 'orderId',
-    amount: 'amount',
-    currency: 'currency',
-    status: 'status',
-    razorpayResponse: 'razorpayResponse',
-    createdAt: 'createdAt',
-    userId: 'userId',
-    templateId: 'templateId'
-  };
-
-  export type OrderDetailsScalarFieldEnum = (typeof OrderDetailsScalarFieldEnum)[keyof typeof OrderDetailsScalarFieldEnum]
-
-
   export const PaymentDetailsScalarFieldEnum: {
     id: 'id',
     orderId: 'orderId',
     paymentId: 'paymentId',
     razorpayResponse: 'razorpayResponse',
-    status: 'status',
+    orderStatus: 'orderStatus',
+    paymentStatus: 'paymentStatus',
+    amount: 'amount',
+    currency: 'currency',
     purchasedAt: 'purchasedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     userId: 'userId',
     templateId: 'templateId'
   };
@@ -25499,15 +26896,33 @@ export namespace Prisma {
   export const InvitationTemplateScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    imageUrl: 'imageUrl',
+    description: 'description',
+    userId: 'userId',
+    jsonData: 'jsonData',
     price: 'price',
-    template_type: 'template_type',
-    template_category: 'template_category',
-    filter: 'filter',
-    createdAt: 'createdAt'
+    categoryByAmount: 'categoryByAmount',
+    categoryByMood: 'categoryByMood',
+    categoryByRequirement: 'categoryByRequirement',
+    additionalTags: 'additionalTags',
+    designedBy: 'designedBy',
+    thumbnailUrl: 'thumbnailUrl',
+    rating: 'rating',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type InvitationTemplateScalarFieldEnum = (typeof InvitationTemplateScalarFieldEnum)[keyof typeof InvitationTemplateScalarFieldEnum]
+
+
+  export const TemplateWatchHistoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    templateId: 'templateId',
+    watchedAt: 'watchedAt'
+  };
+
+  export type TemplateWatchHistoryScalarFieldEnum = (typeof TemplateWatchHistoryScalarFieldEnum)[keyof typeof TemplateWatchHistoryScalarFieldEnum]
 
 
   export const UserDataTemplateScalarFieldEnum: {
@@ -25531,7 +26946,9 @@ export namespace Prisma {
   export const BlogScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    tags: 'tags',
+    status: 'status',
+    urlTitle: 'urlTitle',
+    coverImage: 'coverImage',
     content: 'content',
     viewCount: 'viewCount',
     likes: 'likes',
@@ -25541,6 +26958,14 @@ export namespace Prisma {
   };
 
   export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+  export const TagsScalarFieldEnum: {
+    id: 'id',
+    tagName: 'tagName'
+  };
+
+  export type TagsScalarFieldEnum = (typeof TagsScalarFieldEnum)[keyof typeof TagsScalarFieldEnum]
 
 
   export const CommentScalarFieldEnum: {
@@ -25576,6 +27001,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -25721,16 +27154,72 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'template_category'
+   * Reference to a field of type 'CategoryByAmount'
    */
-  export type Enumtemplate_categoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'template_category'>
+  export type EnumCategoryByAmountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByAmount'>
     
 
 
   /**
-   * Reference to a field of type 'template_category[]'
+   * Reference to a field of type 'CategoryByAmount[]'
    */
-  export type ListEnumtemplate_categoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'template_category[]'>
+  export type ListEnumCategoryByAmountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByAmount[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategoryByMood'
+   */
+  export type EnumCategoryByMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByMood'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategoryByMood[]'
+   */
+  export type ListEnumCategoryByMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByMood[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategoryByRequirement'
+   */
+  export type EnumCategoryByRequirementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByRequirement'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategoryByRequirement[]'
+   */
+  export type ListEnumCategoryByRequirementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryByRequirement[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateStatus'
+   */
+  export type EnumTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateStatus[]'
+   */
+  export type ListEnumTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
     
   /**
    * Deep Input Types
@@ -25762,10 +27251,11 @@ export namespace Prisma {
     checklists?: ChecklistListRelationFilter
     guests?: GuestListRelationFilter
     paymentDetails?: PaymentDetailsListRelationFilter
-    orderDetails?: OrderDetailsListRelationFilter
     userDataTemplate?: UserDataTemplateListRelationFilter
     event?: EventListRelationFilter
     likedBlogs?: LikedBlogListRelationFilter
+    invitationTemplate?: InvitationTemplateListRelationFilter
+    watchHistory?: TemplateWatchHistoryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -25790,10 +27280,11 @@ export namespace Prisma {
     checklists?: ChecklistOrderByRelationAggregateInput
     guests?: GuestOrderByRelationAggregateInput
     paymentDetails?: PaymentDetailsOrderByRelationAggregateInput
-    orderDetails?: OrderDetailsOrderByRelationAggregateInput
     userDataTemplate?: UserDataTemplateOrderByRelationAggregateInput
     event?: EventOrderByRelationAggregateInput
     likedBlogs?: LikedBlogOrderByRelationAggregateInput
+    invitationTemplate?: InvitationTemplateOrderByRelationAggregateInput
+    watchHistory?: TemplateWatchHistoryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -25821,10 +27312,11 @@ export namespace Prisma {
     checklists?: ChecklistListRelationFilter
     guests?: GuestListRelationFilter
     paymentDetails?: PaymentDetailsListRelationFilter
-    orderDetails?: OrderDetailsListRelationFilter
     userDataTemplate?: UserDataTemplateListRelationFilter
     event?: EventListRelationFilter
     likedBlogs?: LikedBlogListRelationFilter
+    invitationTemplate?: InvitationTemplateListRelationFilter
+    watchHistory?: TemplateWatchHistoryListRelationFilter
   }, "id" | "email" | "googleUid">
 
   export type UserOrderByWithAggregationInput = {
@@ -26478,86 +27970,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SubEventTask"> | Date | string
   }
 
-  export type OrderDetailsWhereInput = {
-    AND?: OrderDetailsWhereInput | OrderDetailsWhereInput[]
-    OR?: OrderDetailsWhereInput[]
-    NOT?: OrderDetailsWhereInput | OrderDetailsWhereInput[]
-    id?: StringFilter<"OrderDetails"> | string
-    orderId?: StringFilter<"OrderDetails"> | string
-    amount?: FloatFilter<"OrderDetails"> | number
-    currency?: StringFilter<"OrderDetails"> | string
-    status?: StringFilter<"OrderDetails"> | string
-    razorpayResponse?: JsonFilter<"OrderDetails">
-    createdAt?: DateTimeFilter<"OrderDetails"> | Date | string
-    userId?: StringFilter<"OrderDetails"> | string
-    templateId?: StringNullableFilter<"OrderDetails"> | string | null
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-    InvitationTemplate?: XOR<InvitationTemplateNullableScalarRelationFilter, InvitationTemplateWhereInput> | null
-  }
-
-  export type OrderDetailsOrderByWithRelationInput = {
-    id?: SortOrder
-    orderId?: SortOrder
-    amount?: SortOrder
-    currency?: SortOrder
-    status?: SortOrder
-    razorpayResponse?: SortOrder
-    createdAt?: SortOrder
-    userId?: SortOrder
-    templateId?: SortOrderInput | SortOrder
-    User?: UserOrderByWithRelationInput
-    InvitationTemplate?: InvitationTemplateOrderByWithRelationInput
-  }
-
-  export type OrderDetailsWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    orderId?: string
-    AND?: OrderDetailsWhereInput | OrderDetailsWhereInput[]
-    OR?: OrderDetailsWhereInput[]
-    NOT?: OrderDetailsWhereInput | OrderDetailsWhereInput[]
-    amount?: FloatFilter<"OrderDetails"> | number
-    currency?: StringFilter<"OrderDetails"> | string
-    status?: StringFilter<"OrderDetails"> | string
-    razorpayResponse?: JsonFilter<"OrderDetails">
-    createdAt?: DateTimeFilter<"OrderDetails"> | Date | string
-    userId?: StringFilter<"OrderDetails"> | string
-    templateId?: StringNullableFilter<"OrderDetails"> | string | null
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-    InvitationTemplate?: XOR<InvitationTemplateNullableScalarRelationFilter, InvitationTemplateWhereInput> | null
-  }, "id" | "orderId">
-
-  export type OrderDetailsOrderByWithAggregationInput = {
-    id?: SortOrder
-    orderId?: SortOrder
-    amount?: SortOrder
-    currency?: SortOrder
-    status?: SortOrder
-    razorpayResponse?: SortOrder
-    createdAt?: SortOrder
-    userId?: SortOrder
-    templateId?: SortOrderInput | SortOrder
-    _count?: OrderDetailsCountOrderByAggregateInput
-    _avg?: OrderDetailsAvgOrderByAggregateInput
-    _max?: OrderDetailsMaxOrderByAggregateInput
-    _min?: OrderDetailsMinOrderByAggregateInput
-    _sum?: OrderDetailsSumOrderByAggregateInput
-  }
-
-  export type OrderDetailsScalarWhereWithAggregatesInput = {
-    AND?: OrderDetailsScalarWhereWithAggregatesInput | OrderDetailsScalarWhereWithAggregatesInput[]
-    OR?: OrderDetailsScalarWhereWithAggregatesInput[]
-    NOT?: OrderDetailsScalarWhereWithAggregatesInput | OrderDetailsScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"OrderDetails"> | string
-    orderId?: StringWithAggregatesFilter<"OrderDetails"> | string
-    amount?: FloatWithAggregatesFilter<"OrderDetails"> | number
-    currency?: StringWithAggregatesFilter<"OrderDetails"> | string
-    status?: StringWithAggregatesFilter<"OrderDetails"> | string
-    razorpayResponse?: JsonWithAggregatesFilter<"OrderDetails">
-    createdAt?: DateTimeWithAggregatesFilter<"OrderDetails"> | Date | string
-    userId?: StringWithAggregatesFilter<"OrderDetails"> | string
-    templateId?: StringNullableWithAggregatesFilter<"OrderDetails"> | string | null
-  }
-
   export type PaymentDetailsWhereInput = {
     AND?: PaymentDetailsWhereInput | PaymentDetailsWhereInput[]
     OR?: PaymentDetailsWhereInput[]
@@ -26565,9 +27977,14 @@ export namespace Prisma {
     id?: StringFilter<"PaymentDetails"> | string
     orderId?: StringFilter<"PaymentDetails"> | string
     paymentId?: StringNullableFilter<"PaymentDetails"> | string | null
-    razorpayResponse?: JsonFilter<"PaymentDetails">
-    status?: StringFilter<"PaymentDetails"> | string
+    razorpayResponse?: JsonNullableFilter<"PaymentDetails">
+    orderStatus?: StringFilter<"PaymentDetails"> | string
+    paymentStatus?: StringNullableFilter<"PaymentDetails"> | string | null
+    amount?: DecimalFilter<"PaymentDetails"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"PaymentDetails"> | string
     purchasedAt?: DateTimeNullableFilter<"PaymentDetails"> | Date | string | null
+    createdAt?: DateTimeFilter<"PaymentDetails"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentDetails"> | Date | string
     userId?: StringFilter<"PaymentDetails"> | string
     templateId?: StringNullableFilter<"PaymentDetails"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -26578,9 +27995,14 @@ export namespace Prisma {
     id?: SortOrder
     orderId?: SortOrder
     paymentId?: SortOrderInput | SortOrder
-    razorpayResponse?: SortOrder
-    status?: SortOrder
+    razorpayResponse?: SortOrderInput | SortOrder
+    orderStatus?: SortOrder
+    paymentStatus?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
     purchasedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     userId?: SortOrder
     templateId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
@@ -26594,9 +28016,14 @@ export namespace Prisma {
     OR?: PaymentDetailsWhereInput[]
     NOT?: PaymentDetailsWhereInput | PaymentDetailsWhereInput[]
     paymentId?: StringNullableFilter<"PaymentDetails"> | string | null
-    razorpayResponse?: JsonFilter<"PaymentDetails">
-    status?: StringFilter<"PaymentDetails"> | string
+    razorpayResponse?: JsonNullableFilter<"PaymentDetails">
+    orderStatus?: StringFilter<"PaymentDetails"> | string
+    paymentStatus?: StringNullableFilter<"PaymentDetails"> | string | null
+    amount?: DecimalFilter<"PaymentDetails"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"PaymentDetails"> | string
     purchasedAt?: DateTimeNullableFilter<"PaymentDetails"> | Date | string | null
+    createdAt?: DateTimeFilter<"PaymentDetails"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentDetails"> | Date | string
     userId?: StringFilter<"PaymentDetails"> | string
     templateId?: StringNullableFilter<"PaymentDetails"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -26607,14 +28034,21 @@ export namespace Prisma {
     id?: SortOrder
     orderId?: SortOrder
     paymentId?: SortOrderInput | SortOrder
-    razorpayResponse?: SortOrder
-    status?: SortOrder
+    razorpayResponse?: SortOrderInput | SortOrder
+    orderStatus?: SortOrder
+    paymentStatus?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
     purchasedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     userId?: SortOrder
     templateId?: SortOrderInput | SortOrder
     _count?: PaymentDetailsCountOrderByAggregateInput
+    _avg?: PaymentDetailsAvgOrderByAggregateInput
     _max?: PaymentDetailsMaxOrderByAggregateInput
     _min?: PaymentDetailsMinOrderByAggregateInput
+    _sum?: PaymentDetailsSumOrderByAggregateInput
   }
 
   export type PaymentDetailsScalarWhereWithAggregatesInput = {
@@ -26624,9 +28058,14 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PaymentDetails"> | string
     orderId?: StringWithAggregatesFilter<"PaymentDetails"> | string
     paymentId?: StringNullableWithAggregatesFilter<"PaymentDetails"> | string | null
-    razorpayResponse?: JsonWithAggregatesFilter<"PaymentDetails">
-    status?: StringWithAggregatesFilter<"PaymentDetails"> | string
+    razorpayResponse?: JsonNullableWithAggregatesFilter<"PaymentDetails">
+    orderStatus?: StringWithAggregatesFilter<"PaymentDetails"> | string
+    paymentStatus?: StringNullableWithAggregatesFilter<"PaymentDetails"> | string | null
+    amount?: DecimalWithAggregatesFilter<"PaymentDetails"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"PaymentDetails"> | string
     purchasedAt?: DateTimeNullableWithAggregatesFilter<"PaymentDetails"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentDetails"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PaymentDetails"> | Date | string
     userId?: StringWithAggregatesFilter<"PaymentDetails"> | string
     templateId?: StringNullableWithAggregatesFilter<"PaymentDetails"> | string | null
   }
@@ -26836,27 +28275,45 @@ export namespace Prisma {
     NOT?: InvitationTemplateWhereInput | InvitationTemplateWhereInput[]
     id?: StringFilter<"InvitationTemplate"> | string
     name?: StringFilter<"InvitationTemplate"> | string
-    imageUrl?: JsonFilter<"InvitationTemplate">
+    description?: StringNullableFilter<"InvitationTemplate"> | string | null
+    userId?: StringFilter<"InvitationTemplate"> | string
+    jsonData?: JsonFilter<"InvitationTemplate">
     price?: FloatNullableFilter<"InvitationTemplate"> | number | null
-    template_type?: Enumtemplate_categoryFilter<"InvitationTemplate"> | $Enums.template_category
-    template_category?: StringFilter<"InvitationTemplate"> | string
-    filter?: StringNullableFilter<"InvitationTemplate"> | string | null
+    categoryByAmount?: EnumCategoryByAmountFilter<"InvitationTemplate"> | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFilter<"InvitationTemplate"> | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFilter<"InvitationTemplate"> | $Enums.CategoryByRequirement
+    additionalTags?: StringNullableListFilter<"InvitationTemplate">
+    designedBy?: StringNullableFilter<"InvitationTemplate"> | string | null
+    thumbnailUrl?: StringNullableFilter<"InvitationTemplate"> | string | null
+    rating?: FloatNullableFilter<"InvitationTemplate"> | number | null
+    status?: EnumTemplateStatusFilter<"InvitationTemplate"> | $Enums.TemplateStatus
     createdAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     paymentDetails?: PaymentDetailsListRelationFilter
-    orderDetails?: OrderDetailsListRelationFilter
+    watchHistory?: TemplateWatchHistoryListRelationFilter
   }
 
   export type InvitationTemplateOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    imageUrl?: SortOrder
+    description?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    jsonData?: SortOrder
     price?: SortOrderInput | SortOrder
-    template_type?: SortOrder
-    template_category?: SortOrder
-    filter?: SortOrderInput | SortOrder
+    categoryByAmount?: SortOrder
+    categoryByMood?: SortOrder
+    categoryByRequirement?: SortOrder
+    additionalTags?: SortOrder
+    designedBy?: SortOrderInput | SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
     paymentDetails?: PaymentDetailsOrderByRelationAggregateInput
-    orderDetails?: OrderDetailsOrderByRelationAggregateInput
+    watchHistory?: TemplateWatchHistoryOrderByRelationAggregateInput
   }
 
   export type InvitationTemplateWhereUniqueInput = Prisma.AtLeast<{
@@ -26865,25 +28322,42 @@ export namespace Prisma {
     OR?: InvitationTemplateWhereInput[]
     NOT?: InvitationTemplateWhereInput | InvitationTemplateWhereInput[]
     name?: StringFilter<"InvitationTemplate"> | string
-    imageUrl?: JsonFilter<"InvitationTemplate">
+    description?: StringNullableFilter<"InvitationTemplate"> | string | null
+    userId?: StringFilter<"InvitationTemplate"> | string
+    jsonData?: JsonFilter<"InvitationTemplate">
     price?: FloatNullableFilter<"InvitationTemplate"> | number | null
-    template_type?: Enumtemplate_categoryFilter<"InvitationTemplate"> | $Enums.template_category
-    template_category?: StringFilter<"InvitationTemplate"> | string
-    filter?: StringNullableFilter<"InvitationTemplate"> | string | null
+    categoryByAmount?: EnumCategoryByAmountFilter<"InvitationTemplate"> | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFilter<"InvitationTemplate"> | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFilter<"InvitationTemplate"> | $Enums.CategoryByRequirement
+    additionalTags?: StringNullableListFilter<"InvitationTemplate">
+    designedBy?: StringNullableFilter<"InvitationTemplate"> | string | null
+    thumbnailUrl?: StringNullableFilter<"InvitationTemplate"> | string | null
+    rating?: FloatNullableFilter<"InvitationTemplate"> | number | null
+    status?: EnumTemplateStatusFilter<"InvitationTemplate"> | $Enums.TemplateStatus
     createdAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     paymentDetails?: PaymentDetailsListRelationFilter
-    orderDetails?: OrderDetailsListRelationFilter
+    watchHistory?: TemplateWatchHistoryListRelationFilter
   }, "id">
 
   export type InvitationTemplateOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    imageUrl?: SortOrder
+    description?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    jsonData?: SortOrder
     price?: SortOrderInput | SortOrder
-    template_type?: SortOrder
-    template_category?: SortOrder
-    filter?: SortOrderInput | SortOrder
+    categoryByAmount?: SortOrder
+    categoryByMood?: SortOrder
+    categoryByRequirement?: SortOrder
+    additionalTags?: SortOrder
+    designedBy?: SortOrderInput | SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: InvitationTemplateCountOrderByAggregateInput
     _avg?: InvitationTemplateAvgOrderByAggregateInput
     _max?: InvitationTemplateMaxOrderByAggregateInput
@@ -26897,12 +28371,74 @@ export namespace Prisma {
     NOT?: InvitationTemplateScalarWhereWithAggregatesInput | InvitationTemplateScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvitationTemplate"> | string
     name?: StringWithAggregatesFilter<"InvitationTemplate"> | string
-    imageUrl?: JsonWithAggregatesFilter<"InvitationTemplate">
+    description?: StringNullableWithAggregatesFilter<"InvitationTemplate"> | string | null
+    userId?: StringWithAggregatesFilter<"InvitationTemplate"> | string
+    jsonData?: JsonWithAggregatesFilter<"InvitationTemplate">
     price?: FloatNullableWithAggregatesFilter<"InvitationTemplate"> | number | null
-    template_type?: Enumtemplate_categoryWithAggregatesFilter<"InvitationTemplate"> | $Enums.template_category
-    template_category?: StringWithAggregatesFilter<"InvitationTemplate"> | string
-    filter?: StringNullableWithAggregatesFilter<"InvitationTemplate"> | string | null
+    categoryByAmount?: EnumCategoryByAmountWithAggregatesFilter<"InvitationTemplate"> | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodWithAggregatesFilter<"InvitationTemplate"> | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementWithAggregatesFilter<"InvitationTemplate"> | $Enums.CategoryByRequirement
+    additionalTags?: StringNullableListFilter<"InvitationTemplate">
+    designedBy?: StringNullableWithAggregatesFilter<"InvitationTemplate"> | string | null
+    thumbnailUrl?: StringNullableWithAggregatesFilter<"InvitationTemplate"> | string | null
+    rating?: FloatNullableWithAggregatesFilter<"InvitationTemplate"> | number | null
+    status?: EnumTemplateStatusWithAggregatesFilter<"InvitationTemplate"> | $Enums.TemplateStatus
     createdAt?: DateTimeWithAggregatesFilter<"InvitationTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"InvitationTemplate"> | Date | string
+  }
+
+  export type TemplateWatchHistoryWhereInput = {
+    AND?: TemplateWatchHistoryWhereInput | TemplateWatchHistoryWhereInput[]
+    OR?: TemplateWatchHistoryWhereInput[]
+    NOT?: TemplateWatchHistoryWhereInput | TemplateWatchHistoryWhereInput[]
+    id?: StringFilter<"TemplateWatchHistory"> | string
+    userId?: StringFilter<"TemplateWatchHistory"> | string
+    templateId?: StringFilter<"TemplateWatchHistory"> | string
+    watchedAt?: DateTimeFilter<"TemplateWatchHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<InvitationTemplateScalarRelationFilter, InvitationTemplateWhereInput>
+  }
+
+  export type TemplateWatchHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    watchedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    template?: InvitationTemplateOrderByWithRelationInput
+  }
+
+  export type TemplateWatchHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_templateId?: TemplateWatchHistoryUserIdTemplateIdCompoundUniqueInput
+    AND?: TemplateWatchHistoryWhereInput | TemplateWatchHistoryWhereInput[]
+    OR?: TemplateWatchHistoryWhereInput[]
+    NOT?: TemplateWatchHistoryWhereInput | TemplateWatchHistoryWhereInput[]
+    userId?: StringFilter<"TemplateWatchHistory"> | string
+    templateId?: StringFilter<"TemplateWatchHistory"> | string
+    watchedAt?: DateTimeFilter<"TemplateWatchHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<InvitationTemplateScalarRelationFilter, InvitationTemplateWhereInput>
+  }, "id" | "userId_templateId">
+
+  export type TemplateWatchHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    watchedAt?: SortOrder
+    _count?: TemplateWatchHistoryCountOrderByAggregateInput
+    _max?: TemplateWatchHistoryMaxOrderByAggregateInput
+    _min?: TemplateWatchHistoryMinOrderByAggregateInput
+  }
+
+  export type TemplateWatchHistoryScalarWhereWithAggregatesInput = {
+    AND?: TemplateWatchHistoryScalarWhereWithAggregatesInput | TemplateWatchHistoryScalarWhereWithAggregatesInput[]
+    OR?: TemplateWatchHistoryScalarWhereWithAggregatesInput[]
+    NOT?: TemplateWatchHistoryScalarWhereWithAggregatesInput | TemplateWatchHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TemplateWatchHistory"> | string
+    userId?: StringWithAggregatesFilter<"TemplateWatchHistory"> | string
+    templateId?: StringWithAggregatesFilter<"TemplateWatchHistory"> | string
+    watchedAt?: DateTimeWithAggregatesFilter<"TemplateWatchHistory"> | Date | string
   }
 
   export type UserDataTemplateWhereInput = {
@@ -27001,13 +28537,16 @@ export namespace Prisma {
     NOT?: BlogWhereInput | BlogWhereInput[]
     id?: StringFilter<"Blog"> | string
     title?: StringFilter<"Blog"> | string
-    tags?: StringNullableListFilter<"Blog">
+    status?: EnumStatusFilter<"Blog"> | $Enums.Status
+    urlTitle?: StringFilter<"Blog"> | string
+    coverImage?: StringNullableFilter<"Blog"> | string | null
     content?: StringFilter<"Blog"> | string
     viewCount?: IntFilter<"Blog"> | number
     likes?: IntFilter<"Blog"> | number
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     updatedAt?: DateTimeFilter<"Blog"> | Date | string
     authorId?: StringFilter<"Blog"> | string
+    tags?: TagsListRelationFilter
     comments?: CommentListRelationFilter
     likedBy?: LikedBlogListRelationFilter
   }
@@ -27015,13 +28554,16 @@ export namespace Prisma {
   export type BlogOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    tags?: SortOrder
+    status?: SortOrder
+    urlTitle?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
     content?: SortOrder
     viewCount?: SortOrder
     likes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     authorId?: SortOrder
+    tags?: TagsOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
     likedBy?: LikedBlogOrderByRelationAggregateInput
   }
@@ -27029,24 +28571,29 @@ export namespace Prisma {
   export type BlogWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     title?: string
+    urlTitle?: string
     AND?: BlogWhereInput | BlogWhereInput[]
     OR?: BlogWhereInput[]
     NOT?: BlogWhereInput | BlogWhereInput[]
-    tags?: StringNullableListFilter<"Blog">
+    status?: EnumStatusFilter<"Blog"> | $Enums.Status
+    coverImage?: StringNullableFilter<"Blog"> | string | null
     content?: StringFilter<"Blog"> | string
     viewCount?: IntFilter<"Blog"> | number
     likes?: IntFilter<"Blog"> | number
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     updatedAt?: DateTimeFilter<"Blog"> | Date | string
     authorId?: StringFilter<"Blog"> | string
+    tags?: TagsListRelationFilter
     comments?: CommentListRelationFilter
     likedBy?: LikedBlogListRelationFilter
-  }, "id" | "title">
+  }, "id" | "title" | "urlTitle">
 
   export type BlogOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    tags?: SortOrder
+    status?: SortOrder
+    urlTitle?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
     content?: SortOrder
     viewCount?: SortOrder
     likes?: SortOrder
@@ -27066,13 +28613,55 @@ export namespace Prisma {
     NOT?: BlogScalarWhereWithAggregatesInput | BlogScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Blog"> | string
     title?: StringWithAggregatesFilter<"Blog"> | string
-    tags?: StringNullableListFilter<"Blog">
+    status?: EnumStatusWithAggregatesFilter<"Blog"> | $Enums.Status
+    urlTitle?: StringWithAggregatesFilter<"Blog"> | string
+    coverImage?: StringNullableWithAggregatesFilter<"Blog"> | string | null
     content?: StringWithAggregatesFilter<"Blog"> | string
     viewCount?: IntWithAggregatesFilter<"Blog"> | number
     likes?: IntWithAggregatesFilter<"Blog"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
     authorId?: StringWithAggregatesFilter<"Blog"> | string
+  }
+
+  export type TagsWhereInput = {
+    AND?: TagsWhereInput | TagsWhereInput[]
+    OR?: TagsWhereInput[]
+    NOT?: TagsWhereInput | TagsWhereInput[]
+    id?: StringFilter<"Tags"> | string
+    tagName?: StringFilter<"Tags"> | string
+    blogs?: BlogListRelationFilter
+  }
+
+  export type TagsOrderByWithRelationInput = {
+    id?: SortOrder
+    tagName?: SortOrder
+    blogs?: BlogOrderByRelationAggregateInput
+  }
+
+  export type TagsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tagName?: string
+    AND?: TagsWhereInput | TagsWhereInput[]
+    OR?: TagsWhereInput[]
+    NOT?: TagsWhereInput | TagsWhereInput[]
+    blogs?: BlogListRelationFilter
+  }, "id" | "tagName">
+
+  export type TagsOrderByWithAggregationInput = {
+    id?: SortOrder
+    tagName?: SortOrder
+    _count?: TagsCountOrderByAggregateInput
+    _max?: TagsMaxOrderByAggregateInput
+    _min?: TagsMinOrderByAggregateInput
+  }
+
+  export type TagsScalarWhereWithAggregatesInput = {
+    AND?: TagsScalarWhereWithAggregatesInput | TagsScalarWhereWithAggregatesInput[]
+    OR?: TagsScalarWhereWithAggregatesInput[]
+    NOT?: TagsScalarWhereWithAggregatesInput | TagsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tags"> | string
+    tagName?: StringWithAggregatesFilter<"Tags"> | string
   }
 
   export type CommentWhereInput = {
@@ -27201,10 +28790,11 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -27229,10 +28819,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -27257,10 +28848,11 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -27285,10 +28877,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -27986,95 +29579,18 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OrderDetailsCreateInput = {
-    id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    User: UserCreateNestedOneWithoutOrderDetailsInput
-    InvitationTemplate?: InvitationTemplateCreateNestedOneWithoutOrderDetailsInput
-  }
-
-  export type OrderDetailsUncheckedCreateInput = {
-    id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    userId: string
-    templateId?: string | null
-  }
-
-  export type OrderDetailsUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    User?: UserUpdateOneRequiredWithoutOrderDetailsNestedInput
-    InvitationTemplate?: InvitationTemplateUpdateOneWithoutOrderDetailsNestedInput
-  }
-
-  export type OrderDetailsUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: StringFieldUpdateOperationsInput | string
-    templateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type OrderDetailsCreateManyInput = {
-    id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    userId: string
-    templateId?: string | null
-  }
-
-  export type OrderDetailsUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type OrderDetailsUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: StringFieldUpdateOperationsInput | string
-    templateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type PaymentDetailsCreateInput = {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPaymentDetailsInput
     InvitationTemplate?: InvitationTemplateCreateNestedOneWithoutPaymentDetailsInput
   }
@@ -28083,9 +29599,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     userId: string
     templateId?: string | null
   }
@@ -28094,9 +29615,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentDetailsNestedInput
     InvitationTemplate?: InvitationTemplateUpdateOneWithoutPaymentDetailsNestedInput
   }
@@ -28105,9 +29631,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -28116,9 +29647,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     userId: string
     templateId?: string | null
   }
@@ -28127,18 +29663,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PaymentDetailsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -28361,86 +29907,188 @@ export namespace Prisma {
   export type InvitationTemplateCreateInput = {
     id?: string
     name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
     price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
     createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutInvitationTemplateInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutInvitationTemplateInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutInvitationTemplateInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutTemplateInput
   }
 
   export type InvitationTemplateUncheckedCreateInput = {
     id?: string
     name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
+    description?: string | null
+    userId: string
+    jsonData: JsonNullValueInput | InputJsonValue
     price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
     createdAt?: Date | string
+    updatedAt?: Date | string
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type InvitationTemplateUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutInvitationTemplateNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutInvitationTemplateNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutInvitationTemplateNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutTemplateNestedInput
   }
 
   export type InvitationTemplateUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type InvitationTemplateCreateManyInput = {
     id?: string
     name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
+    description?: string | null
+    userId: string
+    jsonData: JsonNullValueInput | InputJsonValue
     price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type InvitationTemplateUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvitationTemplateUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateWatchHistoryCreateInput = {
+    id?: string
+    watchedAt?: Date | string
+    user: UserCreateNestedOneWithoutWatchHistoryInput
+    template: InvitationTemplateCreateNestedOneWithoutWatchHistoryInput
+  }
+
+  export type TemplateWatchHistoryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    templateId: string
+    watchedAt?: Date | string
+  }
+
+  export type TemplateWatchHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWatchHistoryNestedInput
+    template?: InvitationTemplateUpdateOneRequiredWithoutWatchHistoryNestedInput
+  }
+
+  export type TemplateWatchHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateWatchHistoryCreateManyInput = {
+    id?: string
+    userId: string
+    templateId: string
+    watchedAt?: Date | string
+  }
+
+  export type TemplateWatchHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateWatchHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserDataTemplateCreateInput = {
@@ -28550,13 +30198,16 @@ export namespace Prisma {
   export type BlogCreateInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    tags?: TagsCreateNestedManyWithoutBlogsInput
     comments?: CommentCreateNestedManyWithoutBlogInput
     likedBy?: LikedBlogCreateNestedManyWithoutBlogInput
   }
@@ -28564,13 +30215,16 @@ export namespace Prisma {
   export type BlogUncheckedCreateInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    tags?: TagsUncheckedCreateNestedManyWithoutBlogsInput
     comments?: CommentUncheckedCreateNestedManyWithoutBlogInput
     likedBy?: LikedBlogUncheckedCreateNestedManyWithoutBlogInput
   }
@@ -28578,13 +30232,16 @@ export namespace Prisma {
   export type BlogUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUpdateManyWithoutBlogsNestedInput
     comments?: CommentUpdateManyWithoutBlogNestedInput
     likedBy?: LikedBlogUpdateManyWithoutBlogNestedInput
   }
@@ -28592,13 +30249,16 @@ export namespace Prisma {
   export type BlogUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUncheckedUpdateManyWithoutBlogsNestedInput
     comments?: CommentUncheckedUpdateManyWithoutBlogNestedInput
     likedBy?: LikedBlogUncheckedUpdateManyWithoutBlogNestedInput
   }
@@ -28606,7 +30266,9 @@ export namespace Prisma {
   export type BlogCreateManyInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
@@ -28618,7 +30280,9 @@ export namespace Prisma {
   export type BlogUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
@@ -28630,13 +30294,54 @@ export namespace Prisma {
   export type BlogUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagsCreateInput = {
+    id?: string
+    tagName: string
+    blogs?: BlogCreateNestedManyWithoutTagsInput
+  }
+
+  export type TagsUncheckedCreateInput = {
+    id?: string
+    tagName: string
+    blogs?: BlogUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type TagsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
+    blogs?: BlogUpdateManyWithoutTagsNestedInput
+  }
+
+  export type TagsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
+    blogs?: BlogUncheckedUpdateManyWithoutTagsNestedInput
+  }
+
+  export type TagsCreateManyInput = {
+    id?: string
+    tagName: string
+  }
+
+  export type TagsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentCreateInput = {
@@ -28834,12 +30539,6 @@ export namespace Prisma {
     none?: PaymentDetailsWhereInput
   }
 
-  export type OrderDetailsListRelationFilter = {
-    every?: OrderDetailsWhereInput
-    some?: OrderDetailsWhereInput
-    none?: OrderDetailsWhereInput
-  }
-
   export type UserDataTemplateListRelationFilter = {
     every?: UserDataTemplateWhereInput
     some?: UserDataTemplateWhereInput
@@ -28856,6 +30555,18 @@ export namespace Prisma {
     every?: LikedBlogWhereInput
     some?: LikedBlogWhereInput
     none?: LikedBlogWhereInput
+  }
+
+  export type InvitationTemplateListRelationFilter = {
+    every?: InvitationTemplateWhereInput
+    some?: InvitationTemplateWhereInput
+    none?: InvitationTemplateWhereInput
+  }
+
+  export type TemplateWatchHistoryListRelationFilter = {
+    every?: TemplateWatchHistoryWhereInput
+    some?: TemplateWatchHistoryWhereInput
+    none?: TemplateWatchHistoryWhereInput
   }
 
   export type SortOrderInput = {
@@ -28887,10 +30598,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type OrderDetailsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type UserDataTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -28900,6 +30607,14 @@ export namespace Prisma {
   }
 
   export type LikedBlogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InvitationTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TemplateWatchHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29538,52 +31253,32 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type InvitationTemplateNullableScalarRelationFilter = {
     is?: InvitationTemplateWhereInput | null
     isNot?: InvitationTemplateWhereInput | null
-  }
-
-  export type OrderDetailsCountOrderByAggregateInput = {
-    id?: SortOrder
-    orderId?: SortOrder
-    amount?: SortOrder
-    currency?: SortOrder
-    status?: SortOrder
-    razorpayResponse?: SortOrder
-    createdAt?: SortOrder
-    userId?: SortOrder
-    templateId?: SortOrder
-  }
-
-  export type OrderDetailsAvgOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type OrderDetailsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    orderId?: SortOrder
-    amount?: SortOrder
-    currency?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    userId?: SortOrder
-    templateId?: SortOrder
-  }
-
-  export type OrderDetailsMinOrderByAggregateInput = {
-    id?: SortOrder
-    orderId?: SortOrder
-    amount?: SortOrder
-    currency?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    userId?: SortOrder
-    templateId?: SortOrder
-  }
-
-  export type OrderDetailsSumOrderByAggregateInput = {
-    amount?: SortOrder
   }
 
   export type PaymentDetailsCountOrderByAggregateInput = {
@@ -29591,18 +31286,32 @@ export namespace Prisma {
     orderId?: SortOrder
     paymentId?: SortOrder
     razorpayResponse?: SortOrder
-    status?: SortOrder
+    orderStatus?: SortOrder
+    paymentStatus?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
     purchasedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     userId?: SortOrder
     templateId?: SortOrder
+  }
+
+  export type PaymentDetailsAvgOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type PaymentDetailsMaxOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
     paymentId?: SortOrder
-    status?: SortOrder
+    orderStatus?: SortOrder
+    paymentStatus?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
     purchasedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     userId?: SortOrder
     templateId?: SortOrder
   }
@@ -29611,10 +31320,44 @@ export namespace Prisma {
     id?: SortOrder
     orderId?: SortOrder
     paymentId?: SortOrder
-    status?: SortOrder
+    orderStatus?: SortOrder
+    paymentStatus?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
     purchasedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     userId?: SortOrder
     templateId?: SortOrder
+  }
+
+  export type PaymentDetailsSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -29762,60 +31505,174 @@ export namespace Prisma {
     _max?: NestedEnumGuestStatusFilter<$PrismaModel>
   }
 
-  export type Enumtemplate_categoryFilter<$PrismaModel = never> = {
-    equals?: $Enums.template_category | Enumtemplate_categoryFieldRefInput<$PrismaModel>
-    in?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumtemplate_categoryFilter<$PrismaModel> | $Enums.template_category
+  export type EnumCategoryByAmountFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByAmount | EnumCategoryByAmountFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByAmountFilter<$PrismaModel> | $Enums.CategoryByAmount
+  }
+
+  export type EnumCategoryByMoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByMood | EnumCategoryByMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByMoodFilter<$PrismaModel> | $Enums.CategoryByMood
+  }
+
+  export type EnumCategoryByRequirementFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByRequirement | EnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByRequirementFilter<$PrismaModel> | $Enums.CategoryByRequirement
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type EnumTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusFilter<$PrismaModel> | $Enums.TemplateStatus
   }
 
   export type InvitationTemplateCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    imageUrl?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    jsonData?: SortOrder
     price?: SortOrder
-    template_type?: SortOrder
-    template_category?: SortOrder
-    filter?: SortOrder
+    categoryByAmount?: SortOrder
+    categoryByMood?: SortOrder
+    categoryByRequirement?: SortOrder
+    additionalTags?: SortOrder
+    designedBy?: SortOrder
+    thumbnailUrl?: SortOrder
+    rating?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type InvitationTemplateAvgOrderByAggregateInput = {
     price?: SortOrder
+    rating?: SortOrder
   }
 
   export type InvitationTemplateMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
     price?: SortOrder
-    template_type?: SortOrder
-    template_category?: SortOrder
-    filter?: SortOrder
+    categoryByAmount?: SortOrder
+    categoryByMood?: SortOrder
+    categoryByRequirement?: SortOrder
+    designedBy?: SortOrder
+    thumbnailUrl?: SortOrder
+    rating?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type InvitationTemplateMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
     price?: SortOrder
-    template_type?: SortOrder
-    template_category?: SortOrder
-    filter?: SortOrder
+    categoryByAmount?: SortOrder
+    categoryByMood?: SortOrder
+    categoryByRequirement?: SortOrder
+    designedBy?: SortOrder
+    thumbnailUrl?: SortOrder
+    rating?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type InvitationTemplateSumOrderByAggregateInput = {
     price?: SortOrder
+    rating?: SortOrder
   }
 
-  export type Enumtemplate_categoryWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.template_category | Enumtemplate_categoryFieldRefInput<$PrismaModel>
-    in?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumtemplate_categoryWithAggregatesFilter<$PrismaModel> | $Enums.template_category
+  export type EnumCategoryByAmountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByAmount | EnumCategoryByAmountFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByAmountWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByAmount
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtemplate_categoryFilter<$PrismaModel>
-    _max?: NestedEnumtemplate_categoryFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByAmountFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByAmountFilter<$PrismaModel>
+  }
+
+  export type EnumCategoryByMoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByMood | EnumCategoryByMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByMoodWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByMood
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByMoodFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByMoodFilter<$PrismaModel>
+  }
+
+  export type EnumCategoryByRequirementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByRequirement | EnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByRequirementWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByRequirement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByRequirementFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByRequirementFilter<$PrismaModel>
+  }
+
+  export type EnumTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.TemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type InvitationTemplateScalarRelationFilter = {
+    is?: InvitationTemplateWhereInput
+    isNot?: InvitationTemplateWhereInput
+  }
+
+  export type TemplateWatchHistoryUserIdTemplateIdCompoundUniqueInput = {
+    userId: string
+    templateId: string
+  }
+
+  export type TemplateWatchHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    watchedAt?: SortOrder
+  }
+
+  export type TemplateWatchHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    watchedAt?: SortOrder
+  }
+
+  export type TemplateWatchHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    watchedAt?: SortOrder
   }
 
   export type UserDataTemplateCountOrderByAggregateInput = {
@@ -29863,18 +31720,27 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type TagsListRelationFilter = {
+    every?: TagsWhereInput
+    some?: TagsWhereInput
+    none?: TagsWhereInput
   }
 
   export type CommentListRelationFilter = {
     every?: CommentWhereInput
     some?: CommentWhereInput
     none?: CommentWhereInput
+  }
+
+  export type TagsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CommentOrderByRelationAggregateInput = {
@@ -29884,7 +31750,9 @@ export namespace Prisma {
   export type BlogCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    tags?: SortOrder
+    status?: SortOrder
+    urlTitle?: SortOrder
+    coverImage?: SortOrder
     content?: SortOrder
     viewCount?: SortOrder
     likes?: SortOrder
@@ -29901,6 +31769,9 @@ export namespace Prisma {
   export type BlogMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    status?: SortOrder
+    urlTitle?: SortOrder
+    coverImage?: SortOrder
     content?: SortOrder
     viewCount?: SortOrder
     likes?: SortOrder
@@ -29912,6 +31783,9 @@ export namespace Prisma {
   export type BlogMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    status?: SortOrder
+    urlTitle?: SortOrder
+    coverImage?: SortOrder
     content?: SortOrder
     viewCount?: SortOrder
     likes?: SortOrder
@@ -29923,6 +31797,41 @@ export namespace Prisma {
   export type BlogSumOrderByAggregateInput = {
     viewCount?: SortOrder
     likes?: SortOrder
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type BlogListRelationFilter = {
+    every?: BlogWhereInput
+    some?: BlogWhereInput
+    none?: BlogWhereInput
+  }
+
+  export type BlogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TagsCountOrderByAggregateInput = {
+    id?: SortOrder
+    tagName?: SortOrder
+  }
+
+  export type TagsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tagName?: SortOrder
+  }
+
+  export type TagsMinOrderByAggregateInput = {
+    id?: SortOrder
+    tagName?: SortOrder
   }
 
   export type BlogScalarRelationFilter = {
@@ -30019,13 +31928,6 @@ export namespace Prisma {
     connect?: PaymentDetailsWhereUniqueInput | PaymentDetailsWhereUniqueInput[]
   }
 
-  export type OrderDetailsCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput> | OrderDetailsCreateWithoutUserInput[] | OrderDetailsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutUserInput | OrderDetailsCreateOrConnectWithoutUserInput[]
-    createMany?: OrderDetailsCreateManyUserInputEnvelope
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-  }
-
   export type UserDataTemplateCreateNestedManyWithoutUserInput = {
     create?: XOR<UserDataTemplateCreateWithoutUserInput, UserDataTemplateUncheckedCreateWithoutUserInput> | UserDataTemplateCreateWithoutUserInput[] | UserDataTemplateUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserDataTemplateCreateOrConnectWithoutUserInput | UserDataTemplateCreateOrConnectWithoutUserInput[]
@@ -30045,6 +31947,20 @@ export namespace Prisma {
     connectOrCreate?: LikedBlogCreateOrConnectWithoutUserInput | LikedBlogCreateOrConnectWithoutUserInput[]
     createMany?: LikedBlogCreateManyUserInputEnvelope
     connect?: LikedBlogWhereUniqueInput | LikedBlogWhereUniqueInput[]
+  }
+
+  export type InvitationTemplateCreateNestedManyWithoutUserInput = {
+    create?: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput> | InvitationTemplateCreateWithoutUserInput[] | InvitationTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutUserInput | InvitationTemplateCreateOrConnectWithoutUserInput[]
+    createMany?: InvitationTemplateCreateManyUserInputEnvelope
+    connect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+  }
+
+  export type TemplateWatchHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput> | TemplateWatchHistoryCreateWithoutUserInput[] | TemplateWatchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutUserInput | TemplateWatchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: TemplateWatchHistoryCreateManyUserInputEnvelope
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
   }
 
   export type BookingUncheckedCreateNestedManyWithoutUserIdInput = {
@@ -30089,13 +32005,6 @@ export namespace Prisma {
     connect?: PaymentDetailsWhereUniqueInput | PaymentDetailsWhereUniqueInput[]
   }
 
-  export type OrderDetailsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput> | OrderDetailsCreateWithoutUserInput[] | OrderDetailsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutUserInput | OrderDetailsCreateOrConnectWithoutUserInput[]
-    createMany?: OrderDetailsCreateManyUserInputEnvelope
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-  }
-
   export type UserDataTemplateUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserDataTemplateCreateWithoutUserInput, UserDataTemplateUncheckedCreateWithoutUserInput> | UserDataTemplateCreateWithoutUserInput[] | UserDataTemplateUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserDataTemplateCreateOrConnectWithoutUserInput | UserDataTemplateCreateOrConnectWithoutUserInput[]
@@ -30115,6 +32024,20 @@ export namespace Prisma {
     connectOrCreate?: LikedBlogCreateOrConnectWithoutUserInput | LikedBlogCreateOrConnectWithoutUserInput[]
     createMany?: LikedBlogCreateManyUserInputEnvelope
     connect?: LikedBlogWhereUniqueInput | LikedBlogWhereUniqueInput[]
+  }
+
+  export type InvitationTemplateUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput> | InvitationTemplateCreateWithoutUserInput[] | InvitationTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutUserInput | InvitationTemplateCreateOrConnectWithoutUserInput[]
+    createMany?: InvitationTemplateCreateManyUserInputEnvelope
+    connect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+  }
+
+  export type TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput> | TemplateWatchHistoryCreateWithoutUserInput[] | TemplateWatchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutUserInput | TemplateWatchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: TemplateWatchHistoryCreateManyUserInputEnvelope
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -30225,20 +32148,6 @@ export namespace Prisma {
     deleteMany?: PaymentDetailsScalarWhereInput | PaymentDetailsScalarWhereInput[]
   }
 
-  export type OrderDetailsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput> | OrderDetailsCreateWithoutUserInput[] | OrderDetailsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutUserInput | OrderDetailsCreateOrConnectWithoutUserInput[]
-    upsert?: OrderDetailsUpsertWithWhereUniqueWithoutUserInput | OrderDetailsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderDetailsCreateManyUserInputEnvelope
-    set?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    disconnect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    delete?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    update?: OrderDetailsUpdateWithWhereUniqueWithoutUserInput | OrderDetailsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderDetailsUpdateManyWithWhereWithoutUserInput | OrderDetailsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
-  }
-
   export type UserDataTemplateUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserDataTemplateCreateWithoutUserInput, UserDataTemplateUncheckedCreateWithoutUserInput> | UserDataTemplateCreateWithoutUserInput[] | UserDataTemplateUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserDataTemplateCreateOrConnectWithoutUserInput | UserDataTemplateCreateOrConnectWithoutUserInput[]
@@ -30279,6 +32188,34 @@ export namespace Prisma {
     update?: LikedBlogUpdateWithWhereUniqueWithoutUserInput | LikedBlogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LikedBlogUpdateManyWithWhereWithoutUserInput | LikedBlogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LikedBlogScalarWhereInput | LikedBlogScalarWhereInput[]
+  }
+
+  export type InvitationTemplateUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput> | InvitationTemplateCreateWithoutUserInput[] | InvitationTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutUserInput | InvitationTemplateCreateOrConnectWithoutUserInput[]
+    upsert?: InvitationTemplateUpsertWithWhereUniqueWithoutUserInput | InvitationTemplateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InvitationTemplateCreateManyUserInputEnvelope
+    set?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    disconnect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    delete?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    connect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    update?: InvitationTemplateUpdateWithWhereUniqueWithoutUserInput | InvitationTemplateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InvitationTemplateUpdateManyWithWhereWithoutUserInput | InvitationTemplateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InvitationTemplateScalarWhereInput | InvitationTemplateScalarWhereInput[]
+  }
+
+  export type TemplateWatchHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput> | TemplateWatchHistoryCreateWithoutUserInput[] | TemplateWatchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutUserInput | TemplateWatchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: TemplateWatchHistoryUpsertWithWhereUniqueWithoutUserInput | TemplateWatchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TemplateWatchHistoryCreateManyUserInputEnvelope
+    set?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    disconnect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    delete?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    update?: TemplateWatchHistoryUpdateWithWhereUniqueWithoutUserInput | TemplateWatchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TemplateWatchHistoryUpdateManyWithWhereWithoutUserInput | TemplateWatchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
   }
 
   export type BookingUncheckedUpdateManyWithoutUserIdNestedInput = {
@@ -30365,20 +32302,6 @@ export namespace Prisma {
     deleteMany?: PaymentDetailsScalarWhereInput | PaymentDetailsScalarWhereInput[]
   }
 
-  export type OrderDetailsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput> | OrderDetailsCreateWithoutUserInput[] | OrderDetailsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutUserInput | OrderDetailsCreateOrConnectWithoutUserInput[]
-    upsert?: OrderDetailsUpsertWithWhereUniqueWithoutUserInput | OrderDetailsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderDetailsCreateManyUserInputEnvelope
-    set?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    disconnect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    delete?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    update?: OrderDetailsUpdateWithWhereUniqueWithoutUserInput | OrderDetailsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderDetailsUpdateManyWithWhereWithoutUserInput | OrderDetailsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
-  }
-
   export type UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserDataTemplateCreateWithoutUserInput, UserDataTemplateUncheckedCreateWithoutUserInput> | UserDataTemplateCreateWithoutUserInput[] | UserDataTemplateUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserDataTemplateCreateOrConnectWithoutUserInput | UserDataTemplateCreateOrConnectWithoutUserInput[]
@@ -30419,6 +32342,34 @@ export namespace Prisma {
     update?: LikedBlogUpdateWithWhereUniqueWithoutUserInput | LikedBlogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LikedBlogUpdateManyWithWhereWithoutUserInput | LikedBlogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LikedBlogScalarWhereInput | LikedBlogScalarWhereInput[]
+  }
+
+  export type InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput> | InvitationTemplateCreateWithoutUserInput[] | InvitationTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutUserInput | InvitationTemplateCreateOrConnectWithoutUserInput[]
+    upsert?: InvitationTemplateUpsertWithWhereUniqueWithoutUserInput | InvitationTemplateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InvitationTemplateCreateManyUserInputEnvelope
+    set?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    disconnect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    delete?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    connect?: InvitationTemplateWhereUniqueInput | InvitationTemplateWhereUniqueInput[]
+    update?: InvitationTemplateUpdateWithWhereUniqueWithoutUserInput | InvitationTemplateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InvitationTemplateUpdateManyWithWhereWithoutUserInput | InvitationTemplateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InvitationTemplateScalarWhereInput | InvitationTemplateScalarWhereInput[]
+  }
+
+  export type TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput> | TemplateWatchHistoryCreateWithoutUserInput[] | TemplateWatchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutUserInput | TemplateWatchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: TemplateWatchHistoryUpsertWithWhereUniqueWithoutUserInput | TemplateWatchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TemplateWatchHistoryCreateManyUserInputEnvelope
+    set?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    disconnect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    delete?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    update?: TemplateWatchHistoryUpdateWithWhereUniqueWithoutUserInput | TemplateWatchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TemplateWatchHistoryUpdateManyWithWhereWithoutUserInput | TemplateWatchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutBookingsInput = {
@@ -30781,36 +32732,6 @@ export namespace Prisma {
     update?: XOR<XOR<SubEventUpdateToOneWithWhereWithoutSubEventTaskInput, SubEventUpdateWithoutSubEventTaskInput>, SubEventUncheckedUpdateWithoutSubEventTaskInput>
   }
 
-  export type UserCreateNestedOneWithoutOrderDetailsInput = {
-    create?: XOR<UserCreateWithoutOrderDetailsInput, UserUncheckedCreateWithoutOrderDetailsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrderDetailsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type InvitationTemplateCreateNestedOneWithoutOrderDetailsInput = {
-    create?: XOR<InvitationTemplateCreateWithoutOrderDetailsInput, InvitationTemplateUncheckedCreateWithoutOrderDetailsInput>
-    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutOrderDetailsInput
-    connect?: InvitationTemplateWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutOrderDetailsNestedInput = {
-    create?: XOR<UserCreateWithoutOrderDetailsInput, UserUncheckedCreateWithoutOrderDetailsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrderDetailsInput
-    upsert?: UserUpsertWithoutOrderDetailsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrderDetailsInput, UserUpdateWithoutOrderDetailsInput>, UserUncheckedUpdateWithoutOrderDetailsInput>
-  }
-
-  export type InvitationTemplateUpdateOneWithoutOrderDetailsNestedInput = {
-    create?: XOR<InvitationTemplateCreateWithoutOrderDetailsInput, InvitationTemplateUncheckedCreateWithoutOrderDetailsInput>
-    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutOrderDetailsInput
-    upsert?: InvitationTemplateUpsertWithoutOrderDetailsInput
-    disconnect?: InvitationTemplateWhereInput | boolean
-    delete?: InvitationTemplateWhereInput | boolean
-    connect?: InvitationTemplateWhereUniqueInput
-    update?: XOR<XOR<InvitationTemplateUpdateToOneWithWhereWithoutOrderDetailsInput, InvitationTemplateUpdateWithoutOrderDetailsInput>, InvitationTemplateUncheckedUpdateWithoutOrderDetailsInput>
-  }
-
   export type UserCreateNestedOneWithoutPaymentDetailsInput = {
     create?: XOR<UserCreateWithoutPaymentDetailsInput, UserUncheckedCreateWithoutPaymentDetailsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPaymentDetailsInput
@@ -30881,6 +32802,16 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGuestsInput, UserUpdateWithoutGuestsInput>, UserUncheckedUpdateWithoutGuestsInput>
   }
 
+  export type InvitationTemplateCreateadditionalTagsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutInvitationTemplateInput = {
+    create?: XOR<UserCreateWithoutInvitationTemplateInput, UserUncheckedCreateWithoutInvitationTemplateInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInvitationTemplateInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type PaymentDetailsCreateNestedManyWithoutInvitationTemplateInput = {
     create?: XOR<PaymentDetailsCreateWithoutInvitationTemplateInput, PaymentDetailsUncheckedCreateWithoutInvitationTemplateInput> | PaymentDetailsCreateWithoutInvitationTemplateInput[] | PaymentDetailsUncheckedCreateWithoutInvitationTemplateInput[]
     connectOrCreate?: PaymentDetailsCreateOrConnectWithoutInvitationTemplateInput | PaymentDetailsCreateOrConnectWithoutInvitationTemplateInput[]
@@ -30888,11 +32819,11 @@ export namespace Prisma {
     connect?: PaymentDetailsWhereUniqueInput | PaymentDetailsWhereUniqueInput[]
   }
 
-  export type OrderDetailsCreateNestedManyWithoutInvitationTemplateInput = {
-    create?: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput> | OrderDetailsCreateWithoutInvitationTemplateInput[] | OrderDetailsUncheckedCreateWithoutInvitationTemplateInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutInvitationTemplateInput | OrderDetailsCreateOrConnectWithoutInvitationTemplateInput[]
-    createMany?: OrderDetailsCreateManyInvitationTemplateInputEnvelope
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
+  export type TemplateWatchHistoryCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput> | TemplateWatchHistoryCreateWithoutTemplateInput[] | TemplateWatchHistoryUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutTemplateInput | TemplateWatchHistoryCreateOrConnectWithoutTemplateInput[]
+    createMany?: TemplateWatchHistoryCreateManyTemplateInputEnvelope
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
   }
 
   export type PaymentDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput = {
@@ -30902,15 +32833,40 @@ export namespace Prisma {
     connect?: PaymentDetailsWhereUniqueInput | PaymentDetailsWhereUniqueInput[]
   }
 
-  export type OrderDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput = {
-    create?: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput> | OrderDetailsCreateWithoutInvitationTemplateInput[] | OrderDetailsUncheckedCreateWithoutInvitationTemplateInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutInvitationTemplateInput | OrderDetailsCreateOrConnectWithoutInvitationTemplateInput[]
-    createMany?: OrderDetailsCreateManyInvitationTemplateInputEnvelope
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
+  export type TemplateWatchHistoryUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput> | TemplateWatchHistoryCreateWithoutTemplateInput[] | TemplateWatchHistoryUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutTemplateInput | TemplateWatchHistoryCreateOrConnectWithoutTemplateInput[]
+    createMany?: TemplateWatchHistoryCreateManyTemplateInputEnvelope
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
   }
 
-  export type Enumtemplate_categoryFieldUpdateOperationsInput = {
-    set?: $Enums.template_category
+  export type EnumCategoryByAmountFieldUpdateOperationsInput = {
+    set?: $Enums.CategoryByAmount
+  }
+
+  export type EnumCategoryByMoodFieldUpdateOperationsInput = {
+    set?: $Enums.CategoryByMood
+  }
+
+  export type EnumCategoryByRequirementFieldUpdateOperationsInput = {
+    set?: $Enums.CategoryByRequirement
+  }
+
+  export type InvitationTemplateUpdateadditionalTagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumTemplateStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TemplateStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutInvitationTemplateNestedInput = {
+    create?: XOR<UserCreateWithoutInvitationTemplateInput, UserUncheckedCreateWithoutInvitationTemplateInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInvitationTemplateInput
+    upsert?: UserUpsertWithoutInvitationTemplateInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInvitationTemplateInput, UserUpdateWithoutInvitationTemplateInput>, UserUncheckedUpdateWithoutInvitationTemplateInput>
   }
 
   export type PaymentDetailsUpdateManyWithoutInvitationTemplateNestedInput = {
@@ -30927,18 +32883,18 @@ export namespace Prisma {
     deleteMany?: PaymentDetailsScalarWhereInput | PaymentDetailsScalarWhereInput[]
   }
 
-  export type OrderDetailsUpdateManyWithoutInvitationTemplateNestedInput = {
-    create?: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput> | OrderDetailsCreateWithoutInvitationTemplateInput[] | OrderDetailsUncheckedCreateWithoutInvitationTemplateInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutInvitationTemplateInput | OrderDetailsCreateOrConnectWithoutInvitationTemplateInput[]
-    upsert?: OrderDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput | OrderDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput[]
-    createMany?: OrderDetailsCreateManyInvitationTemplateInputEnvelope
-    set?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    disconnect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    delete?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    update?: OrderDetailsUpdateWithWhereUniqueWithoutInvitationTemplateInput | OrderDetailsUpdateWithWhereUniqueWithoutInvitationTemplateInput[]
-    updateMany?: OrderDetailsUpdateManyWithWhereWithoutInvitationTemplateInput | OrderDetailsUpdateManyWithWhereWithoutInvitationTemplateInput[]
-    deleteMany?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
+  export type TemplateWatchHistoryUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput> | TemplateWatchHistoryCreateWithoutTemplateInput[] | TemplateWatchHistoryUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutTemplateInput | TemplateWatchHistoryCreateOrConnectWithoutTemplateInput[]
+    upsert?: TemplateWatchHistoryUpsertWithWhereUniqueWithoutTemplateInput | TemplateWatchHistoryUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: TemplateWatchHistoryCreateManyTemplateInputEnvelope
+    set?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    disconnect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    delete?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    update?: TemplateWatchHistoryUpdateWithWhereUniqueWithoutTemplateInput | TemplateWatchHistoryUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: TemplateWatchHistoryUpdateManyWithWhereWithoutTemplateInput | TemplateWatchHistoryUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
   }
 
   export type PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput = {
@@ -30955,18 +32911,46 @@ export namespace Prisma {
     deleteMany?: PaymentDetailsScalarWhereInput | PaymentDetailsScalarWhereInput[]
   }
 
-  export type OrderDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput = {
-    create?: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput> | OrderDetailsCreateWithoutInvitationTemplateInput[] | OrderDetailsUncheckedCreateWithoutInvitationTemplateInput[]
-    connectOrCreate?: OrderDetailsCreateOrConnectWithoutInvitationTemplateInput | OrderDetailsCreateOrConnectWithoutInvitationTemplateInput[]
-    upsert?: OrderDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput | OrderDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput[]
-    createMany?: OrderDetailsCreateManyInvitationTemplateInputEnvelope
-    set?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    disconnect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    delete?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    connect?: OrderDetailsWhereUniqueInput | OrderDetailsWhereUniqueInput[]
-    update?: OrderDetailsUpdateWithWhereUniqueWithoutInvitationTemplateInput | OrderDetailsUpdateWithWhereUniqueWithoutInvitationTemplateInput[]
-    updateMany?: OrderDetailsUpdateManyWithWhereWithoutInvitationTemplateInput | OrderDetailsUpdateManyWithWhereWithoutInvitationTemplateInput[]
-    deleteMany?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
+  export type TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput> | TemplateWatchHistoryCreateWithoutTemplateInput[] | TemplateWatchHistoryUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: TemplateWatchHistoryCreateOrConnectWithoutTemplateInput | TemplateWatchHistoryCreateOrConnectWithoutTemplateInput[]
+    upsert?: TemplateWatchHistoryUpsertWithWhereUniqueWithoutTemplateInput | TemplateWatchHistoryUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: TemplateWatchHistoryCreateManyTemplateInputEnvelope
+    set?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    disconnect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    delete?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    connect?: TemplateWatchHistoryWhereUniqueInput | TemplateWatchHistoryWhereUniqueInput[]
+    update?: TemplateWatchHistoryUpdateWithWhereUniqueWithoutTemplateInput | TemplateWatchHistoryUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: TemplateWatchHistoryUpdateManyWithWhereWithoutTemplateInput | TemplateWatchHistoryUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutWatchHistoryInput = {
+    create?: XOR<UserCreateWithoutWatchHistoryInput, UserUncheckedCreateWithoutWatchHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWatchHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type InvitationTemplateCreateNestedOneWithoutWatchHistoryInput = {
+    create?: XOR<InvitationTemplateCreateWithoutWatchHistoryInput, InvitationTemplateUncheckedCreateWithoutWatchHistoryInput>
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutWatchHistoryInput
+    connect?: InvitationTemplateWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWatchHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutWatchHistoryInput, UserUncheckedCreateWithoutWatchHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWatchHistoryInput
+    upsert?: UserUpsertWithoutWatchHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWatchHistoryInput, UserUpdateWithoutWatchHistoryInput>, UserUncheckedUpdateWithoutWatchHistoryInput>
+  }
+
+  export type InvitationTemplateUpdateOneRequiredWithoutWatchHistoryNestedInput = {
+    create?: XOR<InvitationTemplateCreateWithoutWatchHistoryInput, InvitationTemplateUncheckedCreateWithoutWatchHistoryInput>
+    connectOrCreate?: InvitationTemplateCreateOrConnectWithoutWatchHistoryInput
+    upsert?: InvitationTemplateUpsertWithoutWatchHistoryInput
+    connect?: InvitationTemplateWhereUniqueInput
+    update?: XOR<XOR<InvitationTemplateUpdateToOneWithWhereWithoutWatchHistoryInput, InvitationTemplateUpdateWithoutWatchHistoryInput>, InvitationTemplateUncheckedUpdateWithoutWatchHistoryInput>
   }
 
   export type UserCreateNestedOneWithoutUserDataTemplateInput = {
@@ -30983,8 +32967,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserDataTemplateInput, UserUpdateWithoutUserDataTemplateInput>, UserUncheckedUpdateWithoutUserDataTemplateInput>
   }
 
-  export type BlogCreatetagsInput = {
-    set: string[]
+  export type TagsCreateNestedManyWithoutBlogsInput = {
+    create?: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput> | TagsCreateWithoutBlogsInput[] | TagsUncheckedCreateWithoutBlogsInput[]
+    connectOrCreate?: TagsCreateOrConnectWithoutBlogsInput | TagsCreateOrConnectWithoutBlogsInput[]
+    connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
   }
 
   export type CommentCreateNestedManyWithoutBlogInput = {
@@ -31001,6 +32987,12 @@ export namespace Prisma {
     connect?: LikedBlogWhereUniqueInput | LikedBlogWhereUniqueInput[]
   }
 
+  export type TagsUncheckedCreateNestedManyWithoutBlogsInput = {
+    create?: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput> | TagsCreateWithoutBlogsInput[] | TagsUncheckedCreateWithoutBlogsInput[]
+    connectOrCreate?: TagsCreateOrConnectWithoutBlogsInput | TagsCreateOrConnectWithoutBlogsInput[]
+    connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutBlogInput = {
     create?: XOR<CommentCreateWithoutBlogInput, CommentUncheckedCreateWithoutBlogInput> | CommentCreateWithoutBlogInput[] | CommentUncheckedCreateWithoutBlogInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutBlogInput | CommentCreateOrConnectWithoutBlogInput[]
@@ -31015,9 +33007,21 @@ export namespace Prisma {
     connect?: LikedBlogWhereUniqueInput | LikedBlogWhereUniqueInput[]
   }
 
-  export type BlogUpdatetagsInput = {
-    set?: string[]
-    push?: string | string[]
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
+  }
+
+  export type TagsUpdateManyWithoutBlogsNestedInput = {
+    create?: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput> | TagsCreateWithoutBlogsInput[] | TagsUncheckedCreateWithoutBlogsInput[]
+    connectOrCreate?: TagsCreateOrConnectWithoutBlogsInput | TagsCreateOrConnectWithoutBlogsInput[]
+    upsert?: TagsUpsertWithWhereUniqueWithoutBlogsInput | TagsUpsertWithWhereUniqueWithoutBlogsInput[]
+    set?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    disconnect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    delete?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    update?: TagsUpdateWithWhereUniqueWithoutBlogsInput | TagsUpdateWithWhereUniqueWithoutBlogsInput[]
+    updateMany?: TagsUpdateManyWithWhereWithoutBlogsInput | TagsUpdateManyWithWhereWithoutBlogsInput[]
+    deleteMany?: TagsScalarWhereInput | TagsScalarWhereInput[]
   }
 
   export type CommentUpdateManyWithoutBlogNestedInput = {
@@ -31048,6 +33052,19 @@ export namespace Prisma {
     deleteMany?: LikedBlogScalarWhereInput | LikedBlogScalarWhereInput[]
   }
 
+  export type TagsUncheckedUpdateManyWithoutBlogsNestedInput = {
+    create?: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput> | TagsCreateWithoutBlogsInput[] | TagsUncheckedCreateWithoutBlogsInput[]
+    connectOrCreate?: TagsCreateOrConnectWithoutBlogsInput | TagsCreateOrConnectWithoutBlogsInput[]
+    upsert?: TagsUpsertWithWhereUniqueWithoutBlogsInput | TagsUpsertWithWhereUniqueWithoutBlogsInput[]
+    set?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    disconnect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    delete?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+    update?: TagsUpdateWithWhereUniqueWithoutBlogsInput | TagsUpdateWithWhereUniqueWithoutBlogsInput[]
+    updateMany?: TagsUpdateManyWithWhereWithoutBlogsInput | TagsUpdateManyWithWhereWithoutBlogsInput[]
+    deleteMany?: TagsScalarWhereInput | TagsScalarWhereInput[]
+  }
+
   export type CommentUncheckedUpdateManyWithoutBlogNestedInput = {
     create?: XOR<CommentCreateWithoutBlogInput, CommentUncheckedCreateWithoutBlogInput> | CommentCreateWithoutBlogInput[] | CommentUncheckedCreateWithoutBlogInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutBlogInput | CommentCreateOrConnectWithoutBlogInput[]
@@ -31074,6 +33091,44 @@ export namespace Prisma {
     update?: LikedBlogUpdateWithWhereUniqueWithoutBlogInput | LikedBlogUpdateWithWhereUniqueWithoutBlogInput[]
     updateMany?: LikedBlogUpdateManyWithWhereWithoutBlogInput | LikedBlogUpdateManyWithWhereWithoutBlogInput[]
     deleteMany?: LikedBlogScalarWhereInput | LikedBlogScalarWhereInput[]
+  }
+
+  export type BlogCreateNestedManyWithoutTagsInput = {
+    create?: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput> | BlogCreateWithoutTagsInput[] | BlogUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: BlogCreateOrConnectWithoutTagsInput | BlogCreateOrConnectWithoutTagsInput[]
+    connect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+  }
+
+  export type BlogUncheckedCreateNestedManyWithoutTagsInput = {
+    create?: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput> | BlogCreateWithoutTagsInput[] | BlogUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: BlogCreateOrConnectWithoutTagsInput | BlogCreateOrConnectWithoutTagsInput[]
+    connect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+  }
+
+  export type BlogUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput> | BlogCreateWithoutTagsInput[] | BlogUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: BlogCreateOrConnectWithoutTagsInput | BlogCreateOrConnectWithoutTagsInput[]
+    upsert?: BlogUpsertWithWhereUniqueWithoutTagsInput | BlogUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    disconnect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    delete?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    connect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    update?: BlogUpdateWithWhereUniqueWithoutTagsInput | BlogUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: BlogUpdateManyWithWhereWithoutTagsInput | BlogUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: BlogScalarWhereInput | BlogScalarWhereInput[]
+  }
+
+  export type BlogUncheckedUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput> | BlogCreateWithoutTagsInput[] | BlogUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: BlogCreateOrConnectWithoutTagsInput | BlogCreateOrConnectWithoutTagsInput[]
+    upsert?: BlogUpsertWithWhereUniqueWithoutTagsInput | BlogUpsertWithWhereUniqueWithoutTagsInput[]
+    set?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    disconnect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    delete?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    connect?: BlogWhereUniqueInput | BlogWhereUniqueInput[]
+    update?: BlogUpdateWithWhereUniqueWithoutTagsInput | BlogUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: BlogUpdateManyWithWhereWithoutTagsInput | BlogUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: BlogScalarWhereInput | BlogScalarWhereInput[]
   }
 
   export type BlogCreateNestedOneWithoutCommentsInput = {
@@ -31384,6 +33439,28 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
@@ -31418,21 +33495,89 @@ export namespace Prisma {
     _max?: NestedEnumGuestStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumtemplate_categoryFilter<$PrismaModel = never> = {
-    equals?: $Enums.template_category | Enumtemplate_categoryFieldRefInput<$PrismaModel>
-    in?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumtemplate_categoryFilter<$PrismaModel> | $Enums.template_category
+  export type NestedEnumCategoryByAmountFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByAmount | EnumCategoryByAmountFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByAmountFilter<$PrismaModel> | $Enums.CategoryByAmount
   }
 
-  export type NestedEnumtemplate_categoryWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.template_category | Enumtemplate_categoryFieldRefInput<$PrismaModel>
-    in?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.template_category[] | ListEnumtemplate_categoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumtemplate_categoryWithAggregatesFilter<$PrismaModel> | $Enums.template_category
+  export type NestedEnumCategoryByMoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByMood | EnumCategoryByMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByMoodFilter<$PrismaModel> | $Enums.CategoryByMood
+  }
+
+  export type NestedEnumCategoryByRequirementFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByRequirement | EnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByRequirementFilter<$PrismaModel> | $Enums.CategoryByRequirement
+  }
+
+  export type NestedEnumTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusFilter<$PrismaModel> | $Enums.TemplateStatus
+  }
+
+  export type NestedEnumCategoryByAmountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByAmount | EnumCategoryByAmountFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByAmount[] | ListEnumCategoryByAmountFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByAmountWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByAmount
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumtemplate_categoryFilter<$PrismaModel>
-    _max?: NestedEnumtemplate_categoryFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByAmountFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByAmountFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCategoryByMoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByMood | EnumCategoryByMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByMood[] | ListEnumCategoryByMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByMoodWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByMood
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByMoodFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByMoodFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCategoryByRequirementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategoryByRequirement | EnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    in?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategoryByRequirement[] | ListEnumCategoryByRequirementFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategoryByRequirementWithAggregatesFilter<$PrismaModel> | $Enums.CategoryByRequirement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategoryByRequirementFilter<$PrismaModel>
+    _max?: NestedEnumCategoryByRequirementFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.TemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
   export type BookingCreateWithoutUserIdInput = {
@@ -31575,9 +33720,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     InvitationTemplate?: InvitationTemplateCreateNestedOneWithoutPaymentDetailsInput
   }
 
@@ -31585,9 +33735,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     templateId?: string | null
   }
 
@@ -31598,38 +33753,6 @@ export namespace Prisma {
 
   export type PaymentDetailsCreateManyUserInputEnvelope = {
     data: PaymentDetailsCreateManyUserInput | PaymentDetailsCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type OrderDetailsCreateWithoutUserInput = {
-    id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    InvitationTemplate?: InvitationTemplateCreateNestedOneWithoutOrderDetailsInput
-  }
-
-  export type OrderDetailsUncheckedCreateWithoutUserInput = {
-    id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    templateId?: string | null
-  }
-
-  export type OrderDetailsCreateOrConnectWithoutUserInput = {
-    where: OrderDetailsWhereUniqueInput
-    create: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderDetailsCreateManyUserInputEnvelope = {
-    data: OrderDetailsCreateManyUserInput | OrderDetailsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -31728,6 +33851,78 @@ export namespace Prisma {
 
   export type LikedBlogCreateManyUserInputEnvelope = {
     data: LikedBlogCreateManyUserInput | LikedBlogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InvitationTemplateCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
+    price?: number | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    paymentDetails?: PaymentDetailsCreateNestedManyWithoutInvitationTemplateInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutTemplateInput
+  }
+
+  export type InvitationTemplateUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
+    price?: number | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type InvitationTemplateCreateOrConnectWithoutUserInput = {
+    where: InvitationTemplateWhereUniqueInput
+    create: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput>
+  }
+
+  export type InvitationTemplateCreateManyUserInputEnvelope = {
+    data: InvitationTemplateCreateManyUserInput | InvitationTemplateCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TemplateWatchHistoryCreateWithoutUserInput = {
+    id?: string
+    watchedAt?: Date | string
+    template: InvitationTemplateCreateNestedOneWithoutWatchHistoryInput
+  }
+
+  export type TemplateWatchHistoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    templateId: string
+    watchedAt?: Date | string
+  }
+
+  export type TemplateWatchHistoryCreateOrConnectWithoutUserInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    create: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type TemplateWatchHistoryCreateManyUserInputEnvelope = {
+    data: TemplateWatchHistoryCreateManyUserInput | TemplateWatchHistoryCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -31897,42 +34092,16 @@ export namespace Prisma {
     id?: StringFilter<"PaymentDetails"> | string
     orderId?: StringFilter<"PaymentDetails"> | string
     paymentId?: StringNullableFilter<"PaymentDetails"> | string | null
-    razorpayResponse?: JsonFilter<"PaymentDetails">
-    status?: StringFilter<"PaymentDetails"> | string
+    razorpayResponse?: JsonNullableFilter<"PaymentDetails">
+    orderStatus?: StringFilter<"PaymentDetails"> | string
+    paymentStatus?: StringNullableFilter<"PaymentDetails"> | string | null
+    amount?: DecimalFilter<"PaymentDetails"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"PaymentDetails"> | string
     purchasedAt?: DateTimeNullableFilter<"PaymentDetails"> | Date | string | null
+    createdAt?: DateTimeFilter<"PaymentDetails"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentDetails"> | Date | string
     userId?: StringFilter<"PaymentDetails"> | string
     templateId?: StringNullableFilter<"PaymentDetails"> | string | null
-  }
-
-  export type OrderDetailsUpsertWithWhereUniqueWithoutUserInput = {
-    where: OrderDetailsWhereUniqueInput
-    update: XOR<OrderDetailsUpdateWithoutUserInput, OrderDetailsUncheckedUpdateWithoutUserInput>
-    create: XOR<OrderDetailsCreateWithoutUserInput, OrderDetailsUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderDetailsUpdateWithWhereUniqueWithoutUserInput = {
-    where: OrderDetailsWhereUniqueInput
-    data: XOR<OrderDetailsUpdateWithoutUserInput, OrderDetailsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type OrderDetailsUpdateManyWithWhereWithoutUserInput = {
-    where: OrderDetailsScalarWhereInput
-    data: XOR<OrderDetailsUpdateManyMutationInput, OrderDetailsUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type OrderDetailsScalarWhereInput = {
-    AND?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
-    OR?: OrderDetailsScalarWhereInput[]
-    NOT?: OrderDetailsScalarWhereInput | OrderDetailsScalarWhereInput[]
-    id?: StringFilter<"OrderDetails"> | string
-    orderId?: StringFilter<"OrderDetails"> | string
-    amount?: FloatFilter<"OrderDetails"> | number
-    currency?: StringFilter<"OrderDetails"> | string
-    status?: StringFilter<"OrderDetails"> | string
-    razorpayResponse?: JsonFilter<"OrderDetails">
-    createdAt?: DateTimeFilter<"OrderDetails"> | Date | string
-    userId?: StringFilter<"OrderDetails"> | string
-    templateId?: StringNullableFilter<"OrderDetails"> | string | null
   }
 
   export type UserDataTemplateUpsertWithWhereUniqueWithoutUserInput = {
@@ -32026,6 +34195,70 @@ export namespace Prisma {
     blogId?: StringFilter<"LikedBlog"> | string
   }
 
+  export type InvitationTemplateUpsertWithWhereUniqueWithoutUserInput = {
+    where: InvitationTemplateWhereUniqueInput
+    update: XOR<InvitationTemplateUpdateWithoutUserInput, InvitationTemplateUncheckedUpdateWithoutUserInput>
+    create: XOR<InvitationTemplateCreateWithoutUserInput, InvitationTemplateUncheckedCreateWithoutUserInput>
+  }
+
+  export type InvitationTemplateUpdateWithWhereUniqueWithoutUserInput = {
+    where: InvitationTemplateWhereUniqueInput
+    data: XOR<InvitationTemplateUpdateWithoutUserInput, InvitationTemplateUncheckedUpdateWithoutUserInput>
+  }
+
+  export type InvitationTemplateUpdateManyWithWhereWithoutUserInput = {
+    where: InvitationTemplateScalarWhereInput
+    data: XOR<InvitationTemplateUpdateManyMutationInput, InvitationTemplateUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type InvitationTemplateScalarWhereInput = {
+    AND?: InvitationTemplateScalarWhereInput | InvitationTemplateScalarWhereInput[]
+    OR?: InvitationTemplateScalarWhereInput[]
+    NOT?: InvitationTemplateScalarWhereInput | InvitationTemplateScalarWhereInput[]
+    id?: StringFilter<"InvitationTemplate"> | string
+    name?: StringFilter<"InvitationTemplate"> | string
+    description?: StringNullableFilter<"InvitationTemplate"> | string | null
+    userId?: StringFilter<"InvitationTemplate"> | string
+    jsonData?: JsonFilter<"InvitationTemplate">
+    price?: FloatNullableFilter<"InvitationTemplate"> | number | null
+    categoryByAmount?: EnumCategoryByAmountFilter<"InvitationTemplate"> | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFilter<"InvitationTemplate"> | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFilter<"InvitationTemplate"> | $Enums.CategoryByRequirement
+    additionalTags?: StringNullableListFilter<"InvitationTemplate">
+    designedBy?: StringNullableFilter<"InvitationTemplate"> | string | null
+    thumbnailUrl?: StringNullableFilter<"InvitationTemplate"> | string | null
+    rating?: FloatNullableFilter<"InvitationTemplate"> | number | null
+    status?: EnumTemplateStatusFilter<"InvitationTemplate"> | $Enums.TemplateStatus
+    createdAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"InvitationTemplate"> | Date | string
+  }
+
+  export type TemplateWatchHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    update: XOR<TemplateWatchHistoryUpdateWithoutUserInput, TemplateWatchHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<TemplateWatchHistoryCreateWithoutUserInput, TemplateWatchHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type TemplateWatchHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    data: XOR<TemplateWatchHistoryUpdateWithoutUserInput, TemplateWatchHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TemplateWatchHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: TemplateWatchHistoryScalarWhereInput
+    data: XOR<TemplateWatchHistoryUpdateManyMutationInput, TemplateWatchHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TemplateWatchHistoryScalarWhereInput = {
+    AND?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
+    OR?: TemplateWatchHistoryScalarWhereInput[]
+    NOT?: TemplateWatchHistoryScalarWhereInput | TemplateWatchHistoryScalarWhereInput[]
+    id?: StringFilter<"TemplateWatchHistory"> | string
+    userId?: StringFilter<"TemplateWatchHistory"> | string
+    templateId?: StringFilter<"TemplateWatchHistory"> | string
+    watchedAt?: DateTimeFilter<"TemplateWatchHistory"> | Date | string
+  }
+
   export type UserCreateWithoutBookingsInput = {
     id?: string
     email: string
@@ -32047,10 +34280,11 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -32074,10 +34308,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -32117,10 +34352,11 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -32144,10 +34380,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCartInput = {
@@ -32171,10 +34408,11 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCartInput = {
@@ -32198,10 +34436,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCartInput = {
@@ -32241,10 +34480,11 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCartInput = {
@@ -32268,10 +34508,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutChecklistsInput = {
@@ -32295,10 +34536,11 @@ export namespace Prisma {
     cart?: CartCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChecklistsInput = {
@@ -32322,10 +34564,11 @@ export namespace Prisma {
     cart?: CartUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChecklistsInput = {
@@ -32365,10 +34608,11 @@ export namespace Prisma {
     cart?: CartUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChecklistsInput = {
@@ -32392,10 +34636,11 @@ export namespace Prisma {
     cart?: CartUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutEventInput = {
@@ -32420,9 +34665,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEventInput = {
@@ -32447,9 +34693,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEventInput = {
@@ -32580,9 +34827,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventInput = {
@@ -32607,9 +34855,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EventTaskUpsertWithWhereUniqueWithoutEventInput = {
@@ -33177,194 +35426,6 @@ export namespace Prisma {
     subEventVendors?: SubEventVendorsUncheckedUpdateManyWithoutSubEventNestedInput
   }
 
-  export type UserCreateWithoutOrderDetailsInput = {
-    id?: string
-    email: string
-    refresh_Token?: string | null
-    password_hash?: string | null
-    googleUid?: string | null
-    resetPassword_Token?: string | null
-    profile_photo?: string | null
-    user_name: string
-    phone_number?: string | null
-    role: $Enums.Role
-    wedding_date?: Date | string | null
-    wedding_location?: string | null
-    created_at?: Date | string
-    is_verified?: boolean
-    updated_at?: Date | string | null
-    bookings?: BookingCreateNestedManyWithoutUserIdInput
-    reviews?: ReviewCreateNestedManyWithoutUserInput
-    cart?: CartCreateNestedManyWithoutUserInput
-    checklists?: ChecklistCreateNestedManyWithoutUserInput
-    guests?: GuestCreateNestedManyWithoutUserInput
-    paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
-    event?: EventCreateNestedManyWithoutUserInput
-    likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutOrderDetailsInput = {
-    id?: string
-    email: string
-    refresh_Token?: string | null
-    password_hash?: string | null
-    googleUid?: string | null
-    resetPassword_Token?: string | null
-    profile_photo?: string | null
-    user_name: string
-    phone_number?: string | null
-    role: $Enums.Role
-    wedding_date?: Date | string | null
-    wedding_location?: string | null
-    created_at?: Date | string
-    is_verified?: boolean
-    updated_at?: Date | string | null
-    bookings?: BookingUncheckedCreateNestedManyWithoutUserIdInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    cart?: CartUncheckedCreateNestedManyWithoutUserInput
-    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    guests?: GuestUncheckedCreateNestedManyWithoutUserInput
-    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
-    event?: EventUncheckedCreateNestedManyWithoutUserInput
-    likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutOrderDetailsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutOrderDetailsInput, UserUncheckedCreateWithoutOrderDetailsInput>
-  }
-
-  export type InvitationTemplateCreateWithoutOrderDetailsInput = {
-    id?: string
-    name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
-    price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
-    createdAt?: Date | string
-    paymentDetails?: PaymentDetailsCreateNestedManyWithoutInvitationTemplateInput
-  }
-
-  export type InvitationTemplateUncheckedCreateWithoutOrderDetailsInput = {
-    id?: string
-    name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
-    price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
-    createdAt?: Date | string
-    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
-  }
-
-  export type InvitationTemplateCreateOrConnectWithoutOrderDetailsInput = {
-    where: InvitationTemplateWhereUniqueInput
-    create: XOR<InvitationTemplateCreateWithoutOrderDetailsInput, InvitationTemplateUncheckedCreateWithoutOrderDetailsInput>
-  }
-
-  export type UserUpsertWithoutOrderDetailsInput = {
-    update: XOR<UserUpdateWithoutOrderDetailsInput, UserUncheckedUpdateWithoutOrderDetailsInput>
-    create: XOR<UserCreateWithoutOrderDetailsInput, UserUncheckedCreateWithoutOrderDetailsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutOrderDetailsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutOrderDetailsInput, UserUncheckedUpdateWithoutOrderDetailsInput>
-  }
-
-  export type UserUpdateWithoutOrderDetailsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
-    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
-    user_name?: StringFieldUpdateOperationsInput | string
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bookings?: BookingUpdateManyWithoutUserIdNestedInput
-    reviews?: ReviewUpdateManyWithoutUserNestedInput
-    cart?: CartUpdateManyWithoutUserNestedInput
-    checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    guests?: GuestUpdateManyWithoutUserNestedInput
-    paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
-    event?: EventUpdateManyWithoutUserNestedInput
-    likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutOrderDetailsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
-    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
-    user_name?: StringFieldUpdateOperationsInput | string
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bookings?: BookingUncheckedUpdateManyWithoutUserIdNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    cart?: CartUncheckedUpdateManyWithoutUserNestedInput
-    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
-    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
-    event?: EventUncheckedUpdateManyWithoutUserNestedInput
-    likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type InvitationTemplateUpsertWithoutOrderDetailsInput = {
-    update: XOR<InvitationTemplateUpdateWithoutOrderDetailsInput, InvitationTemplateUncheckedUpdateWithoutOrderDetailsInput>
-    create: XOR<InvitationTemplateCreateWithoutOrderDetailsInput, InvitationTemplateUncheckedCreateWithoutOrderDetailsInput>
-    where?: InvitationTemplateWhereInput
-  }
-
-  export type InvitationTemplateUpdateToOneWithWhereWithoutOrderDetailsInput = {
-    where?: InvitationTemplateWhereInput
-    data: XOR<InvitationTemplateUpdateWithoutOrderDetailsInput, InvitationTemplateUncheckedUpdateWithoutOrderDetailsInput>
-  }
-
-  export type InvitationTemplateUpdateWithoutOrderDetailsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
-    price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDetails?: PaymentDetailsUpdateManyWithoutInvitationTemplateNestedInput
-  }
-
-  export type InvitationTemplateUncheckedUpdateWithoutOrderDetailsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
-    price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
-  }
-
   export type UserCreateWithoutPaymentDetailsInput = {
     id?: string
     email: string
@@ -33386,10 +35447,11 @@ export namespace Prisma {
     cart?: CartCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentDetailsInput = {
@@ -33413,10 +35475,11 @@ export namespace Prisma {
     cart?: CartUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentDetailsInput = {
@@ -33427,25 +35490,41 @@ export namespace Prisma {
   export type InvitationTemplateCreateWithoutPaymentDetailsInput = {
     id?: string
     name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
     price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
     createdAt?: Date | string
-    orderDetails?: OrderDetailsCreateNestedManyWithoutInvitationTemplateInput
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutInvitationTemplateInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutTemplateInput
   }
 
   export type InvitationTemplateUncheckedCreateWithoutPaymentDetailsInput = {
     id?: string
     name: string
-    imageUrl: JsonNullValueInput | InputJsonValue
+    description?: string | null
+    userId: string
+    jsonData: JsonNullValueInput | InputJsonValue
     price?: number | null
-    template_type: $Enums.template_category
-    template_category: string
-    filter?: string | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
     createdAt?: Date | string
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
+    updatedAt?: Date | string
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type InvitationTemplateCreateOrConnectWithoutPaymentDetailsInput = {
@@ -33485,10 +35564,11 @@ export namespace Prisma {
     cart?: CartUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentDetailsInput = {
@@ -33512,10 +35592,11 @@ export namespace Prisma {
     cart?: CartUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InvitationTemplateUpsertWithoutPaymentDetailsInput = {
@@ -33532,25 +35613,41 @@ export namespace Prisma {
   export type InvitationTemplateUpdateWithoutPaymentDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orderDetails?: OrderDetailsUpdateManyWithoutInvitationTemplateNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutInvitationTemplateNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutTemplateNestedInput
   }
 
   export type InvitationTemplateUncheckedUpdateWithoutPaymentDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: JsonNullValueInput | InputJsonValue
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    jsonData?: JsonNullValueInput | InputJsonValue
     price?: NullableFloatFieldUpdateOperationsInput | number | null
-    template_type?: Enumtemplate_categoryFieldUpdateOperationsInput | $Enums.template_category
-    template_category?: StringFieldUpdateOperationsInput | string
-    filter?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type UserCreateWithoutReviewsInput = {
@@ -33574,10 +35671,11 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -33601,10 +35699,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -33644,10 +35743,11 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -33671,10 +35771,11 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutGuestsInput = {
@@ -33698,10 +35799,11 @@ export namespace Prisma {
     cart?: CartCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGuestsInput = {
@@ -33725,10 +35827,11 @@ export namespace Prisma {
     cart?: CartUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGuestsInput = {
@@ -33768,10 +35871,11 @@ export namespace Prisma {
     cart?: CartUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGuestsInput = {
@@ -33795,19 +35899,86 @@ export namespace Prisma {
     cart?: CartUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutInvitationTemplateInput = {
+    id?: string
+    email: string
+    refresh_Token?: string | null
+    password_hash?: string | null
+    googleUid?: string | null
+    resetPassword_Token?: string | null
+    profile_photo?: string | null
+    user_name: string
+    phone_number?: string | null
+    role: $Enums.Role
+    wedding_date?: Date | string | null
+    wedding_location?: string | null
+    created_at?: Date | string
+    is_verified?: boolean
+    updated_at?: Date | string | null
+    bookings?: BookingCreateNestedManyWithoutUserIdInput
+    reviews?: ReviewCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    guests?: GuestCreateNestedManyWithoutUserInput
+    paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
+    userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
+    event?: EventCreateNestedManyWithoutUserInput
+    likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutInvitationTemplateInput = {
+    id?: string
+    email: string
+    refresh_Token?: string | null
+    password_hash?: string | null
+    googleUid?: string | null
+    resetPassword_Token?: string | null
+    profile_photo?: string | null
+    user_name: string
+    phone_number?: string | null
+    role: $Enums.Role
+    wedding_date?: Date | string | null
+    wedding_location?: string | null
+    created_at?: Date | string
+    is_verified?: boolean
+    updated_at?: Date | string | null
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserIdInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    guests?: GuestUncheckedCreateNestedManyWithoutUserInput
+    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
+    userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
+    event?: EventUncheckedCreateNestedManyWithoutUserInput
+    likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutInvitationTemplateInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutInvitationTemplateInput, UserUncheckedCreateWithoutInvitationTemplateInput>
   }
 
   export type PaymentDetailsCreateWithoutInvitationTemplateInput = {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPaymentDetailsInput
   }
 
@@ -33815,9 +35986,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     userId: string
   }
 
@@ -33831,36 +36007,93 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type OrderDetailsCreateWithoutInvitationTemplateInput = {
+  export type TemplateWatchHistoryCreateWithoutTemplateInput = {
     id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    User: UserCreateNestedOneWithoutOrderDetailsInput
+    watchedAt?: Date | string
+    user: UserCreateNestedOneWithoutWatchHistoryInput
   }
 
-  export type OrderDetailsUncheckedCreateWithoutInvitationTemplateInput = {
+  export type TemplateWatchHistoryUncheckedCreateWithoutTemplateInput = {
     id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
     userId: string
+    watchedAt?: Date | string
   }
 
-  export type OrderDetailsCreateOrConnectWithoutInvitationTemplateInput = {
-    where: OrderDetailsWhereUniqueInput
-    create: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput>
+  export type TemplateWatchHistoryCreateOrConnectWithoutTemplateInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    create: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput>
   }
 
-  export type OrderDetailsCreateManyInvitationTemplateInputEnvelope = {
-    data: OrderDetailsCreateManyInvitationTemplateInput | OrderDetailsCreateManyInvitationTemplateInput[]
+  export type TemplateWatchHistoryCreateManyTemplateInputEnvelope = {
+    data: TemplateWatchHistoryCreateManyTemplateInput | TemplateWatchHistoryCreateManyTemplateInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutInvitationTemplateInput = {
+    update: XOR<UserUpdateWithoutInvitationTemplateInput, UserUncheckedUpdateWithoutInvitationTemplateInput>
+    create: XOR<UserCreateWithoutInvitationTemplateInput, UserUncheckedCreateWithoutInvitationTemplateInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutInvitationTemplateInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutInvitationTemplateInput, UserUncheckedUpdateWithoutInvitationTemplateInput>
+  }
+
+  export type UserUpdateWithoutInvitationTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: BookingUpdateManyWithoutUserIdNestedInput
+    reviews?: ReviewUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    guests?: GuestUpdateManyWithoutUserNestedInput
+    paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
+    userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
+    event?: EventUpdateManyWithoutUserNestedInput
+    likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutInvitationTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: BookingUncheckedUpdateManyWithoutUserIdNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
+    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
+    userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
+    event?: EventUncheckedUpdateManyWithoutUserNestedInput
+    likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PaymentDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput = {
@@ -33879,20 +36112,244 @@ export namespace Prisma {
     data: XOR<PaymentDetailsUpdateManyMutationInput, PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateInput>
   }
 
-  export type OrderDetailsUpsertWithWhereUniqueWithoutInvitationTemplateInput = {
-    where: OrderDetailsWhereUniqueInput
-    update: XOR<OrderDetailsUpdateWithoutInvitationTemplateInput, OrderDetailsUncheckedUpdateWithoutInvitationTemplateInput>
-    create: XOR<OrderDetailsCreateWithoutInvitationTemplateInput, OrderDetailsUncheckedCreateWithoutInvitationTemplateInput>
+  export type TemplateWatchHistoryUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    update: XOR<TemplateWatchHistoryUpdateWithoutTemplateInput, TemplateWatchHistoryUncheckedUpdateWithoutTemplateInput>
+    create: XOR<TemplateWatchHistoryCreateWithoutTemplateInput, TemplateWatchHistoryUncheckedCreateWithoutTemplateInput>
   }
 
-  export type OrderDetailsUpdateWithWhereUniqueWithoutInvitationTemplateInput = {
-    where: OrderDetailsWhereUniqueInput
-    data: XOR<OrderDetailsUpdateWithoutInvitationTemplateInput, OrderDetailsUncheckedUpdateWithoutInvitationTemplateInput>
+  export type TemplateWatchHistoryUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: TemplateWatchHistoryWhereUniqueInput
+    data: XOR<TemplateWatchHistoryUpdateWithoutTemplateInput, TemplateWatchHistoryUncheckedUpdateWithoutTemplateInput>
   }
 
-  export type OrderDetailsUpdateManyWithWhereWithoutInvitationTemplateInput = {
-    where: OrderDetailsScalarWhereInput
-    data: XOR<OrderDetailsUpdateManyMutationInput, OrderDetailsUncheckedUpdateManyWithoutInvitationTemplateInput>
+  export type TemplateWatchHistoryUpdateManyWithWhereWithoutTemplateInput = {
+    where: TemplateWatchHistoryScalarWhereInput
+    data: XOR<TemplateWatchHistoryUpdateManyMutationInput, TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type UserCreateWithoutWatchHistoryInput = {
+    id?: string
+    email: string
+    refresh_Token?: string | null
+    password_hash?: string | null
+    googleUid?: string | null
+    resetPassword_Token?: string | null
+    profile_photo?: string | null
+    user_name: string
+    phone_number?: string | null
+    role: $Enums.Role
+    wedding_date?: Date | string | null
+    wedding_location?: string | null
+    created_at?: Date | string
+    is_verified?: boolean
+    updated_at?: Date | string | null
+    bookings?: BookingCreateNestedManyWithoutUserIdInput
+    reviews?: ReviewCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    guests?: GuestCreateNestedManyWithoutUserInput
+    paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
+    userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
+    event?: EventCreateNestedManyWithoutUserInput
+    likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWatchHistoryInput = {
+    id?: string
+    email: string
+    refresh_Token?: string | null
+    password_hash?: string | null
+    googleUid?: string | null
+    resetPassword_Token?: string | null
+    profile_photo?: string | null
+    user_name: string
+    phone_number?: string | null
+    role: $Enums.Role
+    wedding_date?: Date | string | null
+    wedding_location?: string | null
+    created_at?: Date | string
+    is_verified?: boolean
+    updated_at?: Date | string | null
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserIdInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    guests?: GuestUncheckedCreateNestedManyWithoutUserInput
+    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
+    userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
+    event?: EventUncheckedCreateNestedManyWithoutUserInput
+    likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWatchHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWatchHistoryInput, UserUncheckedCreateWithoutWatchHistoryInput>
+  }
+
+  export type InvitationTemplateCreateWithoutWatchHistoryInput = {
+    id?: string
+    name: string
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
+    price?: number | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutInvitationTemplateInput
+    paymentDetails?: PaymentDetailsCreateNestedManyWithoutInvitationTemplateInput
+  }
+
+  export type InvitationTemplateUncheckedCreateWithoutWatchHistoryInput = {
+    id?: string
+    name: string
+    description?: string | null
+    userId: string
+    jsonData: JsonNullValueInput | InputJsonValue
+    price?: number | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutInvitationTemplateInput
+  }
+
+  export type InvitationTemplateCreateOrConnectWithoutWatchHistoryInput = {
+    where: InvitationTemplateWhereUniqueInput
+    create: XOR<InvitationTemplateCreateWithoutWatchHistoryInput, InvitationTemplateUncheckedCreateWithoutWatchHistoryInput>
+  }
+
+  export type UserUpsertWithoutWatchHistoryInput = {
+    update: XOR<UserUpdateWithoutWatchHistoryInput, UserUncheckedUpdateWithoutWatchHistoryInput>
+    create: XOR<UserCreateWithoutWatchHistoryInput, UserUncheckedCreateWithoutWatchHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWatchHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWatchHistoryInput, UserUncheckedUpdateWithoutWatchHistoryInput>
+  }
+
+  export type UserUpdateWithoutWatchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: BookingUpdateManyWithoutUserIdNestedInput
+    reviews?: ReviewUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    guests?: GuestUpdateManyWithoutUserNestedInput
+    paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
+    userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
+    event?: EventUpdateManyWithoutUserNestedInput
+    likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWatchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    refresh_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleUid?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPassword_Token?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_photo?: NullableStringFieldUpdateOperationsInput | string | null
+    user_name?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    wedding_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wedding_location?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookings?: BookingUncheckedUpdateManyWithoutUserIdNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
+    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
+    userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
+    event?: EventUncheckedUpdateManyWithoutUserNestedInput
+    likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type InvitationTemplateUpsertWithoutWatchHistoryInput = {
+    update: XOR<InvitationTemplateUpdateWithoutWatchHistoryInput, InvitationTemplateUncheckedUpdateWithoutWatchHistoryInput>
+    create: XOR<InvitationTemplateCreateWithoutWatchHistoryInput, InvitationTemplateUncheckedCreateWithoutWatchHistoryInput>
+    where?: InvitationTemplateWhereInput
+  }
+
+  export type InvitationTemplateUpdateToOneWithWhereWithoutWatchHistoryInput = {
+    where?: InvitationTemplateWhereInput
+    data: XOR<InvitationTemplateUpdateWithoutWatchHistoryInput, InvitationTemplateUncheckedUpdateWithoutWatchHistoryInput>
+  }
+
+  export type InvitationTemplateUpdateWithoutWatchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutInvitationTemplateNestedInput
+    paymentDetails?: PaymentDetailsUpdateManyWithoutInvitationTemplateNestedInput
+  }
+
+  export type InvitationTemplateUncheckedUpdateWithoutWatchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    jsonData?: JsonNullValueInput | InputJsonValue
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
   }
 
   export type UserCreateWithoutUserDataTemplateInput = {
@@ -33917,9 +36374,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserDataTemplateInput = {
@@ -33944,9 +36402,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
     likedBlogs?: LikedBlogUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserDataTemplateInput = {
@@ -33987,9 +36446,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserDataTemplateInput = {
@@ -34014,9 +36474,25 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
     likedBlogs?: LikedBlogUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TagsCreateWithoutBlogsInput = {
+    id?: string
+    tagName: string
+  }
+
+  export type TagsUncheckedCreateWithoutBlogsInput = {
+    id?: string
+    tagName: string
+  }
+
+  export type TagsCreateOrConnectWithoutBlogsInput = {
+    where: TagsWhereUniqueInput
+    create: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput>
   }
 
   export type CommentCreateWithoutBlogInput = {
@@ -34063,6 +36539,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TagsUpsertWithWhereUniqueWithoutBlogsInput = {
+    where: TagsWhereUniqueInput
+    update: XOR<TagsUpdateWithoutBlogsInput, TagsUncheckedUpdateWithoutBlogsInput>
+    create: XOR<TagsCreateWithoutBlogsInput, TagsUncheckedCreateWithoutBlogsInput>
+  }
+
+  export type TagsUpdateWithWhereUniqueWithoutBlogsInput = {
+    where: TagsWhereUniqueInput
+    data: XOR<TagsUpdateWithoutBlogsInput, TagsUncheckedUpdateWithoutBlogsInput>
+  }
+
+  export type TagsUpdateManyWithWhereWithoutBlogsInput = {
+    where: TagsScalarWhereInput
+    data: XOR<TagsUpdateManyMutationInput, TagsUncheckedUpdateManyWithoutBlogsInput>
+  }
+
+  export type TagsScalarWhereInput = {
+    AND?: TagsScalarWhereInput | TagsScalarWhereInput[]
+    OR?: TagsScalarWhereInput[]
+    NOT?: TagsScalarWhereInput | TagsScalarWhereInput[]
+    id?: StringFilter<"Tags"> | string
+    tagName?: StringFilter<"Tags"> | string
+  }
+
   export type CommentUpsertWithWhereUniqueWithoutBlogInput = {
     where: CommentWhereUniqueInput
     update: XOR<CommentUpdateWithoutBlogInput, CommentUncheckedUpdateWithoutBlogInput>
@@ -34106,29 +36606,105 @@ export namespace Prisma {
     data: XOR<LikedBlogUpdateManyMutationInput, LikedBlogUncheckedUpdateManyWithoutBlogInput>
   }
 
-  export type BlogCreateWithoutCommentsInput = {
+  export type BlogCreateWithoutTagsInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    comments?: CommentCreateNestedManyWithoutBlogInput
+    likedBy?: LikedBlogCreateNestedManyWithoutBlogInput
+  }
+
+  export type BlogUncheckedCreateWithoutTagsInput = {
+    id?: string
+    title: string
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
+    content: string
+    viewCount?: number
+    likes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    authorId: string
+    comments?: CommentUncheckedCreateNestedManyWithoutBlogInput
+    likedBy?: LikedBlogUncheckedCreateNestedManyWithoutBlogInput
+  }
+
+  export type BlogCreateOrConnectWithoutTagsInput = {
+    where: BlogWhereUniqueInput
+    create: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput>
+  }
+
+  export type BlogUpsertWithWhereUniqueWithoutTagsInput = {
+    where: BlogWhereUniqueInput
+    update: XOR<BlogUpdateWithoutTagsInput, BlogUncheckedUpdateWithoutTagsInput>
+    create: XOR<BlogCreateWithoutTagsInput, BlogUncheckedCreateWithoutTagsInput>
+  }
+
+  export type BlogUpdateWithWhereUniqueWithoutTagsInput = {
+    where: BlogWhereUniqueInput
+    data: XOR<BlogUpdateWithoutTagsInput, BlogUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type BlogUpdateManyWithWhereWithoutTagsInput = {
+    where: BlogScalarWhereInput
+    data: XOR<BlogUpdateManyMutationInput, BlogUncheckedUpdateManyWithoutTagsInput>
+  }
+
+  export type BlogScalarWhereInput = {
+    AND?: BlogScalarWhereInput | BlogScalarWhereInput[]
+    OR?: BlogScalarWhereInput[]
+    NOT?: BlogScalarWhereInput | BlogScalarWhereInput[]
+    id?: StringFilter<"Blog"> | string
+    title?: StringFilter<"Blog"> | string
+    status?: EnumStatusFilter<"Blog"> | $Enums.Status
+    urlTitle?: StringFilter<"Blog"> | string
+    coverImage?: StringNullableFilter<"Blog"> | string | null
+    content?: StringFilter<"Blog"> | string
+    viewCount?: IntFilter<"Blog"> | number
+    likes?: IntFilter<"Blog"> | number
+    createdAt?: DateTimeFilter<"Blog"> | Date | string
+    updatedAt?: DateTimeFilter<"Blog"> | Date | string
+    authorId?: StringFilter<"Blog"> | string
+  }
+
+  export type BlogCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
+    content: string
+    viewCount?: number
+    likes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    authorId: string
+    tags?: TagsCreateNestedManyWithoutBlogsInput
     likedBy?: LikedBlogCreateNestedManyWithoutBlogInput
   }
 
   export type BlogUncheckedCreateWithoutCommentsInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    tags?: TagsUncheckedCreateNestedManyWithoutBlogsInput
     likedBy?: LikedBlogUncheckedCreateNestedManyWithoutBlogInput
   }
 
@@ -34151,26 +36727,32 @@ export namespace Prisma {
   export type BlogUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUpdateManyWithoutBlogsNestedInput
     likedBy?: LikedBlogUpdateManyWithoutBlogNestedInput
   }
 
   export type BlogUncheckedUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUncheckedUpdateManyWithoutBlogsNestedInput
     likedBy?: LikedBlogUncheckedUpdateManyWithoutBlogNestedInput
   }
 
@@ -34196,9 +36778,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutUserInput
     guests?: GuestCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateCreateNestedManyWithoutUserInput
     event?: EventCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikedBlogsInput = {
@@ -34223,9 +36806,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
     guests?: GuestUncheckedCreateNestedManyWithoutUserInput
     paymentDetails?: PaymentDetailsUncheckedCreateNestedManyWithoutUserInput
-    orderDetails?: OrderDetailsUncheckedCreateNestedManyWithoutUserInput
     userDataTemplate?: UserDataTemplateUncheckedCreateNestedManyWithoutUserInput
     event?: EventUncheckedCreateNestedManyWithoutUserInput
+    invitationTemplate?: InvitationTemplateUncheckedCreateNestedManyWithoutUserInput
+    watchHistory?: TemplateWatchHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikedBlogsInput = {
@@ -34236,26 +36820,32 @@ export namespace Prisma {
   export type BlogCreateWithoutLikedByInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    tags?: TagsCreateNestedManyWithoutBlogsInput
     comments?: CommentCreateNestedManyWithoutBlogInput
   }
 
   export type BlogUncheckedCreateWithoutLikedByInput = {
     id?: string
     title: string
-    tags?: BlogCreatetagsInput | string[]
+    status: $Enums.Status
+    urlTitle: string
+    coverImage?: string | null
     content: string
     viewCount?: number
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     authorId: string
+    tags?: TagsUncheckedCreateNestedManyWithoutBlogsInput
     comments?: CommentUncheckedCreateNestedManyWithoutBlogInput
   }
 
@@ -34297,9 +36887,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
     guests?: GuestUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUpdateManyWithoutUserNestedInput
     event?: EventUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedBlogsInput = {
@@ -34324,9 +36915,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
     guests?: GuestUncheckedUpdateManyWithoutUserNestedInput
     paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutUserNestedInput
-    orderDetails?: OrderDetailsUncheckedUpdateManyWithoutUserNestedInput
     userDataTemplate?: UserDataTemplateUncheckedUpdateManyWithoutUserNestedInput
     event?: EventUncheckedUpdateManyWithoutUserNestedInput
+    invitationTemplate?: InvitationTemplateUncheckedUpdateManyWithoutUserNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BlogUpsertWithoutLikedByInput = {
@@ -34343,26 +36935,32 @@ export namespace Prisma {
   export type BlogUpdateWithoutLikedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUpdateManyWithoutBlogsNestedInput
     comments?: CommentUpdateManyWithoutBlogNestedInput
   }
 
   export type BlogUncheckedUpdateWithoutLikedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    tags?: BlogUpdatetagsInput | string[]
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     viewCount?: IntFieldUpdateOperationsInput | number
     likes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    tags?: TagsUncheckedUpdateManyWithoutBlogsNestedInput
     comments?: CommentUncheckedUpdateManyWithoutBlogNestedInput
   }
 
@@ -34413,20 +37011,14 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
-    purchasedAt?: Date | string | null
-    templateId?: string | null
-  }
-
-  export type OrderDetailsCreateManyUserInput = {
-    id?: string
-    orderId: string
-    amount: number
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
     currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
+    purchasedAt?: Date | string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
     templateId?: string | null
   }
 
@@ -34459,6 +37051,30 @@ export namespace Prisma {
   export type LikedBlogCreateManyUserInput = {
     id?: string
     blogId: string
+  }
+
+  export type InvitationTemplateCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    jsonData: JsonNullValueInput | InputJsonValue
+    price?: number | null
+    categoryByAmount?: $Enums.CategoryByAmount
+    categoryByMood?: $Enums.CategoryByMood
+    categoryByRequirement?: $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateCreateadditionalTagsInput | string[]
+    designedBy?: string | null
+    thumbnailUrl?: string | null
+    rating?: number | null
+    status?: $Enums.TemplateStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateWatchHistoryCreateManyUserInput = {
+    id?: string
+    templateId: string
+    watchedAt?: Date | string
   }
 
   export type BookingUpdateWithoutUserIdInput = {
@@ -34594,9 +37210,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     InvitationTemplate?: InvitationTemplateUpdateOneWithoutPaymentDetailsNestedInput
   }
 
@@ -34604,9 +37225,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -34614,42 +37240,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    templateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type OrderDetailsUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    InvitationTemplate?: InvitationTemplateUpdateOneWithoutOrderDetailsNestedInput
-  }
-
-  export type OrderDetailsUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    templateId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type OrderDetailsUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -34750,6 +37348,82 @@ export namespace Prisma {
   export type LikedBlogUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     blogId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type InvitationTemplateUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paymentDetails?: PaymentDetailsUpdateManyWithoutInvitationTemplateNestedInput
+    watchHistory?: TemplateWatchHistoryUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type InvitationTemplateUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paymentDetails?: PaymentDetailsUncheckedUpdateManyWithoutInvitationTemplateNestedInput
+    watchHistory?: TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type InvitationTemplateUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    jsonData?: JsonNullValueInput | InputJsonValue
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    categoryByAmount?: EnumCategoryByAmountFieldUpdateOperationsInput | $Enums.CategoryByAmount
+    categoryByMood?: EnumCategoryByMoodFieldUpdateOperationsInput | $Enums.CategoryByMood
+    categoryByRequirement?: EnumCategoryByRequirementFieldUpdateOperationsInput | $Enums.CategoryByRequirement
+    additionalTags?: InvitationTemplateUpdateadditionalTagsInput | string[]
+    designedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateWatchHistoryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: InvitationTemplateUpdateOneRequiredWithoutWatchHistoryNestedInput
+  }
+
+  export type TemplateWatchHistoryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateWatchHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EventTaskCreateManyEventInput = {
@@ -34932,30 +37606,35 @@ export namespace Prisma {
     id?: string
     orderId: string
     paymentId?: string | null
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    status?: string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: string
+    paymentStatus?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     purchasedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     userId: string
   }
 
-  export type OrderDetailsCreateManyInvitationTemplateInput = {
+  export type TemplateWatchHistoryCreateManyTemplateInput = {
     id?: string
-    orderId: string
-    amount: number
-    currency?: string
-    status?: string
-    razorpayResponse: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
     userId: string
+    watchedAt?: Date | string
   }
 
   export type PaymentDetailsUpdateWithoutInvitationTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPaymentDetailsNestedInput
   }
 
@@ -34963,9 +37642,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -34973,43 +37657,33 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    status?: StringFieldUpdateOperationsInput | string
+    razorpayResponse?: NullableJsonNullValueInput | InputJsonValue
+    orderStatus?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     purchasedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type OrderDetailsUpdateWithoutInvitationTemplateInput = {
+  export type TemplateWatchHistoryUpdateWithoutTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    User?: UserUpdateOneRequiredWithoutOrderDetailsNestedInput
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWatchHistoryNestedInput
   }
 
-  export type OrderDetailsUncheckedUpdateWithoutInvitationTemplateInput = {
+  export type TemplateWatchHistoryUncheckedUpdateWithoutTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OrderDetailsUncheckedUpdateManyWithoutInvitationTemplateInput = {
+  export type TemplateWatchHistoryUncheckedUpdateManyWithoutTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    orderId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    currency?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    razorpayResponse?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    watchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentCreateManyBlogInput = {
@@ -35022,6 +37696,21 @@ export namespace Prisma {
   export type LikedBlogCreateManyBlogInput = {
     id?: string
     userId: string
+  }
+
+  export type TagsUpdateWithoutBlogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagsUncheckedUpdateWithoutBlogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagsUncheckedUpdateManyWithoutBlogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tagName?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentUpdateWithoutBlogInput = {
@@ -35058,6 +37747,52 @@ export namespace Prisma {
   export type LikedBlogUncheckedUpdateManyWithoutBlogInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BlogUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    comments?: CommentUpdateManyWithoutBlogNestedInput
+    likedBy?: LikedBlogUpdateManyWithoutBlogNestedInput
+  }
+
+  export type BlogUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    comments?: CommentUncheckedUpdateManyWithoutBlogNestedInput
+    likedBy?: LikedBlogUncheckedUpdateManyWithoutBlogNestedInput
+  }
+
+  export type BlogUncheckedUpdateManyWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    urlTitle?: StringFieldUpdateOperationsInput | string
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    viewCount?: IntFieldUpdateOperationsInput | number
+    likes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
 

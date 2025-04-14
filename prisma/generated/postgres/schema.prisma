@@ -12,11 +12,11 @@ datasource db_postgres {
 }
 
 model User {
-  id                  String             @id @default(uuid())
-  email               String             @unique
+  id                  String                 @id @default(uuid())
+  email               String                 @unique
   refresh_Token       String?
   password_hash       String?
-  googleUid           String?            @unique
+  googleUid           String?                @unique
   resetPassword_Token String?
   profile_photo       String?
   user_name           String
@@ -24,19 +24,20 @@ model User {
   role                Role
   wedding_date        DateTime?
   wedding_location    String?
-  created_at          DateTime           @default(now())
-  is_verified         Boolean            @default(false)
+  created_at          DateTime               @default(now())
+  is_verified         Boolean                @default(false)
   bookings            Booking[]
   reviews             Review[]
   cart                Cart[]
   updated_at          DateTime?
-  checklists          Checklist[]        @relation(name: "UserChecklists")
-  guests              Guest[]            @relation(name: "UserGuests")
+  checklists          Checklist[]            @relation(name: "UserChecklists")
+  guests              Guest[]                @relation(name: "UserGuests")
   paymentDetails      PaymentDetails[]
-  orderDetails        OrderDetails[]
   userDataTemplate    UserDataTemplate[]
-  event               Event[]            @relation(name: "Event")
-  likedBlogs          LikedBlog[] // Added relation to LikedBlog
+  event               Event[]                @relation(name: "Event")
+  likedBlogs          LikedBlog[]
+  invitationTemplate  InvitationTemplate[]   @relation(name: "InvitationTemplate")
+  watchHistory        TemplateWatchHistory[]
 }
 
 model Booking {
@@ -162,28 +163,18 @@ model SubEventTask {
   updatedAt  DateTime @updatedAt
 }
 
-model OrderDetails {
-  id               String   @id @default(uuid())
-  orderId          String   @unique // Razorpay Order ID
-  amount           Float // Amount in INR
-  currency         String   @default("INR")
-  status           String   @default("created") // "created", "paid", "failed"
-  razorpayResponse Json // Full Razorpay Order response (optional)
-  createdAt        DateTime @default(now())
-  userId           String
-  templateId       String?
-
-  User               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
-}
-
 model PaymentDetails {
   id               String    @id @default(uuid())
-  orderId          String    @unique // Link to OrderDetails
-  paymentId        String? // Razorpay Payment ID
-  razorpayResponse Json // Full Razorpay Payment response
-  status           String    @default("pending") // "pending", "success", "failed"
+  orderId          String    @unique // Unique order identifier
+  paymentId        String? // Razorpay Payment ID (NULL until paid)
+  razorpayResponse Json? // Store only essential details
+  orderStatus      String    @default("pending") // "pending", "failed", "completed"
+  paymentStatus    String? // "initiated", "failed", "successful"
+  amount           Decimal // Store order amount
+  currency         String    @default("INR")
   purchasedAt      DateTime? // Payment completion time
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   userId     String
   templateId String?
@@ -238,21 +229,66 @@ enum GuestStatus {
 }
 
 model InvitationTemplate {
-  id                String            @id @default(uuid())
-  name              String
-  imageUrl          Json // URL to template image
-  price             Float? // Template price
-  template_type     template_category
-  template_category String
-  filter            String?
-  createdAt         DateTime          @default(now())
-  paymentDetails    PaymentDetails[]
-  orderDetails      OrderDetails[]
+  id                    String                 @id @default(uuid())
+  name                  String
+  description           String? // Optional description
+  userId                String
+  user                  User                   @relation(name: "InvitationTemplate", fields: [userId], references: [id], onDelete: Cascade)
+  jsonData              Json // Fabric.js JSON data
+  price                 Float? // Template price
+  categoryByAmount      CategoryByAmount       @default(FREE)
+  categoryByMood        CategoryByMood         @default(WEDDING)
+  categoryByRequirement CategoryByRequirement  @default(LATEST)
+  additionalTags        String[] // Array of tags for searchability
+  designedBy            String? // Optional designer name
+  thumbnailUrl          String? // Optional preview image URL
+  rating                Float?                 @default(0.0) // User rating out of 5
+  status                TemplateStatus         @default(DRAFT) // PUBLISHED, DRAFT, ARCHIVED
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt // Auto-update timestamp
+  paymentDetails        PaymentDetails[]
+  watchHistory          TemplateWatchHistory[]
 }
 
-enum template_category {
+model TemplateWatchHistory {
+  id         String             @id @default(uuid())
+  userId     String
+  templateId String
+  watchedAt  DateTime           @default(now())
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template   InvitationTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId]) // Prevent duplicate history
+}
+
+// Enum for Template Status
+enum TemplateStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+//Enum form template category by amount
+enum CategoryByAmount {
   FREE
-  PREMIUM
+  PAID
+}
+
+//Enum form template category by mood
+enum CategoryByMood {
+  BIRTHDAY // Birthday celebration templates
+  ROMANCE // Romantic designs (love, couple themes)
+  WEDDING // Wedding invitation and celebration templates
+  ANNIVERSARY // Anniversary celebration templates
+  CORPORATE // Business and professional templates
+  LOVE
+  COUPLE
+}
+
+enum CategoryByRequirement {
+  HOT
+  POPULAR
+  LATEST
 }
 
 model UserDataTemplate {
@@ -273,17 +309,31 @@ model UserDataTemplate {
 
 // Blog-related models from your schema
 model Blog {
-  id        String      @id @default(cuid())
-  title     String      @unique
-  tags      String[]
-  content   String
-  comments  Comment[]
-  viewCount Int         @default(0)
-  likes     Int         @default(0)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  likedBy   LikedBlog[]
-  authorId  String
+  id         String      @id @default(cuid())
+  title      String      @unique
+  status     Status
+  urlTitle   String      @unique
+  coverImage String?
+  tags       Tags[]
+  content    String
+  comments   Comment[]
+  viewCount  Int         @default(0)
+  likes      Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  likedBy    LikedBlog[]
+  authorId   String
+}
+
+model Tags {
+  id      String @id @default(cuid())
+  tagName String @unique
+  blogs   Blog[]
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
 }
 
 model Comment {

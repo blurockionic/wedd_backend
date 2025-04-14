@@ -40,6 +40,7 @@ routes.use("/inviteTemplate",inviteRouter);
 routes.use("/template",templatePaymentRouter);
 routes.use("/userDataTemplate",templateRouter)
 routes.use("/event", eventRouter)
+// blog routes
 routes.use("/blog/admin", blogRouteAdmin);
 routes.use("/blog/user", blogRouteUser);
 routes.use("/blog/public", blogRoutePublic);
