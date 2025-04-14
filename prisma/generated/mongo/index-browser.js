@@ -195,6 +195,21 @@ exports.Prisma.MediaScalarFieldEnum = {
   uploaded_at: 'uploaded_at'
 };
 
+exports.Prisma.EditorAssetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  uploadedBy: 'uploadedBy',
+  type: 'type',
+  public_id: 'public_id',
+  url: 'url',
+  preview_url: 'preview_url',
+  tags: 'tags',
+  asset_folder: 'asset_folder',
+  etag: 'etag',
+  createdAt: 'createdAt',
+  name: 'name'
+};
+
 exports.Prisma.TeamMemberScalarFieldEnum = {
   id: 'id',
   vendorId: 'vendorId',
@@ -327,6 +342,7 @@ exports.Prisma.ModelName = {
   Feedback: 'Feedback',
   Availability: 'Availability',
   Media: 'Media',
+  EditorAsset: 'EditorAsset',
   TeamMember: 'TeamMember',
   Promotion: 'Promotion',
   Plan: 'Plan',

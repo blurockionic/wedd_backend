@@ -225,25 +225,18 @@ exports.Prisma.SubEventTaskScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.OrderDetailsScalarFieldEnum = {
-  id: 'id',
-  orderId: 'orderId',
-  amount: 'amount',
-  currency: 'currency',
-  status: 'status',
-  razorpayResponse: 'razorpayResponse',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  templateId: 'templateId'
-};
-
 exports.Prisma.PaymentDetailsScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
   paymentId: 'paymentId',
   razorpayResponse: 'razorpayResponse',
-  status: 'status',
+  orderStatus: 'orderStatus',
+  paymentStatus: 'paymentStatus',
+  amount: 'amount',
+  currency: 'currency',
   purchasedAt: 'purchasedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   userId: 'userId',
   templateId: 'templateId'
 };
@@ -282,12 +275,27 @@ exports.Prisma.GuestScalarFieldEnum = {
 exports.Prisma.InvitationTemplateScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  imageUrl: 'imageUrl',
+  description: 'description',
+  userId: 'userId',
+  jsonData: 'jsonData',
   price: 'price',
-  template_type: 'template_type',
-  template_category: 'template_category',
-  filter: 'filter',
-  createdAt: 'createdAt'
+  categoryByAmount: 'categoryByAmount',
+  categoryByMood: 'categoryByMood',
+  categoryByRequirement: 'categoryByRequirement',
+  additionalTags: 'additionalTags',
+  designedBy: 'designedBy',
+  thumbnailUrl: 'thumbnailUrl',
+  rating: 'rating',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TemplateWatchHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  templateId: 'templateId',
+  watchedAt: 'watchedAt'
 };
 
 exports.Prisma.UserDataTemplateScalarFieldEnum = {
@@ -308,13 +316,20 @@ exports.Prisma.UserDataTemplateScalarFieldEnum = {
 exports.Prisma.BlogScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  tags: 'tags',
+  status: 'status',
+  urlTitle: 'urlTitle',
+  coverImage: 'coverImage',
   content: 'content',
   viewCount: 'viewCount',
   likes: 'likes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   authorId: 'authorId'
+};
+
+exports.Prisma.TagsScalarFieldEnum = {
+  id: 'id',
+  tagName: 'tagName'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -337,6 +352,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -366,9 +386,36 @@ exports.GuestStatus = exports.$Enums.GuestStatus = {
   INVITED: 'INVITED'
 };
 
-exports.template_category = exports.$Enums.template_category = {
+exports.CategoryByAmount = exports.$Enums.CategoryByAmount = {
   FREE: 'FREE',
-  PREMIUM: 'PREMIUM'
+  PAID: 'PAID'
+};
+
+exports.CategoryByMood = exports.$Enums.CategoryByMood = {
+  BIRTHDAY: 'BIRTHDAY',
+  ROMANCE: 'ROMANCE',
+  WEDDING: 'WEDDING',
+  ANNIVERSARY: 'ANNIVERSARY',
+  CORPORATE: 'CORPORATE',
+  LOVE: 'LOVE',
+  COUPLE: 'COUPLE'
+};
+
+exports.CategoryByRequirement = exports.$Enums.CategoryByRequirement = {
+  HOT: 'HOT',
+  POPULAR: 'POPULAR',
+  LATEST: 'LATEST'
+};
+
+exports.TemplateStatus = exports.$Enums.TemplateStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.Status = exports.$Enums.Status = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED'
 };
 
 exports.Prisma.ModelName = {
@@ -382,14 +429,15 @@ exports.Prisma.ModelName = {
   SubEvent: 'SubEvent',
   SubEventVendors: 'SubEventVendors',
   SubEventTask: 'SubEventTask',
-  OrderDetails: 'OrderDetails',
   PaymentDetails: 'PaymentDetails',
   Review: 'Review',
   EventSchedule: 'EventSchedule',
   Guest: 'Guest',
   InvitationTemplate: 'InvitationTemplate',
+  TemplateWatchHistory: 'TemplateWatchHistory',
   UserDataTemplate: 'UserDataTemplate',
   Blog: 'Blog',
+  Tags: 'Tags',
   Comment: 'Comment',
   LikedBlog: 'LikedBlog'
 };
