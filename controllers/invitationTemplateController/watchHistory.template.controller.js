@@ -83,7 +83,7 @@ export const getWatchHistory = async (req, res) => {
         res.status(200).json({
         success: true,
         watchHistory,
-        lenght: watchHistory.length,
+        length: watchHistory.length,
         });
     } catch (error) {
         console.error("Error in getWatchHistory:", error);
