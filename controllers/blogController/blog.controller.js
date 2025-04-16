@@ -170,7 +170,7 @@ export const deleteBlog = async (req, res, next) => {
         if (!blog) return next(new CustomError("Blog not found", 404));
 
         // Authorization check
-        if (blog.authorId !== userId || req.user.role !== "ADMIN") {
+        if (blog.authorId !== userId && req.user.role !== "ADMIN" && req.user.role !== "SUPER_ADMIN") {
             return next(new CustomError("Unauthorized to delete this blog", 403));
         }
 
@@ -340,7 +340,7 @@ export const updateBlog = async (req, res, next) => {
       if (!blog) return next(new CustomError("Blog not found", 404));
   
       // Authorization check
-      if (blog.authorId !== userId && req.user.role !== "ADMIN") {
+      if (blog.authorId !== userId && req.user.role !== "ADMIN" && req.user.role !== "SUPER_ADMIN") {
         return next(new CustomError("Unauthorized to update this blog", 403));
       }
   
