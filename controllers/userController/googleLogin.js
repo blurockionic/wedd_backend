@@ -129,6 +129,7 @@ const googleLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000
     };
 
     return res

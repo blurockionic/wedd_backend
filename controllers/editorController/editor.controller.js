@@ -71,9 +71,7 @@ export const getImages = async (req, res) => {
     const { id: userId } = req.user;
     // admin // user
 
-    const whereClause = !(asset_folder === "user_assets")
-      ? { asset_folder }
-      : { userId, asset_folder };
+     const whereClause = !(asset_folder ==="user_assets")? {  asset_folder } : { userId ,asset_folder};
 
     const images = await mongoPrisma.EditorAsset.findMany({
       where: whereClause,
