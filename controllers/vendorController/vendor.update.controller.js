@@ -45,4 +45,44 @@ const updateVendor = async (req, res, next) => {
 
 export default updateVendor;
 
+
+
+export const addProfileView = async (req, res) => {
+  const { vendorId } = req.params;
+
+  
+
+  if (!vendorId) {
+    return res.status(400).json({ message: "Vendor ID is required" });
+  }
+
+  try {
+    const vendor = await prisma.vendor.findUnique({
+      where: { id: vendorId },
+      select: { profileViews: true },
+    });
+    
+    if (!vendor) {
+      throw new Error("Vendor not found");
+    }
+    
+    const updatedVendor = await prisma.vendor.update({
+      where: { id: vendorId },
+      data: {
+        profileViews: (vendor.profileViews || 0) + 1,
+      },
+    });
+    // If the vendor is successfully updated, return the updated vendor
+    return res.status(200).json({
+      message: "Profile view count updated successfully",
+      profileViews: updatedVendor.profileViews,
+    });
+  } catch (error) {
+    // Handle any errors, like vendor not found or database issues
+    console.error(error);
+    return res.status(500).json({ message: "Failed to update profile view count" });
+  }
+};
+
+
 export const uploadVendorMiddleware = upload.single("logo_url");

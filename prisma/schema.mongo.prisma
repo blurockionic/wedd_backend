@@ -25,6 +25,7 @@ model Vendor {
   state               String?
   password_hash       String
   phone_number        String
+  profileViews  Int      @default(0)
   social_networks     Json?
   services            Service[]    @relation("VendorServices") // One-to-many relation
   promotions          Promotion[] // One-to-many relation
