@@ -5,18 +5,27 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "prisma-generate": "prisma generate --schema=prisma/schema.postgre.prisma",
-    "prisma:generate-mongo": "prisma generate --schema=prisma/schema.mongo.prisma",
-    "prisma:generate-all": "npm run prisma-generate && npm run prisma:generate-mongo",
-    "prisma:dbpush-mongo": "npx prisma db push --schema=prisma/schema.mongo.prisma",
-    "prisma:dbpush-all": "npm run prisma:dbpush-postgres && npm run prisma:dbpush-mongo",
-    "prisma:migrate": "prisma migrate dev --schema=prisma/schema.postgre.prisma",
-    "prisma:migrate-mongo": "prisma migrate dev --schema=prisma/schema.mongo.prisma",
-    "prisma:migrate-all": "npm run prisma:migrate && npm run prisma:migrate-mongo",
-    "tunnel": "ngrok http 4000"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "nodemon server.js",
+
+ 
+  "prisma:generate-postgres": "prisma generate --schema=prisma/schema.postgre.prisma",
+  "prisma:generate-mongo": "prisma generate --schema=prisma/schema.mongo.prisma",
+  "prisma:generate-all": "npm run prisma:generate-postgres && npm run prisma:generate-mongo",
+
+
+  "prisma:dbpush-postgres": "npx prisma db push --schema=prisma/schema.postgre.prisma",
+  "prisma:dbpush-mongo": "npx prisma db push --schema=prisma/schema.mongo.prisma",
+  "prisma:dbpush-all": "npm run prisma:dbpush-postgres && npm run prisma:dbpush-mongo",
+
+ 
+  "prisma:migrate-postgres": "npx prisma migrate dev --schema=prisma/schema.postgre.prisma",
+  "prisma:migrate-all": "npm run prisma:migrate-postgres",
+
+
+  "tunnel": "ngrok http 4000"
+},
+
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@prisma/client": "^6.2.1",
