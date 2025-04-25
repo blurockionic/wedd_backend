@@ -38,6 +38,7 @@ model User {
   likedBlogs          LikedBlog[]  
   invitationTemplate  InvitationTemplate[]  @relation(name: "InvitationTemplate")
   watchHistory         TemplateWatchHistory[]
+    partner           Partner?
 
 }
 
@@ -362,4 +363,83 @@ model LikedBlog {
   blogId String
 
   @@unique([userId, blogId])
+}
+
+model Partner {
+  id                String           @id @default(uuid())
+  fullName          String
+  email             String           @unique
+  phoneNumber       String
+  cityRegion        String
+  role              PartnerRole
+  otherRoleDetails  String?          // Only filled if role is "OTHER"
+  
+  // Experience & Background
+  experienceYears   ExperienceRange
+  workedOnWeddings  Boolean
+  portfolioUrl      String?
+  
+  // Documents
+  governmentIdUrl   String?          // URL to uploaded document in storage
+  businessCertUrl   String?          // URL to uploaded certificate in storage
+  workSamplesUrls   String[]         // Array of URLs to sample work images
+  
+  // Additional Info
+  motivationNote    String           // Why partner with MarriageVendors
+  preferredModel    WorkingModel
+  availability      AvailabilityType
+  
+  // Status tracking
+  applicationStatus ApplicationStatus @default(PENDING)
+  reviewedBy        String?           // Admin who reviewed the application
+  reviewNotes       String?           // Internal notes on application
+  
+  // Agreements
+  agreedNoLeadLeakage Boolean
+  agreedPlatformDeals Boolean
+  agreedToNDA         Boolean
+  
+  // Timestamps
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  
+  // If approved, link to a User account
+  userId            String?          @unique
+  user              User?            @relation(fields: [userId], references: [id])
+}
+
+enum PartnerRole {
+  EVENT_PLANNER
+  PHOTOGRAPHER
+  DECORATOR
+  CATERER
+  MAKEUP_ARTIST
+  OTHER
+}
+
+enum ExperienceRange {
+  LESS_THAN_ONE
+  ONE_TO_THREE
+  THREE_TO_FIVE
+  FIVE_PLUS
+}
+
+enum WorkingModel {
+  SALARY_INCENTIVES
+  COMMISSION
+  BOTH
+}
+
+enum AvailabilityType {
+  FULL_TIME
+  PART_TIME
+  PROJECT_BASED
+}
+
+enum ApplicationStatus {
+  PENDING
+  SHORTLISTED
+  INTERVIEWED
+  APPROVED
+  REJECTED
 }

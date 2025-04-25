@@ -18,6 +18,7 @@ import AdminRouter from './admin.route.js';
 import { blogRouteAdmin, blogRouteUser, blogRoutePublic } from '../routes/blog.route.js';
 import editorRouter from "./editorAssets.route.js";
 import watchHistoryRouter from "./watchHistory.template.js";
+import {partnerRouteUser, partnerRouteAdmin, partnerRoutePublic} from "./partner.route.js";
 
 const routes = express.Router();
 
@@ -46,5 +47,8 @@ routes.use("/blog/user", blogRouteUser);
 routes.use("/blog/public", blogRoutePublic);
 routes.use("/editorAssets",editorRouter)
 routes.use("/templateWatchHistory", watchHistoryRouter);
+routes.use("/user/partners", partnerRouteUser);  
+routes.use("/partners/public", partnerRoutePublic);
+routes.use("/admin/partners", partnerRouteAdmin);
 
 export default routes;
