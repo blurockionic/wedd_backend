@@ -24,6 +24,11 @@ const getServiceById = async (req, res, next) => {
             email: true,
             phone_number: true,
             business_name: true,
+            logo_url:true,
+            city:true,
+            state:true,
+            description:true,
+            social_networks:true
           },
         },
         media: {

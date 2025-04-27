@@ -1,5 +1,7 @@
 import { PrismaClient as MongoPrismaClient } from "../../prisma/generated/mongo/index.js";
 
+import { v2 as cloudinary } from "cloudinary";
+
 const mongoPrisma = new MongoPrismaClient();
 
 export const saveImages = async (req, res) => {
@@ -13,13 +15,8 @@ export const saveImages = async (req, res) => {
       return res.status(400).json({ error: "No images provided" });
     }
 
-
-    console.log(images,tags);
-    
-
-
     const tagArray = Array.isArray(tags)
-      ? tags.map((tag) => tag.trim())  
+      ? tags.map((tag) => tag.trim())
       : typeof tags === "string"
       ? tags.split(",").map((tag) => tag.trim()) // Convert string to array
       : [];
@@ -28,7 +25,7 @@ export const saveImages = async (req, res) => {
     const newImages = images.map((img) => ({
       userId,
       uploadedBy: role,
-      asset_folder:img.asset_folder,
+      asset_folder: img.asset_folder,
       type: img.resource_type,
       public_id: img.public_id,
       url: img.secure_url,
@@ -72,13 +69,13 @@ export const getImages = async (req, res) => {
   try {
     const { asset_folder } = req.query;
     const { id: userId } = req.user;
+    // admin // user
 
-    const whereClause = asset_folder ? { userId, asset_folder } : { userId };
+     const whereClause = !(asset_folder ==="user_assets")? {  asset_folder } : { userId ,asset_folder};
 
     const images = await mongoPrisma.EditorAsset.findMany({
-  
       where: whereClause,
-      orderBy: { createdAt: "desc" }, // Fetch newest images first
+      orderBy: { createdAt: "desc" },
     });
 
     res.status(200).json({ images });
@@ -86,5 +83,31 @@ export const getImages = async (req, res) => {
     res
       .status(500)
       .json({ error: "Failed to fetch images", details: error.message });
+  }
+};
+export const deleteImage = async (req, res) => {
+  try {
+    const { public_id } = req.body;
+
+    if (!public_id) {
+      return res.status(400).json({ error: "public_id is required" });
+    }
+
+    // Delete from Cloudinary
+    const cloudRes = await cloudinary.uploader.destroy(public_id);
+    console.log(cloudRes); // optional
+
+    // Delete from DB
+    const deleted = await mongoPrisma.EditorAsset.deleteMany({
+      where: { public_id },
+    });
+
+    return res.status(200).json({
+      message: "Image deleted successfully",
+      deletedCount: deleted.count,
+    });
+  } catch (error) {
+    console.error("❌ Error deleting image:", error);
+    return res.status(500).json({ error: "Failed to delete image" });
   }
 };

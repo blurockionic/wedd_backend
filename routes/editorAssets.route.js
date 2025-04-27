@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteImage,
   getImages,
   saveImages,
 } from "../controllers/editorController/editor.controller.js";
@@ -11,6 +12,7 @@ const editorRouter = express.Router();
 editorRouter.use(jwtAuthentication);
 
 // Define the route correctly
-editorRouter.route("/").post(saveImages).get(getImages);
+editorRouter.route("/").post(saveImages).get(getImages).delete(deleteImage);
 
 export default editorRouter;
+

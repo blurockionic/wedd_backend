@@ -94,12 +94,21 @@ const getAllServices = async (req, res, next) => {
           select: {
             id: true,
             name: true,
-            description: true,
-            city: true,
+            email: true,
+            phone_number: true,
             business_name: true,
           },
         },
         media: true,
+        feedback: {
+          select: {
+            comment: true,
+            rating: true,
+            id: true,
+            userId: true,
+            user_name: true,
+          },
+        },
       },
     });
 
@@ -119,8 +128,6 @@ const getAllServices = async (req, res, next) => {
     // Handle validation or custom errors
     if (error instanceof z.ZodError) {
       return next(new CustomError("Invalid query parameters", 400));
-    } else if (error instanceof CustomError) {
-      return next(error);
     } else {
       return next(error);
     }
