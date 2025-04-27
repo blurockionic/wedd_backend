@@ -212,7 +212,7 @@ export const getBlogsByTag = async (req, res, next) => {
   const { s = 0, t = 10 } = req.query; // Pagination parameters
   
   try {
-      const blogs = await postgresPrisma.blog.findMany({
+      const blogs = await prisma.blog.findMany({
           skip: parseInt(s),
           take: parseInt(t),
           where: {
