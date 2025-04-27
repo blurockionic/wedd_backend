@@ -436,9 +436,10 @@ export const updateBlog = async (req, res, next) => {
     }
 };
 
-/** * Get related blog*/
+/** * Get related blogs*/
 export const getRelatedBlogs = async (req, res, next) => {
   const { id } = req.params;
+  const MAX_BLOGS = 6; // Maximum number of blogs to return
   
   try {
     // First, find the current blog and its tags
@@ -460,62 +461,133 @@ export const getRelatedBlogs = async (req, res, next) => {
     // Extract tag IDs from the current blog
     const tagIds = currentBlog.tags.map(tag => tag.id);
 
-    if (tagIds.length === 0) {
-      return res.status(200).json({
-        success: true,
-        data: [],
-        message: "No tags found for this blog"
+    let blogs = [];
+    let message = "";
+
+    // If there are tags, try to find related blogs
+    if (tagIds.length > 0) {
+      // Find other blogs that share at least one tag with the current blog
+      const relatedBlogs = await postgresPrisma.blog.findMany({
+        where: {
+          id: { not: id }, // Exclude the current blog
+          status: "PUBLISHED", // Only include published blogs
+          tags: {
+            some: {
+              id: { in: tagIds },
+            },
+          },
+        },
+        include: {
+          tags: {
+            select: {
+              id: true,
+              tagName: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              likedBy: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc", // Get the latest blogs first
+        },
       });
+
+      // If we found related blogs, use them
+      if (relatedBlogs.length > 0) {
+        blogs = [...relatedBlogs];
+        message = "Related blogs fetched successfully";
+      }
     }
 
-    // Find other blogs that share at least one tag with the current blog
-    const relatedBlogs = await postgresPrisma.blog.findMany({
-      where: {
-        id: { not: id }, // Exclude the current blog
-        status: "PUBLISHED", // Only include published blogs
-        tags: {
-          some: {
-            id: { in: tagIds },
+    // If no tags or no related blogs found, get the latest blogs instead
+    if (blogs.length === 0) {
+      blogs = await postgresPrisma.blog.findMany({
+        where: {
+          id: { not: id }, // Exclude the current blog
+          status: "PUBLISHED", // Only include published blogs
+        },
+        include: {
+          tags: {
+            select: {
+              id: true,
+              tagName: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              likedBy: true,
+            },
           },
         },
-      },
-      include: {
-        tags: {
-          select: {
-            id: true,
-            tagName: true,
-          },
+        orderBy: {
+          viewCount: "desc", // Get blogs with highest view count
         },
-        _count: {
-          select: {
-            comments: true,
-            likedBy: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc", // Get the latest blogs first
-      },
-    });
-
-    // Shuffle the related blogs
-    const shuffledBlogs = [...relatedBlogs].sort(() => 0.5 - Math.random());
+        take: MAX_BLOGS, // Limit to MAX_BLOGS
+      });
+      
+      message = tagIds.length === 0 
+        ? "No tags found for this blog, showing popular blogs instead" 
+        : "No related blogs found, showing popular blogs instead";
+    }
     
-    // Take up to 6 blogs
-    const limitedBlogs = shuffledBlogs.slice(0, 6);
+    // Sort by view count when we have enough blogs (6 or more)
+    if (blogs.length >= MAX_BLOGS) {
+      blogs.sort((a, b) => b.viewCount - a.viewCount); // Sort by descending view count
+      message = `${message} (sorted by popularity)`;
+    } else if (blogs.length > 0 && blogs.length < MAX_BLOGS) {
+      // If we have fewer than MAX_BLOGS related blogs, supplement with popular blogs
+      const existingIds = new Set([id, ...blogs.map(blog => blog.id)]);
+      
+      const additionalBlogs = await postgresPrisma.blog.findMany({
+        where: {
+          id: { 
+            not: Array.from(existingIds) // Exclude the current blog and already found blogs
+          },
+          status: "PUBLISHED",
+        },
+        include: {
+          tags: {
+            select: {
+              id: true,
+              tagName: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              likedBy: true,
+            },
+          },
+        },
+        orderBy: {
+          viewCount: "desc", // Get most viewed blogs
+        },
+        take: MAX_BLOGS - blogs.length, // Get only as many as needed to reach MAX_BLOGS
+      });
+      
+      blogs = [...blogs, ...additionalBlogs];
+      message = `${message}, supplemented with popular blogs`;
+    }
+    
+    // Take up to MAX_BLOGS blogs
+    const limitedBlogs = blogs.slice(0, MAX_BLOGS);
 
     res.status(200).json({
       success: true,
       data: limitedBlogs,
       count: limitedBlogs.length,
-      message: "Related blogs fetched successfully"
+      message: message
     });
   } catch (error) {
     console.error("Error fetching related blogs:", error);
     next(new CustomError("Failed to fetch related blogs", 500));
   }
 };
-
 // ------------------------------------------------------------------------------------------------------
 
 /** * Search blogs by title or content */
