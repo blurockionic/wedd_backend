@@ -436,6 +436,86 @@ export const updateBlog = async (req, res, next) => {
     }
 };
 
+/** * Get related blog*/
+export const getRelatedBlogs = async (req, res, next) => {
+  const { id } = req.params;
+  
+  try {
+    // First, find the current blog and its tags
+    const currentBlog = await postgresPrisma.blog.findUnique({
+      where: { id },
+      include: {
+        tags: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    if (!currentBlog) {
+      return next(new CustomError("Blog not found", 404));
+    }
+
+    // Extract tag IDs from the current blog
+    const tagIds = currentBlog.tags.map(tag => tag.id);
+
+    if (tagIds.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+        message: "No tags found for this blog"
+      });
+    }
+
+    // Find other blogs that share at least one tag with the current blog
+    const relatedBlogs = await postgresPrisma.blog.findMany({
+      where: {
+        id: { not: id }, // Exclude the current blog
+        status: "PUBLISHED", // Only include published blogs
+        tags: {
+          some: {
+            id: { in: tagIds },
+          },
+        },
+      },
+      include: {
+        tags: {
+          select: {
+            id: true,
+            tagName: true,
+          },
+        },
+        _count: {
+          select: {
+            comments: true,
+            likedBy: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc", // Get the latest blogs first
+      },
+    });
+
+    // Shuffle the related blogs
+    const shuffledBlogs = [...relatedBlogs].sort(() => 0.5 - Math.random());
+    
+    // Take up to 6 blogs
+    const limitedBlogs = shuffledBlogs.slice(0, 6);
+
+    res.status(200).json({
+      success: true,
+      data: limitedBlogs,
+      count: limitedBlogs.length,
+      message: "Related blogs fetched successfully"
+    });
+  } catch (error) {
+    console.error("Error fetching related blogs:", error);
+    next(new CustomError("Failed to fetch related blogs", 500));
+  }
+};
+
 // ------------------------------------------------------------------------------------------------------
 
 /** * Search blogs by title or content */
