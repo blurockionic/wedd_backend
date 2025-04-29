@@ -13,6 +13,7 @@ const blogRoutePublic = express.Router();
 // 🚀 **Public Routes** (No authentication required)
 {
     blogRoutePublic.get("/", bc.getBlogs);
+    blogRoutePublic.get("/related/:id", bc.getRelatedBlogs);
     blogRoutePublic.get("/:urlTitle", bc.getBlogByUrlTitle);
 
     // Tags-related
@@ -38,6 +39,7 @@ const blogRoutePublic = express.Router();
     blogRouteAdmin.post("/", bc.uploadCoverImageMiddleware, bc.addBlog);
     blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
     blogRouteAdmin.delete("/:id", bc.deleteBlog);
+    blogRouteAdmin.get("/related/:id", bc.getRelatedBlogs);
     blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle);
     
     // Blog-tag management
@@ -64,6 +66,7 @@ const blogRoutePublic = express.Router();
 // 🔑 **User Routes** (Any authenticated user)
 {
     blogRouteUser.use(jwtAuthentication);
+    blogRouteUser.get("/related/:id", bc.getRelatedBlogs);
     blogRouteUser.get("/:urlTitle", bc.getBlogByUrlTitle);
     // Interact with blog
     blogRouteUser.post("/:blogId/comments", buc.addComment);

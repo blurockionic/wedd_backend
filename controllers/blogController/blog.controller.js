@@ -1,5 +1,5 @@
 import CustomError from "../../utils/CustomError.js";
-import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
+import { PrismaClient as PostgresClient, Prisma } from "../../prisma/generated/postgres/index.js";
 import slugify from "slugify";
 import upload from "../../middleware/multer.middleware.js";
 
@@ -436,6 +436,189 @@ export const updateBlog = async (req, res, next) => {
     }
 };
 
+/** * Get related blogs*/
+export const getRelatedBlogs = async (req, res, next) => {
+  const { id } = req.params;
+  const MAX_BLOGS = 6; // Maximum number of blogs to return
+  
+  try {
+    // First, find the current blog and its tags with a single optimized query
+    const currentBlog = await postgresPrisma.blog.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        tags: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    if (!currentBlog) {
+      return next(new CustomError("Blog not found", 404));
+    }
+
+    // Extract tag IDs from the current blog
+    const tagIds = currentBlog.tags.map(tag => tag.id);
+    let relatedBlogs = [];
+    let message = "";
+
+    // Only attempt to find tag-related blogs if there are tags
+    if (tagIds.length > 0) {
+      try {
+        // Find blogs with the most matching tags first - using groupBy and count
+        // Convert the tags array to SQL array format
+        const tagIdsForQuery = Prisma.join(tagIds);
+        
+        relatedBlogs = await postgresPrisma.$queryRaw`
+          SELECT b.*, COUNT(bt."tagId") as tag_match_count
+          FROM "Blog" b
+          JOIN "_BlogToTags" bt ON b.id = bt."blogId"
+          WHERE b.id != ${id}
+          AND b.status = 'PUBLISHED'
+          AND bt."tagId" IN (${Prisma.raw(tagIdsForQuery)})
+          GROUP BY b.id
+          ORDER BY tag_match_count DESC, b."viewCount" DESC
+          LIMIT ${MAX_BLOGS}
+        `;
+        
+        // If we found related blogs based on tags
+        if (relatedBlogs.length > 0) {
+          // Fetch additional data needed for each blog (tags, counts) in a single batch
+          const blogIds = relatedBlogs.map(blog => blog.id);
+          
+          const [tagsForBlogs, commentCounts, likeCounts] = await Promise.all([
+            // Get tags for all blogs in a single query
+            postgresPrisma.tags.findMany({
+              where: {
+                blogs: {
+                  some: {
+                    id: { in: blogIds }
+                  }
+                }
+              },
+              include: {
+                blogs: {
+                  where: {
+                    id: { in: blogIds }
+                  },
+                  select: { id: true }
+                }
+              }
+            }),
+            
+            // Get comment counts for all blogs in a single query
+            postgresPrisma.comment.groupBy({
+              by: ['blogId'],
+              where: { blogId: { in: blogIds } },
+              _count: true
+            }),
+            
+            // Get like counts for all blogs in a single query
+            postgresPrisma.likedBlog.groupBy({
+              by: ['blogId'],
+              where: { blogId: { in: blogIds } },
+              _count: true
+            })
+          ]);
+          
+          // Process and enrich the blogs with the fetched data
+          relatedBlogs = relatedBlogs.map(blog => {
+            // Add tags
+            const blogTags = tagsForBlogs.filter(tag => 
+              tag.blogs.some(b => b.id === blog.id)
+            ).map(({ id, tagName }) => ({ id, tagName }));
+            
+            // Add counts
+            const commentCount = commentCounts.find(c => c.blogId === blog.id)?._count || 0;
+            const likeCount = likeCounts.find(c => c.blogId === blog.id)?._count || 0;
+            
+            return {
+              ...blog,
+              tags: blogTags,
+              _count: {
+                comments: commentCount,
+                likedBy: likeCount
+              }
+            };
+          });
+          
+          message = "Related blogs fetched successfully based on matching tags";
+        }
+      } catch (error) {
+        console.error("Error in tag-based blog query:", error);
+        // If the tag query fails, continue with the fallback strategy
+        relatedBlogs = [];
+      }
+    }
+
+    // If we don't have enough related blogs from tags, get popular blogs to fill the gap
+    if (relatedBlogs.length < MAX_BLOGS) {
+      const remainingCount = MAX_BLOGS - relatedBlogs.length;
+      const existingIds = relatedBlogs.map(blog => blog.id);
+      
+      const popularBlogs = await postgresPrisma.blog.findMany({
+        where: {
+          id: { 
+            not: id,  // Exclude current blog
+            notIn: existingIds.length > 0 ? existingIds : undefined // Exclude already fetched blogs if any
+          },
+          status: "PUBLISHED"
+        },
+        include: {
+          tags: {
+            select: {
+              id: true,
+              tagName: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              likedBy: true,
+            },
+          },
+        },
+        orderBy: {
+          viewCount: "desc"  // Get most viewed blogs
+        },
+        take: remainingCount
+      });
+      
+      // Combine the results
+      relatedBlogs = [...relatedBlogs, ...popularBlogs];
+      
+      if (tagIds.length > 0 && popularBlogs.length > 0) {
+        message = `${message}, supplemented with popular blogs`;
+      } else if (tagIds.length === 0) {
+        message = "No tags found for this blog, showing popular blogs instead";
+      } else if (relatedBlogs.length === 0) {
+        message = "No related blogs found, showing popular blogs instead";
+      }
+    }
+    
+    // Shuffle the results to add variety, then limit to MAX_BLOGS
+    // Fisher-Yates shuffle algorithm
+    for (let i = relatedBlogs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [relatedBlogs[i], relatedBlogs[j]] = [relatedBlogs[j], relatedBlogs[i]];
+    }
+    
+    // Ensure we don't exceed MAX_BLOGS
+    const limitedBlogs = relatedBlogs.slice(0, MAX_BLOGS);
+
+    res.status(200).json({
+      success: true,
+      data: limitedBlogs,
+      count: limitedBlogs.length,
+      message: message
+    });
+  } catch (error) {
+    console.error("Error fetching related blogs:", error);
+    next(new CustomError("Failed to fetch related blogs", 500));
+  }
+};
 // ------------------------------------------------------------------------------------------------------
 
 /** * Search blogs by title or content */
