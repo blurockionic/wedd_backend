@@ -372,6 +372,7 @@ model Partner {
   phoneNumber       String
   cityRegion        String
   role              PartnerRole
+  state             String
   otherRoleDetails  String?          // Only filled if role is "OTHER"
   
   // Experience & Background

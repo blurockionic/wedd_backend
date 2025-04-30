@@ -70,7 +70,8 @@ const createPartner = async (req, res, next) => {
       fullName,
       email,
       phoneNumber,
-      cityRegion,
+      city:cityRegion,
+      state,
       role,
       otherRoleDetails, // Renamed from otherRole to match schema
       experience,
@@ -105,6 +106,7 @@ const createPartner = async (req, res, next) => {
       experienceYears: mapExperienceToEnum(experience),
       workedOnWeddings: Boolean(workedOnWeddings),
       portfolioUrl: portfolioUrl || null,
+      state,
       governmentIdUrl,
       businessCertUrl,
       workSamplesUrls, // This is now an array as per schema
@@ -139,7 +141,7 @@ const createPartner = async (req, res, next) => {
     console.error(
       `Error Type: ${error.constructor.name}, Message: ${error.message}, Stack: ${error.stack}`
     );
-    next(error);
+    next(error.message);
   }
 };
 
