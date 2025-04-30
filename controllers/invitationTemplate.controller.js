@@ -1,128 +1,190 @@
 import upload from "../middleware/multer.middleware.js";
-import { PrismaClient as PostgresClient } from "../prisma/generated/postgres/index.js";
+import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 
-const prisma = new PostgresClient();
 
+const prisma = new PrismaClient();
+
+// 📌 Create Invitation Template
 export const createTemplate = async (req, res) => {
   try {
-    const { name, price, template_type, filter , template_category } = req.body;
+    const {
+      name,
+      description,
+      userId,
+      jsonData,
+      price,
+      categoryByAmount,
+      categoryByMood,
+      categoryByRequirement,
+      additionalTags,
+      designedBy,
+      thumbnailUrl,
+      status,
+    } = req.body;
 
-    let incomingData = {};
-
-    if (name) incomingData.name = name.toLowerCase();
-    if (req.file) incomingData.imageUrl = req.file;
-    if (filter) incomingData.filter = filter.toLowerCase();
-    if (price) incomingData.price = parseFloat(price);
-    if (template_type) incomingData.template_type = template_type.toUpperCase();
-    if (template_category) incomingData.template_category = template_category;
-
-    const newTemplate = await prisma.InvitationTemplate.create({
-      data: incomingData,
+    const newTemplate = await prisma.invitationTemplate.create({
+      data: {
+        name,
+        description,
+        userId,
+        jsonData,
+        price,
+        categoryByAmount,
+        categoryByMood,
+        categoryByRequirement,
+        additionalTags,
+        designedBy,
+        thumbnailUrl,
+        status,
+      },
     });
 
-    res.status(201).json({
-      message: "Template created successfully",
-      template: newTemplate,
+    res.status(201).json({success: true,
+        message: "Template save successfully",
+        template: newTemplate
     });
   } catch (error) {
     console.error("Error creating template:", error);
-    res.status(500).json({ error: "Failed to create template" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-// Get a single Invitation Template by ID
+// 📌 Get All Templates
+export const getAllTemplates = async (req, res) => {
+  try {
+    const {
+      name,
+      minPrice,
+      maxPrice,
+      categoryByAmount,
+      categoryByMood,
+      categoryByRequirement,
+      additionalTags,
+      designedBy,
+      status,
+      minRating,
+      maxRating,
+      sortBy = "createdAt",
+      sortOrder = "desc",
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    // Pagination setup
+    const take = parseInt(limit, 10);
+    const skip = (parseInt(page, 10) - 1) * take;
+
+    // Construct filters dynamically
+    const filters = {};
+
+    if (name) {
+      filters.name = { contains: name, mode: "insensitive" }; // Case-insensitive search
+    }
+    if (minPrice || maxPrice) {
+      filters.price = {
+        gte: minPrice ? parseFloat(minPrice) : undefined,
+        lte: maxPrice ? parseFloat(maxPrice) : undefined,
+      };
+    }
+    if (categoryByAmount) {
+      filters.categoryByAmount = categoryByAmount;
+    }
+    if (categoryByMood) {
+      filters.categoryByMood = categoryByMood;
+    }
+    if (categoryByRequirement) {
+      filters.categoryByRequirement = categoryByRequirement;
+    }
+    if (additionalTags) {
+      filters.additionalTags = { hasSome: additionalTags.split(",") }; // Check for at least one matching tag
+    }
+    if (designedBy) {
+      filters.designedBy = { contains: designedBy, mode: "insensitive" };
+    }
+    if (status) {
+      filters.status = status;
+    }
+    if (minRating || maxRating) {
+      filters.rating = {
+        gte: minRating ? parseFloat(minRating) : undefined,
+        lte: maxRating ? parseFloat(maxRating) : undefined,
+      };
+    }
+
+    // Fetch filtered templates
+    const templates = await prisma.invitationTemplate.findMany({
+      where: filters,
+      orderBy: { [sortBy]: sortOrder === "desc" ? "desc" : "asc" },
+      skip,
+      take,
+    });
+
+    // Fetch total count (for pagination)
+    const totalTemplates = await prisma.invitationTemplate.count({ where: filters });
+
+    res.status(200).json({
+      totalTemplates,
+      page: parseInt(page, 10),
+      limit: take,
+      totalPages: Math.ceil(totalTemplates / take),
+      data: templates,
+    });
+  } catch (error) {
+    console.error("Error fetching templates:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
+// 📌 Get Single Template by ID
 export const getTemplateById = async (req, res) => {
   try {
     const { id } = req.params;
-
     const template = await prisma.invitationTemplate.findUnique({
       where: { id },
     });
 
     if (!template) {
-      return res.status(404).json({ error: "Template not found" });
+      return res.status(404).json({ error: "Template Not Found" });
     }
 
     res.status(200).json(template);
   } catch (error) {
     console.error("Error fetching template:", error);
-    res.status(500).json({ error: "Failed to fetch template" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
+// 📌 Update Invitation Template
 export const updateTemplate = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, template_type,filter, template_category } = req.body;
+    const updateData = req.body;
 
-    // Find the template before updating
-
-    console.log(name, price);
-
-    const existingTemplate = await prisma.InvitationTemplate.findUnique({
+    const updatedTemplate = await prisma.invitationTemplate.update({
       where: { id },
+      data: updateData,
     });
 
-    if (!existingTemplate) {
-      return res.status(404).json({ error: "Template not found" });
-    }
-
-    let incomingData = {};
-     
-    if (name) incomingData.name = name.toLowerCase();
-    if (price) incomingData.price = parseFloat(price);
-    if (template_type) incomingData.template_type = template_type.toUpperCase();
-    if (filter) incomingData.filter = filter.toLowerCase();
-    if (template_category) incomingData.template_category = template_category.toLowerCase();
-    if (req.file) incomingData.imageUrl = req.file;
-
-    if (Object.keys(incomingData).length === 0) {
-      return res.status(400).json({ error: "No valid fields to update" });
-    }
-
-    const updatedTemplate = await prisma.InvitationTemplate.update({
-      where: { id },
-      data: incomingData,
-    });
-
-    res.status(200).json({
-      message: "Template updated successfully",
-      template: updatedTemplate,
-    });
+    res.status(200).json(updatedTemplate);
   } catch (error) {
     console.error("Error updating template:", error);
-    return res.status(500).json({
-      success: false,
-      message: "An error occurred while updating the template.",
-      error: error.message,
-    });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-// Delete an Invitation Template
+// 📌 Delete Invitation Template
 export const deleteTemplate = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await prisma.InvitationTemplate.delete({
+    await prisma.invitationTemplate.delete({
       where: { id },
     });
 
     res.status(200).json({ message: "Template deleted successfully" });
   } catch (error) {
     console.error("Error deleting template:", error);
-    res.status(500).json({ error: "Failed to delete template" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
-export const getAllTemplates = async (req, res) => {
-  try {
-    const templates = await prisma.InvitationTemplate.findMany();
-    res.status(200).json(templates);
-  } catch (error) {
-    console.error("Error fetching templates:", error);
-    res.status(500).json({ error: "Failed to fetch templates" });
-  }
-};
-
-export const uploadTemplate = upload.single("templateImage");
