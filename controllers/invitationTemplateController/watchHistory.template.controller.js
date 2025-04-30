@@ -1,5 +1,5 @@
 
-import { PrismaClient } from "../../prisma/generated/postgres/index.js";
+import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 
 const prisma = new PrismaClient();
 
