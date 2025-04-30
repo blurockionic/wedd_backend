@@ -25,7 +25,6 @@ model Vendor {
   state               String?
   password_hash       String
   phone_number        String
-  profileViews  Int      @default(0)
   social_networks     Json?
   services            Service[]    @relation("VendorServices") // One-to-many relation
   promotions          Promotion[] // One-to-many relation
@@ -110,7 +109,7 @@ model Availability {
 
 model Media {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  serviceId   String   @unique
+  serviceId   String   @db.ObjectId
   service     Service  @relation(fields: [serviceId], references: [id], name: "ServiceToMedia",onDelete: Cascade)
   image_urls  Json
   video_urls  Json
@@ -261,3 +260,109 @@ enum PaymentStatus {
   FAILED
   REFUNDED
 }
+
+
+model InvitationTemplate {
+  id                   String               @id @default(auto()) @map("_id") @db.ObjectId
+  name                 String
+  description          String?               // Optional description
+  userId               String
+  jsonData             Json                 // Fabric.js JSON data
+  price                Float?                // Template price
+  categoryByAmount     CategoryByAmount        @default(FREE)
+  categoryByMood       CategoryByMood          @default(WEDDING)
+  categoryByRequirement CategoryByRequirement   @default(LATEST)
+  additionalTags       String[]              // Array of tags for searchability
+  designedBy           String?               // Optional designer name
+  thumbnailUrl         String?               // Optional preview image URL
+  rating               Float?                @default(0.0) // User rating out of 5
+  status               TemplateStatus        @default(DRAFT) // PUBLISHED, DRAFT, ARCHIVED
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt // Auto-update timestamp
+  paymentDetails       PaymentDetails[]
+  watchHistory         TemplateWatchHistory[]
+}
+
+
+
+model TemplateWatchHistory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  templateId  String    @db.ObjectId
+  watchedAt   DateTime @default(now())
+  template    InvitationTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId]) // Prevent duplicate history
+}
+
+
+
+
+
+// Enum for Template Status
+enum TemplateStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+//Enum form template category by amount
+enum CategoryByAmount {
+ FREE
+ PAID
+}
+//Enum form template category by mood
+enum CategoryByMood {
+  BIRTHDAY      // Birthday celebration templates
+  ROMANCE       // Romantic designs (love, couple themes)
+  WEDDING       // Wedding invitation and celebration templates
+  ANNIVERSARY   // Anniversary celebration templates
+  CORPORATE     // Business and professional templates
+  LOVE 
+  COUPLE 
+}
+
+enum CategoryByRequirement {
+  HOT 
+  POPULAR 
+  LATEST 
+}
+
+
+model  UserDataTemplate {
+  userId            String 
+  template_id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  eventHeading          String?
+  eventSubheading       String?
+  brideName       String?
+  groomName       String?
+  eventDate       DateTime
+  weddingTime     String?
+  weddingLocation String?
+  description     String?
+  createdAt       DateTime @default(now()) 
+  updatedAt       DateTime @default(now()) 
+}
+
+model PaymentDetails {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId          String   @unique  // Unique order identifier
+  paymentId        String?  // Razorpay Payment ID (NULL until paid)
+  razorpayResponse Json?    // Store only essential details
+  orderStatus      String   @default("pending")  // "pending", "failed", "completed"
+  paymentStatus    String?  // "initiated", "failed", "successful"
+  amount           Float  // Store order amount
+  currency         String   @default("INR") 
+  purchasedAt      DateTime? // Payment completion time
+  createdAt        DateTime  @default(now()) 
+  updatedAt        DateTime  @updatedAt
+  
+  userId           String  
+  templateId       String  @db.ObjectId
+
+
+  InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+
+    @@unique([templateId, userId])  
+}
+
