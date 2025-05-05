@@ -67,7 +67,7 @@ partnerRoutePublic.post("/", uploadFields, createPartner);
 partnerRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
 partnerRouteAdmin.get("/", getPartners);
 partnerRouteAdmin.get("/:id", getPartnerById);
-partnerRouteAdmin.patch("/:id/status", updatePartnerStatus);
+partnerRouteAdmin.patch("/:id", updatePartnerStatus);
 
 // 🔑 Authenticated User
 partnerRouteUser.use(jwtAuthentication);

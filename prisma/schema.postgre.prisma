@@ -38,7 +38,6 @@ model User {
   likedBlogs          LikedBlog[]  
   invitationTemplate  InvitationTemplate[]  @relation(name: "InvitationTemplate")
   watchHistory         TemplateWatchHistory[]
-    partner           Partner?
 
 }
 
@@ -373,6 +372,7 @@ model Partner {
   cityRegion        String
   role              PartnerRole
   state             String
+  password          String?
   otherRoleDetails  String?          // Only filled if role is "OTHER"
   
   // Experience & Background
@@ -404,9 +404,7 @@ model Partner {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   
-  // If approved, link to a User account
-  userId            String?          @unique
-  user              User?            @relation(fields: [userId], references: [id])
+  
 }
 
 enum PartnerRole {

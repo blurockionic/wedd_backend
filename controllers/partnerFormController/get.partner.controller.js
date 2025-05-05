@@ -1,12 +1,21 @@
 import CustomError from "../../utils/CustomError.js";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
+import { shortlistedPartnerEmailContent } from "../../constant/static.js";
 const postgresPrisma = new PostgresClient();
 
+import bcrypt from "bcryptjs";
+import { emailEmitter } from "../../utils/emailEmitter.js";
+import sendEmail from "../../service/emailService.js";
 // Get all partner applications (admin only)
 const getPartners = async (req, res, next) => {
   try {
     // Optional filter parameters
-    const { status, role, sortBy = "createdAt", sortOrder = "desc" } = req.query;
+    const {
+      status,
+      role,
+      sortBy = "createdAt",
+      sortOrder = "desc",
+    } = req.query;
 
     // Build filter conditions
     const where = {};
@@ -15,28 +24,19 @@ const getPartners = async (req, res, next) => {
 
     // Sort configuration
     const orderBy = {
-      [sortBy]: sortOrder.toLowerCase()
+      [sortBy]: sortOrder.toLowerCase(),
     };
 
     // Fetch partner applications with filtering and sorting
-    const partners = await postgresPrisma.PartnerApplication.findMany({
+    const partners = await postgresPrisma.Partner.findMany({
       where,
       orderBy,
-      include: {             
-        user: {
-          select: {
-            name: true,
-            email: true,
-            role: true
-          }
-        }
-      }
     });
 
     res.status(200).json({
       success: true,
       count: partners.length,
-      partners
+      partners,
     });
   } catch (error) {
     console.error(
@@ -62,10 +62,10 @@ const getPartnerById = async (req, res, next) => {
           select: {
             name: true,
             email: true,
-            role: true
-          }
-        }
-      }
+            role: true,
+          },
+        },
+      },
     });
 
     if (!partner) {
@@ -74,7 +74,7 @@ const getPartnerById = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      partner
+      partner,
     });
   } catch (error) {
     console.error(
@@ -87,30 +87,86 @@ const getPartnerById = async (req, res, next) => {
 // Update partner application status (admin only)
 const updatePartnerStatus = async (req, res, next) => {
   try {
+    const adminId = req.user.id;
+    const adminRole = req.user.role;
+
     const { id } = req.params;
-    const { status, adminNotes } = req.body;
 
     if (!id) {
       throw new CustomError("Partner application ID is required", 400);
     }
 
-    if (!status || !['PENDING', 'APPROVED', 'REJECTED', 'SHORTLISTED'].includes(status)) {
-      throw new CustomError("Valid status is required", 400);
-    }
-
-    const updatedPartner = await postgresPrisma.PartnerApplication.update({
+    const { status } = req.body;
+    const partner = await postgresPrisma.Partner.findUnique({
       where: { id },
-      data: { 
-        status,
-        adminNotes: adminNotes || undefined,
-        updatedAt: new Date()
-      }
     });
 
-    res.status(200).json({
+    if (!partner) {
+      throw new CustomError("Partner application not found", 404);
+    }
+
+    if (partner.applicationStatus === "REJECTED") {
+      throw new CustomError("This application has already been rejected", 400);
+    }
+    if (partner.applicationStatus === "APPROVED") {
+      throw new CustomError("This application has already been approved", 400);
+    }
+    if (partner.applicationStatus === "SHORTLISTED") {
+      throw new CustomError(
+        "This application has already been shortlisted",
+        400
+      );
+    }
+
+    if (
+      !status ||
+      !["PENDING", "APPROVED", "REJECTED", "SHORTLISTED"].includes(status)
+    ) {
+      throw new CustomError("Valid status is required", 400);
+    }
+    if (status === "SHORTLISTED") {
+  
+      const tempPassword = generateSecurePassword();
+      const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+      await postgresPrisma.partner.update({
+        where: { id },
+        data: {
+          applicationStatus: "SHORTLISTED",
+          reviewedBy: `${adminId}_(${adminRole})`,
+          password: hashedPassword,
+        },
+      });
+
+      await sendEmail({
+        email: partner.email,
+        content: shortlistedPartnerEmailContent(partner.fullName, tempPassword),
+      });
+
+      
+      // emailEmitter.emit("sendEmail", {
+      //   email: partner.email,
+      //   content: shortlistedPartnerEmailContent(partner.fullName, tempPassword),
+      // });
+    } else if (status === "REJECTED") {
+      await postgresPrisma.partner.update({
+        where: { id },
+        data: {
+          applicationStatus: "REJECTED",
+          reviewedBy: `${adminId}_(${adminRole})`,
+        },
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: `Partner application ${id} rejected successfully.`,
+      });
+    }
+
+    // Optional: handle other statuses (e.g., APPROVED, PENDING)
+    return res.status(200).json({
       success: true,
-      message: `Partner application status updated to ${status}`,
-      partner: updatedPartner
+      message: `Partner application ${id} updated to status: ${status}.`,
     });
   } catch (error) {
     console.error(
@@ -121,3 +177,11 @@ const updatePartnerStatus = async (req, res, next) => {
 };
 
 export { getPartners, getPartnerById, updatePartnerStatus };
+
+function generateSecurePassword(length = 6) {
+  const charset =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
+  return Array.from({ length }, () =>
+    charset.charAt(Math.floor(Math.random() * charset.length))
+  ).join("");
+}

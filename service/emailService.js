@@ -35,7 +35,7 @@ const sendEmail = async (email, emailContent) => {
     console.error("Error sending email:", error.message);
     console.error("Stack trace:", error.stack);
 
-    throw new CustomError("Failed to send verification email", 500);
+    throw new CustomError( error.message, 500);
   }
 };
 

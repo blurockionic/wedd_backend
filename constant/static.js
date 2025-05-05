@@ -233,4 +233,38 @@ Marriage Vendors Team`,
   `,
 });
 
+export const shortlistedPartnerEmailContent = (name, tempPassword) => ({
+  subject: "🎉 You're Shortlisted as a Partner! | Marriage Vendors",
+  text: `Hi ${name},
+
+Congratulations! You've been shortlisted to join Marriage Vendors.
+
+Here is your temporary login password: ${tempPassword}
+
+Please log in to your dashboard and change your password immediately:
+${process.env.BASE_URL}/partner-login
+
+We’re excited to have you on board!
+
+- Marriage Vendors Team`,
+  html: `
+    <div style="font-family: 'Arial', sans-serif; max-width: 600px; margin: auto; padding: 20px; background: #fff; border-radius: 8px; border: 1px solid #eee;">
+      <div style="text-align: center;">
+        <img src="https://res.cloudinary.com/dyq1p22xk/image/upload/v1738318157/wedding-wire-clone/assets/profile_photo-1738318154094-138572527.png" alt="Marriage Vendors Logo" style="max-width: 100px;" />
+        <h2 style="color: #F20474;">🎉 You're Shortlisted!</h2>
+      </div>
+      <p>Hi <strong>${name}</strong>,</p>
+      <p>Congratulations! You’ve been shortlisted to join <strong>Marriage Vendors</strong>.</p>
+      <p><strong>Your temporary login password:</strong></p>
+      <div style="font-size: 18px; font-weight: bold; padding: 10px; background: #f5f5f5; border-radius: 5px; display: inline-block;">${tempPassword}</div>
+      <p>Please log in and change your password immediately:</p>
+      <a href="${process.env.BASE_URL}/partner-login" style="background: #FDCD16; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">Login Now</a>
+      <hr style="margin: 20px 0;" />
+      <p>Welcome aboard! 💍</p>
+      <p><strong>– The Marriage Vendors Team</strong></p>
+    </div>
+  `,
+});
+
+
   
