@@ -207,7 +207,7 @@ export { getPartners, getPartnerById, updatePartnerStatus };
 
 
 
-function generateSecurePassword(length = 6) {
+function generateSecurePassword(length = 8) {
   const charset =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
   return Array.from({ length }, () =>
