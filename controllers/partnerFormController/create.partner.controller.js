@@ -127,6 +127,22 @@ const createPartner = async (req, res, next) => {
       partnerData.userId = userId;
     }
 
+    // Check if the user already has a partner application
+    const existingApplication = await postgresPrisma.partner.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (existingApplication) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already submitted a partner application.",
+      });
+    }
+
+
+
     // Create the partner application using the direct Partner model
     const newPartner = await postgresPrisma.partner.create({
       data: partnerData,

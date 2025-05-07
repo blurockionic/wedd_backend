@@ -115,7 +115,8 @@ export const leaddetails = async (req, res, next) => {
 
 export const getPartnerDashboardData = async (req, res) => {
   try {
-    const partnerLocation = req.params || { city: "delhi" }; // fallback for testing
+    
+    const partnerLocation = req.params.city
 
     if (!partnerLocation) {
       return res.status(400).json({
