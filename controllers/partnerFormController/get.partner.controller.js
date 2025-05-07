@@ -148,6 +148,7 @@ const updatePartnerStatus = async (req, res, next) => {
                 where: { email: partner.email },
                 data: {
                   role: "PARTNER",
+                  wedding_location:partner.cityRegion
                 },
               }),
             ]
@@ -159,6 +160,7 @@ const updatePartnerStatus = async (req, res, next) => {
                   user_name: partner.fullName,
                   role: "PARTNER",
                   phone_number: partner.phoneNumber,
+                  wedding_location:partner.cityRegion
                 },
               }),
             ]),
