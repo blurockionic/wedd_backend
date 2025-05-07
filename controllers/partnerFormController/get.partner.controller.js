@@ -6,6 +6,7 @@ const postgresPrisma = new PostgresClient();
 import bcrypt from "bcryptjs";
 import { emailEmitter } from "../../utils/emailEmitter.js";
 import sendEmail from "../../service/emailService.js";
+import { Prisma } from "@prisma/client";
 // Get all partner applications (admin only)
 const getPartners = async (req, res, next) => {
   try {
@@ -125,29 +126,54 @@ const updatePartnerStatus = async (req, res, next) => {
       throw new CustomError("Valid status is required", 400);
     }
     if (status === "SHORTLISTED") {
-  
       const tempPassword = generateSecurePassword();
       const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
-      await postgresPrisma.partner.update({
-        where: { id },
-        data: {
-          applicationStatus: "SHORTLISTED",
-          reviewedBy: `${adminId}_(${adminRole})`,
-          password: hashedPassword,
-        },
+      const userAlready = await postgresPrisma.user.findUnique({
+        where: { email: partner.email },
       });
 
-      await sendEmail({
-        email: partner.email,
-        content: shortlistedPartnerEmailContent(partner.fullName, tempPassword),
-      });
+      await postgresPrisma.$transaction([
+        postgresPrisma.partner.update({
+          where: { id },
+          data: {
+            applicationStatus: "SHORTLISTED",
+            reviewedBy: `${adminId}_(${adminRole})`,
+          },
+        }),
 
-      
+        ...(userAlready
+          ? [
+              postgresPrisma.user.update({
+                where: { email: partner.email },
+                data: {
+                  role: "PARTNER",
+                },
+              }),
+            ]
+          : [
+              postgresPrisma.user.create({
+                data: {
+                  email: partner.email,
+                  password_hash: hashedPassword,
+                  user_name: partner.fullName,
+                  role: "PARTNER",
+                  phone_number: partner.phoneNumber,
+                },
+              }),
+            ]),
+      ]);
+
+      await sendEmail(
+        partner.email,
+        shortlistedPartnerEmailContent(partner.fullName, tempPassword),
+      );
+
       // emailEmitter.emit("sendEmail", {
       //   email: partner.email,
       //   content: shortlistedPartnerEmailContent(partner.fullName, tempPassword),
       // });
+      
     } else if (status === "REJECTED") {
       await postgresPrisma.partner.update({
         where: { id },
@@ -176,7 +202,10 @@ const updatePartnerStatus = async (req, res, next) => {
   }
 };
 
+
 export { getPartners, getPartnerById, updatePartnerStatus };
+
+
 
 function generateSecurePassword(length = 6) {
   const charset =

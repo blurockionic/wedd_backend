@@ -13,12 +13,20 @@ import guestRouter from "./guest.route.js";
 import inviteRouter from "./inviteTemplate.route.js";
 import templatePaymentRouter from "./templatePayment.route.js";
 import templateRouter from "./userDataTemplate.route.js";
-import eventRouter from "./event.route.js"
-import AdminRouter from './admin.route.js';
-import { blogRouteAdmin, blogRouteUser, blogRoutePublic } from '../routes/blog.route.js';
+import eventRouter from "./event.route.js";
+import AdminRouter from "./admin.route.js";
+import {
+  blogRouteAdmin,
+  blogRouteUser,
+  blogRoutePublic,
+} from "../routes/blog.route.js";
 import editorRouter from "./editorAssets.route.js";
 import watchHistoryRouter from "./watchHistory.template.js";
-import {partnerRouteUser, partnerRouteAdmin, partnerRoutePublic} from "./partner.route.js";
+import {
+  partnerRouteUser,
+  partnerRouteAdmin,
+  partnerRoutePublic,
+} from "./partner.route.js";
 
 const routes = express.Router();
 
@@ -37,18 +45,18 @@ routes.use("/checklist", checklistRouter);
 routes.use("/generateAIDescription", generateDescription);
 routes.use("/guest", guestRouter);
 // routes.use("/cardPayment", router);
-routes.use("/inviteTemplate",inviteRouter);
-routes.use("/template",templatePaymentRouter);
-routes.use("/userDataTemplate",templateRouter)
-routes.use("/event", eventRouter)
+routes.use("/inviteTemplate", inviteRouter);
+routes.use("/template", templatePaymentRouter);
+routes.use("/userDataTemplate", templateRouter);
+routes.use("/event", eventRouter);
 // blog routes
 routes.use("/blog/admin", blogRouteAdmin);
 routes.use("/blog/user", blogRouteUser);
 routes.use("/blog/public", blogRoutePublic);
-routes.use("/editorAssets",editorRouter)
+routes.use("/editorAssets", editorRouter);
 routes.use("/templateWatchHistory", watchHistoryRouter);
-routes.use("/user/partners", partnerRouteUser);  
+routes.use("/partners/user", partnerRouteUser);
 routes.use("/partners/public", partnerRoutePublic);
-routes.use("/admin/partners", partnerRouteAdmin);
+routes.use("/partners/admin", partnerRouteAdmin);
 
 export default routes;

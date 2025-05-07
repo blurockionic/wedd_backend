@@ -16,15 +16,22 @@ export const makeLead = async (req, res, next) => {
       });
     }
 
-    const updatedView = await mongoPrisma.Views.update({
+    await mongoPrisma.views.upsert({
       where: {
         serviceId_userId: {
-          serviceId: serviceId,
-          userId: userId,
+          serviceId,
+          userId,
         },
       },
-      data: {
+      update: {
         lead: true,
+        updated_at: new Date(),
+      },
+      create: {
+        serviceId,
+        userId,
+        lead: true,
+        viewCount: 1,
       },
     });
 
