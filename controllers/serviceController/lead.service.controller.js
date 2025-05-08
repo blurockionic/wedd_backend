@@ -1,3 +1,4 @@
+import { log } from "console";
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongo/index.js";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgres/index.js";
 
@@ -125,6 +126,8 @@ export const getPartnerDashboardData = async (req, res) => {
     
     const partnerLocation = req.params.city
 
+    console.info("Partner Location:", partnerLocation);
+
     if (!partnerLocation) {
       return res.status(400).json({
         success: false,
@@ -135,10 +138,10 @@ export const getPartnerDashboardData = async (req, res) => {
     // Step 1: Fetch Views with matching Service location
     const views = await mongoPrisma.views.findMany({
       where: {
-        lead: false,
+        lead: true,
         service: {
           city: {
-            contains: partnerLocation.city,
+            contains: partnerLocation,
             mode: "insensitive",
           },
         },
@@ -147,6 +150,9 @@ export const getPartnerDashboardData = async (req, res) => {
         service: true,
       },
     });
+
+    log("Fetched Views:", views.length, "views found.");
+
 
     if (!views.length) {
       return res.json({ message: "No views found", data: [] });
