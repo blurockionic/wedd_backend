@@ -90,6 +90,7 @@ export const leaddetails = async (req, res, next) => {
             user_name: true,
             phone_number: true,
             email: true,
+            wedding_location: true,
           },
         });
 
@@ -163,6 +164,9 @@ export const getPartnerDashboardData = async (req, res) => {
       (id) => !id.startsWith("anon-")
     );
 
+    console.log("User IDs:", userIds);
+    
+
     const users = await Promise.all(
       userIds.map(async (userId) => {
         const user = await postgresPrisma.User.findUnique({
@@ -183,12 +187,7 @@ export const getPartnerDashboardData = async (req, res) => {
         }
 
         return (
-          user || {
-            id: userId,
-            user_name: "Unknown",
-            phone_number: "N/A",
-            email: "N/A",
-          }
+          user || null
         );
       })
     );
