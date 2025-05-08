@@ -128,7 +128,6 @@ export const getPartnerDashboardData = async (req, res) => {
     const partnerLocation = req.params.city
 
 
-
     if (!partnerLocation) {
       return res.status(400).json({
         success: false,
@@ -155,6 +154,7 @@ export const getPartnerDashboardData = async (req, res) => {
 
 
 
+
     if (!views.length) {
       return res.json({ message: "No views found", data: [] });
     }
@@ -176,7 +176,6 @@ export const getPartnerDashboardData = async (req, res) => {
             user_name: true,
             phone_number: true,
             email: true,
-            wedding_location: true,
             wedding_date: true,
             profile_photo: true,
           },
