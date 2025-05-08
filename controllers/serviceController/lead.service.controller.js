@@ -126,7 +126,7 @@ export const getPartnerDashboardData = async (req, res) => {
     
     const partnerLocation = req.params.city
 
-    console.info("Partner Location:", partnerLocation);
+
 
     if (!partnerLocation) {
       return res.status(400).json({
@@ -151,7 +151,7 @@ export const getPartnerDashboardData = async (req, res) => {
       },
     });
 
-    log("Fetched Views:", views.length, "views found.");
+
 
 
     if (!views.length) {
