@@ -2,6 +2,7 @@ import CustomError from "../../utils/CustomError.js";
 import { PrismaClient as PostgresClient, Prisma } from "../../prisma/generated/postgres/index.js";
 import slugify from "slugify";
 import upload from "../../middleware/multer.middleware.js";
+import { uploadBase64 } from "../../middleware/multer.middleware.js";
 
 const postgresPrisma = new PostgresClient();
 
@@ -124,10 +125,13 @@ export const addBlog = async (req, res, next) => {
             })
         );
 
+        // Process content with replaceBase64
+        const processedContent = await replaceBase64(content);
+
         const newBlog = await postgresPrisma.blog.create({
             data: {
                 title,
-                content,
+                content: processedContent,
                 urlTitle,
                 coverImage,
                 authorId,
@@ -366,7 +370,14 @@ export const updateBlog = async (req, res, next) => {
         updateData.title = title;
         updateData.urlTitle = slugify(title, { lower: true, strict: true });
       }
-      if (content) updateData.content = content;
+      if (content) {
+        try {
+          updateData.content = await replaceBase64(content);
+        } catch (error) {
+          console.error("Error processing blog content:", error);
+          return next(new CustomError("Failed to process blog content", 500));
+        }
+      }
       if (status) updateData.status = status;
   
       // Handle cover image
@@ -381,13 +392,8 @@ export const updateBlog = async (req, res, next) => {
         const tagConnections = await Promise.all(
           tags.map(async (tagName) => {
             const normalized = tagName.trim().toLowerCase();
-            const existingTag = await postgresPrisma.tags.findFirst({
-              where: {
-                tagName: {
-                  equals: normalized,
-                  mode: "insensitive",
-                },
-              },
+            const existingTag = await postgresPrisma.tags.findUnique({
+              where: { tagName: normalized },
             });
   
             if (existingTag) return { id: existingTag.id };
@@ -687,6 +693,21 @@ export const searchBlogs = async (req, res, next) => {
 };
 
 
+const replaceBase64 = async (content) => {
+  const base64Regex = /data:image\/jpeg;base64,[^\"]+/g;
+  const matches = content.match(base64Regex);
+  
+  if (!matches) return content; // Return original string if no base64 images found
+  for (const base64Str of matches) {
+    try {
+      const uploadedUrl = await uploadBase64(base64Str);
+      content = content.replace(base64Str, uploadedUrl.secure_url);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+  return content;
+}
 
 // Middleware for handling single file upload for cover image
 export const uploadCoverImageMiddleware = upload.single("coverImage");
