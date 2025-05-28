@@ -323,123 +323,132 @@ export const getBlogCounts = async (req, res, next) => {
 };
 /** * Update a blog and its tags*/
 export const updateBlog = async (req, res, next) => {
-    const { id } = req.params;
-    const { title, content, status, coverImage, toggleStatus } = req.body;
-    const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
-    const userId = req.user.id;
-  
+  const { id } = req.params;
+  const { title, content, status, coverImage, toggleStatus } = req.body;
+  const userId = req.user.id;
+  console.log(content);
+  let tags = [];
+  if (req.body.tags !== undefined) {
     try {
-      const blog = await postgresPrisma.blog.findUnique({
-        where: { id },
-        include: {
-          tags: {
-            select: {
-              id: true,
-              tagName: true,
-            },
-          },
+      tags = JSON.parse(req.body.tags);
+    } catch (e) {
+      return next(new CustomError("Invalid tags format", 400));
+    }
+  }
+
+  try {
+    const blog = await postgresPrisma.blog.findUnique({
+      where: { id },
+      include: {
+        tags: {
+          select: { id: true, tagName: true },
         },
+      },
+    });
+
+    if (!blog) return next(new CustomError("Blog not found", 404));
+
+    const isAuthorized =
+      blog.authorId === userId || ["ADMIN", "SUPER_ADMIN"].includes(req.user.role);
+    if (!isAuthorized) {
+      return next(new CustomError("Unauthorized to update this blog", 403));
+    }
+
+    // Handle toggle status only
+    if (toggleStatus === true) {
+      const newStatus = blog.status === "published" ? "draft" : "published";
+      const updatedBlog = await postgresPrisma.blog.update({
+        where: { id },
+        data: { status: newStatus },
       });
-  
-      if (!blog) return next(new CustomError("Blog not found", 404));
-  
-      // Authorization check
-      if (blog.authorId !== userId && req.user.role !== "ADMIN" && req.user.role !== "SUPER_ADMIN") {
-        return next(new CustomError("Unauthorized to update this blog", 403));
+
+      return res.status(200).json({
+        success: true,
+        data: updatedBlog,
+        message: `Blog status updated to ${updatedBlog.status}.`,
+      });
+    }
+
+    // Prepare update data
+    const updateData = {};
+
+    if (title) {
+      updateData.title = title;
+      updateData.urlTitle = slugify(title, { lower: true, strict: true });
+    }
+
+    if (content) {
+      try {
+        updateData.content = await replaceBase64(content);
+      } catch (err) {
+        console.error("Error processing blog content:", err);
+        return next(new CustomError("Failed to process blog content (image issue)", 500));
       }
-  
-      // If only toggleStatus is requested
-      if (toggleStatus === true) {
-        const newStatus = blog.status === "published" ? "draft" : "published";
-  
-        const updatedBlog = await postgresPrisma.blog.update({
-          where: { id },
-          data: { status: newStatus },
-        });
-  
-        return res.status(200).json({
-          success: true,
-          data: updatedBlog,
-          message: `Blog status updated to ${updatedBlog.status}.`,
-        });
-      }
-  
-      // Prepare update data
-      const updateData = {};
-      if (title) {
-        updateData.title = title;
-        updateData.urlTitle = slugify(title, { lower: true, strict: true });
-      }
-      if (content) {
+    }
+
+    if (status) {
+      updateData.status = status;
+    }
+
+    // Handle cover image update
+    if (req.file) {
+      // Optional: delete old image
+      if (blog.coverImage && blog.coverImage !== req.file.path) {
         try {
-          updateData.content = await replaceBase64(content);
-        } catch (error) {
-          console.error("Error processing blog content:", error);
-          return next(new CustomError("Failed to process blog content", 500));
+          await fs.unlink(path.resolve(blog.coverImage));
+        } catch (e) {
+          console.warn("Old cover image not found or already deleted");
         }
       }
-      if (status) updateData.status = status;
-  
-      // Handle cover image
-      if (req.file) {
-        updateData.coverImage = req.file.path;
-      } else if (coverImage) {
-        updateData.coverImage = coverImage;
-      }
-  
-      // Handle tags if provided
-      if (tags.length > 0) {
+      updateData.coverImage = req.file.path;
+    } else if (coverImage) {
+      updateData.coverImage = coverImage;
+    }
+
+    // Handle tags
+    if (req.body.tags !== undefined) {
+      if (tags.length === 0) {
+        updateData.tags = { set: [] }; // clear all tags
+      } else {
         const tagConnections = await Promise.all(
           tags.map(async (tagName) => {
             const normalized = tagName.trim().toLowerCase();
             const existingTag = await postgresPrisma.tags.findUnique({
               where: { tagName: normalized },
             });
-  
             if (existingTag) return { id: existingTag.id };
-  
+
             const newTag = await postgresPrisma.tags.create({
               data: { tagName: normalized },
             });
-  
             return { id: newTag.id };
           })
         );
-  
-        // Disconnect current tags
-        await postgresPrisma.blog.update({
-          where: { id },
-          data: { tags: { set: [] } },
-        });
-  
-        updateData.tags = {
-          connect: tagConnections,
-        };
+
+        updateData.tags = { set: [], connect: tagConnections };
       }
-  
-      // Final update
-      const updatedBlog = await postgresPrisma.blog.update({
-        where: { id },
-        data: updateData,
-        include: {
-          tags: {
-            select: {
-              id: true,
-              tagName: true,
-            },
-          },
-        },
-      });
-  
-      res.status(200).json({
-        success: true,
-        data: updatedBlog,
-        message: "Blog updated successfully",
-      });
-    } catch (error) {
-      console.error("Error updating blog:", error);
-      next(new CustomError("Failed to update blog", 500));
     }
+
+    // Final update
+    const updatedBlog = await postgresPrisma.blog.update({
+      where: { id },
+      data: updateData,
+      include: {
+        tags: {
+          select: { id: true, tagName: true },
+        },
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: updatedBlog,
+      message: "Blog updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    next(new CustomError("Failed to update blog", 500));
+  }
 };
 
 /** * Get related blogs*/
