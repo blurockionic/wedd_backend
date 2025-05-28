@@ -46,7 +46,8 @@ export const uploadBase64 = async (base64String, publicIdPrefix = 'base64') => {
   try {
     const dataUri = base64String.startsWith("data:")
       ? base64String
-      : `data:image/jpeg;base64,${base64String}`; // change mime type if needed
+      : `data:image/jpeg;base64,${base64String}`
+      || `data:image/png;base64,${base64String}`; // change mime type if needed
 
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: "wedding-wire-clone/assets",

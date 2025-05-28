@@ -703,7 +703,7 @@ export const searchBlogs = async (req, res, next) => {
 
 
 const replaceBase64 = async (content) => {
-  const base64Regex = /data:image\/jpeg;base64,[^\"]+/g;
+  const base64Regex = /data:image\/(jpeg|png);base64,[^\"]+/g;
   const matches = content.match(base64Regex);
   
   if (!matches) return content; // Return original string if no base64 images found
