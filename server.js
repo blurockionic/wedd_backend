@@ -26,7 +26,10 @@ app.use(cookieParser());
 
 const corsOption = {
   // allow all requests
-  origin: process.env.BASE_URL,
+  origin: [
+    process.env.BASE_URL,
+    "https://marriagevendors-production.up.railway.app"
+  ],
   credentials: true,
 };
 
