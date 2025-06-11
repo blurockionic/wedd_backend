@@ -282,17 +282,18 @@ export const getPopularTags = async (req, res, next) => {
 
 export const allTags = async (req, res, next) => {
   try {
+    console.log("Fetched all tags");
     const tags = await prisma.tags.findMany({
       orderBy: {
         tagName: "asc",
       },
     });
-
     res.status(200).json({
       success: true,
       data: tags,
     });
   } catch (error) {
-    next(error);
+    console.log("Error fetching all tags:", error);
+    // next(error);
   }
 }

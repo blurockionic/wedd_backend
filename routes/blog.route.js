@@ -39,13 +39,12 @@ const blogRoutePublic = express.Router();
     blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
     blogRouteAdmin.delete("/:id", bc.deleteBlog);
     blogRouteAdmin.get("/related/:id", bc.getRelatedBlogs);
-    blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle);
     
     // Blog-tag management
     blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
     blogRouteAdmin.get("/allTags", btc.allTags); //✅
     blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
-    blogRouteAdmin.post("/tags", btc.addTag); 
+    blogRouteAdmin.post("/tags", btc.addTag);
     blogRouteAdmin.delete("/tags", btc.deleteTag);
     blogRouteAdmin.put("/tags/:id", btc.updateTag);
     blogRouteAdmin.get("/popular-tags", btc.getPopularTags);
@@ -59,6 +58,8 @@ const blogRoutePublic = express.Router();
     
     // Likes
     blogRouteAdmin.post("/:blogId/like", buc.toggleLikeBlog); //✅
+    // Bog CRUD - search
+    blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle); // 
       
 }
 
