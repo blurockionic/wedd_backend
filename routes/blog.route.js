@@ -19,7 +19,6 @@ const blogRoutePublic = express.Router();
     // Tags-related
     blogRoutePublic.get("/tags", btc.getAllTagsWithBlogInfo);
     blogRoutePublic.get("/tags/:tagName", btc.getTagByName);
-    blogRoutePublic.get("/tag/:tagName", btc.getBlogsByTag);
 
     // Stats
     blogRoutePublic.get("/blog-count", buc.getBlogCount); // All, draft, published
@@ -44,11 +43,12 @@ const blogRoutePublic = express.Router();
     
     // Blog-tag management
     blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
+    blogRouteAdmin.get("/allTags", btc.allTags); //✅
     blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
-    blogRouteAdmin.get("/tag/:tagName", btc.getBlogsByTag); //✅
     blogRouteAdmin.post("/tags", btc.addTag); 
     blogRouteAdmin.delete("/tags", btc.deleteTag);
     blogRouteAdmin.put("/tags/:id", btc.updateTag);
+    blogRouteAdmin.get("/popular-tags", btc.getPopularTags);
     
     // Blog comments
     blogRouteAdmin.post("/:blogId/comments", buc.addComment); //✅

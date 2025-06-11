@@ -256,3 +256,43 @@ export const getBlogsByTag = async (req, res, next) => {
       next(new CustomError("Failed to fetch blogs by tag", 500));
   }
 };
+
+export const getPopularTags = async (req, res, next) => {
+  try {
+    const { limit = 10 } = req.query;
+    // Find tags with the most published blogs
+    const tags = await prisma.tags.findMany({
+      include: {
+        blogs: {
+          where: { status: "PUBLISHED" },
+          select: { id: true },
+        },
+      },
+    });
+    // Sort tags by number of published blogs (descending)
+    const sorted = tags
+      .map(tag => ({ ...tag, blogCount: tag.blogs.length }))
+      .sort((a, b) => b.blogCount - a.blogCount)
+      .slice(0, parseInt(limit));
+    res.status(200).json({ success: true, data: sorted });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const allTags = async (req, res, next) => {
+  try {
+    const tags = await prisma.tags.findMany({
+      orderBy: {
+        tagName: "asc",
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: tags,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
