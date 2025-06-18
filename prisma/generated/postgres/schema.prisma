@@ -38,6 +38,7 @@ model User {
   likedBlogs          LikedBlog[]
   invitationTemplate  InvitationTemplate[]   @relation(name: "InvitationTemplate")
   watchHistory        TemplateWatchHistory[]
+  newsletterLists     NewsletterList[]
 }
 
 model Booking {
@@ -181,6 +182,8 @@ model PaymentDetails {
 
   user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   InvitationTemplate InvitationTemplate? @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([templateId, userId])
 }
 
 model Review {
@@ -210,6 +213,7 @@ enum Role {
   USER
   ADMIN
   SUPER_ADMIN
+  PARTNER
 }
 
 model Guest {
@@ -316,6 +320,7 @@ model Blog {
   coverImage String?
   tags       Tags[]
   content    String
+  excerpt    String?
   comments   Comment[]
   viewCount  Int         @default(0)
   likes      Int         @default(0)
@@ -323,6 +328,7 @@ model Blog {
   updatedAt  DateTime    @updatedAt
   likedBy    LikedBlog[]
   authorId   String
+  featured   Boolean     @default(false)
 }
 
 model Tags {
@@ -353,4 +359,90 @@ model LikedBlog {
   blogId String
 
   @@unique([userId, blogId])
+}
+
+// Newsletter Subscribers List
+model NewsletterList {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Partner {
+  id               String      @id @default(uuid())
+  fullName         String
+  email            String      @unique
+  phoneNumber      String
+  cityRegion       String
+  role             PartnerRole
+  state            String
+  otherRoleDetails String? // Only filled if role is "OTHER"
+
+  // Experience & Background
+  experienceYears  ExperienceRange
+  workedOnWeddings Boolean
+  portfolioUrl     String?
+
+  // Documents
+  governmentIdUrl String? // URL to uploaded document in storage
+  businessCertUrl String? // URL to uploaded certificate in storage
+  workSamplesUrls String[] // Array of URLs to sample work images
+
+  // Additional Info
+  motivationNote String // Why partner with MarriageVendors
+  preferredModel WorkingModel
+  availability   AvailabilityType
+
+  // Status tracking
+  applicationStatus ApplicationStatus @default(PENDING)
+  reviewedBy        String? // Admin who reviewed the application
+  reviewNotes       String? // Internal notes on application
+
+  // Agreements
+  agreedNoLeadLeakage Boolean
+  agreedPlatformDeals Boolean
+  agreedToNDA         Boolean
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PartnerRole {
+  EVENT_PLANNER
+  PHOTOGRAPHER
+  DECORATOR
+  CATERER
+  MAKEUP_ARTIST
+  OTHER
+}
+
+enum ExperienceRange {
+  LESS_THAN_ONE
+  ONE_TO_THREE
+  THREE_TO_FIVE
+  FIVE_PLUS
+}
+
+enum WorkingModel {
+  SALARY_INCENTIVES
+  COMMISSION
+  BOTH
+}
+
+enum AvailabilityType {
+  FULL_TIME
+  PART_TIME
+  PROJECT_BASED
+}
+
+enum ApplicationStatus {
+  PENDING
+  SHORTLISTED
+  INTERVIEWED
+  APPROVED
+  REJECTED
 }
