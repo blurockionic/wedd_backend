@@ -19,10 +19,10 @@ import {
   getBotResponse
 } from "./wsHelpers.js";
 
-export function startChatServer({ port = 8080, server = null } = {}) {
+export function startChatServer({ port = 8080, server = null ,path} = {}) {
   const wss = server
-    ? new WebSocketServer({ server })
-    : new WebSocketServer({ port });
+    ? new WebSocketServer({ server,path })
+    : new WebSocketServer({ port,path });
   logEvent("SERVER_START", `WebSocket server started on ${server ? "existing HTTP server" : `port ${port}`}`, { port });
 
   wss.on("connection", (ws) => {
