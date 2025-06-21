@@ -21,7 +21,7 @@ const userLogin = async (req, res, next) => {
     }
 
     if (!validatedData.password) {
-      throw new CustomError("Password is required", 400);
+      throw new CustomError("Email and password are required", 400);
 
       
     }
@@ -46,7 +46,7 @@ const userLogin = async (req, res, next) => {
     }
 
     if (!isPasswordCorrcet(validatedData.password, user.password_hash)) {
-      throw new CustomError("Invalid password", 400);
+      throw new CustomError("Invalid email and password", 400);
     }
 
     // Generate access token
