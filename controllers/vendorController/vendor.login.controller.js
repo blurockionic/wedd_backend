@@ -26,7 +26,7 @@ const vendorLogin = async (req, res, next) => {
 
     // Check if the password is correct
     if (!isPasswordCorrect(validatedData.password, vendor.password_hash)) {
-      throw new CustomError("Invalid password", 401);
+      throw new CustomError("Invalid email and password", 401);
     }
 
     // Check if the vendor's email is verified
