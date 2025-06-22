@@ -333,7 +333,7 @@ model Blog {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   likedBy    LikedBlog[]
-  authorId   String
+  authorId   String //miss named, in the coloumn of author id, author name is stored. 
   featured   Boolean     @default(false)
 }
 

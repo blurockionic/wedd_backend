@@ -128,12 +128,23 @@ export async function toggleLikeBlog(req, res) {
 // Get count of blogs (all, draft, published)
 export async function getBlogCount(req, res) {
   try {
-    const [all, draft, published] = await Promise.all([
-      prisma.blog.count(),
-      prisma.blog.count({ where: { status: "DRAFT" } }),
-      prisma.blog.count({ where: { status: "PUBLISHED" } }),
-    ]);
-    res.json({ all, draft, published });
+    // Calculate date ranges for weekly and monthly counts
+    const now = new Date();
+    const weekAgo = new Date(now);
+    weekAgo.setDate(now.getDate() - 7);
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(now.getMonth() - 1);
+
+    const [all, draft, published, weeklyPosts, monthlyPosts, taggedPosts] =
+      await Promise.all([
+        prisma.blog.count(),
+        prisma.blog.count({ where: { status: "DRAFT" } }),
+        prisma.blog.count({ where: { status: "PUBLISHED" } }),
+        prisma.blog.count({ where: { createdAt: { gte: weekAgo } } }),
+        prisma.blog.count({ where: { createdAt: { gte: monthAgo } } }),
+        prisma.blog.count({ where: { tags: { some: {} } } }),
+      ]);
+    res.json({ all, draft, published, weeklyPosts, monthlyPosts, taggedPosts });
   } catch (err) {
     res
       .status(500)
@@ -143,14 +154,29 @@ export async function getBlogCount(req, res) {
 
 // Get total view count of all blogs
 export async function getTotalViewCount(req, res) {
-  console.log("sample");
   try {
-    const result = await prisma.blog.aggregate({
-      _sum: {
-        viewCount: true,
-      },
-    });
-    res.json({ totalViews: result._sum.viewCount || 0 });
+    const now = new Date();
+    const weekAgo = new Date(now);
+    weekAgo.setDate(now.getDate() - 7);
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(now.getMonth() - 1);
+
+    const [totalResult, weeklyResult, monthlyResult] = await Promise.all([
+      prisma.blog.aggregate({ _sum: { viewCount: true } }),
+      prisma.blog.aggregate({
+        _sum: { viewCount: true },
+        where: { createdAt: { gte: weekAgo } },
+      }),
+      prisma.blog.aggregate({
+        _sum: { viewCount: true },
+        where: { createdAt: { gte: monthAgo } },
+      }),
+    ]);
+
+    const totalViews = totalResult._sum.viewCount || 0;
+    const weeklyViews = weeklyResult._sum.viewCount || 0;
+    const monthlyViews = monthlyResult._sum.viewCount || 0;
+    res.json({ totalViews, weeklyViews, monthlyViews });
   } catch (err) {
     res
       .status(500)
