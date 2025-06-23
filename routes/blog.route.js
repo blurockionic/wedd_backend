@@ -35,8 +35,8 @@ const blogRoutePublic = express.Router();
   blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
 
   // Blog-tag management
-  blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
-  blogRouteAdmin.get("/allTags", btc.allTags); //✅
+  blogRouteAdmin.get("/alltags", btc.getAllTagsWithBlogInfo); //✅
+  // blogRouteAdmin.get("/allTags", btc.allTags); //✅
   blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
   blogRouteAdmin.post("/tags", btc.addTag);
   blogRouteAdmin.delete("/tags", btc.deleteTag);
@@ -52,7 +52,7 @@ const blogRoutePublic = express.Router();
 
   // Likes
   blogRouteAdmin.post("/:blogId/like", buc.toggleLikeBlog); //✅
-  
+
   // Blog CRUD
   blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle); //
   blogRouteAdmin.get("/", bc.getBlogs);
