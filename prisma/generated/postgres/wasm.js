@@ -320,11 +320,13 @@ exports.Prisma.BlogScalarFieldEnum = {
   urlTitle: 'urlTitle',
   coverImage: 'coverImage',
   content: 'content',
+  excerpt: 'excerpt',
   viewCount: 'viewCount',
   likes: 'likes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  authorId: 'authorId'
+  authorId: 'authorId',
+  featured: 'featured'
 };
 
 exports.Prisma.TagsScalarFieldEnum = {
@@ -344,6 +346,42 @@ exports.Prisma.LikedBlogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   blogId: 'blogId'
+};
+
+exports.Prisma.NewsletterListScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.PartnerScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  cityRegion: 'cityRegion',
+  role: 'role',
+  state: 'state',
+  otherRoleDetails: 'otherRoleDetails',
+  experienceYears: 'experienceYears',
+  workedOnWeddings: 'workedOnWeddings',
+  portfolioUrl: 'portfolioUrl',
+  governmentIdUrl: 'governmentIdUrl',
+  businessCertUrl: 'businessCertUrl',
+  workSamplesUrls: 'workSamplesUrls',
+  motivationNote: 'motivationNote',
+  preferredModel: 'preferredModel',
+  availability: 'availability',
+  applicationStatus: 'applicationStatus',
+  reviewedBy: 'reviewedBy',
+  reviewNotes: 'reviewNotes',
+  agreedNoLeadLeakage: 'agreedNoLeadLeakage',
+  agreedPlatformDeals: 'agreedPlatformDeals',
+  agreedToNDA: 'agreedToNDA',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -378,7 +416,8 @@ exports.Prisma.JsonNullValueFilter = {
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  SUPER_ADMIN: 'SUPER_ADMIN'
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  PARTNER: 'PARTNER'
 };
 
 exports.GuestStatus = exports.$Enums.GuestStatus = {
@@ -418,6 +457,42 @@ exports.Status = exports.$Enums.Status = {
   PUBLISHED: 'PUBLISHED'
 };
 
+exports.PartnerRole = exports.$Enums.PartnerRole = {
+  EVENT_PLANNER: 'EVENT_PLANNER',
+  PHOTOGRAPHER: 'PHOTOGRAPHER',
+  DECORATOR: 'DECORATOR',
+  CATERER: 'CATERER',
+  MAKEUP_ARTIST: 'MAKEUP_ARTIST',
+  OTHER: 'OTHER'
+};
+
+exports.ExperienceRange = exports.$Enums.ExperienceRange = {
+  LESS_THAN_ONE: 'LESS_THAN_ONE',
+  ONE_TO_THREE: 'ONE_TO_THREE',
+  THREE_TO_FIVE: 'THREE_TO_FIVE',
+  FIVE_PLUS: 'FIVE_PLUS'
+};
+
+exports.WorkingModel = exports.$Enums.WorkingModel = {
+  SALARY_INCENTIVES: 'SALARY_INCENTIVES',
+  COMMISSION: 'COMMISSION',
+  BOTH: 'BOTH'
+};
+
+exports.AvailabilityType = exports.$Enums.AvailabilityType = {
+  FULL_TIME: 'FULL_TIME',
+  PART_TIME: 'PART_TIME',
+  PROJECT_BASED: 'PROJECT_BASED'
+};
+
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEWED: 'INTERVIEWED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Booking: 'Booking',
@@ -439,7 +514,9 @@ exports.Prisma.ModelName = {
   Blog: 'Blog',
   Tags: 'Tags',
   Comment: 'Comment',
-  LikedBlog: 'LikedBlog'
+  LikedBlog: 'LikedBlog',
+  NewsletterList: 'NewsletterList',
+  Partner: 'Partner'
 };
 
 /**

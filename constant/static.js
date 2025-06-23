@@ -267,4 +267,87 @@ We’re excited to have you on board!
 });
 
 
-  
+// blog newsletter
+export const weeklyBlogNewsletterContent = (blogData = [], topTags = [], tip = "") => ({
+  subject: "💌 This Week’s Wedding Wisdom & Trending Blogs from Marriage Vendors",
+  text: `
+Hello,
+
+Here’s your weekly dose of inspiration from Marriage Vendors!
+
+💡 Weekly Wedding Tip:
+${tip}
+
+📌 Most Popular Tags:
+${topTags.map(tag => `#${tag}`).join("  ")}
+
+🔥 Top Trending Blogs:
+${blogData.map((post, i) => `${i + 1}. ${post.title} - ${post.urlTitle}`).join("\n")}
+
+Plan smarter. Love harder. 💖  
+Visit our blog: https://www.marriagevendors.com/blogs
+
+With love,  
+Marriage Vendors Team
+`,
+  html: `
+<div style="font-family: 'Arial', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #FFF;">
+
+  <div style="text-align: center;">
+    <img src="https://res.cloudinary.com/dyq1p22xk/image/upload/v1738318157/wedding-wire-clone/assets/profile_photo-1738318154094-138572527.png" alt="Marriage Vendors Logo" style="max-width: 120px;">
+  </div>
+
+  <h2 style="color: #F20474; margin-top: 20px; text-align: center;">💌 Weekly Wedding Inspiration</h2>
+  <p style="font-size: 16px; color: #333; text-align: center;">Explore this week’s top wedding blog picks, tips, and trends — tailored just for you!</p>
+
+  <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+
+  <h3 style="color: #F20474;">💡 Tip of the Week</h3>
+  <blockquote style="font-size: 15px; font-style: italic; color: #666; border-left: 4px solid #F20474; padding-left: 10px;">
+    ${tip}
+  </blockquote>
+
+  <h3 style="color: #F20474;">📌 Popular Tags</h3>
+  <p style="display: flex; flex-wrap: wrap; font-size: 14px; color: #444;">
+    ${topTags.map((tag) => `<span style="background: #FDEFF3; padding: 5px 10px; border-radius: 5px; margin-right: 5px; margin-top: 5px">#${tag}</span>`).join(" ")}
+  </p>
+
+  <h3 style="color: #F20474;">🔥 Trending Blog Posts</h3>
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    ${blogData
+      .map(
+        (post) => `
+      <a href="${post.urlTitle}" style="text-decoration: none; color: inherit;">
+      <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px; padding: 10px; background-color: #f9f9f9;">
+        <img src="${post.coverImage}" alt="${post.title}" style="width: 80px; height: 80px; border-radius: 8px; margin-right: 15px; object-fit: cover;">
+        <div style="flex: 1;">
+          <a href="${post.urlTitle}" style="color: #F20474; font-weight: bold; text-decoration: none; font-size: 16px;">${post.title}</a>
+          <p style="color: #555; font-size: 14px; margin: 5px 0;">${post.excerpt}</p>
+          <p style="font-size: 12px; color: #777; margin: 5px 0;">Tags: ${post.tags.map(tag => `#${tag.tagName}`).join(", ")}</p>
+          <p style="font-size: 12px; color: #777; margin: 5px 0;">👍 ${post.likes} | 👀 ${post.viewCount} | ⌛ ${post.readTime}</p>
+        </div>
+      </div>
+      </a>`
+      )
+      .join("")}
+  </div>
+
+  <div style="text-align: center; margin: 30px 0;">
+    <a href="https://www.marriagevendors.com/blogs" style="background-color: #FDCD16; color: #000; padding: 14px 28px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 16px; display: inline-block; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+      📚 Read More on the Blog
+    </a>
+  </div>
+
+  <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+
+  <p style="font-size: 14px; color: #555;">Wishing you a journey full of love and joy,</p>
+  <p style="font-size: 14px; color: #555;"><strong>Marriage Vendors Team 💕</strong></p>
+
+  <div style="background-color: #F20474; padding: 10px; color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; font-size: 12px; text-align: center;">
+    <p>Stay inspired. Plan effortlessly. <a href="https://www.marriagevendors.com/" style="color: #FDCD16; text-decoration: none;">Visit Our Website</a></p>
+    <p>You’re receiving this email because you subscribed to updates from Marriage Vendors.</p>
+  </div>
+
+</div>
+`,
+});

@@ -9,73 +9,72 @@ const blogRouteAdmin = express.Router();
 const blogRouteUser = express.Router();
 const blogRoutePublic = express.Router();
 
-
 // 🚀 **Public Routes** (No authentication required)
 {
-    blogRoutePublic.get("/", bc.getBlogs);
-    blogRoutePublic.get("/related/:id", bc.getRelatedBlogs);
-    blogRoutePublic.get("/:urlTitle", bc.getBlogByUrlTitle);
+  blogRoutePublic.get("/", bc.getBlogs);
+  blogRoutePublic.get("/related/:id", bc.getRelatedBlogs);
+  blogRoutePublic.get("/:urlTitle", bc.getBlogByUrlTitle);
 
-    // Tags-related
-    blogRoutePublic.get("/tags", btc.getAllTagsWithBlogInfo);
-    blogRoutePublic.get("/tags/:tagName", btc.getTagByName);
-    blogRoutePublic.get("/tag/:tagName", btc.getBlogsByTag);
+  // Tags-related
+  blogRoutePublic.get("/tags", btc.getAllTagsWithBlogInfo);
+  blogRoutePublic.get("/tags/:tagName", btc.getTagByName);
 
-    // Stats
-    blogRoutePublic.get("/blog-count", buc.getBlogCount); // All, draft, published
+  // Stats
+  blogRoutePublic.get("/blog-count", buc.getBlogCount); // All, draft, published
 }
-
 
 // 🔒 **Admin Routes** (Authenticated ADMIN / SUPER_ADMIN only)
 {
-    blogRouteAdmin.use(jwtAuthentication, roleMiddleware(["ADMIN", "SUPER_ADMIN"]));
-    
-    // Stats
-    blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
-    blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
+  blogRouteAdmin.use(
+    jwtAuthentication,
+    roleMiddleware(["ADMIN", "SUPER_ADMIN"])
+  );
 
-    // Blog CRUD
-    blogRouteAdmin.get("/", bc.getBlogs);
-    blogRouteAdmin.post("/", bc.uploadCoverImageMiddleware, bc.addBlog);
-    blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
-    blogRouteAdmin.delete("/:id", bc.deleteBlog);
-    blogRouteAdmin.get("/related/:id", bc.getRelatedBlogs);
-    blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle);
-    
-    // Blog-tag management
-    blogRouteAdmin.get("/tags", btc.getAllTagsWithBlogInfo); //✅
-    blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
-    blogRouteAdmin.get("/tag/:tagName", btc.getBlogsByTag); //✅
-    blogRouteAdmin.post("/tags", btc.addTag); 
-    blogRouteAdmin.delete("/tags", btc.deleteTag);
-    blogRouteAdmin.put("/tags/:id", btc.updateTag);
-    
-    // Blog comments
-    blogRouteAdmin.post("/:blogId/comments", buc.addComment); //✅
-    blogRouteAdmin.delete("/comments/:commentId", buc.deleteComment); //✅
-    
-    //sample-test 
-    blogRouteAdmin.get("/sample/:id/like", buc.sample); //✅
-    
-    // Likes
-    blogRouteAdmin.post("/:blogId/like", buc.toggleLikeBlog); //✅
-      
+  // Stats
+  blogRouteAdmin.get("/blog-count/:status?", buc.getBlogCount); //✅
+  blogRouteAdmin.get("/viewCount", buc.getTotalViewCount); //✅
+
+  // Blog-tag management
+  blogRouteAdmin.get("/alltags", btc.getAllTagsWithBlogInfo); //✅
+  // blogRouteAdmin.get("/allTags", btc.allTags); //✅
+  blogRouteAdmin.get("/tags/:tagName", btc.getTagByName); //✅
+  blogRouteAdmin.post("/tags", btc.addTag);
+  blogRouteAdmin.delete("/tags", btc.deleteTag);
+  blogRouteAdmin.put("/tags/:id", btc.updateTag);
+  blogRouteAdmin.get("/popular-tags", btc.getPopularTags);
+
+  // Blog comments
+  blogRouteAdmin.post("/:blogId/comments", buc.addComment); //✅
+  blogRouteAdmin.delete("/comments/:commentId", buc.deleteComment); //✅
+
+  //sample-test
+  blogRouteAdmin.get("/sample/:id/like", buc.sample); //✅
+
+  // Likes
+  blogRouteAdmin.post("/:blogId/like", buc.toggleLikeBlog); //✅
+
+  // Blog CRUD
+  blogRouteAdmin.get("/:urlTitle", bc.getBlogByUrlTitle); //
+  blogRouteAdmin.get("/", bc.getBlogs);
+  blogRouteAdmin.post("/", bc.uploadCoverImageMiddleware, bc.addBlog);
+  blogRouteAdmin.patch("/:id", bc.uploadCoverImageMiddleware, bc.updateBlog);
+  blogRouteAdmin.delete("/:id", bc.deleteBlog);
+  blogRouteAdmin.get("/related/:id", bc.getRelatedBlogs);
 }
-
 
 // 🔑 **User Routes** (Any authenticated user)
 {
-    blogRouteUser.use(jwtAuthentication);
-    blogRouteUser.get("/related/:id", bc.getRelatedBlogs);
-    blogRouteUser.get("/:urlTitle", bc.getBlogByUrlTitle);
-    // Interact with blog
-    blogRouteUser.post("/:blogId/comments", buc.addComment);
-    blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
-    blogRouteUser.post("/:blogId/like", buc.toggleLikeBlog);
-    blogRouteUser.get("/", bc.getBlogs);
+  blogRouteUser.use(jwtAuthentication);
+  blogRouteUser.get("/related/:id", bc.getRelatedBlogs);
+  blogRouteUser.get("/:urlTitle", bc.getBlogByUrlTitle);
+  // Interact with blog
+  blogRouteUser.post("/:blogId/comments", buc.addComment);
+  blogRouteUser.delete("/comments/:commentId", buc.deleteComment);
+  blogRouteUser.post("/:blogId/like", buc.toggleLikeBlog);
+  blogRouteUser.get("/", bc.getBlogs);
 
-    // Search
-    blogRouteUser.get("/search", bc.searchBlogs);
+  // Search
+  blogRouteUser.get("/search", bc.searchBlogs);
 }
 
 export { blogRouteAdmin, blogRouteUser, blogRoutePublic };

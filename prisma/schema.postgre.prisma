@@ -38,7 +38,7 @@ model User {
   likedBlogs          LikedBlog[]  
   invitationTemplate  InvitationTemplate[]  @relation(name: "InvitationTemplate")
   watchHistory         TemplateWatchHistory[]
-
+  newsletterLists      NewsletterList[]
 }
 
 model Booking {
@@ -326,13 +326,15 @@ model Blog {
   coverImage String?
   tags       Tags[]
   content    String
+  excerpt   String?
   comments   Comment[]
   viewCount  Int         @default(0)
   likes      Int         @default(0)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   likedBy    LikedBlog[]
-  authorId   String
+  authorId   String //miss named, in the coloumn of author id, author name is stored. 
+  featured   Boolean     @default(false)
 }
 
 model Tags {
@@ -363,6 +365,16 @@ model LikedBlog {
   blogId String
 
   @@unique([userId, blogId])
+}
+
+// Newsletter Subscribers List
+model NewsletterList {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Partner {
