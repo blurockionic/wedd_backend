@@ -11,7 +11,7 @@ import {
 const cartRouter = express.Router();
 
 // // Routes for cart operations
-cartRouter.use(jwtAuthentication, roleMiddleware(["USER", "ADMIN", "SUPER_ADMIN"]));
+cartRouter.use(jwtAuthentication, roleMiddleware(["USER","AGENT", "ADMIN", "SUPER_ADMIN"]));
 
 
 //clear the cart

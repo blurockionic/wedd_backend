@@ -31,7 +31,7 @@ function logEvent(type, message, data = {}) {
     timestamp,
     type,
     message,
-    ...data
+    ...data,
   };
   console.log(`[${timestamp}] ${type}: ${message}`, data);
   return logEntry;
@@ -59,14 +59,14 @@ function getNextAgent() {
 function handleAgentConnection(agentId, ws) {
   onlineAgents.add(agentId);
   agentToUsers.set(agentId, new Set());
-  
+
   logEvent("AGENT_CONNECTED", `Agent ${agentId} connected`, {
     agentId,
     totalAgents: onlineAgents.size,
-    onlineAgents: Array.from(onlineAgents)
+    onlineAgents: Array.from(onlineAgents),
   });
 
-  persistConnectionState(agentId, 'agent', agentId);
+  persistConnectionState(agentId, "agent", agentId);
 
   ws.send(
     JSON.stringify({
@@ -74,7 +74,7 @@ function handleAgentConnection(agentId, ws) {
       message: `You are now online as Agent ${agentId}`,
       agentId,
       senderRole: "agent",
-      senderName: `Agent ${agentId}`
+      senderName: `Agent ${agentId}`,
     })
   );
 }
@@ -83,36 +83,39 @@ function handleAgentConnection(agentId, ws) {
 function handleUserConnection(userId, ws) {
   logEvent("USER_CONNECTED", `User ${userId} connected`, {
     userId,
-    totalClients: connectedClients.size
+    totalClients: connectedClients.size,
   });
 
   const persistedState = getPersistedConnectionState(userId);
-  const assignedAgent = userToAgent.get(userId) || (persistedState?.agentId);
+  const assignedAgent = userToAgent.get(userId) || persistedState?.agentId;
   const isReconnecting = !!persistedState;
 
   if (assignedAgent && onlineAgents.has(assignedAgent)) {
     restoreAgentConnection(userId, assignedAgent, ws);
-    persistConnectionState(userId, 'user', assignedAgent);
+    persistConnectionState(userId, "user", assignedAgent);
   } else {
     // Only send initial bot message if not reconnecting
-    if (!isReconnecting) {
+    if (!isReconnecting && !connectedClients.has(userId)) {
       ws.send(
         JSON.stringify({
           type: "support_status",
           agentAvailable: false,
           message: "Namaste, How Can I Help You? ",
           senderRole: "bot",
-          senderName: "AI Assistant"
+          senderName: "AI Assistant",
         })
       );
     }
     userSession.set(userId, { stage: "category", data: {} });
-    persistConnectionState(userId, 'user');
+    persistConnectionState(userId, "user");
   }
 }
 
 function restoreAgentConnection(userId, agentId, ws) {
-  logEvent("RESTORE_AGENT_CONNECTION", `Restoring user ${userId} connection to agent ${agentId}`);
+  logEvent(
+    "RESTORE_AGENT_CONNECTION",
+    `Restoring user ${userId} connection to agent ${agentId}`
+  );
   sendClearChat(ws);
   sendAgentStatus(userId, agentId, ws);
   notifyAgentReconnection(userId, agentId);
@@ -123,9 +126,10 @@ function startWithBot(userId, ws) {
     JSON.stringify({
       type: "support_status",
       agentAvailable: false,
-      message: "You're now chatting with our AI assistant 🤖. Please start by typing a category.",
+      message:
+        "You're now chatting with our AI assistant 🤖. Please start by typing a category.",
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     })
   );
   userSession.set(userId, { stage: "category", data: {} });
@@ -136,7 +140,7 @@ function sendClearChat(ws) {
   ws.send(
     JSON.stringify({
       type: "clear_chat",
-      message: "Switching to agent chat..."
+      message: "Switching to agent chat...",
     })
   );
 }
@@ -150,7 +154,7 @@ function sendAgentStatus(userId, agentId, ws) {
       message: `You're now connected to Agent ${agentId}`,
       senderRole: "agent",
       senderName: `Agent ${agentId}`,
-      clearPrevious: true
+      clearPrevious: true,
     })
   );
 }
@@ -170,7 +174,10 @@ function assignUserToAgent(userId, agentId) {
   if (userToAgent.has(userId)) {
     const currentAgent = userToAgent.get(userId);
     if (currentAgent === agentId) {
-      logEvent("USER_ALREADY_ASSIGNED", `User ${userId} already assigned to agent ${agentId}`);
+      logEvent(
+        "USER_ALREADY_ASSIGNED",
+        `User ${userId} already assigned to agent ${agentId}`
+      );
       return false;
     }
     removeFromPreviousAgent(userId, currentAgent);
@@ -183,7 +190,10 @@ function removeFromPreviousAgent(userId, previousAgent) {
   const previousAgentUsers = agentToUsers.get(previousAgent);
   if (previousAgentUsers) {
     previousAgentUsers.delete(userId);
-    logEvent("USER_REMOVED_FROM_AGENT", `User ${userId} removed from agent ${previousAgent}`);
+    logEvent(
+      "USER_REMOVED_FROM_AGENT",
+      `User ${userId} removed from agent ${previousAgent}`
+    );
   }
 }
 
@@ -232,12 +242,12 @@ async function saveLead(userId, contact) {
 
 // Bot Response Helpers
 async function getBotResponse(userId, msg) {
-  if (!msg || typeof msg !== 'string') {
+  if (!msg || typeof msg !== "string") {
     logEvent("INVALID_MESSAGE", `Invalid message received from user ${userId}`);
     return {
       message: "I'm sorry, I couldn't understand that. Please try again.",
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   const lower = msg.toLowerCase().trim();
@@ -261,9 +271,10 @@ function handleAgentRequest(userId, session) {
     session.stage = "awaiting_contact";
     userSession.set(userId, session);
     return {
-      message: "No agents are currently available. Please leave your phone number or email so our team can contact you.",
+      message:
+        "No agents are currently available. Please leave your phone number or email so our team can contact you.",
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   const user = connectedClients.get(userId);
@@ -284,20 +295,27 @@ async function handleContactCollection(userId, msg, session) {
     return {
       message: "✅ Thank you! Our support team will contact you shortly.",
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   return {
     message: "⚠️ Please provide a valid email or 10-digit phone number.",
     senderRole: "bot",
-    senderName: "AI Assistant"
+    senderName: "AI Assistant",
   };
 }
 
 async function handleRegularBotResponse(userId, lower, session) {
-  if (lower.includes("book") || lower.includes("vendor") || AVAILABLE_CATEGORIES.some((cat) => lower.includes(cat))) {
+  if (
+    lower.includes("book") ||
+    lower.includes("vendor") ||
+    AVAILABLE_CATEGORIES.some((cat) => lower.includes(cat))
+  ) {
     session.intent = "book_vendor";
-  } else if ((lower.includes("how") && lower.includes("work")) || (lower.includes("what is") && lower.includes("vendor"))) {
+  } else if (
+    (lower.includes("how") && lower.includes("work")) ||
+    (lower.includes("what is") && lower.includes("vendor"))
+  ) {
     session.intent = "info";
   } else if (lower.includes("joke") || lower.includes("funny")) {
     session.intent = "joke";
@@ -308,14 +326,14 @@ async function handleRegularBotResponse(userId, lower, session) {
     return {
       message: INFO_MESSAGE,
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   if (session.intent === "joke") {
     return {
       message: JOKE_RESPONSE,
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   if (session.intent === "book_vendor") {
@@ -329,33 +347,41 @@ async function handleRegularBotResponse(userId, lower, session) {
   return {
     message: DEFAULT_INTRO_MESSAGE,
     senderRole: "bot",
-    senderName: "AI Assistant"
+    senderName: "AI Assistant",
   };
 }
 
 async function handleVendorBooking(userId, lower, session) {
   if (session.stage === "init" || session.stage === "category") {
-    const foundCategory = AVAILABLE_CATEGORIES.find((cat) => lower.includes(cat));
+    const foundCategory = AVAILABLE_CATEGORIES.find((cat) =>
+      lower.includes(cat)
+    );
     if (foundCategory) {
       session.data.category = foundCategory;
       session.stage = "location";
       userSession.set(userId, session);
       return {
-        message: `Got it! Now tell me your location:\n${AVAILABLE_LOCATIONS.map((l) => `• ${l}`).join("\n")}`,
+        message: `Got it! Now tell me your location:\n${AVAILABLE_LOCATIONS.map(
+          (l) => `• ${l}`
+        ).join("\n")}`,
         senderRole: "bot",
-        senderName: "AI Assistant"
+        senderName: "AI Assistant",
       };
     }
     session.stage = "category";
     userSession.set(userId, session);
     return {
-      message: `What type of vendor are you looking for?\n${AVAILABLE_CATEGORIES.map((c) => `• ${c}`).join("\n")}`,
+      message: `What type of vendor are you looking for?\n${AVAILABLE_CATEGORIES.map(
+        (c) => `• ${c}`
+      ).join("\n")}`,
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
   if (session.stage === "location") {
-    const foundLocation = AVAILABLE_LOCATIONS.find((loc) => lower.includes(loc));
+    const foundLocation = AVAILABLE_LOCATIONS.find((loc) =>
+      lower.includes(loc)
+    );
     if (foundLocation) {
       session.data.location = foundLocation;
       session.stage = "done";
@@ -372,36 +398,43 @@ async function handleVendorBooking(userId, lower, session) {
           return {
             message: `Sorry, no services found for ${category} in ${location}.`,
             senderRole: "bot",
-            senderName: "AI Assistant"
+            senderName: "AI Assistant",
           };
         }
         userSession.set(userId, { stage: "init", intent: null, data: {} });
         return {
-          message: `Here are the available services:\n${services.map((s) => `• ${s.name || s.service_name || "Unnamed Service"}`).join("\n")}`,
-          senderRole: "bot",
-          senderName: "AI Assistant"
+          message: JSON.stringify(services, null, 2),
+          senderRole: "Database",
+          senderName: "AI Assistant",
         };
       } catch (e) {
         console.error("Fetch error:", e);
         userSession.set(userId, { stage: "init", intent: null, data: {} });
         return {
-          message: e.message || "⚠️ Something went wrong while fetching services. Please try again later.",
+          message:
+            e.message ||
+            "⚠️ Something went wrong while fetching services. Please try again later.",
           senderRole: "bot",
-          senderName: "AI Assistant"
+          senderName: "AI Assistant",
         };
       }
     }
     return {
-      message: `Please select a valid location:\n${AVAILABLE_LOCATIONS.map((l) => `• ${l}`).join("\n")}`,
+      message: `Please select a valid location:\n${AVAILABLE_LOCATIONS.map(
+        (l) => `• ${l}`
+      ).join("\n")}`,
       senderRole: "bot",
-      senderName: "AI Assistant"
+      senderName: "AI Assistant",
     };
   }
 }
 
 // Connection Management Helpers
 function handleConnectionError(userId, ws) {
-  const attempts = connectionAttempts.get(userId) || { attempts: 0, lastAttempt: Date.now() };
+  const attempts = connectionAttempts.get(userId) || {
+    attempts: 0,
+    lastAttempt: Date.now(),
+  };
   if (attempts.attempts === 0) {
     return true;
   }
@@ -426,19 +459,25 @@ function handleConnectionError(userId, ws) {
 
 function persistConnectionState(userId, role, agentId = null) {
   try {
-    if (role === 'agent') {
+    if (role === "agent") {
       agentId = userId;
     }
     const state = {
       userId,
       role,
       agentId,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     connectionState.set(userId, state);
-    logEvent("CONNECTION_STATE_PERSISTED", `Connection state persisted for ${userId}`);
+    logEvent(
+      "CONNECTION_STATE_PERSISTED",
+      `Connection state persisted for ${userId}`
+    );
   } catch (error) {
-    logEvent("PERSISTENCE_ERROR", `Failed to persist connection state for ${userId}`);
+    logEvent(
+      "PERSISTENCE_ERROR",
+      `Failed to persist connection state for ${userId}`
+    );
   }
 }
 
@@ -454,7 +493,10 @@ function getPersistedConnectionState(userId) {
     }
     return null;
   } catch (error) {
-    logEvent("PERSISTENCE_ERROR", `Failed to get persisted connection state for ${userId}`);
+    logEvent(
+      "PERSISTENCE_ERROR",
+      `Failed to get persisted connection state for ${userId}`
+    );
     return null;
   }
 }
@@ -462,9 +504,15 @@ function getPersistedConnectionState(userId) {
 function clearPersistedConnectionState(userId) {
   try {
     connectionState.delete(userId);
-    logEvent("CONNECTION_STATE_CLEARED", `Connection state cleared for ${userId}`);
+    logEvent(
+      "CONNECTION_STATE_CLEARED",
+      `Connection state cleared for ${userId}`
+    );
   } catch (error) {
-    logEvent("PERSISTENCE_ERROR", `Failed to clear persisted connection state for ${userId}`);
+    logEvent(
+      "PERSISTENCE_ERROR",
+      `Failed to clear persisted connection state for ${userId}`
+    );
   }
 }
 
@@ -499,5 +547,5 @@ export {
   handleConnectionError,
   persistConnectionState,
   getPersistedConnectionState,
-  clearPersistedConnectionState
-}; 
+  clearPersistedConnectionState,
+};

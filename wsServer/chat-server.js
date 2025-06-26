@@ -6,7 +6,6 @@ import {
   userSession,
   agentToUsers,
   connectionAttempts,
-  connectionState,
   logEvent,
   getPersistedConnectionState,
   handleConnectionError,
@@ -23,7 +22,11 @@ export function startChatServer({ port = 8080, server = null } = {}) {
   const wss = server
     ? new WebSocketServer({ server })
     : new WebSocketServer({ port });
-  logEvent("SERVER_START", `WebSocket server started on ${server ? "existing HTTP server" : `port ${port}`}`, { port });
+
+  if (!server) {
+    logEvent("SERVER_START", `WebSocket server started on ${server ? "existing HTTP server" : `port ${port}`}`, { port });
+    
+  }
 
   wss.on("connection", (ws) => {
     let currentUserId = null;

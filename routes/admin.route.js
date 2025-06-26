@@ -11,6 +11,7 @@ import vendorSearch from '../controllers/adminController/vendorSearch.controller
 import serviceSearch from '../controllers/adminController/serviceSearch.controller.js';
 import userSearch from '../controllers/adminController/userSearch.controller.js';
 import transactions from '../controllers/adminController/transactions.controller.js';
+import giveAgent from "../controllers/adminController/giveAgent.controller.js";
 
 
 const AdminRouter = express.Router();
@@ -28,5 +29,6 @@ AdminRouter.route("/transactions").get(transactions);
 AdminRouter.route("/give-admin/:email").patch(jwtAuthentication, roleMiddleware(["SUPER_ADMIN"]), giveAdmin);
 AdminRouter.route("/revoke-admin/:email").patch(jwtAuthentication, roleMiddleware(["SUPER_ADMIN"]), revokeAdmin);
 AdminRouter.route("/give-superadmin/:email").patch(jwtAuthentication, roleMiddleware(["SUPER_ADMIN"]), giveSuperAdmin);
+AdminRouter.route("/give-agent/:email").patch(jwtAuthentication, roleMiddleware(["SUPER_ADMIN"]), giveAgent);
 
 export default AdminRouter;

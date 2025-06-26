@@ -215,6 +215,7 @@ enum Role {
   ADMIN
   SUPER_ADMIN
   PARTNER
+  AGENT
 }
 
 model Guest {
