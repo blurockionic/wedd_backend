@@ -74,7 +74,7 @@ if (cluster.isPrimary) {
   const server = http.createServer(app);
 
   // Attach WebSocket server
-  startChatServer({ server });
+  startChatServer({ server, path: "/ws" });
 
   // Mount routes
   app.use("/api/v1", uploadRouter);
