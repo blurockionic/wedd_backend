@@ -5,6 +5,7 @@ import { dirname } from "path";
 import {
   AVAILABLE_CATEGORIES,
   AVAILABLE_LOCATIONS,
+  loadAvailableLocations,
   DEFAULT_INTRO_MESSAGE,
   INFO_MESSAGE,
   JOKE_RESPONSE,
@@ -352,6 +353,11 @@ async function handleRegularBotResponse(userId, lower, session) {
 }
 
 async function handleVendorBooking(userId, lower, session) {
+  // Ensure locations are loaded
+  if (AVAILABLE_LOCATIONS.length === 0) {
+    await loadAvailableLocations();
+  }
+
   if (session.stage === "init" || session.stage === "category") {
     const foundCategory = AVAILABLE_CATEGORIES.find((cat) =>
       lower.includes(cat)

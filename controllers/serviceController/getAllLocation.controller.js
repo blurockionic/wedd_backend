@@ -2,7 +2,8 @@ import { PrismaClient } from "../../prisma/generated/mongo/index.js";
 
 const prisma = new PrismaClient();
 
-async function getServiceLocations(req, res) {
+// Extracted function that can be reused
+export async function getServiceLocationsData() {
   try {
     const locations = await prisma.Service.findMany({
       select: {
@@ -26,6 +27,17 @@ async function getServiceLocations(req, res) {
       return acc;
     }, {});
 
+    return formattedLocations;
+  } catch (error) {
+    console.error("Error fetching service locations:", error);
+    throw error;
+  }
+}
+
+// Controller function for HTTP responses
+async function getServiceLocations(req, res) {
+  try {
+    const formattedLocations = await getServiceLocationsData();
     res.status(200).json(formattedLocations);
   } catch (error) {
     console.error("Error fetching service locations:", error);

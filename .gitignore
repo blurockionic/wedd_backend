@@ -1,8 +1,11 @@
 node_modules
 # Keep environment variables out of version control
 .env
+# Ignore all .log files everywhere
+*.log
 logs/*.log
 
-# If you want to ignore the entire logs folder
+# Ignore the entire logs folder and its contents
 logs/
 prisma/generated/
+logs/.7c62c680883a1634a4ffd9656e3d06c15d835184-audit.json
