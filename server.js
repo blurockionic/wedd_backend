@@ -7,13 +7,12 @@ import prismaServiceMongo from "./config/prisma.mongo.service.js";
 import prismaService from "./config/prisma.postgre.service.js";
 import cluster from "cluster";
 import os from "os";
-import http from "http";
 
 import routes from "./routes/routes.js";
 import uploadRouter from "./routes/upload.router.js";
 import morganLogger from "./middleware/log.middleware.js";
 import startInvoiceCron from "./utils/cronJob.js";
-import { startChatServer } from "./wsServer/chat-server.js";
+
 
 dotenv.config();
 
@@ -70,11 +69,7 @@ if (cluster.isPrimary) {
     }
   })();
 
-  // Create HTTP server to share between Express + WebSocket
-  const server = http.createServer(app);
 
-  // Attach WebSocket server
-  startChatServer({ server, path: "/ws" });
 
   // Mount routes
   app.use("/api/v1", uploadRouter);
@@ -82,7 +77,7 @@ if (cluster.isPrimary) {
   app.use(errorMiddleware);
 
   // Start server
-  server.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`🚀 Worker ${process.pid} listening at http://localhost:${PORT}`);
   });
 

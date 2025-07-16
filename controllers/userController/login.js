@@ -17,15 +17,12 @@ const userLogin = async (req, res, next) => {
     });
 
     if (!user) {
-      throw new CustomError("User not found with this email", 404);
+      throw new CustomError("Invalid email or password", 401);
     }
 
     if (!validatedData.password) {
       throw new CustomError("Email and password are required", 400);
-
-      
     }
-
 
     if (!user.is_verified) {
       const emailVerificationToken =
@@ -46,7 +43,7 @@ const userLogin = async (req, res, next) => {
     }
 
     if (!isPasswordCorrcet(validatedData.password, user.password_hash)) {
-      throw new CustomError("Invalid email and password", 400);
+      throw new CustomError("Invalid email or password", 401);
     }
 
     // Generate access token

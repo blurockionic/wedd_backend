@@ -334,6 +334,9 @@ model Blog {
   updatedAt  DateTime    @updatedAt
   likedBy    LikedBlog[]
   authorId   String
+
+  @@index([createdAt])
+  @@index([status])
 }
 
 model Tags {

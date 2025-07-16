@@ -42,7 +42,6 @@ export const getBlogs = async (req, res, next) => {
           coverImage: true,
           urlTitle: true,
           status: true,
-          content: true,
           createdAt: true,
           updatedAt: true,
           viewCount: true,
@@ -60,7 +59,7 @@ export const getBlogs = async (req, res, next) => {
               likedBy: true,
             },
           },
-          // ⚠️ Excludes: content
+          // content: false, // Removed content field for optimization
         },
         orderBy: {
           createdAt: "desc",
@@ -75,7 +74,12 @@ export const getBlogs = async (req, res, next) => {
       });
     } catch (error) {
       console.error("Error fetching blogs:", error);
-      next(new CustomError("Failed to fetch blogs", 500));
+      // Send a user-friendly message and error code to the frontend
+      return res.status(500).json({
+        success: false,
+        message: "Failed to fetch blogs. Please try again later.",
+        code: error.code || "BLOG_FETCH_ERROR"
+      });
     }
 };
 // Add a new blog with tags
