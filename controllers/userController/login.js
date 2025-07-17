@@ -42,7 +42,16 @@ const userLogin = async (req, res, next) => {
       );
     }
 
-    if (!isPasswordCorrcet(validatedData.password, user.password_hash)) {
+    if (!user.password_hash) {
+      throw new CustomError(
+        "This account was registered with Google. Please log in with Google or set a password using 'Forgot Password'.",
+        400
+      );
+    }
+
+    if (
+      !isPasswordCorrcet(validatedData.password, String(user.password_hash))
+    ) {
       throw new CustomError("Invalid email or password", 401);
     }
 
